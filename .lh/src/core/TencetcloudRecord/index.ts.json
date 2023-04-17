@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/core/TencetcloudRecord/index.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1681701430434,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681701439872,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,20 @@\n+/*\n+ * @Author: Allen OYang\n+ * @Email:  allenwill211@gmail.com\n+ * @Date: 2023-04-17 10:36:51\n+ * @LastEditTime: 2023-04-17 11:17:10\n+ * @LastEditors: Allen OYang allenwill211@gmail.com\n+ * @FilePath: /speak-gpt/src/core/TencetcloudRecord/index.ts\n+ */\n const config =  {\n   secretKey: 'Ndpvv6EJMKBuYfjjdt25972xqhVCoJnF',\n   secretId: 'AKIDLeHoDXmuvrjUehfYK2gCf5QfpvtkVAh7',\n   appId: 1256214321\n }\n \n class TencetCloudRecord {\n \n-  constructor (options: TencetCloudRecordOptions) {\n+  constructor () {\n \n   }\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681701992284,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,5 +16,7 @@\n \n   constructor () {\n \n   }\n+\n+  \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681702322788,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n  * @FilePath: /speak-gpt/src/core/TencetcloudRecord/index.ts\n  */\n \n import webRecorder from './SDK/webRecorder'\n-import webRecorder from './SDK/webRecorder'\n+import webRecorder from './SDK/SpeechRecognizer'\n \n const config = {\n   secretKey: 'Ndpvv6EJMKBuYfjjdt25972xqhVCoJnF',\n   secretId: 'AKIDLeHoDXmuvrjUehfYK2gCf5QfpvtkVAh7',\n"
+                }
+            ],
+            "date": 1681701430434,
+            "name": "Commit-0",
+            "content": "const config =  {\n  secretKey: 'Ndpvv6EJMKBuYfjjdt25972xqhVCoJnF',\n  secretId: 'AKIDLeHoDXmuvrjUehfYK2gCf5QfpvtkVAh7',\n  appId: 1256214321\n}\n\nclass TencetCloudRecord {\n\n  constructor (options: TencetCloudRecordOptions) {\n\n  }\n}"
+        }
+    ]
+}

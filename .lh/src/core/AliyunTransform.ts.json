@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/core/AliyunTransform.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1681620995309,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681621008304,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,18 +1,17 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-16 12:47:43\n- * @LastEditTime: 2023-04-16 12:56:35\n+ * @LastEditTime: 2023-04-16 12:56:48\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/core/AliyunTransform.ts\n  */\n+\n import { WSRequest } from '@/utils/WsRequest';\n \n class AliyunTransformAudio {\n-  constructor () { }\n-\n-  public initAliyun() {\n+  constructor () { \n     const ws = new WSRequest(`wss://nls-gateway.cn-shanghai.aliyuncs.com/ws/v1?token=`);\n   }\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681621550616,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,19 @@\n+/*\n+ * @Author: Allen OYang\n+ * @Email:  allenwill211@gmail.com\n+ * @Date: 2023-04-16 12:47:43\n+ * @LastEditTime: 2023-04-16 12:56:48\n+ * @LastEditors: Allen OYang allenwill211@gmail.com\n+ * @FilePath: /speak-gpt/src/core/AliyunTransform.ts\n+ */\n+\n+import { WSRequest } from '@/utils/WsRequest';\n+\n+export class AliyunTransformAudio {\n+  ws: WSRequest | null = null;\n+  constructor () { \n+    this.ws = new WSRequest(`wss://nls-gateway.cn-shanghai.aliyuncs.com/ws/v1?token=`);\n+    this.ws.connect()\n+  }\n+\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681622491990,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,29 +8,13 @@\n  */\n \n import { WSRequest } from '@/utils/WsRequest';\n \n+const token = `7bce9de7bf1242de9e060caa6bdcd72c`\n+\n export class AliyunTransformAudio {\n   ws: WSRequest | null = null;\n   constructor () { \n-    this.ws = new WSRequest(`wss://nls-gateway.cn-shanghai.aliyuncs.com/ws/v1?token=`);\n+    this.ws = new WSRequest(`wss://nls-gateway.cn-shanghai.aliyuncs.com/ws/v1?token=${token}`);\n     this.ws.connect()\n   }\n-\n-}\n-/*\n- * @Author: Allen OYang\n- * @Email:  allenwill211@gmail.com\n- * @Date: 2023-04-16 12:47:43\n- * @LastEditTime: 2023-04-16 12:56:48\n- * @LastEditors: Allen OYang allenwill211@gmail.com\n- * @FilePath: /speak-gpt/src/core/AliyunTransform.ts\n- */\n-\n-import { WSRequest } from '@/utils/WsRequest';\n-\n-class AliyunTransformAudio {\n-  constructor () { \n-    const ws = new WSRequest(`wss://nls-gateway.cn-shanghai.aliyuncs.com/ws/v1?token=`);\n-  }\n-\n }\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1681620995308,
+            "name": "Commit-0",
+            "content": "/*\n * @Author: Allen OYang\n * @Email:  allenwill211@gmail.com\n * @Date: 2023-04-16 12:47:43\n * @LastEditTime: 2023-04-16 12:56:35\n * @LastEditors: Allen OYang allenwill211@gmail.com\n * @FilePath: /speak-gpt/src/core/AliyunTransform.ts\n */\nimport { WSRequest } from '@/utils/WsRequest';\n\nclass AliyunTransformAudio {\n  constructor () { }\n\n  public initAliyun() {\n    const ws = new WSRequest(`wss://nls-gateway.cn-shanghai.aliyuncs.com/ws/v1?token=`);\n  }\n\n}"
+        }
+    ]
+}

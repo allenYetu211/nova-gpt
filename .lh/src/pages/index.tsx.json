@@ -1,0 +1,42 @@
+{
+    "sourceFile": "src/pages/index.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1681445913698,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681446129517,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,12 @@\n+/*\n+ * @Author: Allen OYang\n+ * @Email:  allenwill211@gmail.com\n+ * @Date: 2023-04-14 11:27:09\n+ * @LastEditTime: 2023-04-14 12:22:08\n+ * @LastEditors: Allen OYang allenwill211@gmail.com\n+ * @FilePath: /speak-gpt/src/pages/index.tsx\n+ */\n import Head from 'next/head'\n import Image from 'next/image'\n import { Inter } from 'next/font/google'\n import styles from '@/styles/Home.module.css'\n"
+                },
+                {
+                    "date": 1681446152710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,14 +10,11 @@\n import Image from 'next/image'\n import { Inter } from 'next/font/google'\n import styles from '@/styles/Home.module.css'\n \n-import { TemplateController } from '@/components/layout/TemplateController'\n+import { Main } from '@/components/Main'\n \n const inter = Inter({ subsets: ['latin'] })\n \n export default function Home() {\n-  return (\n-    <>\n-    </>\n-      \n+  return (<Main />)\n }\n"
+                },
+                {
+                    "date": 1681446197815,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,18 +1,18 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 11:27:09\n- * @LastEditTime: 2023-04-14 12:22:08\n+ * @LastEditTime: 2023-04-14 12:23:17\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/pages/index.tsx\n  */\n import Head from 'next/head'\n import Image from 'next/image'\n import { Inter } from 'next/font/google'\n import styles from '@/styles/Home.module.css'\n \n-import { Main } from '@/components/Main'\n+import Main from '@/components/Main'\n \n const inter = Inter({ subsets: ['latin'] })\n \n export default function Home() {\n"
+                },
+                {
+                    "date": 1681446281595,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n import Image from 'next/image'\n import { Inter } from 'next/font/google'\n import styles from '@/styles/Home.module.css'\n \n-import Main from '@/components/Main'\n+import {Main} from '@/components/Main'\n \n const inter = Inter({ subsets: ['latin'] })\n \n export default function Home() {\n"
+                },
+                {
+                    "date": 1681446292742,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,16 +5,11 @@\n  * @LastEditTime: 2023-04-14 12:23:17\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/pages/index.tsx\n  */\n-import Head from 'next/head'\n-import Image from 'next/image'\n-import { Inter } from 'next/font/google'\n-import styles from '@/styles/Home.module.css'\n \n import {Main} from '@/components/Main'\n \n-const inter = Inter({ subsets: ['latin'] })\n \n export default function Home() {\n   return (<Main />)\n }\n"
+                },
+                {
+                    "date": 1681716225775,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,15 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 11:27:09\n- * @LastEditTime: 2023-04-14 12:23:17\n+ * @LastEditTime: 2023-04-17 15:23:42\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/pages/index.tsx\n  */\n \n import {Main} from '@/components/Main'\n+import '@/extensions'\n \n \n export default function Home() {\n   return (<Main />)\n"
+                }
+            ],
+            "date": 1681445913698,
+            "name": "Commit-0",
+            "content": "import Head from 'next/head'\nimport Image from 'next/image'\nimport { Inter } from 'next/font/google'\nimport styles from '@/styles/Home.module.css'\n\nimport { TemplateController } from '@/components/layout/TemplateController'\n\nconst inter = Inter({ subsets: ['latin'] })\n\nexport default function Home() {\n  return (\n    <>\n    </>\n      \n}\n"
+        }
+    ]
+}

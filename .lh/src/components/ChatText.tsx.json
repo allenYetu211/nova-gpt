@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/components/ChatText.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1681459890531,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681459987026,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,20 @@\n+/*\n+ * @Author: Allen OYang\n+ * @Email:  allenwill211@gmail.com\n+ * @Date: 2023-04-14 16:09:48\n+ * @LastEditTime: 2023-04-14 16:13:06\n+ * @LastEditors: Allen OYang allenwill211@gmail.com\n+ * @FilePath: /speak-gpt/src/components/ChatText.tsx\n+ */\n \n+import { Textarea } from '@mantine/core';\n export function ChatText() {\n   return (\n-    <div>\n-      <h3>修改内容</h3>\n-    </div>\n+    <>\n+      <Textarea\n+        placeholder=\"Your comment\"\n+        withAsterisk\n+      />\n+    </>\n   )\n }\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1681459890531,
+            "name": "Commit-0",
+            "content": "\nexport function ChatText() {\n  return (\n    <div>\n      <h3>修改内容</h3>\n    </div>\n  )\n}"
+        }
+    ]
+}

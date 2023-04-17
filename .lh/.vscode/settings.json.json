@@ -1,0 +1,22 @@
+{
+    "sourceFile": ".vscode/settings.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1681623498628,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681642287530,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n {\n   \"cSpell.words\": [\n-    \"onprocess\"\n+    \"onprocess\",\n+    \"uuidv\"\n   ]\n }\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1681623498628,
+            "name": "Commit-0",
+            "content": "{\n  \"cSpell.words\": [\n    \"onprocess\"\n  ]\n}"
+        }
+    ]
+}

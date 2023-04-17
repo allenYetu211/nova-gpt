@@ -1,0 +1,98 @@
+{
+    "sourceFile": "src/components/Main.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 20,
+            "patches": [
+                {
+                    "date": 1681446129506,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681446190673,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 12:08:23\n- * @LastEditTime: 2023-04-14 12:18:33\n+ * @LastEditTime: 2023-04-14 12:23:10\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n- * @FilePath: /speak-gpt/src/components/layout/TemplateController.tsx\n+ * @FilePath: /speak-gpt/src/components/Main.tsx\n  */\n import {\n   MantineProvider,\n   MantineTheme,\n@@ -22,9 +22,9 @@\n   }\n })\n \n \n-export const Main = () => {\n+export default function Main() {\n   <AppShell\n     padding=\"md\"\n     navbar={<Navbar width={{ base: 300 }} height={500} p=\"xs\">{/* Navbar content */}</Navbar>}\n     header={<Header height={60} p=\"xs\">{/* Header content */}</Header>}\n"
+                },
+                {
+                    "date": 1681446214803,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,13 +15,13 @@\n   Header\n } from '@mantine/core';\n \n \n-const useStyles = createStyles((theme: MantineTheme) => {\n-  return {\n+// const useStyles = createStyles((theme: MantineTheme) => {\n+//   return {\n \n-  }\n-})\n+//   }\n+// })\n \n \n export default function Main() {\n   <AppShell\n"
+                },
+                {
+                    "date": 1681446264083,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 12:08:23\n- * @LastEditTime: 2023-04-14 12:23:10\n+ * @LastEditTime: 2023-04-14 12:24:23\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/Main.tsx\n  */\n import {\n@@ -23,16 +23,18 @@\n // })\n \n \n export default function Main() {\n-  <AppShell\n-    padding=\"md\"\n-    navbar={<Navbar width={{ base: 300 }} height={500} p=\"xs\">{/* Navbar content */}</Navbar>}\n-    header={<Header height={60} p=\"xs\">{/* Header content */}</Header>}\n-    styles={(theme) => ({\n-      main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },\n-    })}\n-  >\n-    {/* Your application here */}\n-  </AppShell>\n+  return (\n+    <AppShell\n+      padding=\"md\"\n+      navbar={<Navbar width={{ base: 300 }} height={500} p=\"xs\">{/* Navbar content */}</Navbar>}\n+      header={<Header height={60} p=\"xs\">{/* Header content */}</Header>}\n+      styles={(theme) => ({\n+        main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },\n+      })}\n+    >\n+      {/* Your application here */}\n+    </AppShell>\n+  )\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681446281590,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 12:08:23\n- * @LastEditTime: 2023-04-14 12:24:23\n+ * @LastEditTime: 2023-04-14 12:24:41\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/Main.tsx\n  */\n import {\n"
+                },
+                {
+                    "date": 1681446281659,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n //   }\n // })\n \n \n-export default function Main() {\n+export function Main() {\n   return (\n     <AppShell\n       padding=\"md\"\n       navbar={<Navbar width={{ base: 300 }} height={500} p=\"xs\">{/* Navbar content */}</Navbar>}\n"
+                },
+                {
+                    "date": 1681446339798,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 12:08:23\n- * @LastEditTime: 2023-04-14 12:24:41\n+ * @LastEditTime: 2023-04-14 12:25:39\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/Main.tsx\n  */\n import {\n@@ -26,9 +26,9 @@\n export function Main() {\n   return (\n     <AppShell\n       padding=\"md\"\n-      navbar={<Navbar width={{ base: 300 }} height={500} p=\"xs\">{/* Navbar content */}</Navbar>}\n+      navbar={<Navbar width={{ base: 300 }} height={500} p=\"xs\"> 21321</Navbar>}\n       header={<Header height={60} p=\"xs\">{/* Header content */}</Header>}\n       styles={(theme) => ({\n         main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },\n       })}\n"
+                },
+                {
+                    "date": 1681446347786,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,40 @@\n+/*\n+ * @Author: Allen OYang\n+ * @Email:  allenwill211@gmail.com\n+ * @Date: 2023-04-14 12:08:23\n+ * @LastEditTime: 2023-04-14 12:25:39\n+ * @LastEditors: Allen OYang allenwill211@gmail.com\n+ * @FilePath: /speak-gpt/src/components/Main.tsx\n+ */\n+import {\n+  MantineProvider,\n+  MantineTheme,\n+  createStyles,\n+  AppShell,\n+  Navbar,\n+  Header\n+} from '@mantine/core';\n+\n+\n+// const useStyles = createStyles((theme: MantineTheme) => {\n+//   return {\n+\n+//   }\n+// })\n+\n+\n+export function Main() {\n+  return (\n+    <AppShell\n+      padding=\"md\"\n+      navbar={<Navbar width={{ base: 300 }} height={500} p=\"xs\"> 21321 </Navbar>}\n+      header={<Header height={60} p=\"xs\">{/* Header content */}</Header>}\n+      styles={(theme) => ({\n+        main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },\n+      })}\n+    >\n+      {/* Your application here */}\n+    </AppShell>\n+  )\n+\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681446358287,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,54 +27,14 @@\n   return (\n     <AppShell\n       padding=\"md\"\n       navbar={<Navbar width={{ base: 300 }} height={500} p=\"xs\"> 21321 </Navbar>}\n-      header={<Header height={60} p=\"xs\">{/* Header content */}</Header>}\n+      header={<Header height={60} p=\"xs\">321321321</Header>}\n       styles={(theme) => ({\n         main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },\n       })}\n     >\n       {/* Your application here */}\n     </AppShell>\n   )\n \n-}\n-/*\n- * @Author: Allen OYang\n- * @Email:  allenwill211@gmail.com\n- * @Date: 2023-04-14 12:08:23\n- * @LastEditTime: 2023-04-14 12:25:39\n- * @LastEditors: Allen OYang allenwill211@gmail.com\n- * @FilePath: /speak-gpt/src/components/Main.tsx\n- */\n-import {\n-  MantineProvider,\n-  MantineTheme,\n-  createStyles,\n-  AppShell,\n-  Navbar,\n-  Header\n-} from '@mantine/core';\n-\n-\n-// const useStyles = createStyles((theme: MantineTheme) => {\n-//   return {\n-\n-//   }\n-// })\n-\n-\n-export function Main() {\n-  return (\n-    <AppShell\n-      padding=\"md\"\n-      navbar={<Navbar width={{ base: 300 }} height={500} p=\"xs\"> 21321</Navbar>}\n-      header={<Header height={60} p=\"xs\">{/* Header content */}</Header>}\n-      styles={(theme) => ({\n-        main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },\n-      })}\n-    >\n-      {/* Your application here */}\n-    </AppShell>\n-  )\n-\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681446386654,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n export function Main() {\n   return (\n     <AppShell\n       padding=\"md\"\n-      navbar={<Navbar width={{ base: 300 }} height={500} p=\"xs\"> 21321 </Navbar>}\n+      navbar={<Navbar width={{ base: 230 }} height={500} p=\"xs\"> 21321 </Navbar>}\n       header={<Header height={60} p=\"xs\">321321321</Header>}\n       styles={(theme) => ({\n         main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },\n       })}\n"
+                },
+                {
+                    "date": 1681446398281,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n export function Main() {\n   return (\n     <AppShell\n       padding=\"md\"\n-      navbar={<Navbar width={{ base: 230 }} height={500} p=\"xs\"> 21321 </Navbar>}\n+      navbar={<Navbar width={{ base: 230 }}  p=\"xs\"> 21321 </Navbar>}\n       header={<Header height={60} p=\"xs\">321321321</Header>}\n       styles={(theme) => ({\n         main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },\n       })}\n"
+                },
+                {
+                    "date": 1681454826744,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 12:08:23\n- * @LastEditTime: 2023-04-14 12:25:39\n+ * @LastEditTime: 2023-04-14 14:47:06\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/Main.tsx\n  */\n import {\n@@ -15,16 +15,20 @@\n   Header\n } from '@mantine/core';\n \n \n-// const useStyles = createStyles((theme: MantineTheme) => {\n-//   return {\n+const useStyles = createStyles((theme: MantineTheme) => {\n+  console.log('theme', theme)\n+  return {\n \n-//   }\n-// })\n+  }\n+})\n \n \n export function Main() {\n+\n+  const { classes, theme } = useStyles();\n+  \n   return (\n     <AppShell\n       padding=\"md\"\n       navbar={<Navbar width={{ base: 230 }}  p=\"xs\"> 21321 </Navbar>}\n"
+                },
+                {
+                    "date": 1681455058434,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 12:08:23\n- * @LastEditTime: 2023-04-14 14:47:06\n+ * @LastEditTime: 2023-04-14 14:50:58\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/Main.tsx\n  */\n import {\n@@ -28,17 +28,10 @@\n \n   const { classes, theme } = useStyles();\n   \n   return (\n-    <AppShell\n-      padding=\"md\"\n-      navbar={<Navbar width={{ base: 230 }}  p=\"xs\"> 21321 </Navbar>}\n-      header={<Header height={60} p=\"xs\">321321321</Header>}\n-      styles={(theme) => ({\n-        main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },\n-      })}\n-    >\n-      {/* Your application here */}\n-    </AppShell>\n+    <>\n+      早上好！\n+    </>\n   )\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681459649772,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n   const { classes, theme } = useStyles();\n   \n   return (\n     <>\n-      早上好！\n+      \n     </>\n   )\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681460220454,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 12:08:23\n- * @LastEditTime: 2023-04-14 14:50:58\n+ * @LastEditTime: 2023-04-14 16:16:59\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/Main.tsx\n  */\n import {\n@@ -14,9 +14,11 @@\n   Navbar,\n   Header\n } from '@mantine/core';\n \n+import { ChatTextarea } from '@/components/ChatTextarea'\n \n+\n const useStyles = createStyles((theme: MantineTheme) => {\n   console.log('theme', theme)\n   return {\n \n@@ -26,12 +28,12 @@\n \n export function Main() {\n \n   const { classes, theme } = useStyles();\n-  \n+\n   return (\n     <>\n-      \n+      <ChatTextarea />\n     </>\n   )\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681460478103,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 12:08:23\n- * @LastEditTime: 2023-04-14 16:16:59\n+ * @LastEditTime: 2023-04-14 16:21:18\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/Main.tsx\n  */\n import {\n@@ -18,11 +18,23 @@\n import { ChatTextarea } from '@/components/ChatTextarea'\n \n \n const useStyles = createStyles((theme: MantineTheme) => {\n-  console.log('theme', theme)\n   return {\n+    mainContainer: {\n+      display: 'flex',\n+      flexDirection: 'column',\n+    },\n+    message: {\n+      paddingBottom: theme.spacing.md,\n+      border: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]}`,\n+      flex: 1\n+    },\n \n+    chatTextareaContainer: {\n+\n+    }\n+\n   }\n })\n \n \n@@ -30,10 +42,14 @@\n \n   const { classes, theme } = useStyles();\n \n   return (\n-    <>\n+    <div>\n+\n+      <div className={classes.message}>\n+        <h3>修改内容  </h3>\n+      </div>\n       <ChatTextarea />\n-    </>\n+    </div>\n   )\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681460489664,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,8 @@\n       flexDirection: 'column',\n     },\n     message: {\n       paddingBottom: theme.spacing.md,\n-      border: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]}`,\n       flex: 1\n     },\n \n     chatTextareaContainer: {\n"
+                },
+                {
+                    "date": 1681460502321,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,8 +22,9 @@\n   return {\n     mainContainer: {\n       display: 'flex',\n       flexDirection: 'column',\n+      height: '100%',\n     },\n     message: {\n       paddingBottom: theme.spacing.md,\n       flex: 1\n"
+                },
+                {
+                    "date": 1681460521246,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,9 +42,9 @@\n \n   const { classes, theme } = useStyles();\n \n   return (\n-    <div>\n+    <div className={classes.mainContainer}>\n \n       <div className={classes.message}>\n         <h3>修改内容  </h3>\n       </div>\n"
+                },
+                {
+                    "date": 1681460535676,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,10 @@\n       height: '100%',\n     },\n     message: {\n       paddingBottom: theme.spacing.md,\n-      flex: 1\n+      flex: 1,\n+      overflow: 'auto',\n     },\n \n     chatTextareaContainer: {\n \n"
+                },
+                {
+                    "date": 1681460541050,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 12:08:23\n- * @LastEditTime: 2023-04-14 16:21:18\n+ * @LastEditTime: 2023-04-14 16:22:21\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/Main.tsx\n  */\n import {\n@@ -44,12 +44,12 @@\n   const { classes, theme } = useStyles();\n \n   return (\n     <div className={classes.mainContainer}>\n-\n       <div className={classes.message}>\n         <h3>修改内容  </h3>\n       </div>\n+\n       <ChatTextarea />\n     </div>\n   )\n \n"
+                }
+            ],
+            "date": 1681446129506,
+            "name": "Commit-0",
+            "content": "/*\n * @Author: Allen OYang\n * @Email:  allenwill211@gmail.com\n * @Date: 2023-04-14 12:08:23\n * @LastEditTime: 2023-04-14 12:18:33\n * @LastEditors: Allen OYang allenwill211@gmail.com\n * @FilePath: /speak-gpt/src/components/layout/TemplateController.tsx\n */\nimport {\n  MantineProvider,\n  MantineTheme,\n  createStyles,\n  AppShell,\n  Navbar,\n  Header\n} from '@mantine/core';\n\n\nconst useStyles = createStyles((theme: MantineTheme) => {\n  return {\n\n  }\n})\n\n\nexport const Main = () => {\n  <AppShell\n    padding=\"md\"\n    navbar={<Navbar width={{ base: 300 }} height={500} p=\"xs\">{/* Navbar content */}</Navbar>}\n    header={<Header height={60} p=\"xs\">{/* Header content */}</Header>}\n    styles={(theme) => ({\n      main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },\n    })}\n  >\n    {/* Your application here */}\n  </AppShell>\n\n}"
+        }
+    ]
+}

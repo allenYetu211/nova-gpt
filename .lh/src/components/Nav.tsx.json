@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/components/Nav.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1681455829653,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681456144422,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,19 @@\n+import { Flex, Button } from '@mantine/core';\n \n export function Nav() {\n   return (\n-    <>\n-\n-    </>\n-  )\n+    <Flex\n+      mih={50}\n+      bg=\"rgba(0, 0, 0, .3)\"\n+      gap=\"xl\"\n+      justify=\"flex-end\"\n+      align=\"flex-start\"\n+      direction=\"column\"\n+      wrap=\"nowrap\"\n+    >\n+      <Button>Button 1</Button>\n+      <Button>Button 2</Button>\n+      <Button>Button 3</Button>\n+    </Flex>\n+  );\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681459649756,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,17 +3,14 @@\n export function Nav() {\n   return (\n     <Flex\n       mih={50}\n-      bg=\"rgba(0, 0, 0, .3)\"\n       gap=\"xl\"\n       justify=\"flex-end\"\n       align=\"flex-start\"\n       direction=\"column\"\n       wrap=\"nowrap\"\n     >\n-      <Button>Button 1</Button>\n-      <Button>Button 2</Button>\n-      <Button>Button 3</Button>\n+      \n     </Flex>\n   );\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681459754594,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,8 +9,14 @@\n       align=\"flex-start\"\n       direction=\"column\"\n       wrap=\"nowrap\"\n     >\n-      \n+      <div>\n+        <h3>修改内容  </h3>\n+        <h3>修改内容  </h3>\n+        <h3>修改内容  </h3>\n+\n+       \n+      </div>\n     </Flex>\n   );\n }\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1681455829653,
+            "name": "Commit-0",
+            "content": "\nexport function Nav() {\n  return (\n    <>\n\n    </>\n  )\n}"
+        }
+    ]
+}
