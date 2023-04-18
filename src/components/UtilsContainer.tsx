@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 16:50:34
- * @LastEditTime: 2023-04-18 17:11:09
+ * @LastEditTime: 2023-04-19 00:34:18
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/UtilsContainer.tsx
  */
@@ -20,7 +20,7 @@ export const UtilsContainer = () => {
   return (
     <div>
        <ActionIcon>
-          <IconSettings size='xs' />
+          <IconSettings />
         </ActionIcon>
     </div>
   )

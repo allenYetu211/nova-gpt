@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1681807893612,
@@ -12,6 +12,10 @@
                 {
                     "date": 1681809069479,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,19 @@\n+import {\n \n+  ActionIcon\n+} from '@mantine/core';\n+\n+import {\n+  IconSettings\n+} from '@tabler/icons-react';\n+\n+\n export const UtilsContainer = () => {\n   return (\n     <div>\n-      UtilsContainer\n+       <ActionIcon>\n+          <IconSettings size='xs' />\n+        </ActionIcon>\n     </div>\n   )\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681835658300,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,12 @@\n+/*\n+ * @Author: Allen OYang\n+ * @Email:  allenwill211@gmail.com\n+ * @Date: 2023-04-18 16:50:34\n+ * @LastEditTime: 2023-04-19 00:34:18\n+ * @LastEditors: Allen OYang allenwill211@gmail.com\n+ * @FilePath: /speak-gpt/src/components/UtilsContainer.tsx\n+ */\n import {\n \n   ActionIcon\n } from '@mantine/core';\n@@ -11,9 +19,9 @@\n export const UtilsContainer = () => {\n   return (\n     <div>\n        <ActionIcon>\n-          <IconSettings size='xs' />\n+          <IconSettings />\n         </ActionIcon>\n     </div>\n   )\n }\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1681807893612,

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-04-18 16:23:30
+ * @LastEditTime: 2023-04-19 00:07:28
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/pages/_app.tsx
  */
@@ -68,7 +68,7 @@ export default function App({ Component, pageProps }: AppProps) {
           navbar={
             <Nav />
           }
-          header={<Header height={60} p="xs">321321321</Header>}
+          header={<Header height={60} p="xs">Speak GPT</Header>}
           styles={(theme) => ({
             main: {
               backgroundColor:

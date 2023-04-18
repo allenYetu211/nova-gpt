@@ -67,9 +67,9 @@ export function Nav() {
   }, [chatsStore])
 
 
-  const chatsList = chats.map((item, index) => (
+  const chatsList = chats.map((item) => (
     <Box
-      key={index}
+      key={item.id}
       className={cx(classes.chatItem,
         {
           [classes.chatItemActive]: activeChatId === item.id

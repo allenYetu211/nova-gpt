@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 17:34:12
- * @LastEditTime: 2023-04-19 00:06:24
+ * @LastEditTime: 2023-04-19 00:42:31
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatSessionInput.tsx
  */
@@ -12,11 +12,16 @@ import {
   Flex,
   ActionIcon,
   createStyles,
-  Tooltip
+  Tooltip,
+  Group,
+  CloseButton
 } from "@mantine/core";
-import { IconEdit } from "@tabler/icons-react";
+import {
+  IconEdit,
+  IconTrash
+} from "@tabler/icons-react";
 import { useState, useRef, memo } from "react";
-import { findChat, changeChat } from '@/stores/ChatAction'
+import { findChat, deleteChat, changeChat } from '@/stores/ChatAction'
 
 
 interface ChatSessionInputProps {
@@ -75,17 +80,28 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
             <Tooltip
               position="top-start"
               withArrow
-              label={chat?.title}>
+              label={chat?.title}
+            >
               <Text
                 sx={() => ({ flex: 1 })}
-                truncate size="xs">{chat?.title || ''}</Text>
+                truncate
+                size="xs"
+              >{chat?.title || ''}</Text>
             </Tooltip>
         }
 
+        <Group>
+          <ActionIcon size="xs" radius="md" variant="default">
+            <IconEdit onClick={onEditClick} size="0.75rem" />
+          </ActionIcon>
 
-        <ActionIcon>
-          <IconEdit onClick={onEditClick} size="1.125rem" />
-        </ActionIcon>
+          <ActionIcon size="xs" radius="md" variant="default">
+            <IconTrash onClick={onEditClick} size="0.75rem" />
+          </ActionIcon>
+        </Group>
+
+
+
       </Flex>
     </>
   )

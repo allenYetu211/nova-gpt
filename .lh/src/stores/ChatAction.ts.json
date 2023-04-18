@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 9,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1681793250684,
@@ -44,6 +44,10 @@
                 {
                     "date": 1681816345421,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,13 +34,11 @@\n }\n \n \n export const changeActiveChatId = (id: string) => {\n-  set(() => {\n-    return {\n-      activeChatId: id\n-    }\n-  })\n+  set(() => ({\n+    activeChatId: id\n+  }))\n }\n \n export const findChat = (id: string) => {\n   const chats = get().chats;\n"
+                },
+                {
+                    "date": 1681834799938,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-18 12:36:37\n- * @LastEditTime: 2023-04-18 19:12:19\n+ * @LastEditTime: 2023-04-19 00:19:59\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/stores/ChatAction.ts\n  */\n import { useChatStore, ChatState, Chat } from \"./ChatStore\";\n@@ -44,8 +44,21 @@\n   const chats = get().chats;\n   return chats.find((chat) => chat.id === id);\n }\n \n+export const deleteChat = (id: string) => {\n+  const chat = findChat(id)\n+  if (chat) {\n+    set((state) => {\n+      const chats = state.chats.filter((chat) => chat.id !== id)\n+      return {\n+        chats\n+      }\n+    })\n+  }\n+}\n+\n+\n export const changeChat = (id: string, newState: Partial<Chat>) => {\n   const chat = findChat(id)\n   if (chat) {\n     set((state) => {\n"
                 }
             ],
             "date": 1681793250684,

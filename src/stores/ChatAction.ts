@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 12:36:37
- * @LastEditTime: 2023-04-18 19:12:19
+ * @LastEditTime: 2023-04-19 00:19:59
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/stores/ChatAction.ts
  */
@@ -44,6 +44,19 @@ export const findChat = (id: string) => {
   const chats = get().chats;
   return chats.find((chat) => chat.id === id);
 }
+
+export const deleteChat = (id: string) => {
+  const chat = findChat(id)
+  if (chat) {
+    set((state) => {
+      const chats = state.chats.filter((chat) => chat.id !== id)
+      return {
+        chats
+      }
+    })
+  }
+}
+
 
 export const changeChat = (id: string, newState: Partial<Chat>) => {
   const chat = findChat(id)
