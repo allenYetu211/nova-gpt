@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 17,
+            "activePatchIndex": 22,
             "patches": [
                 {
                     "date": 1681712555157,
@@ -76,6 +76,26 @@
                 {
                     "date": 1681724014807,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,18 +1,17 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-17 10:36:51\n- * @LastEditTime: 2023-04-17 17:32:09\n+ * @LastEditTime: 2023-04-17 17:33:34\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/extensions/TencetcloudRecord/index.ts\n  */\n import { InstallExtension } from '@/core/InstallExtension'\n import webRecorder from './SDK/webRecorder'\n import SpeechRecognizer from './SDK/speechRecognizer'\n import { signCallback } from './SDK/asrauthentication'\n \n-console.log('process', process)\n const config = {\n   secretkey:process.env.NEXT_PUBLIC_SECRET_KEY,\n   secretid: process.env.NEXT_PUBLIC_SECRET_ID,\n   appid: process.env.NEXT_PUBLIC_APPID,\n"
+                },
+                {
+                    "date": 1681727216379,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -74,19 +74,17 @@\n   }\n \n   private addListenerCallBack() {\n     this.speechRecognizer!.OnRecognitionStart = (res) => {\n-      console.log('开始识别', res);\n       this.isCanSendData = true;\n       this.isCanStop = true;\n     };\n     // @ts-ignore \n     this.speechRecognizer!.OnRecognitionResultChange = (res: any) => {\n       const currentText = `${this.resultText}${res.result.voice_text_str}`;\n       InstallExtension.emitter.emit('ResultChange', currentText)\n     };\n-    // @ts-ignore 一句话结束\n-    this.speechRecognizer!.OnSentenceEnd = (res: any) => {\n+    this.speechRecognizer!.OnSentenceEnd = (res: any): void => {\n       this.resultText += res.result.voice_text_str;\n       InstallExtension.emitter.emit('SentenceEnd', this.resultText)\n     };\n     // @ts-ignore 识别结束\n"
+                },
+                {
+                    "date": 1681727245196,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -77,25 +77,26 @@\n     this.speechRecognizer!.OnRecognitionStart = (res) => {\n       this.isCanSendData = true;\n       this.isCanStop = true;\n     };\n-    // @ts-ignore \n-    this.speechRecognizer!.OnRecognitionResultChange = (res: any) => {\n+\n+    this.speechRecognizer!.OnRecognitionResultChange = (res) => {\n       const currentText = `${this.resultText}${res.result.voice_text_str}`;\n       InstallExtension.emitter.emit('ResultChange', currentText)\n     };\n-    this.speechRecognizer!.OnSentenceEnd = (res: any): void => {\n+    // 一句话结束\n+    this.speechRecognizer!.OnSentenceEnd = (res) => {\n       this.resultText += res.result.voice_text_str;\n       InstallExtension.emitter.emit('SentenceEnd', this.resultText)\n     };\n-    // @ts-ignore 识别结束\n-    this.speechRecognizer!.OnRecognitionComplete = (res: any) => {\n+    // 识别结束\n+    this.speechRecognizer!.OnRecognitionComplete = (res) => {\n       console.log('识别结束', res);\n       this.isCanSendData = false;\n       InstallExtension.emitter.emit('RecognitionComplete', res)\n     };\n-    // @ts-ignore 识别错误\n-    this.speechRecognizer!.OnError = (res: any) => {\n+    // 识别错误\n+    this.speechRecognizer!.OnError = (res) => {\n       console.log('识别失败', res);\n       this.isCanSendData = false;\n       InstallExtension.emitter.emit('Error', res)\n     };\n"
+                },
+                {
+                    "date": 1681729914298,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-17 10:36:51\n- * @LastEditTime: 2023-04-17 17:33:34\n+ * @LastEditTime: 2023-04-17 19:11:53\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/extensions/TencetcloudRecord/index.ts\n  */\n import { InstallExtension } from '@/core/InstallExtension'\n@@ -89,15 +89,13 @@\n       InstallExtension.emitter.emit('SentenceEnd', this.resultText)\n     };\n     // 识别结束\n     this.speechRecognizer!.OnRecognitionComplete = (res) => {\n-      console.log('识别结束', res);\n       this.isCanSendData = false;\n       InstallExtension.emitter.emit('RecognitionComplete', res)\n     };\n     // 识别错误\n     this.speechRecognizer!.OnError = (res) => {\n-      console.log('识别失败', res);\n       this.isCanSendData = false;\n       InstallExtension.emitter.emit('Error', res)\n     };\n \n"
+                },
+                {
+                    "date": 1681729919914,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,11 +38,8 @@\n   private isCanStop: boolean = false;\n   private  resultText: string = ''\n \n \n-  constructor () {\n-  }\n-\n   public startRecord() {\n     this.recorder = new webRecorder()\n     const self = this\n     this.recorder.OnReceivedData = (res) => {\n"
+                },
+                {
+                    "date": 1681742047710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n  * @LastEditTime: 2023-04-17 19:11:53\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/extensions/TencetcloudRecord/index.ts\n  */\n-import { InstallExtension } from '@/core/InstallExtension'\n+import { InstallExtension } from '@/models/InstallExtension'\n import webRecorder from './SDK/webRecorder'\n import SpeechRecognizer from './SDK/speechRecognizer'\n import { signCallback } from './SDK/asrauthentication'\n \n"
                 }
             ],
             "date": 1681712555157,

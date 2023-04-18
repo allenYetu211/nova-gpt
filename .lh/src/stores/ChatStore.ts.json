@@ -1,0 +1,54 @@
+{
+    "sourceFile": "src/stores/ChatStore.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 9,
+            "patches": [
+                {
+                    "date": 1681789547143,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681789645356,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,20 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-18 11:28:09\n- * @LastEditTime: 2023-04-18 11:45:46\n+ * @LastEditTime: 2023-04-18 11:47:25\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/stores/ChatStore.ts\n  */\n import { create } from \"zustand\";\n import { persist } from \"zustand/middleware\";\n \n+export const excludeKeys = [\n+  'isRecording',\n+  'textareaMessage'\n+];\n+\n export interface ChatState {\n   /**\n    * Chat Components Messages\n    */\n@@ -38,8 +43,8 @@\n   persist(store, {\n     name: 'chat-store',\n     partialize: (state) =>\n       Object.fromEntries(\n-        Object.entries(state).filter(([key]) => !['foo'].includes(key))\n+        Object.entries(state).filter(([key]) => !excludeKeys.includes(key))\n       ),\n   })\n )\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681792449044,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,14 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-18 11:28:09\n- * @LastEditTime: 2023-04-18 11:47:25\n+ * @LastEditTime: 2023-04-18 12:34:09\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/stores/ChatStore.ts\n  */\n import { create } from \"zustand\";\n-import { persist } from \"zustand/middleware\";\n+import { persist, devtools } from \"zustand/middleware\";\n \n export const excludeKeys = [\n   'isRecording',\n   'textareaMessage'\n@@ -38,13 +38,14 @@\n }\n \n const store = () => ({ ...initialState } as ChatState);\n \n-export const useChatStore = create<ChatState>()(\n+export const useChatStore = create<ChatState>()(devtools(\n   persist(store, {\n     name: 'chat-store',\n     partialize: (state) =>\n       Object.fromEntries(\n         Object.entries(state).filter(([key]) => !excludeKeys.includes(key))\n       ),\n   })\n+)\n )\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681798882175,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-18 11:28:09\n- * @LastEditTime: 2023-04-18 12:34:09\n+ * @LastEditTime: 2023-04-18 14:21:22\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/stores/ChatStore.ts\n  */\n import { create } from \"zustand\";\n@@ -38,14 +38,13 @@\n }\n \n const store = () => ({ ...initialState } as ChatState);\n \n-export const useChatStore = create<ChatState>()(devtools(\n+export const useChatStore = create<ChatState>()(\n   persist(store, {\n     name: 'chat-store',\n     partialize: (state) =>\n       Object.fromEntries(\n         Object.entries(state).filter(([key]) => !excludeKeys.includes(key))\n       ),\n   })\n )\n\\ No newline at end of file\n-)\n"
+                },
+                {
+                    "date": 1681801891057,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,18 +1,16 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-18 11:28:09\n- * @LastEditTime: 2023-04-18 14:21:22\n+ * @LastEditTime: 2023-04-18 15:11:26\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/stores/ChatStore.ts\n  */\n import { create } from \"zustand\";\n import { persist, devtools } from \"zustand/middleware\";\n \n export const excludeKeys = [\n-  'isRecording',\n-  'textareaMessage'\n ];\n \n export interface ChatState {\n   /**\n@@ -46,5 +44,5 @@\n       Object.fromEntries(\n         Object.entries(state).filter(([key]) => !excludeKeys.includes(key))\n       ),\n   })\n-)\n\\ No newline at end of file\n+)\n"
+                },
+                {
+                    "date": 1681801899382,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n import { create } from \"zustand\";\n import { persist, devtools } from \"zustand/middleware\";\n \n export const excludeKeys = [\n-];\n+''];\n \n export interface ChatState {\n   /**\n    * Chat Components Messages\n"
+                },
+                {
+                    "date": 1681802615963,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-18 11:28:09\n- * @LastEditTime: 2023-04-18 15:11:26\n+ * @LastEditTime: 2023-04-18 15:23:35\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/stores/ChatStore.ts\n  */\n import { create } from \"zustand\";\n@@ -11,13 +11,20 @@\n \n export const excludeKeys = [\n ''];\n \n+interface Chat {\n+  id: string,\n+  message: string[],\n+  createdAt: Date,\n+}\n+\n export interface ChatState {\n   /**\n    * Chat Components Messages\n    */\n-  chats: string[],\n+  chats: Chat[],\n+  activeChatId: string,\n   /**\n    *  Textarea Components State\n    */\n   isRecording: boolean,\n@@ -27,8 +34,9 @@\n }\n \n export const initialState = {\n   chats: [],\n+  activeChatId:'',\n \n   isRecording: false,\n   textareaMessage: '',\n   selectData: [],\n"
+                },
+                {
+                    "date": 1681802789469,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-18 11:28:09\n- * @LastEditTime: 2023-04-18 15:23:35\n+ * @LastEditTime: 2023-04-18 15:26:29\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/stores/ChatStore.ts\n  */\n import { create } from \"zustand\";\n"
+                },
+                {
+                    "date": 1681804124473,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,14 +9,15 @@\n import { create } from \"zustand\";\n import { persist, devtools } from \"zustand/middleware\";\n \n export const excludeKeys = [\n-''];\n+  ''];\n \n interface Chat {\n   id: string,\n   message: string[],\n   createdAt: Date,\n+  title: string,\n }\n \n export interface ChatState {\n   /**\n@@ -34,9 +35,9 @@\n }\n \n export const initialState = {\n   chats: [],\n-  activeChatId:'',\n+  activeChatId: '',\n \n   isRecording: false,\n   textareaMessage: '',\n   selectData: [],\n"
+                },
+                {
+                    "date": 1681812533714,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n \n export const excludeKeys = [\n   ''];\n \n-interface Chat {\n+export interface Chat {\n   id: string,\n   message: string[],\n   createdAt: Date,\n   title: string,\n"
+                }
+            ],
+            "date": 1681789547143,
+            "name": "Commit-0",
+            "content": "/*\n * @Author: Allen OYang\n * @Email:  allenwill211@gmail.com\n * @Date: 2023-04-18 11:28:09\n * @LastEditTime: 2023-04-18 11:45:46\n * @LastEditors: Allen OYang allenwill211@gmail.com\n * @FilePath: /speak-gpt/src/stores/ChatStore.ts\n */\nimport { create } from \"zustand\";\nimport { persist } from \"zustand/middleware\";\n\nexport interface ChatState {\n  /**\n   * Chat Components Messages\n   */\n  chats: string[],\n  /**\n   *  Textarea Components State\n   */\n  isRecording: boolean,\n  textareaMessage: string,\n  selectData: { value: string, label: string }[],\n  selectValue: string,\n}\n\nexport const initialState = {\n  chats: [],\n\n  isRecording: false,\n  textareaMessage: '',\n  selectData: [],\n  selectValue: '',\n}\n\nconst store = () => ({ ...initialState } as ChatState);\n\nexport const useChatStore = create<ChatState>()(\n  persist(store, {\n    name: 'chat-store',\n    partialize: (state) =>\n      Object.fromEntries(\n        Object.entries(state).filter(([key]) => !['foo'].includes(key))\n      ),\n  })\n)"
+        }
+    ]
+}

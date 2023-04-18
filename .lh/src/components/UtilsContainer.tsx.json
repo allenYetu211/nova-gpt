@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/components/UtilsContainer.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1681807893612,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681809069479,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,19 @@\n+import {\n \n+  ActionIcon\n+} from '@mantine/core';\n+\n+import {\n+  IconSettings\n+} from '@tabler/icons-react';\n+\n+\n export const UtilsContainer = () => {\n   return (\n     <div>\n-      UtilsContainer\n+       <ActionIcon>\n+          <IconSettings size='xs' />\n+        </ActionIcon>\n     </div>\n   )\n }\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1681807893612,
+            "name": "Commit-0",
+            "content": "\nexport const UtilsContainer = () => {\n  return (\n    <div>\n      UtilsContainer\n    </div>\n  )\n}"
+        }
+    ]
+}

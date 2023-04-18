@@ -2,11 +2,11 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-17 10:36:51
- * @LastEditTime: 2023-04-17 17:33:34
+ * @LastEditTime: 2023-04-17 19:11:53
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/extensions/TencetcloudRecord/index.ts
  */
-import { InstallExtension } from '@/core/InstallExtension'
+import { InstallExtension } from '@/models/InstallExtension'
 import webRecorder from './SDK/webRecorder'
 import SpeechRecognizer from './SDK/speechRecognizer'
 import { signCallback } from './SDK/asrauthentication'
@@ -38,9 +38,6 @@ export class TencetCloudRecord {
   private isCanStop: boolean = false;
   private  resultText: string = ''
 
-
-  constructor () {
-  }
 
   public startRecord() {
     this.recorder = new webRecorder()
@@ -75,29 +72,26 @@ export class TencetCloudRecord {
 
   private addListenerCallBack() {
     this.speechRecognizer!.OnRecognitionStart = (res) => {
-      console.log('开始识别', res);
       this.isCanSendData = true;
       this.isCanStop = true;
     };
-    // @ts-ignore 
-    this.speechRecognizer!.OnRecognitionResultChange = (res: any) => {
+
+    this.speechRecognizer!.OnRecognitionResultChange = (res) => {
       const currentText = `${this.resultText}${res.result.voice_text_str}`;
       InstallExtension.emitter.emit('ResultChange', currentText)
     };
-    // @ts-ignore 一句话结束
-    this.speechRecognizer!.OnSentenceEnd = (res: any) => {
+    // 一句话结束
+    this.speechRecognizer!.OnSentenceEnd = (res) => {
       this.resultText += res.result.voice_text_str;
       InstallExtension.emitter.emit('SentenceEnd', this.resultText)
     };
-    // @ts-ignore 识别结束
-    this.speechRecognizer!.OnRecognitionComplete = (res: any) => {
-      console.log('识别结束', res);
+    // 识别结束
+    this.speechRecognizer!.OnRecognitionComplete = (res) => {
       this.isCanSendData = false;
       InstallExtension.emitter.emit('RecognitionComplete', res)
     };
-    // @ts-ignore 识别错误
-    this.speechRecognizer!.OnError = (res: any) => {
-      console.log('识别失败', res);
+    // 识别错误
+    this.speechRecognizer!.OnError = (res) => {
       this.isCanSendData = false;
       InstallExtension.emitter.emit('Error', res)
     };

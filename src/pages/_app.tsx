@@ -2,14 +2,13 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-04-14 15:53:47
+ * @LastEditTime: 2023-04-18 16:23:30
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/pages/_app.tsx
  */
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from "next/head";
-import { ChatSession } from '@/components/ChatSession'
 import { Nav } from '@/components/Nav'
 import {
   MantineProvider,
@@ -67,10 +66,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <AppShell
           padding="md"
           navbar={
-            <Navbar width={{ base: 230 }} p="xs">
-              <Nav />
-            </Navbar>
-
+            <Nav />
           }
           header={<Header height={60} p="xs">321321321</Header>}
           styles={(theme) => ({

@@ -1,0 +1,54 @@
+{
+    "sourceFile": "src/stores/ChatAction.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 9,
+            "patches": [
+                {
+                    "date": 1681793250684,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681798812929,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,7 +3,6 @@\n const get = useChatStore.getState;\n const set = useChatStore.setState;\n \n \n+\n export const update = (newState: Partial<ChatState>) => set(() => newState);\n-\n\\ No newline at end of file\n-export const clear\n"
+                },
+                {
+                    "date": 1681799291424,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,4 +5,7 @@\n \n \n \n export const update = (newState: Partial<ChatState>) => set(() => newState);\n+\n+\n+export const updateInputTextarea = (newState:   Pick<Partial<ChatState>, 'isRecording' | 'textareaMessage' |'selectData' | 'selectValue'>) => set(() => newState)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681802615969,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n import { useChatStore, ChatState } from \"./ChatStore\";\n+import uuid from 'uuid'\n \n const get = useChatStore.getState;\n const set = useChatStore.setState;\n \n@@ -7,5 +8,18 @@\n \n export const update = (newState: Partial<ChatState>) => set(() => newState);\n \n \n-export const updateInputTextarea = (newState:   Pick<Partial<ChatState>, 'isRecording' | 'textareaMessage' |'selectData' | 'selectValue'>) => set(() => newState)\n\\ No newline at end of file\n+export const newChat = (chatSession: string) => {\n+  const id = uuid.v4()\n+  set((state) => ({\n+    activeChatId: id,\n+    chats: [\n+      ...state.chats,\n+      {\n+        id,\n+        message: [],\n+        createdAt: new Date(),\n+      }\n+    ]\n+  }))\n+}  \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681804124467,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,8 +18,9 @@\n       {\n         id,\n         message: [],\n         createdAt: new Date(),\n+        title: 'New Chat'\n       }\n     ]\n   }))\n }  \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681804134989,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n \n export const update = (newState: Partial<ChatState>) => set(() => newState);\n \n \n-export const newChat = (chatSession: string) => {\n+export const newChat = () => {\n   const id = uuid.v4()\n   set((state) => ({\n     activeChatId: id,\n     chats: [\n"
+                },
+                {
+                    "date": 1681804316134,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import { useChatStore, ChatState } from \"./ChatStore\";\n-import uuid from 'uuid'\n+import { v4 as uuidv4 } from \"uuid\";\n \n const get = useChatStore.getState;\n const set = useChatStore.setState;\n \n@@ -9,9 +9,9 @@\n export const update = (newState: Partial<ChatState>) => set(() => newState);\n \n \n export const newChat = () => {\n-  const id = uuid.v4()\n+  const id = uuidv4()\n   set((state) => ({\n     activeChatId: id,\n     chats: [\n       ...state.chats,\n"
+                },
+                {
+                    "date": 1681812533691,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,60 @@\n+/*\n+ * @Author: Allen OYang\n+ * @Email:  allenwill211@gmail.com\n+ * @Date: 2023-04-18 12:36:37\n+ * @LastEditTime: 2023-04-18 15:51:56\n+ * @LastEditors: Allen OYang allenwill211@gmail.com\n+ * @FilePath: /speak-gpt/src/stores/ChatAction.ts\n+ */\n+import { useChatStore, ChatState, Chat } from \"./ChatStore\";\n+import { v4 as uuidv4 } from \"uuid\";\n+\n+const get = useChatStore.getState;\n+const set = useChatStore.setState;\n+\n+\n+\n+export const update = (newState: Partial<ChatState>) => set(() => newState);\n+\n+\n+export const newChat = () => {\n+  const id = uuidv4()\n+  set((state) => ({\n+    activeChatId: id,\n+    chats: [\n+      ...state.chats,\n+      {\n+        id,\n+        message: [],\n+        createdAt: new Date(),\n+        title: 'New Chat'\n+      }\n+    ]\n+  }))\n+}\n+\n+\n+export const findChat = (id: string) => {\n+  const chats = get().chats;\n+  return chats.find((chat) => chat.id === id);\n+}\n+\n+export const changeChat = (id: string, newState: Partial<Chat>) => {\n+  const chat = findChat(id)\n+  if (chat) {\n+    set((state) => {\n+      const chats = state.chats.map((chat) => {\n+        if (chat.id === id) {\n+          return {\n+            ...chat,\n+            ...newState\n+          }\n+        }\n+        return chat\n+      })\n+      return {\n+        chats\n+      }\n+    })\n+  }\n+} \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681816339954,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-18 12:36:37\n- * @LastEditTime: 2023-04-18 15:51:56\n+ * @LastEditTime: 2023-04-18 19:12:19\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/stores/ChatAction.ts\n  */\n import { useChatStore, ChatState, Chat } from \"./ChatStore\";\n@@ -33,8 +33,16 @@\n   }))\n }\n \n \n+export const changeActiveChatId = (id: string) => {\n+  set(() => {\n+    return {\n+      activeChatId: id\n+    }\n+  })\n+}\n+\n export const findChat = (id: string) => {\n   const chats = get().chats;\n   return chats.find((chat) => chat.id === id);\n }\n@@ -56,31 +64,5 @@\n         chats\n       }\n     })\n   }\n-} \n-import { useChatStore, ChatState } from \"./ChatStore\";\n-import { v4 as uuidv4 } from \"uuid\";\n-\n-const get = useChatStore.getState;\n-const set = useChatStore.setState;\n-\n-\n-\n-export const update = (newState: Partial<ChatState>) => set(() => newState);\n-\n-\n-export const newChat = () => {\n-  const id = uuidv4()\n-  set((state) => ({\n-    activeChatId: id,\n-    chats: [\n-      ...state.chats,\n-      {\n-        id,\n-        message: [],\n-        createdAt: new Date(),\n-        title: 'New Chat'\n-      }\n-    ]\n-  }))\n-}  \n\\ No newline at end of file\n+} \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681816345421,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,13 +34,11 @@\n }\n \n \n export const changeActiveChatId = (id: string) => {\n-  set(() => {\n-    return {\n-      activeChatId: id\n-    }\n-  })\n+  set(() => ({\n+    activeChatId: id\n+  }))\n }\n \n export const findChat = (id: string) => {\n   const chats = get().chats;\n"
+                }
+            ],
+            "date": 1681793250684,
+            "name": "Commit-0",
+            "content": "import { useChatStore, ChatState } from \"./ChatStore\";\n\nconst get = useChatStore.getState;\nconst set = useChatStore.setState;\n\n\nexport const update = (newState: Partial<ChatState>) => set(() => newState);\n\nexport const clear"
+        }
+    ]
+}

@@ -111,19 +111,19 @@ export default class SpeechRecognizer {
 
   }
   // 识别结果发生变化的时候
-  OnRecognitionResultChange() {
+  OnRecognitionResultChange(res) {
 
   }
   // 一句话结束的时候
-  OnSentenceEnd() {
+  OnSentenceEnd(res) {
 
   }
   // 识别结束的时候
-  OnRecognitionComplete() {
+  OnRecognitionComplete(res) {
 
   }
   // 识别失败
-  OnError() {
+  OnError(res) {
 
   }
 }

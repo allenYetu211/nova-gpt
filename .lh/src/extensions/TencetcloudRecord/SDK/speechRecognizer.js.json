@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1681723416492,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681727216344,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -110,21 +110,21 @@\n   OnSentenceBegin(res) {\n \n   }\n   // 识别结果发生变化的时候\n-  OnRecognitionResultChange() {\n+  OnRecognitionResultChange(res) {\n \n   }\n   // 一句话结束的时候\n-  OnSentenceEnd() {\n+  OnSentenceEnd(res) {\n \n   }\n   // 识别结束的时候\n-  OnRecognitionComplete() {\n+  OnRecognitionComplete(res) {\n \n   }\n   // 识别失败\n-  OnError() {\n+  OnError(res) {\n \n   }\n }\n \n"
                 }
             ],
             "date": 1681723416492,

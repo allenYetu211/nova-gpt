@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 12,
+            "activePatchIndex": 14,
             "patches": [
                 {
                     "date": 1681455043347,
@@ -56,6 +56,14 @@
                 {
                     "date": 1681459105746,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,8 @@\n } from '@mantine/core';\n \n export default function App({ Component, pageProps }: AppProps) {\n   return (\n-\n     <>\n       <Head>\n         <title>Speak GPT</title>\n         <meta name=\"description\" content=\"A new ChatGPT UI\" />\n"
+                },
+                {
+                    "date": 1681806210169,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,16 +1,15 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 11:27:09\n- * @LastEditTime: 2023-04-14 15:53:47\n+ * @LastEditTime: 2023-04-18 16:23:30\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/pages/_app.tsx\n  */\n import '@/styles/globals.css'\n import type { AppProps } from 'next/app'\n import Head from \"next/head\";\n-import { ChatSession } from '@/components/ChatSession'\n import { Nav } from '@/components/Nav'\n import {\n   MantineProvider,\n   AppShell,\n"
+                },
+                {
+                    "date": 1681806458786,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,12 +65,9 @@\n       >\n         <AppShell\n           padding=\"md\"\n           navbar={\n-            <Navbar width={{ base: 230 }} p=\"xs\">\n-              <Nav />\n-            </Navbar>\n-\n+            <Nav />\n           }\n           header={<Header height={60} p=\"xs\">321321321</Header>}\n           styles={(theme) => ({\n             main: {\n"
                 }
             ],
             "date": 1681455043347,
