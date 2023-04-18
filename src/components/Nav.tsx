@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-04-18 19:24:13
+ * @LastEditTime: 2023-04-19 00:00:41
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/Nav.tsx
  */
@@ -30,7 +30,7 @@ import { ChatSessionInput } from '@/components/ChatSessionInput'
 // import * as dayjs from 'dayjs'
 
 const useStyles = createStyles((theme) => ({
-  chatItemContainer: {
+  chatItem: {
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
     width: '100%',
     padding: theme.spacing.xs,
@@ -51,7 +51,7 @@ const useStyles = createStyles((theme) => ({
     flex: 1,
     width: '100%',
     overflow: 'auto',
-  },
+  }
 }));
 
 
@@ -67,32 +67,20 @@ export function Nav() {
   }, [chatsStore])
 
 
-
   const chatsList = chats.map((item, index) => (
     <Box
       key={index}
-      className={cx(
-        classes.chatItemContainer,
+      className={cx(classes.chatItem,
         {
           [classes.chatItemActive]: activeChatId === item.id
         }
       )}
       onClick={() => changeActiveChatId(item.id)}
     >
-
       <ChatSessionInput
         title={item.title}
         id={item.id}
       />
-      {/* <Group position="apart">
-        <Text>{item.title}</Text>
-        <ActionIcon>
-          <IconEdit size="1.125rem" />
-        </ActionIcon>
-      </Group> */}
-      {/* <Text size="xs" color={theme.colorScheme === 'dark' ? theme.colors.dark[2] : theme.colors.gray[0]}>
-        {dayjs(item.createdAt).format('MM-DD/HH:mm:ss')}
-      </Text> */}
     </Box>
   ))
 
@@ -119,9 +107,17 @@ export function Nav() {
         wrap="wrap"
         className={classes.sessionContainer}
       >
-        <Group className={classes.chatContainer}>
+        <Flex
+          justify="flex-start"
+          align="center"
+          direction="column"
+          wrap="nowrap"
+          gap="md"
+          className={classes.chatContainer}
+        >
           {chatsList}
-        </Group>
+        </Flex>
+
 
         <UtilsContainer />
 

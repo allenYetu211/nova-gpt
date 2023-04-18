@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 9,
+            "activePatchIndex": 11,
             "patches": [
                 {
                     "date": 1681789547143,
@@ -44,6 +44,14 @@
                 {
                     "date": 1681812533714,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n \n export const excludeKeys = [\n   ''];\n \n-interface Chat {\n+export interface Chat {\n   id: string,\n   message: string[],\n   createdAt: Date,\n   title: string,\n"
+                },
+                {
+                    "date": 1681832894611,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,18 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-18 11:28:09\n- * @LastEditTime: 2023-04-18 15:26:29\n+ * @LastEditTime: 2023-04-18 23:48:13\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/stores/ChatStore.ts\n  */\n import { create } from \"zustand\";\n import { persist, devtools } from \"zustand/middleware\";\n \n export const excludeKeys = [\n-  ''];\n+  'textareaMessage', 'isRecording', 'selectValue', 'selectData'\n+];\n \n export interface Chat {\n   id: string,\n   message: string[],\n"
+                },
+                {
+                    "date": 1681832913033,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,10 @@\n import { create } from \"zustand\";\n import { persist, devtools } from \"zustand/middleware\";\n \n export const excludeKeys = [\n-  'textareaMessage', 'isRecording', 'selectValue', 'selectData'\n+  'textareaMessage',\n+  'isRecording',\n ];\n \n export interface Chat {\n   id: string,\n"
                 }
             ],
             "date": 1681789547143,

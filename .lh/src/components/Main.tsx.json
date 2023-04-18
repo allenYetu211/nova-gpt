@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 20,
+            "activePatchIndex": 22,
             "patches": [
                 {
                     "date": 1681446129506,
@@ -88,6 +88,14 @@
                 {
                     "date": 1681460541050,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 12:08:23\n- * @LastEditTime: 2023-04-14 16:21:18\n+ * @LastEditTime: 2023-04-14 16:22:21\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/Main.tsx\n  */\n import {\n@@ -44,12 +44,12 @@\n   const { classes, theme } = useStyles();\n \n   return (\n     <div className={classes.mainContainer}>\n-\n       <div className={classes.message}>\n         <h3>修改内容  </h3>\n       </div>\n+\n       <ChatTextarea />\n     </div>\n   )\n \n"
+                },
+                {
+                    "date": 1681832273534,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 12:08:23\n- * @LastEditTime: 2023-04-14 16:22:21\n+ * @LastEditTime: 2023-04-18 23:37:53\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/Main.tsx\n  */\n import {\n@@ -44,13 +44,14 @@\n   const { classes, theme } = useStyles();\n \n   return (\n     <div className={classes.mainContainer}>\n+      \n       <div className={classes.message}>\n         <h3>修改内容  </h3>\n       </div>\n \n-      <ChatTextarea />\n+      {/* <ChatTextarea /> */}\n     </div>\n   )\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681832381149,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,9 +49,9 @@\n       <div className={classes.message}>\n         <h3>修改内容  </h3>\n       </div>\n \n-      {/* <ChatTextarea /> */}\n+      <ChatTextarea />\n     </div>\n   )\n \n }\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1681446129506,

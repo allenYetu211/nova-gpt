@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 75,
+            "activePatchIndex": 76,
             "patches": [
                 {
                     "date": 1681455829653,
@@ -308,6 +308,10 @@
                 {
                     "date": 1681808856590,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,13 +16,13 @@\n   createStyles,\n   Box\n } from '@mantine/core';\n \n-import { \n+import {\n   IconPlus,\n   IconSettings\n- } from '@tabler/icons-react';\n- import { useEffect, useState } from 'react';\n+} from '@tabler/icons-react';\n+import { useEffect, useState } from 'react';\n import { useChatStore, ChatState } from '@/stores/ChatStore';\n import { newChat } from '@/stores/ChatAction';\n import { UtilsContainer } from '@/components/UtilsContainer';\n // import * as dayjs from 'dayjs'\n"
+                },
+                {
+                    "date": 1681831547700,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 15:01:08\n- * @LastEditTime: 2023-04-18 19:24:13\n+ * @LastEditTime: 2023-04-18 23:25:47\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/Nav.tsx\n  */\n import {\n@@ -54,9 +54,8 @@\n   },\n }));\n \n \n-\n export function Nav() {\n   const [chats, setChats] = useState<ChatState['chats']>([]);\n   const { classes, cx } = useStyles();\n   const chatsStore = useChatStore((state) => state.chats)\n@@ -66,9 +65,8 @@\n     setChats(useChatStore.getState().chats)\n   }, [chatsStore])\n \n \n-\n   const chatsList = chats.map((item, index) => (\n     <Box\n       key={index}\n       className={cx(\n@@ -78,22 +76,12 @@\n         }\n       )}\n       onClick={() => changeActiveChatId(item.id)}\n     >\n-\n       <ChatSessionInput\n         title={item.title}\n         id={item.id}\n       />\n-      {/* <Group position=\"apart\">\n-        <Text>{item.title}</Text>\n-        <ActionIcon>\n-          <IconEdit size=\"1.125rem\" />\n-        </ActionIcon>\n-      </Group> */}\n-      {/* <Text size=\"xs\" color={theme.colorScheme === 'dark' ? theme.colors.dark[2] : theme.colors.gray[0]}>\n-        {dayjs(item.createdAt).format('MM-DD/HH:mm:ss')}\n-      </Text> */}\n     </Box>\n   ))\n \n   chatsList.reverse()\n"
                 }
             ],
             "date": 1681455829653,

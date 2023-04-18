@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 11:28:09
- * @LastEditTime: 2023-04-18 15:26:29
+ * @LastEditTime: 2023-04-18 23:48:13
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/stores/ChatStore.ts
  */
@@ -10,7 +10,9 @@ import { create } from "zustand";
 import { persist, devtools } from "zustand/middleware";
 
 export const excludeKeys = [
-  ''];
+  'textareaMessage',
+  'isRecording',
+];
 
 export interface Chat {
   id: string,
