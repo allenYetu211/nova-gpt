@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-04-18 15:09:47
+ * @LastEditTime: 2023-04-19 10:52:53
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatTextarea.tsx
  */
@@ -25,6 +25,7 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { InstallExtension } from '@/models/InstallExtension';
 import { useChatStore } from "@/stores/ChatStore";
+import { submitMessage } from '@/stores/SubmitAction'
 import { update } from '@/stores/ChatAction';
 
 
@@ -59,9 +60,11 @@ export function ChatTextarea() {
   const { classes } = useStyles();
   const tcr = useRef<InstallExtension>()
 
-  const {textareaMessage, isRecording, selectValue, selectData} = useChatStore((state) => ({
-    ...state
-  }));
+  const textareaMessage = useChatStore((state) => state.textareaMessage)
+  const isRecording = useChatStore((state) => state.isRecording)
+  const selectValue = useChatStore((state) => state.selectValue)
+  const selectData = useChatStore((state) => state.selectData)
+
 
   useEffect(() => {
     if (!tcr.current) {
@@ -95,6 +98,10 @@ export function ChatTextarea() {
     update({ textareaMessage: e.target.value })
   }
 
+  const sendMessageGPT = () => {
+
+  }
+
   return (
     <div>
       <Flex
@@ -124,11 +131,18 @@ export function ChatTextarea() {
           className={classes.textarea}
           placeholder="Your question"
           value={textareaMessage}
-          onChange={onChangeTextarea}
           withAsterisk
+          onChange={onChangeTextarea}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              e.stopPropagation();
+              submitMessage()
+            }
+          }}
         />
         <div className={classes.iconContainer}>
-          <ActionIcon color="cyan" size="lg">
+          <ActionIcon color="cyan" size="lg" onClick={submitMessage}>
             <IconSend size="1.625rem" />
           </ActionIcon>
         </div>

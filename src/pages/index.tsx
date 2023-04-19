@@ -11,6 +11,7 @@ import {Main} from '@/components/Main'
 import '@/extensions'
 
 
+
 export default function Home() {
   return (<Main />)
 }

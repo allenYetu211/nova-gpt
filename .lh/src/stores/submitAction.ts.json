@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/stores/submitAction.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1681872641811,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681872849367,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-19 10:23:55\n- * @LastEditTime: 2023-04-19 10:50:40\n+ * @LastEditTime: 2023-04-19 10:54:09\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/stores/submitAction.ts\n  */\n import { useChatStore, ChatState, Message, Chat } from \"./ChatStore\";\n@@ -36,8 +36,9 @@\n   if (chat) {\n     set((state) => {\n       return {\n         ...state,\n+        textareaMessage: '',\n         chats: state.chats.map((chat) => {\n           if (chat.id === activeChatId) {\n             return {\n               ...chat,\n"
+                },
+                {
+                    "date": 1681872883460,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,11 +20,11 @@\n   const chat = findChat(activeChatId)\n \n   const newMessage: Message = {\n     message: textareaMessage,\n+    role: 'user',\n     id: uuidv4(),\n-    createdAt: new Date(),\n-    role: 'user'\n+    createdAt: new Date()\n   }\n \n   chat?.message.push(newMessage)\n \n"
+                },
+                {
+                    "date": 1681872904306,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,7 +50,5 @@\n       }\n     })\n   }\n \n-  console.log('submit', submit)\n-\n }\n"
+                }
+            ],
+            "date": 1681872641811,
+            "name": "Commit-0",
+            "content": "/*\n * @Author: Allen OYang\n * @Email:  allenwill211@gmail.com\n * @Date: 2023-04-19 10:23:55\n * @LastEditTime: 2023-04-19 10:50:40\n * @LastEditors: Allen OYang allenwill211@gmail.com\n * @FilePath: /speak-gpt/src/stores/submitAction.ts\n */\nimport { useChatStore, ChatState, Message, Chat } from \"./ChatStore\";\nimport { findChat } from \"./ChatAction\";\nimport { v4 as uuidv4 } from \"uuid\";\n\nconst get = useChatStore.getState;\nconst set = useChatStore.setState;\n\n\nexport const submitMessage = () => {\n  const activeChatId = get().activeChatId;\n  const textareaMessage = get().textareaMessage;\n  const chat = findChat(activeChatId)\n\n  const newMessage: Message = {\n    message: textareaMessage,\n    id: uuidv4(),\n    createdAt: new Date(),\n    role: 'user'\n  }\n\n  chat?.message.push(newMessage)\n\n  /**\n   * 提交最后 4 条内容\n   */\n  const submit = chat?.message.slice(-4)\n\n  if (chat) {\n    set((state) => {\n      return {\n        ...state,\n        chats: state.chats.map((chat) => {\n          if (chat.id === activeChatId) {\n            return {\n              ...chat,\n              message: chat.message\n            }\n          }\n          return chat\n        })\n      }\n    })\n  }\n\n  console.log('submit', submit)\n\n}\n"
+        }
+    ]
+}

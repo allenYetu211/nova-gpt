@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/Fetch/OpenAI.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1681873767307,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681877139045,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,10 +14,9 @@\n     console.error(e);\n   }\n }\n \n-\n-const fetchModels = async (key: string) => {\n+export const fetchModels = async (key: string) => {\n   try {\n     const res = await fetchOpenAIData('https://api.openai.com/v1/chat/completions', key)\n     return res;\n   } catch(e) {\n"
+                },
+                {
+                    "date": 1681878606393,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n }\n \n export const fetchModels = async (key: string) => {\n   try {\n-    const res = await fetchOpenAIData('https://api.openai.com/v1/chat/completions', key)\n+    const res = await fetchOpenAIData('https://api.openai.com/v1/models', key)\n     return res;\n   } catch(e) {\n     console.warn(e);\n     return []\n"
+                }
+            ],
+            "date": 1681873767307,
+            "name": "Commit-0",
+            "content": "import axios from 'axios';\n\n\nconst fetchOpenAIData = async (url: string, key: string) => {\n\n  try {\n    const { data } = await axios.get(url, {\n      headers: {\n        'Authorization': `Bearer ${key}`\n      }\n    })\n    return data;\n  } catch (e) {\n    console.error(e);\n  }\n}\n\n\nconst fetchModels = async (key: string) => {\n  try {\n    const res = await fetchOpenAIData('https://api.openai.com/v1/chat/completions', key)\n    return res;\n  } catch(e) {\n    console.warn(e);\n    return []\n  }\n}"
+        }
+    ]
+}

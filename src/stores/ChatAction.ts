@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 12:36:37
- * @LastEditTime: 2023-04-19 00:19:59
+ * @LastEditTime: 2023-04-19 09:35:28
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/stores/ChatAction.ts
  */

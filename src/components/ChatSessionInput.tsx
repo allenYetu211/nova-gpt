@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 17:34:12
- * @LastEditTime: 2023-04-19 00:42:31
+ * @LastEditTime: 2023-04-19 10:00:30
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatSessionInput.tsx
  */
@@ -20,7 +20,7 @@ import {
   IconEdit,
   IconTrash
 } from "@tabler/icons-react";
-import { useState, useRef, memo } from "react";
+import { useState, useRef, memo, useMemo, useCallback } from "react";
 import { findChat, deleteChat, changeChat } from '@/stores/ChatAction'
 
 
@@ -33,12 +33,9 @@ interface ChatSessionInputProps {
 
 export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
   const [editState, setEditState] = useState<boolean>(false)
-  const chat = findChat(props.id)
   const inputEl = useRef<HTMLInputElement>(null)
 
-  const onEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
-    changeChat(props.id, { title: e.target.value })
-  }
+
 
   const onEditClick = () => {
     setEditState(true)
@@ -47,11 +44,14 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
     }, 0)
   }
 
-  const onEditBlur = () => {
+  const onEditBlur = useCallback(() => {
+    changeChat(props.id, { title: inputEl.current?.value })
     setEditState(false)
+  }, [props.id])
+
+  const onDeleteClick = () => {
+    deleteChat(props.id)
   }
-
-
   return (
     <>
       <Flex
@@ -66,9 +66,13 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
           editState ?
             <Input
               ref={inputEl}
-              onChange={onEdit}
-              value={chat?.title || ''}
+              defaultValue={props.title}
               onBlur={onEditBlur}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  onEditBlur()
+                }
+              }}
               size="xs"
               sx={() => ({
                 border: 'none',
@@ -80,13 +84,13 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
             <Tooltip
               position="top-start"
               withArrow
-              label={chat?.title}
+              label={props.title}
             >
               <Text
                 sx={() => ({ flex: 1 })}
                 truncate
                 size="xs"
-              >{chat?.title || ''}</Text>
+              >{props.title || ''}</Text>
             </Tooltip>
         }
 
@@ -96,11 +100,9 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
           </ActionIcon>
 
           <ActionIcon size="xs" radius="md" variant="default">
-            <IconTrash onClick={onEditClick} size="0.75rem" />
+            <IconTrash onClick={onDeleteClick} size="0.75rem" />
           </ActionIcon>
         </Group>
-
-
 
       </Flex>
     </>

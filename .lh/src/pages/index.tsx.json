@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 6,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1681445913698,
@@ -32,6 +32,10 @@
                 {
                     "date": 1681716225775,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,15 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 11:27:09\n- * @LastEditTime: 2023-04-14 12:23:17\n+ * @LastEditTime: 2023-04-17 15:23:42\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/pages/index.tsx\n  */\n \n import {Main} from '@/components/Main'\n+import '@/extensions'\n \n \n export default function Home() {\n   return (<Main />)\n"
+                },
+                {
+                    "date": 1681868407198,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,7 +10,8 @@\n import {Main} from '@/components/Main'\n import '@/extensions'\n \n \n+\n export default function Home() {\n   return (<Main />)\n }\n"
                 }
             ],
             "date": 1681445913698,
