@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 12:36:37
- * @LastEditTime: 2023-04-19 09:35:28
+ * @LastEditTime: 2023-04-20 00:05:04
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/stores/ChatAction.ts
  */
@@ -15,6 +15,18 @@ const set = useChatStore.setState;
 
 
 export const update = (newState: Partial<ChatState>) => set(() => newState);
+
+export const updateOpenAIConfig = (newState: Partial<ChatState['openAIConfig']>) => {
+  const openAIConfig = get().openAIConfig
+
+  set((state) => ({
+    ...state,
+    openAIConfig: {
+      ...openAIConfig,
+      ...newState
+    }
+  }))
+}
 
 
 export const newChat = () => {
@@ -33,6 +45,12 @@ export const newChat = () => {
   }))
 }
 
+export const getChatGPTConfig = () => {
+  const {
+
+  } = get();
+  return {}
+}
 
 export const changeActiveChatId = (id: string) => {
   set(() => ({

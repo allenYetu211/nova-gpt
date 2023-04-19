@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 16:50:34
- * @LastEditTime: 2023-04-19 17:01:35
+ * @LastEditTime: 2023-04-20 00:18:18
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/UtilsContainer.tsx
  */
@@ -19,17 +19,19 @@ import {
   Slider,
   NumberInput,
 } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { useChatStore } from '@/stores/ChatStore';
-import { update } from '@/stores/ChatAction';
-import { UIFormTextInput } from '@/components/UIFormTextInput';
-// import { fetchModels } from '@/Fetch/OpenAI'
-
 import {
   IconSettings
 } from '@tabler/icons-react';
-
 import { useRef } from 'react';
+
+import { useDisclosure } from '@mantine/hooks';
+import { useChatStore } from '@/stores/ChatStore';
+import { update, updateOpenAIConfig } from '@/stores/ChatAction';
+import { UIFormTextInput } from '@/components/UIFormTextInput';
+import { keepDecimal } from '@/utils'
+
+
+
 
 
 const useStyles = createStyles((theme) => ({
@@ -42,7 +44,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const UtilsContainer = () => {
-  const selectEl = useRef<HTMLSelectElement>(null);
+  const selectEl = useRef<HTMLInputElement>(null);
   const inputEl = useRef<HTMLInputElement>(null);
   const { classes, theme } = useStyles();
 
@@ -53,17 +55,20 @@ export const UtilsContainer = () => {
   const setOpenAIKey = (newState: string) => { update({ openAIKey: newState }) };
 
   const openAIModels = useChatStore((state) => state.openAIModels);
-  const setOpenAITargetModels = (newState: string) => { update({ openAITargetModels: newState }) };
 
-  const openAI_temperature = useChatStore((state) => state.openAI_temperature);
-  const setOpenAI_temperature = (newState: number) => { update({ openAI_temperature: Math.round(newState * 10) / 10 }) };
+  const openAITargetModels = useChatStore((state) => state.openAIConfig.model);
+  const setOpenAITargetModels = (newState: string) => { updateOpenAIConfig({ model: newState }) };
 
-  const openAI_max_tokens = useChatStore((state) => state.openAI_max_tokens);
-  const setOpenAI_max_tokens = (newState: number) => { update({ openAI_max_tokens: Math.round(newState * 10) / 10 }) };
+  const temperature = useChatStore((state) => state.openAIConfig.temperature);
+  const setTemperature = (newState: number) => { updateOpenAIConfig({ temperature: keepDecimal(newState, 1) }) };
 
-  const openAI_presence_penaltyn = useChatStore((state) => state.openAI_presence_penaltyn);
-  const setOpenAI_presence_penaltyn = (newState: number) => { update({ openAI_presence_penaltyn: Math.round(newState * 10) / 10 }) };
+  const max_tokens = useChatStore((state) => state.openAIConfig.max_tokens);
+  const setMax_tokens = (newState: string) => {
+    updateOpenAIConfig({ max_tokens: Number(newState) })
+  };
 
+  const presence_penalty = useChatStore((state) => state.openAIConfig.presence_penalty);
+  const setPresence_penalty = (newState: number) => { updateOpenAIConfig({ presence_penalty: keepDecimal(newState, 1) }) };
 
   return (
 
@@ -94,8 +99,9 @@ export const UtilsContainer = () => {
                 ref={inputEl}
                 size="xs"
                 sx={{ width: '100%' }}
+                onChange={(e) => setOpenAIKey(e.target.value)}
                 placeholder='sk-xxxxxxx-xxxxx-xxx-xxxxx'
-                defaultValue={openAIKey || ''}
+                value={openAIKey || ''}
               />
             </UIFormTextInput>
 
@@ -106,7 +112,10 @@ export const UtilsContainer = () => {
                 size="xs"
                 searchable
                 sx={{ width: '100%' }}
-                defaultValue={openAIModels[0]}
+                onSearchChange={() => {
+                  setOpenAITargetModels(selectEl.current?.value || '')
+                }}
+                defaultValue={openAITargetModels}
                 nothingFound="No options"
                 data={openAIModels}
               />
@@ -119,13 +128,13 @@ export const UtilsContainer = () => {
                 size="xs"
                 sx={{ width: '100%' }}
                 onBlur={(e: any) => {
-                  setOpenAI_max_tokens(e.target.value)
+                  setMax_tokens(e.target.value)
                 }}
-                defaultValue={openAI_max_tokens}
+                defaultValue={max_tokens}
               />
             </UIFormTextInput>
 
-          
+
             <UIFormTextInput label="OpenAI Temperature">
               <Slider
                 size="xs"
@@ -134,17 +143,17 @@ export const UtilsContainer = () => {
                 max={2}
                 label={(value) => value.toFixed(1)}
                 step={0.1}
-                defaultValue={openAI_temperature}
+                defaultValue={temperature}
                 showLabelOnHover={false}
                 labelAlwaysOn={false}
-                onChangeEnd={setOpenAI_temperature}
+                onChangeEnd={setTemperature}
                 sx={{ width: '100px' }}
               />
-              <Text size='xs' sx={{ paddingLeft: theme.spacing.lg, width: '50px' }}>{openAI_temperature}</Text>
+              <Text size='xs' sx={{ paddingLeft: theme.spacing.lg, width: '50px' }}>{temperature}</Text>
 
             </UIFormTextInput>
 
-            <UIFormTextInput label="OpenAI Presence Penaltyn">
+            <UIFormTextInput label="OpenAI Presence Penalty">
               <Slider
                 size="xs"
                 radius="xs"
@@ -152,13 +161,15 @@ export const UtilsContainer = () => {
                 max={2}
                 label={(value) => value.toFixed(1)}
                 step={0.1}
-                onChangeEnd={setOpenAI_presence_penaltyn}
-                defaultValue={openAI_presence_penaltyn}
+                onChangeEnd={(value) => {
+                  setPresence_penalty(value)
+                }}
+                defaultValue={presence_penalty}
                 showLabelOnHover={false}
                 labelAlwaysOn={false}
                 sx={{ width: '100px' }}
               />
-              <Text size='xs' sx={{ paddingLeft: theme.spacing.lg, width: '50px' }}>{openAI_presence_penaltyn}</Text>
+              <Text size='xs' sx={{ paddingLeft: theme.spacing.lg, width: '50px' }}>{presence_penalty}</Text>
 
             </UIFormTextInput>
           </Box>

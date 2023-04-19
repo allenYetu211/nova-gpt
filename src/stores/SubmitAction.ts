@@ -2,12 +2,13 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-04-19 10:54:09
+ * @LastEditTime: 2023-04-19 18:13:07
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/stores/submitAction.ts
  */
 import { useChatStore, ChatState, Message, Chat } from "./ChatStore";
 import { findChat } from "./ChatAction";
+import { streamCompletion } from '@/fetch/openAI'
 import { v4 as uuidv4 } from "uuid";
 
 const get = useChatStore.getState;
@@ -20,7 +21,7 @@ export const submitMessage = () => {
   const chat = findChat(activeChatId)
 
   const newMessage: Message = {
-    message: textareaMessage,
+    content: textareaMessage,
     role: 'user',
     id: uuidv4(),
     createdAt: new Date()
@@ -31,7 +32,7 @@ export const submitMessage = () => {
   /**
    * 提交最后 4 条内容
    */
-  const submit = chat?.message.slice(-4)
+  const submitMessage = chat?.message.slice(get().openAIHistory * -1)
 
   if (chat) {
     set((state) => {
@@ -51,4 +52,33 @@ export const submitMessage = () => {
     })
   }
 
+  const GPTConfig = get().openAIConfig;
+
+  const openAIKey = get().openAIKey;
+  if (openAIKey === undefined) {
+    console.error("API key not set");
+    return;
+  }
+
+  const abortController = new AbortController();
+
+
+
+  streamCompletion(
+    submitMessage || [],
+    GPTConfig,
+    openAIKey,
+    abortController,
+    callback,
+    endCallback
+  )
+}
+
+
+const callback = (content: any) => {
+  console.log('content', content)
+}
+
+const endCallback = (endChat: any) => {
+  endChat
 }

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 11:28:09
- * @LastEditTime: 2023-04-19 16:05:42
+ * @LastEditTime: 2023-04-20 00:11:28
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/stores/ChatStore.ts
  */
@@ -14,8 +14,36 @@ export const excludeKeys = [
   'isRecording',
 ];
 
+interface SettingsForm {
+  // GPT
+  model: string;
+  temperature: number;
+  top_p: number;
+  n: number;
+  stop: string;
+  max_tokens: number;
+  presence_penalty: number;
+  frequency_penalty: number;
+  logit_bias: string;
+  auto_title: boolean;
+}
+
+export const defaultSettings = {
+  model: "gpt-3.5-turbo",
+  temperature: 1,
+  top_p: 1,
+  n: 1,
+  stop: "",
+  max_tokens: 2000,
+  presence_penalty: 0,
+  frequency_penalty: 0,
+  logit_bias: "",
+  auto_title: true,
+};
+
+
 export interface Message {
-  message: string
+  content: string
   id: string
   createdAt: Date,
   role: 'user' | 'system' | 'assistant'
@@ -34,11 +62,8 @@ export interface ChatState {
    */
   openAIKey: string
   openAIModels: string[]
-  openAITargetModels: string
   openAIHistory: number
-  openAI_temperature: number
-  openAI_max_tokens: number
-  openAI_presence_penaltyn: number
+  openAIConfig: SettingsForm;
   /**
    * Chat Components Messages
    */
@@ -55,13 +80,9 @@ export interface ChatState {
 
 export const initialState = {
   openAIKey: process.env.NEXT_PUBLIC_OPEN_AI_KEY || '',
-  openAIModels: ['gpt-3.5-turbo-0301', 'gpt-3.5-turbo', 'gpt-4-32k-0314', 'gpt-4-32k', 'gpt-4-0314', 'gpt-4'],
-  openAITargetModels: 'gpt-3.5-turbo-0301',
+  openAIModels: [ 'gpt-3.5-turbo', 'gpt-3.5-turbo-0301', 'gpt-4-32k-0314', 'gpt-4-32k', 'gpt-4-0314', 'gpt-4'],
   openAIHistory: 4,
-  openAI_temperature: 2,
-  openAI_max_tokens: 2000,
-  openAI_presence_penaltyn: 1,
-
+  openAIConfig: defaultSettings,
 
   chats: [],
   activeChatId: '',

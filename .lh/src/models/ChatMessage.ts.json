@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/models/ChatMessage.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1681897804693,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1681897804693,
+            "name": "Commit-0",
+            "content": "import encoder from \"@nem035/gpt-3-encoder\";\n\nexport const countTokens = (text: string) => encoder.encode(text).length;\n\nexport interface Message {\n  id: string;\n  content: string;\n  role: \"user\" | \"assistant\" | \"system\";\n  loading?: boolean;\n}\n\nfunction estimateTokens(content: string): number {\n  const words = content.trim().split(/\\s+/).length;\n  return Math.ceil(words * (100 / 75));\n}\n\n// Truncate messages\nexport function truncateMessages(\n  messages: Message[],\n  modelMaxTokens: number,\n  userMaxTokens: number\n): Message[] {\n  if (messages.length <= 1) return messages;\n\n  if (!userMaxTokens) {\n    userMaxTokens = 1024;\n  }\n  const targetTokens = modelMaxTokens - userMaxTokens;\n\n  let accumulatedTokens = 0;\n  const ret = [];\n  let startIdx = 0;\n\n  if (messages[0].role === \"system\") {\n    accumulatedTokens = estimateTokens(messages[0].content);\n    ret.push(messages[0]);\n    startIdx = 1;\n  }\n\n  // Try to truncate messages as is\n  for (let i = messages.length - 1; i >= startIdx; i--) {\n    const message = messages[i];\n    const tokens = estimateTokens(message.content);\n    if (accumulatedTokens + tokens > targetTokens) {\n      break;\n    }\n    accumulatedTokens += tokens;\n    // Insert at position 1\n    ret.splice(1, 0, message);\n  }\n  return ret;\n}\n"
+        }
+    ]
+}

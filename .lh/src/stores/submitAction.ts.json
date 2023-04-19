@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1681872641811,
@@ -20,6 +20,22 @@
                 {
                     "date": 1681872904306,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,7 +50,5 @@\n       }\n     })\n   }\n \n-  console.log('submit', submit)\n-\n }\n"
+                },
+                {
+                    "date": 1681898699757,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,9 @@\n  * @FilePath: /speak-gpt/src/stores/submitAction.ts\n  */\n import { useChatStore, ChatState, Message, Chat } from \"./ChatStore\";\n import { findChat } from \"./ChatAction\";\n+import { streamCompletion } from '@/fetch/openAI'\n import { v4 as uuidv4 } from \"uuid\";\n \n const get = useChatStore.getState;\n const set = useChatStore.setState;\n@@ -19,9 +20,9 @@\n   const textareaMessage = get().textareaMessage;\n   const chat = findChat(activeChatId)\n \n   const newMessage: Message = {\n-    message: textareaMessage,\n+    content: textareaMessage,\n     role: 'user',\n     id: uuidv4(),\n     createdAt: new Date()\n   }\n@@ -30,9 +31,9 @@\n \n   /**\n    * 提交最后 4 条内容\n    */\n-  const submit = chat?.message.slice(-4)\n+  const submit = chat?.message.slice(get().openAIHistory * -1)\n \n   if (chat) {\n     set((state) => {\n       return {\n@@ -50,5 +51,22 @@\n       }\n     })\n   }\n \n+  const GPTConfig = {\n+    model: get().openAIModels,\n+    temperature: get().temperature,\n+    top_p: number;\n+    n: number;\n+    stop: string;\n+    max_tokens: number;\n+    presence_penalty: number;\n+    frequency_penalty: number;\n+    logit_bias: string;\n+    auto_title: boolean;\n+  }\n+\n+  streamCompletion()\n+\n+\n+\n }\n"
+                },
+                {
+                    "date": 1681899189684,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-19 10:23:55\n- * @LastEditTime: 2023-04-19 10:54:09\n+ * @LastEditTime: 2023-04-19 18:13:07\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/stores/submitAction.ts\n  */\n import { useChatStore, ChatState, Message, Chat } from \"./ChatStore\";\n@@ -31,9 +31,9 @@\n \n   /**\n    * 提交最后 4 条内容\n    */\n-  const submit = chat?.message.slice(get().openAIHistory * -1)\n+  const submitMessage: Message[] = chat?.message.slice(get().openAIHistory * -1)\n \n   if (chat) {\n     set((state) => {\n       return {\n@@ -51,22 +51,34 @@\n       }\n     })\n   }\n \n-  const GPTConfig = {\n-    model: get().openAIModels,\n-    temperature: get().temperature,\n-    top_p: number;\n-    n: number;\n-    stop: string;\n-    max_tokens: number;\n-    presence_penalty: number;\n-    frequency_penalty: number;\n-    logit_bias: string;\n-    auto_title: boolean;\n+  const GPTConfig = get().openAIConfig;\n+\n+  const openAIKey = get().openAIKey;\n+  if (openAIKey === undefined) {\n+    console.error(\"API key not set\");\n+    return;\n   }\n \n-  streamCompletion()\n+  const abortController = new AbortController();\n \n \n \n+  streamCompletion(\n+    submitMessage,\n+    GPTConfig,\n+    openAIKey,\n+    abortController,\n+    callback,\n+    endCallback\n+  )\n }\n+\n+\n+const callback = (content: any) => {\n+  console.log('content', content)\n+}\n+\n+const endCallback = (endChat: any) => {\n+  endChat\n+}\n"
+                },
+                {
+                    "date": 1681899199468,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,9 +31,9 @@\n \n   /**\n    * 提交最后 4 条内容\n    */\n-  const submitMessage: Message[] = chat?.message.slice(get().openAIHistory * -1)\n+  const submitMessage = chat?.message.slice(get().openAIHistory * -1)\n \n   if (chat) {\n     set((state) => {\n       return {\n"
+                },
+                {
+                    "date": 1681899208757,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,9 @@\n \n \n \n   streamCompletion(\n-    submitMessage,\n+    submitMessage || [],\n     GPTConfig,\n     openAIKey,\n     abortController,\n     callback,\n"
                 }
             ],
             "date": 1681872641811,

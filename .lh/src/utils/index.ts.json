@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/utils/index.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1681920147730,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1681920147730,
+            "name": "Commit-0",
+            "content": "export function keepDecimal(num: number, decimal: number) {\n  return Math.round(num * Math.pow(10, decimal)) / Math.pow(10, decimal);\n}\n"
+        }
+    ]
+}

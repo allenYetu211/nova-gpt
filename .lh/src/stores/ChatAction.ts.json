@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 12,
+            "activePatchIndex": 15,
             "patches": [
                 {
                     "date": 1681793250684,
@@ -56,6 +56,18 @@
                 {
                     "date": 1681868128331,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-18 12:36:37\n- * @LastEditTime: 2023-04-19 09:35:05\n+ * @LastEditTime: 2023-04-19 09:35:28\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/stores/ChatAction.ts\n  */\n import { useChatStore, ChatState, Chat } from \"./ChatStore\";\n@@ -58,39 +58,22 @@\n }\n \n \n export const changeChat = (id: string, newState: Partial<Chat>) => {\n-  useChatStore.setState((state) => {\n-    const chat = state.chats.find((chat) => chat.id === id);\n-    if (chat) {\n+  const chat = findChat(id)\n+  if (chat) {\n+    set((state) => {\n+      const chats = state.chats.map((chat) => {\n+        if (chat.id === id) {\n+          return {\n+            ...chat,\n+            ...newState\n+          }\n+        }\n+        return chat\n+      })\n       return {\n-        ...state,\n-        chats: state.chats.map((chat) => {\n-          if (chat.id === id) {\n-            return { ...chat, ...newState };\n-          } else {\n-            return chat;\n-          }\n-        }),\n-      };\n-    } else {\n-      return state;\n-    }\n-  });\n-  // const chat = findChat(id)\n-  // if (chat) {\n-  //   set((state) => {\n-  //     const chats = state.chats.map((chat) => {\n-  //       if (chat.id === id) {\n-  //         return {\n-  //           ...chat,\n-  //           ...newState\n-  //         }\n-  //       }\n-  //       return chat\n-  //     })\n-  //     return {\n-  //       chats\n-  //     }\n-  //   })\n-  // }\n+        chats\n+      }\n+    })\n+  }\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681896949637,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,8 +32,14 @@\n     ]\n   }))\n }\n \n+export const getChatGPTConfig = () => {\n+  const {\n+    \n+   } = get();\n+  return {}\n+}\n \n export const changeActiveChatId = (id: string) => {\n   set(() => ({\n     activeChatId: id\n"
+                },
+                {
+                    "date": 1681898699350,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,16 @@\n \n \n export const update = (newState: Partial<ChatState>) => set(() => newState);\n \n+export const updateOpenAIConfig = (newState: Partial<ChatState['openAIConfig']>) => {\n+  set((state) => ({\n+    ...state,\n+    ...newState\n+  }))\n+}\n \n+\n export const newChat = () => {\n   const id = uuidv4()\n   set((state) => ({\n     activeChatId: id,\n@@ -34,10 +41,10 @@\n }\n \n export const getChatGPTConfig = () => {\n   const {\n-    \n-   } = get();\n+\n+  } = get();\n   return {}\n }\n \n export const changeActiveChatId = (id: string) => {\n"
+                },
+                {
+                    "date": 1681920304185,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-18 12:36:37\n- * @LastEditTime: 2023-04-19 09:35:28\n+ * @LastEditTime: 2023-04-20 00:05:04\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/stores/ChatAction.ts\n  */\n import { useChatStore, ChatState, Chat } from \"./ChatStore\";\n@@ -16,11 +16,16 @@\n \n export const update = (newState: Partial<ChatState>) => set(() => newState);\n \n export const updateOpenAIConfig = (newState: Partial<ChatState['openAIConfig']>) => {\n+  const openAIConfig = get().openAIConfig\n+\n   set((state) => ({\n     ...state,\n-    ...newState\n+    openAIConfig: {\n+      ...openAIConfig,\n+      ...newState\n+    }\n   }))\n }\n \n \n"
                 }
             ],
             "date": 1681793250684,

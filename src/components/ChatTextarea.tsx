@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-04-19 10:52:53
+ * @LastEditTime: 2023-04-19 17:04:21
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatTextarea.tsx
  */
@@ -10,7 +10,7 @@
 import {
   Textarea,
   ActionIcon,
-  Button,
+  Box,
   createStyles,
   Select,
   Flex
@@ -126,7 +126,7 @@ export function ChatTextarea() {
         />
       </Flex>
 
-      <div className={classes.container}>
+      <Box className={classes.container}>
         <Textarea
           className={classes.textarea}
           placeholder="Your question"
@@ -141,12 +141,12 @@ export function ChatTextarea() {
             }
           }}
         />
-        <div className={classes.iconContainer}>
+        <Box className={classes.iconContainer}>
           <ActionIcon color="cyan" size="lg" onClick={submitMessage}>
             <IconSend size="1.625rem" />
           </ActionIcon>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </div>
   )
 }
