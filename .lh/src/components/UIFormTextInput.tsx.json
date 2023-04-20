@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 26,
+            "activePatchIndex": 27,
             "patches": [
                 {
                     "date": 1681875915780,
@@ -112,6 +112,10 @@
                 {
                     "date": 1681894718257,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,8 @@\n     >\n       <Text\n         sx={\n           (theme) => ({\n-\n             textAlign: 'left',\n             width: '40%',\n             paddingRight: theme.spacing.xs\n           })\n"
+                },
+                {
+                    "date": 1681973575798,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,69 +1,57 @@\n-import {\n-  Flex,\n-  Text,\n-  TextInput,\n-  ActionIcon,\n-  Box\n-} from \"@mantine/core\";\n+import { Flex, Text, TextInput, ActionIcon, Box } from '@mantine/core'\n import { IconRefresh } from '@tabler/icons-react'\n import type { FC, PropsWithChildren } from 'react'\n import type { TextInputProps } from '@mantine/core'\n \n interface UIFormTextInputProps extends TextInputProps {\n-  onChecked?: () => void;\n+  onChecked?: () => void\n }\n \n-export const UIFormTextInput: FC<PropsWithChildren<UIFormTextInputProps>> = (props) => {\n+export const UIFormTextInput: FC<PropsWithChildren<UIFormTextInputProps>> = (\n+  props,\n+) => {\n   const { label, onChecked, children } = props\n   return (\n-\n     <Flex\n-      justify='space-evenly'\n-      align='center'\n+      justify=\"space-evenly\"\n+      align=\"center\"\n       sx={(theme) => ({\n         paddingBottom: theme.spacing.xs,\n       })}\n     >\n       <Text\n-        sx={\n-          (theme) => ({\n-            textAlign: 'left',\n-            width: '40%',\n-            paddingRight: theme.spacing.xs\n-          })\n-        }\n-        size='sm'\n+        sx={(theme) => ({\n+          textAlign: 'left',\n+          width: '40%',\n+          paddingRight: theme.spacing.xs,\n+        })}\n+        size=\"sm\"\n       >\n         {label}\n       </Text>\n \n       <Flex\n-        justify='flex-end'\n-        align='center'\n-        sx={\n-          (theme) => ({\n-            flex: 1,\n-            display: 'flex',\n-\n-          })\n-        }>\n+        justify=\"flex-end\"\n+        align=\"center\"\n+        sx={(theme) => ({\n+          flex: 1,\n+          display: 'flex',\n+        })}\n+      >\n\\ No newline at end of file\n         {children}\n       </Flex>\n \n-      {\n-        onChecked && (\n-          <ActionIcon\n-            sx={(theme) => ({\n-              marginLeft: theme.spacing.xs\n-            })}\n-            size=\"xs\"\n-            onClick={onChecked}>\n-            <IconRefresh size=\"0.725rem\" />\n-          </ActionIcon>\n-        )\n-      }\n-\n-\n+      {onChecked && (\n+        <ActionIcon\n+          sx={(theme) => ({\n+            marginLeft: theme.spacing.xs,\n+          })}\n+          size=\"xs\"\n+          onClick={onChecked}\n+        >\n+          <IconRefresh size=\"0.725rem\" />\n+        </ActionIcon>\n+      )}\n     </Flex>\n-  );\n-};\n+  )\n+}\n"
                 }
             ],
             "date": 1681875915780,

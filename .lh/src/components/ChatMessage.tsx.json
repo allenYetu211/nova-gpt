@@ -1,0 +1,46 @@
+{
+    "sourceFile": "src/components/ChatMessage.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1681969776646,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681970066868,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,18 +1,16 @@\n import type { FC } from 'react';\n import type { Message } from '@/stores/ChatStore';\n-}\n \n interface ChatMessageProps {\n   message: Message;\n }\n \n export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {\n-\n   const { content, createdAt, role } = message;\n-\n   return (\n     <>\n+<div>21321</div>\n \n     </>\n   )\n };\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681970088402,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,9 @@\n interface ChatMessageProps {\n   message: Message;\n }\n \n+\n export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {\n   const { content, createdAt, role } = message;\n   return (\n     <>\n"
+                },
+                {
+                    "date": 1681970096759,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,21 @@\n+/*\n+ * @Author: Allen OYang\n+ * @Email:  allenwill211@gmail.com\n+ * @Date: 2023-04-20 13:35:02\n+ * @LastEditTime: 2023-04-20 13:54:27\n+ * @LastEditors: Allen OYang allenwill211@gmail.com\n+ * @FilePath: /speak-gpt/src/components/ChatMessage.tsx\n+ */\n import type { FC } from 'react';\n import type { Message } from '@/stores/ChatStore';\n \n interface ChatMessageProps {\n   message: Message;\n }\n \n \n+\n export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {\n   const { content, createdAt, role } = message;\n   return (\n     <>\n"
+                },
+                {
+                    "date": 1681970114917,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n  * @LastEditTime: 2023-04-20 13:54:27\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/ChatMessage.tsx\n  */\n-import type { FC } from 'react';\n+import  { FC } from 'react';\n import type { Message } from '@/stores/ChatStore';\n \n interface ChatMessageProps {\n   message: Message;\n"
+                },
+                {
+                    "date": 1681970124143,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,9 @@\n  */\n import  { FC } from 'react';\n import type { Message } from '@/stores/ChatStore';\n \n+\n interface ChatMessageProps {\n   message: Message;\n }\n \n"
+                },
+                {
+                    "date": 1681970178993,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,10 +5,10 @@\n  * @LastEditTime: 2023-04-20 13:55:27\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/ChatMessage.tsx\n  */\n-import { FC } from 'react'\n-import { Message } from '@/stores/ChatStore'\n+import type { FC } from 'react'\n+import type { Message } from '@/stores/ChatStore'\n \n interface ChatMessageProps {\n   message: Message\n }\n"
+                },
+                {
+                    "date": 1681970414832,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,18 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-20 13:35:02\n- * @LastEditTime: 2023-04-20 13:55:27\n+ * @LastEditTime: 2023-04-20 14:00:14\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/ChatMessage.tsx\n  */\n import type { FC } from 'react'\n import type { Message } from '@/stores/ChatStore'\n \n interface ChatMessageProps {\n   message: Message\n+  \n }\n \n export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {\n   const { content, createdAt, role } = message\n"
+                }
+            ],
+            "date": 1681969776645,
+            "name": "Commit-0",
+            "content": "import type { FC } from 'react';\nimport type { Message } from '@/stores/ChatStore';\n}\n\ninterface ChatMessageProps {\n  message: Message;\n}\n\nexport const ChatMessage: FC<ChatMessageProps> = ({ message }) => {\n\n  const { content, createdAt, role } = message;\n\n  return (\n    <>\n\n    </>\n  )\n};"
+        }
+    ]
+}

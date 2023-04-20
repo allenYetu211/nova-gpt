@@ -15,30 +15,31 @@ import {
   Navbar,
   createStyles,
   Box,
-  ActionIcon
-} from '@mantine/core';
+  ActionIcon,
+} from '@mantine/core'
 
-import {
-  IconPlus,
-  IconEdit
-} from '@tabler/icons-react';
-import { useEffect, useState } from 'react';
-import { useChatStore, ChatState } from '@/stores/ChatStore';
-import { newChat, changeActiveChatId } from '@/stores/ChatAction';
-import { UtilsContainer } from '@/components/UtilsContainer';
+import { IconPlus, IconEdit } from '@tabler/icons-react'
+import { useEffect, useState } from 'react'
+import { useChatStore, ChatState } from '@/stores/ChatStore'
+import { newChat, changeActiveChatId } from '@/stores/ChatAction'
+import { UtilsContainer } from '@/components/UtilsContainer'
 import { ChatSessionInput } from '@/components/ChatSessionInput'
-// import * as dayjs from 'dayjs'
 
 const useStyles = createStyles((theme) => ({
   chatItem: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    backgroundColor:
+      theme.colorScheme === 'dark'
+        ? theme.colors.dark[6]
+        : theme.colors.gray[0],
     width: '100%',
     padding: theme.spacing.xs,
     borderRadius: theme.radius.md,
     cursor: 'pointer',
     '&:hover': {
       backgroundColor:
-        theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
+        theme.colorScheme === 'dark'
+          ? theme.colors.dark[5]
+          : theme.colors.gray[1],
     },
   },
   chatItemActive: {
@@ -51,14 +52,12 @@ const useStyles = createStyles((theme) => ({
     flex: 1,
     width: '100%',
     overflow: 'auto',
-  }
-}));
-
-
+  },
+}))
 
 export function Nav() {
-  const [chats, setChats] = useState<ChatState['chats']>([]);
-  const { classes, cx } = useStyles();
+  const [chats, setChats] = useState<ChatState['chats']>([])
+  const { classes, cx } = useStyles()
   const chatsStore = useChatStore((state) => state.chats)
   const activeChatId = useChatStore((state) => state.activeChatId)
 
@@ -66,33 +65,28 @@ export function Nav() {
     setChats(useChatStore.getState().chats)
   }, [chatsStore])
 
-
   const chatsList = chats.map((item) => (
     <Box
       key={item.id}
-      className={cx(classes.chatItem,
-        {
-          [classes.chatItemActive]: activeChatId === item.id
-        }
-      )}
+      className={cx(classes.chatItem, {
+        [classes.chatItemActive]: activeChatId === item.id,
+      })}
       onClick={() => changeActiveChatId(item.id)}
     >
-      <ChatSessionInput
-        title={item.title}
-        id={item.id}
-      />
+      <ChatSessionInput title={item.title} id={item.id} />
     </Box>
   ))
 
   chatsList.reverse()
 
   return (
-    <Navbar width={{ base: 230 }} p='xs'>
+    <Navbar width={{ base: 230 }} p="xs">
       <Button
-        leftIcon={< IconPlus />}
+        leftIcon={<IconPlus />}
         variant="subtle"
         onClick={newChat}
-        uppercase >
+        uppercase
+      >
         New Chat Session
       </Button>
 
@@ -118,12 +112,8 @@ export function Nav() {
           {chatsList}
         </Flex>
 
-
         <UtilsContainer />
-
       </Flex>
-    </Navbar >
-  );
+    </Navbar>
+  )
 }
-
-

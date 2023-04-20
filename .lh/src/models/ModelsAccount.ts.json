@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1681897804693,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1681973639825,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,31 +1,31 @@\n export const modelInfos: Record<\n   string,\n   {\n-    displayName: string;\n-    maxTokens: number;\n-    costPer1kTokens: number;\n+    displayName: string\n+    maxTokens: number\n+    costPer1kTokens: number\n   }\n > = {\n-  \"gpt-3.5-turbo\": {\n-    displayName: \"ChatGPT-3.5\",\n+  'gpt-3.5-turbo': {\n+    displayName: 'ChatGPT-3.5',\n     maxTokens: 4096,\n     costPer1kTokens: 0.002,\n   },\n-  \"gpt-3.5-turbo-0301\": {\n-    displayName: \"ChatGPT-3.5 March 1\",\n+  'gpt-3.5-turbo-0301': {\n+    displayName: 'ChatGPT-3.5 March 1',\n     maxTokens: 4096,\n     costPer1kTokens: 0.002,\n   },\n-  \"gpt-4\": {\n-    displayName: \"GPT-4\",\n+  'gpt-4': {\n+    displayName: 'GPT-4',\n     maxTokens: 8192,\n     costPer1kTokens: 0.06,\n   },\n-};\n+}\n \n export const getModelInfo = (model: string) =>\n   modelInfos[model] || {\n     displayName: model,\n     maxTokens: 4096,\n     costPer1kTokens: 0.0,\n-  };\n+  }\n"
                 }
             ],
             "date": 1681897804693,

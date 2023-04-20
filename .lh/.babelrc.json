@@ -1,0 +1,18 @@
+{
+    "sourceFile": ".babelrc",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1681970389340,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1681970389340,
+            "name": "Commit-0",
+            "content": "{\n  \"presets\": [\n    [\n      \"@babel/preset-env\",\n      {\n        \"useBuiltIns\": \"usage\",\n        \"corejs\": \"3.8.0\"\n      }\n    ],\n    \"@babel/preset-react\"\n  ],\n  \"plugins\": [\n    \"@babel/transform-runtime\",\n    \"@babel/transform-typescript\",\n    \"@babel/syntax-typescript\"\n  ]\n}"
+        }
+    ]
+}

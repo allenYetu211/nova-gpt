@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 6,
             "patches": [
                 {
                     "date": 1681455895035,
@@ -28,6 +28,10 @@
                 {
                     "date": 1681803536983,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n \n   return (\n     <>\n       {\n-        chats.length ? (\n+        !chats.length ? (\n           <Button\n             leftIcon={<IconPlus />}\n             variant=\"subtle\" uppercase>\n             Create New Chat Session\n"
+                },
+                {
+                    "date": 1681970150120,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 15:03:15\n- * @LastEditTime: 2023-04-18 15:38:21\n+ * @LastEditTime: 2023-04-20 13:55:49\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/ChatSession.tsx\n  */\n \n@@ -11,8 +11,9 @@\n import { IconPlus } from '@tabler/icons-react';\n import { useChatStore } from '@/stores/ChatStore';\n \n \n+\n export function ChatSession() {\n \n   const { chats } = useChatStore((state) => {\n     return {\n"
                 }
             ],
             "date": 1681455895035,

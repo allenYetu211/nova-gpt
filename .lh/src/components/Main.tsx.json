@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 22,
+            "activePatchIndex": 23,
             "patches": [
                 {
                     "date": 1681446129506,
@@ -96,6 +96,10 @@
                 {
                     "date": 1681832381149,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,9 +49,9 @@\n       <div className={classes.message}>\n         <h3>修改内容  </h3>\n       </div>\n \n-      {/* <ChatTextarea /> */}\n+      <ChatTextarea />\n     </div>\n   )\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1681922569599,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 12:08:23\n- * @LastEditTime: 2023-04-18 23:37:53\n+ * @LastEditTime: 2023-04-20 00:42:49\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/Main.tsx\n  */\n import {\n@@ -15,8 +15,9 @@\n   Header\n } from '@mantine/core';\n \n import { ChatTextarea } from '@/components/ChatTextarea'\n+import { ChatContent } from '@/components/ChatContent'\n \n \n const useStyles = createStyles((theme: MantineTheme) => {\n   return {\n@@ -44,11 +45,11 @@\n   const { classes, theme } = useStyles();\n \n   return (\n     <div className={classes.mainContainer}>\n-      \n+\n       <div className={classes.message}>\n-        <h3>修改内容  </h3>\n+        <ChatContent />\n       </div>\n \n       <ChatTextarea />\n     </div>\n"
                 }
             ],
             "date": 1681446129506,

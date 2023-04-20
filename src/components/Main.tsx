@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 12:08:23
- * @LastEditTime: 2023-04-18 23:37:53
+ * @LastEditTime: 2023-04-20 00:42:49
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/Main.tsx
  */
@@ -16,6 +16,7 @@ import {
 } from '@mantine/core';
 
 import { ChatTextarea } from '@/components/ChatTextarea'
+import { ChatContent } from '@/components/ChatContent'
 
 
 const useStyles = createStyles((theme: MantineTheme) => {
@@ -45,9 +46,9 @@ export function Main() {
 
   return (
     <div className={classes.mainContainer}>
-      
+
       <div className={classes.message}>
-        <h3>修改内容  </h3>
+        <ChatContent />
       </div>
 
       <ChatTextarea />

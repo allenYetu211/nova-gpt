@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 120,
+            "activePatchIndex": 121,
             "patches": [
                 {
                     "date": 1681460220455,
@@ -488,6 +488,10 @@
                 {
                     "date": 1681793250859,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -73,9 +73,8 @@\n       setState({\n         selectData: tcr.current.extensions,\n         selectValue: tcr.current.extensions[0].value\n       })\n-      console.log('selectData', selectData, selectValue)\n       addListen()\n     }\n   }, [])\n \n"
+                },
+                {
+                    "date": 1681970169912,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-14 16:09:48\n- * @LastEditTime: 2023-04-19 17:04:21\n+ * @LastEditTime: 2023-04-20 13:56:09\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/components/ChatTextarea.tsx\n  */\n \n@@ -21,8 +21,9 @@\n   IconSend,\n   IconMicrophone2Off\n } from '@tabler/icons-react';\n \n+\n import { useEffect, useRef, useState } from 'react';\n import { InstallExtension } from '@/models/InstallExtension';\n import { useChatStore } from \"@/stores/ChatStore\";\n import { submitMessage } from '@/stores/SubmitAction'\n"
                 }
             ],
             "date": 1681460220455,

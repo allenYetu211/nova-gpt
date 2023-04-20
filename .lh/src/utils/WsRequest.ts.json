@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 14,
+            "activePatchIndex": 15,
             "patches": [
                 {
                     "date": 1681620849693,
@@ -64,6 +64,10 @@
                 {
                     "date": 1681635665601,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,8 +43,12 @@\n     this.ws!.removeEventListener('close', this.onClose.bind(this));\n     this.ws!.removeEventListener('error', this.onError.bind(this));\n   }\n \n+  public send(data: any) {\n+    this.ws!.send(data)\n+  }\n+\n   private onOpen(event: Event): void {\n     this.event.emit('open', event)\n   }\n \n"
+                },
+                {
+                    "date": 1681973749493,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,48 +1,48 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-16 12:52:14\n- * @LastEditTime: 2023-04-16 16:58:00\n+ * @LastEditTime: 2023-04-20 14:55:49\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n  * @FilePath: /speak-gpt/src/utils/WsRequest.ts\n  */\n-import EventEmitter from \"eventemitter3\";\n+import EventEmitter from 'eventemitter3'\n \n export class WSRequest {\n-  private url: string;\n-  private ws: WebSocket | null = null;\n-  private headers?: { [key: string]: string };\n-  public event: EventEmitter = new EventEmitter();\n+  private url: string\n+  private ws: WebSocket | null = null\n+  private headers?: { [key: string]: string }\n+  public event: EventEmitter = new EventEmitter()\n \n-  constructor (url: string, headers: { [key: string]: string } = {}) {\n-    this.url = url;\n-    this.headers = headers;\n+  constructor(url: string, headers: { [key: string]: string } = {}) {\n+    this.url = url\n+    this.headers = headers\n     console.log('this.event', this.event)\n   }\n \n   public connect(): void {\n     try {\n       console.log('this.url', this.url)\n-      this.ws = new WebSocket(this.url);\n+      this.ws = new WebSocket(this.url)\n       this.addEvent()\n     } catch (e) {\n-      console.log(`Error connecting to ${this.url}: ${e}`);\n+      console.log(`Error connecting to ${this.url}: ${e}`)\n     }\n   }\n \n   public addEvent() {\n-    this.ws!.addEventListener('open', this.onOpen.bind(this));\n-    this.ws!.addEventListener('message', this.onMessage.bind(this));\n-    this.ws!.addEventListener('close', this.onClose.bind(this));\n-    this.ws!.addEventListener('error', this.onError.bind(this));\n+    this.ws!.addEventListener('open', this.onOpen.bind(this))\n+    this.ws!.addEventListener('message', this.onMessage.bind(this))\n+    this.ws!.addEventListener('close', this.onClose.bind(this))\n+    this.ws!.addEventListener('error', this.onError.bind(this))\n   }\n \n   public removeEvent() {\n-    this.ws!.removeEventListener('open', this.onOpen.bind(this));\n-    this.ws!.removeEventListener('message', this.onMessage.bind(this));\n-    this.ws!.removeEventListener('close', this.onClose.bind(this));\n-    this.ws!.removeEventListener('error', this.onError.bind(this));\n+    this.ws!.removeEventListener('open', this.onOpen.bind(this))\n+    this.ws!.removeEventListener('message', this.onMessage.bind(this))\n+    this.ws!.removeEventListener('close', this.onClose.bind(this))\n+    this.ws!.removeEventListener('error', this.onError.bind(this))\n   }\n \n   public send(data: any) {\n     this.ws!.send(data)\n"
                 }
             ],
             "date": 1681620849693,

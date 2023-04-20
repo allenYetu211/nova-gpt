@@ -1,9 +1,9 @@
 {
-    "sourceFile": "src/stores/submitAction.ts",
+    "sourceFile": "src/stores/SubmitAction.ts",
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 8,
             "patches": [
                 {
                     "date": 1681872641811,
@@ -36,6 +36,10 @@
                 {
                     "date": 1681899208757,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,9 @@\n \n \n \n   streamCompletion(\n-    submitMessage,\n+    submitMessage || [],\n     GPTConfig,\n     openAIKey,\n     abortController,\n     callback,\n"
+                },
+                {
+                    "date": 1681973727886,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,31 +1,31 @@\n /*\n  * @Author: Allen OYang\n  * @Email:  allenwill211@gmail.com\n  * @Date: 2023-04-19 10:23:55\n- * @LastEditTime: 2023-04-19 18:13:07\n+ * @LastEditTime: 2023-04-20 14:55:27\n  * @LastEditors: Allen OYang allenwill211@gmail.com\n- * @FilePath: /speak-gpt/src/stores/submitAction.ts\n+ * @FilePath: /speak-gpt/src/stores/SubmitAction.ts\n  */\n-import { useChatStore, ChatState, Message, Chat } from \"./ChatStore\";\n-import { findChat } from \"./ChatAction\";\n+import { useChatStore, ChatState, Message, Chat } from './ChatStore'\n+import { findChat } from './ChatAction'\n import { streamCompletion } from '@/fetch/openAI'\n-import { v4 as uuidv4 } from \"uuid\";\n+import { v4 as uuidv4 } from 'uuid'\n \n-const get = useChatStore.getState;\n-const set = useChatStore.setState;\n+const get = useChatStore.getState\n+const set = useChatStore.setState\n \n-\n export const submitMessage = () => {\n-  const activeChatId = get().activeChatId;\n-  const textareaMessage = get().textareaMessage;\n+  const activeChatId = get().activeChatId\n+  const textareaMessage = get().textareaMessage\n+  if (!activeChatId) return\n   const chat = findChat(activeChatId)\n \n   const newMessage: Message = {\n     content: textareaMessage,\n     role: 'user',\n     id: uuidv4(),\n-    createdAt: new Date()\n+    createdAt: new Date(),\n   }\n \n   chat?.message.push(newMessage)\n \n@@ -42,40 +42,37 @@\n         chats: state.chats.map((chat) => {\n           if (chat.id === activeChatId) {\n             return {\n               ...chat,\n-              message: chat.message\n+              message: chat.message,\n             }\n           }\n           return chat\n-        })\n+        }),\n       }\n     })\n   }\n \n-  const GPTConfig = get().openAIConfig;\n+  const GPTConfig = get().openAIConfig\n \n-  const openAIKey = get().openAIKey;\n+  const openAIKey = get().openAIKey\n   if (openAIKey === undefined) {\n-    console.error(\"API key not set\");\n-    return;\n+    console.error('API key not set')\n+    return\n   }\n \n-  const abortController = new AbortController();\n+  const abortController = new AbortController()\n \n-\n-\n   streamCompletion(\n     submitMessage || [],\n     GPTConfig,\n     openAIKey,\n     abortController,\n     callback,\n-    endCallback\n+    endCallback,\n   )\n }\n \n-\n const callback = (content: any) => {\n   console.log('content', content)\n }\n \n"
                 }
             ],
             "date": 1681872641811,

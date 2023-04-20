@@ -2,22 +2,29 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-04-19 00:07:28
+ * @LastEditTime: 2023-04-20 14:54:06
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/pages/_app.tsx
  */
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import Head from "next/head";
+import Head from 'next/head'
 import { Nav } from '@/components/Nav'
-import {
-  MantineProvider,
-  AppShell,
-  Navbar,
-  Header
-} from '@mantine/core';
+import { MantineProvider, AppShell, Navbar, Header } from '@mantine/core'
+import { useState, useEffect } from 'react'
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [isHydrated, setIsHydrated] = useState(false)
+
+  //Wait till NextJS rehydration completes
+  useEffect(() => {
+    setIsHydrated(true)
+  }, [])
+
+  if (!isHydrated) {
+    return <div>Loading...</div>
+  }
+
   return (
     <>
       <Head>
@@ -65,14 +72,18 @@ export default function App({ Component, pageProps }: AppProps) {
       >
         <AppShell
           padding="md"
-          navbar={
-            <Nav />
+          navbar={<Nav />}
+          header={
+            <Header height={60} p="xs">
+              Speak GPT
+            </Header>
           }
-          header={<Header height={60} p="xs">Speak GPT</Header>}
           styles={(theme) => ({
             main: {
               backgroundColor:
-                theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0]
+                theme.colorScheme === 'dark'
+                  ? theme.colors.dark[8]
+                  : theme.colors.gray[0],
             },
           })}
         >
@@ -80,6 +91,5 @@ export default function App({ Component, pageProps }: AppProps) {
         </AppShell>
       </MantineProvider>
     </>
-
   )
 }

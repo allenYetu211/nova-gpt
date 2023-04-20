@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/pages/_document.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1681973655269,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1681973655269,
+            "name": "Commit-0",
+            "content": "import { Html, Head, Main, NextScript } from 'next/document'\n\nexport default function Document() {\n  return (\n    <Html lang=\"en\">\n      <Head />\n      <body>\n        <Main />\n        <NextScript />\n      </body>\n    </Html>\n  )\n}\n"
+        }
+    ]
+}

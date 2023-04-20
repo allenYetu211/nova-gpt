@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-04-19 17:04:21
+ * @LastEditTime: 2023-04-20 13:56:09
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatTextarea.tsx
  */
@@ -13,21 +13,20 @@ import {
   Box,
   createStyles,
   Select,
-  Flex
-} from '@mantine/core';
+  Flex,
+} from '@mantine/core'
 
 import {
   IconMicrophone2,
   IconSend,
-  IconMicrophone2Off
-} from '@tabler/icons-react';
+  IconMicrophone2Off,
+} from '@tabler/icons-react'
 
-import { useEffect, useRef, useState } from 'react';
-import { InstallExtension } from '@/models/InstallExtension';
-import { useChatStore } from "@/stores/ChatStore";
+import { useEffect, useRef, useState } from 'react'
+import { InstallExtension } from '@/models/InstallExtension'
+import { useChatStore } from '@/stores/ChatStore'
 import { submitMessage } from '@/stores/SubmitAction'
-import { update } from '@/stores/ChatAction';
-
+import { update } from '@/stores/ChatAction'
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -46,18 +45,16 @@ const useStyles = createStyles((theme) => ({
     justifyContent: 'center',
     position: 'absolute',
     right: 0,
-    padding: `${theme.spacing.xs} ${theme.spacing.sm}`
+    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
   },
 
   utilsContainer: {
-    paddingLeft: `${theme.spacing.xs} ${theme.spacing.sm}`
-  }
-}));
-
-
+    paddingLeft: `${theme.spacing.xs} ${theme.spacing.sm}`,
+  },
+}))
 
 export function ChatTextarea() {
-  const { classes } = useStyles();
+  const { classes } = useStyles()
   const tcr = useRef<InstallExtension>()
 
   const textareaMessage = useChatStore((state) => state.textareaMessage)
@@ -65,13 +62,12 @@ export function ChatTextarea() {
   const selectValue = useChatStore((state) => state.selectValue)
   const selectData = useChatStore((state) => state.selectData)
 
-
   useEffect(() => {
     if (!tcr.current) {
       tcr.current = new InstallExtension()
       update({
         selectData: tcr.current.extensions,
-        selectValue: tcr.current.extensions[0].value
+        selectValue: tcr.current.extensions[0].value,
       })
       addListen()
     }
@@ -88,7 +84,6 @@ export function ChatTextarea() {
     update({ textareaMessage: '', isRecording: true })
   }
 
-
   const stopRecord = async () => {
     await tcr.current?.stopRecord()
     update({ isRecording: false })
@@ -98,9 +93,7 @@ export function ChatTextarea() {
     update({ textareaMessage: e.target.value })
   }
 
-  const sendMessageGPT = () => {
-
-  }
+  const sendMessageGPT = () => {}
 
   return (
     <div>
@@ -113,17 +106,19 @@ export function ChatTextarea() {
         direction="row"
         wrap="wrap"
       >
-        <ActionIcon color="cyan" size="lg" onClick={isRecording ? stopRecord : startRecord}>
-          {
-            isRecording ? <IconMicrophone2 size="1.625rem" /> : <IconMicrophone2Off size="1.625rem" />
-          }
+        <ActionIcon
+          color="cyan"
+          size="lg"
+          onClick={isRecording ? stopRecord : startRecord}
+        >
+          {isRecording ? (
+            <IconMicrophone2 size="1.625rem" />
+          ) : (
+            <IconMicrophone2Off size="1.625rem" />
+          )}
         </ActionIcon>
 
-        <Select
-          placeholder="Pick one"
-          value={selectValue}
-          data={selectData}
-        />
+        <Select placeholder="Pick one" value={selectValue} data={selectData} />
       </Flex>
 
       <Box className={classes.container}>
@@ -135,8 +130,8 @@ export function ChatTextarea() {
           onChange={onChangeTextarea}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              e.preventDefault();
-              e.stopPropagation();
+              e.preventDefault()
+              e.stopPropagation()
               submitMessage()
             }
           }}

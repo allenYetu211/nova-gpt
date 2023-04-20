@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-17 14:25:03
- * @LastEditTime: 2023-04-17 16:28:19
+ * @LastEditTime: 2023-04-20 14:53:51
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /speak-gpt/src/core/InstallExtension.ts
+ * @FilePath: /speak-gpt/src/models/InstallExtension.ts
  */
 import Eventemitter from 'eventemitter3'
 type Objects = {
@@ -15,11 +15,11 @@ type Objects = {
 export class InstallExtension {
   static extension: { [key: string]: new (...args: any[]) => object } = {}
   public transformExtensions: { [key: string]: object } = {}
-  public extensions:  {value: string, label: string}[] = []
+  public extensions: { value: string; label: string }[] = []
   public currUseExtension: string = ''
   static emitter: Eventemitter = new Eventemitter()
 
-  constructor () {
+  constructor() {
     this.install()
   }
 
@@ -43,7 +43,6 @@ export class InstallExtension {
       this.transformExtensions[item] = fun
       this.extensions.push({ value: item, label: item })
     })
-   
   }
 
   static use(key: string, fun: new (...args: any[]) => object) {
@@ -60,6 +59,5 @@ function isClass(param: any): param is new (...args: any[]) => object {
     typeof param === 'function' &&
     /^\s*class\s+/.test(param.toString()) &&
     param.prototype.hasOwnProperty('constructor')
-  );
+  )
 }
-
