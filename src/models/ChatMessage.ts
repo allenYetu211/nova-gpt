@@ -56,5 +56,6 @@ export function truncateMessages(
     // Insert at position 1
     ret.splice(1, 0, message)
   }
+  console.log('ret', ret)
   return ret
 }

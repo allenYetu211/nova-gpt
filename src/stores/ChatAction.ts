@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 12:36:37
- * @LastEditTime: 2023-04-20 14:54:22
+ * @LastEditTime: 2023-04-20 17:00:30
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/stores/ChatAction.ts
  */
@@ -32,15 +32,14 @@ export const newChat = () => {
   const id = uuidv4()
   set((state) => ({
     activeChatId: id,
-    chats: [
+    chats: {
       ...state.chats,
-      {
-        id,
+      [id]: {
         message: [],
         createdAt: new Date(),
         title: 'New Chat',
       },
-    ],
+    },
   }))
 }
 
@@ -61,39 +60,29 @@ export const changeActiveChatId = (id: string) => {
 //   return chats.find((chat) => chat.id === activeChatId);
 // }
 
-export const findChat = (id: string) => {
-  const chats = get().chats
-  return chats.find((chat) => chat.id === id)
-}
+// export const findChat = (id: string) => {
+//   if (!id) {
+//     return
+//   }
+//   const chats = get().chats
+//   return chats.find((chat) => chat.id === id)
+// }
 
 export const deleteChat = (id: string) => {
-  const chat = findChat(id)
-  if (chat) {
-    set((state) => {
-      const chats = state.chats.filter((chat) => chat.id !== id)
-      return {
-        chats,
-      }
-    })
-  }
+  const chats = get().chats
+  if (!chats[id]) return
+  delete chats[id]
+  set((state) => chats)
 }
 
-export const changeChat = (id: string, newState: Partial<Chat>) => {
-  const chat = findChat(id)
-  if (chat) {
-    set((state) => {
-      const chats = state.chats.map((chat) => {
-        if (chat.id === id) {
-          return {
-            ...chat,
-            ...newState,
-          }
-        }
-        return chat
-      })
-      return {
-        chats,
-      }
-    })
-  }
+export const changeChatTitle = (id: string, newTitle?: string) => {
+  if (!newTitle) return
+  const { chats } = get()
+  if (!chats[id]) return
+  chats[id].title = newTitle
+  set((state) => chats)
+}
+
+export const checkChat = (id: string) => {
+  return false
 }

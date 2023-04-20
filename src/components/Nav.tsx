@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-04-19 00:00:41
+ * @LastEditTime: 2023-04-20 16:34:40
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/Nav.tsx
  */
@@ -56,7 +56,7 @@ const useStyles = createStyles((theme) => ({
 }))
 
 export function Nav() {
-  const [chats, setChats] = useState<ChatState['chats']>([])
+  const [chats, setChats] = useState<ChatState['chats'] | null>(null)
   const { classes, cx } = useStyles()
   const chatsStore = useChatStore((state) => state.chats)
   const activeChatId = useChatStore((state) => state.activeChatId)
@@ -65,17 +65,19 @@ export function Nav() {
     setChats(useChatStore.getState().chats)
   }, [chatsStore])
 
-  const chatsList = chats.map((item) => (
-    <Box
-      key={item.id}
-      className={cx(classes.chatItem, {
-        [classes.chatItemActive]: activeChatId === item.id,
-      })}
-      onClick={() => changeActiveChatId(item.id)}
-    >
-      <ChatSessionInput title={item.title} id={item.id} />
-    </Box>
-  ))
+  const chatsList = chats
+    ? Object.entries(chats).map(([id, chat]) => (
+        <Box
+          key={id}
+          className={cx(classes.chatItem, {
+            [classes.chatItemActive]: activeChatId === id,
+          })}
+          onClick={() => changeActiveChatId(id)}
+        >
+          <ChatSessionInput title={chat.title} id={id} />
+        </Box>
+      ))
+    : []
 
   chatsList.reverse()
 

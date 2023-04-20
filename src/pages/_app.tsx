@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-04-20 14:54:06
+ * @LastEditTime: 2023-04-20 17:39:51
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/pages/_app.tsx
  */
@@ -10,7 +10,7 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Nav } from '@/components/Nav'
-import { MantineProvider, AppShell, Navbar, Header } from '@mantine/core'
+import { MantineProvider, AppShell, Box, Header } from '@mantine/core'
 import { useState, useEffect } from 'react'
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -87,7 +87,9 @@ export default function App({ Component, pageProps }: AppProps) {
             },
           })}
         >
-          <Component {...pageProps} />
+          <Box sx={{ height: `calc(100vh - 100px)` }}>
+            <Component {...pageProps} />
+          </Box>
         </AppShell>
       </MantineProvider>
     </>

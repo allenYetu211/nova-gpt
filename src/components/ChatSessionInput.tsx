@@ -18,8 +18,8 @@ import {
   CloseButton,
 } from '@mantine/core'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
-import { useState, useRef, memo, useMemo, useCallback } from 'react'
-import { findChat, deleteChat, changeChat } from '@/stores/ChatAction'
+import { useState, useRef, memo, useCallback } from 'react'
+import { deleteChat, changeChatTitle } from '@/stores/ChatAction'
 
 interface ChatSessionInputProps {
   title: string
@@ -38,7 +38,7 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
   }
 
   const onEditBlur = useCallback(() => {
-    changeChat(props.id, { title: inputEl.current?.value })
+    changeChatTitle(props.id, inputEl.current?.value)
     setEditState(false)
   }, [props.id])
 

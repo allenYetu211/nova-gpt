@@ -8,6 +8,7 @@
  */
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import produce from 'immer'
 
 export const excludeKeys = ['textareaMessage', 'isRecording']
 
@@ -46,10 +47,11 @@ export interface Message {
 }
 
 export interface Chat {
-  id: string
-  message: Message[]
-  createdAt: Date
-  title: string
+  [id: string]: {
+    message: Message[]
+    createdAt: Date
+    title: string
+  }
 }
 
 export interface ChatState {
@@ -63,7 +65,7 @@ export interface ChatState {
   /**
    * Chat Components Messages
    */
-  chats: Chat[]
+  chats: Chat
   activeChatId: string | undefined
   /**
    *  Textarea Components State
@@ -87,7 +89,7 @@ export const initialState = {
   openAIHistory: 4,
   openAIConfig: defaultSettings,
 
-  chats: [],
+  chats: {},
   activeChatId: undefined,
 
   isRecording: false,

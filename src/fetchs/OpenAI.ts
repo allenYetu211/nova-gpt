@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:58:17
- * @LastEditTime: 2023-04-20 14:53:32
+ * @LastEditTime: 2023-04-21 01:04:35
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /speak-gpt/src/fetch/OpenAI.ts
+ * @FilePath: /speak-gpt/src/fetchs/OpenAI.ts
  */
 import { IncomingMessage } from 'http'
 import https from 'https'
@@ -111,18 +111,19 @@ export async function streamCompletion(
   const modelInfo = getModelInfo(params.model)
 
   // Truncate messages to fit within maxTokens parameter
-  const submitMessages = truncateMessages(
-    messages,
-    modelInfo.maxTokens,
-    params.max_tokens,
-  )
+  // const submitMessages = truncateMessages(
+  //   messages,
+  //   modelInfo.maxTokens,
+  //   params.max_tokens,
+  // )
 
   const submitParams = Object.fromEntries(
     Object.entries(params).filter(([key]) => paramKeys.includes(key)),
   )
 
   const payload = JSON.stringify({
-    messages: submitMessages.map(({ role, content }) => ({ role, content })),
+    // messages: submitMessages.map(({ role, content }) => ({ role, content })),
+    messages: messages.map(({ role, content }) => ({ role, content })),
     stream: true,
     ...{
       ...submitParams,
@@ -172,7 +173,8 @@ export async function streamCompletion(
 
     res.on('end', () => {
       const tokensUsed =
-        countTokens(submitMessages.map((m) => m.content).join('\n')) +
+        // countTokens(submitMessages.map((m) => m.content).join('\n')) +
+        countTokens(messages.map((m) => m.content).join('\n')) +
         countTokens(buffer)
 
       endCallback?.(tokensUsed)
