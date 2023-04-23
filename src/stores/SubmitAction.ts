@@ -2,14 +2,13 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-04-23 22:30:19
+ * @LastEditTime: 2023-04-23 22:36:17
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/stores/SubmitAction.ts
  */
 import { useChatStore, Message, Chat } from './ChatStore'
 import { useSettingStore } from './SettingStore'
-// import { findChat } from './ChatAction'
-import { streamCompletion } from '@/fetchs/openAI'
+import { streamCompletion } from '@/fetch/OpenAI'
 import { updateActionsChatMessage, getActiveChat } from '@/utils'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -17,7 +16,6 @@ const getChat = useChatStore.getState
 const setChat = useChatStore.setState
 
 const getSetting = useSettingStore.getState
-const setSetting = useSettingStore.setState
 
 export const submitMessage = () => {
   const { activeChatId, textareaMessage, chats } = getChat()

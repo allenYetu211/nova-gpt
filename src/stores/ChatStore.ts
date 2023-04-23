@@ -6,38 +6,38 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/stores/ChatStore.ts
  */
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-export const excludeKeys = ['textareaMessage', 'isRecording']
+export const excludeKeys = ["textareaMessage", "isRecording"];
 
 export interface Message {
-  content: string
-  id: string
-  createdAt: Date
-  role: 'user' | 'system' | 'assistant'
+  content: string;
+  id: string;
+  createdAt: Date;
+  role: "user" | "system" | "assistant";
 }
 
 export interface Chat {
-  id: string
-  message: Message[]
-  createdAt: Date
-  title: string
+  id: string;
+  message: Message[];
+  createdAt: Date;
+  title: string;
 }
 
 export interface ChatState {
   /**
    * Chat Components Messages
    */
-  chats: Chat[]
-  activeChatId: string | undefined
+  chats: Chat[];
+  activeChatId: string | undefined;
   /**
    *  Textarea Components State
    */
-  isRecording: boolean
-  textareaMessage: string
-  selectData: { value: string; label: string }[]
-  selectValue: string
+  isRecording: boolean;
+  textareaMessage: string;
+  selectData: { value: string; label: string }[];
+  selectValue: string;
 }
 
 export const initialState = {
@@ -45,19 +45,19 @@ export const initialState = {
   activeChatId: undefined,
 
   isRecording: false,
-  textareaMessage: '',
+  textareaMessage: "",
   selectData: [],
-  selectValue: '',
-}
+  selectValue: "",
+};
 
-const store = () => ({ ...initialState } as ChatState)
+const store = () => ({ ...initialState } as ChatState);
 
 export const useChatStore = create<ChatState>()(
   persist(store, {
-    name: 'chat-store',
+    name: "chat-store",
     partialize: (state) =>
       Object.fromEntries(
-        Object.entries(state).filter(([key]) => !excludeKeys.includes(key)),
+        Object.entries(state).filter(([key]) => !excludeKeys.includes(key))
       ),
-  }),
-)
+  })
+);

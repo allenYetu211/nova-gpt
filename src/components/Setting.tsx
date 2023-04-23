@@ -1,1 +1,1 @@
-export const Setting = () => {}
+export const Setting = () => {};
