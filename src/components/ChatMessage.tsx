@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-04-23 15:55:48
+ * @LastEditTime: 2023-04-23 19:12:26
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatMessage.tsx
  */
@@ -21,7 +21,7 @@ const useStyles = createStyles((theme) => {
   return {
     container: {
       padding: theme.spacing.xs,
-      borderRadius: theme.radius.sm,
+      borderRadius: theme.radius.md,
       marginBottom: theme.spacing.xs,
       display: 'inline-block',
       maxWidth: '80%',
@@ -31,13 +31,14 @@ const useStyles = createStyles((theme) => {
     user: {
       backgroundColor:
         theme.colorScheme === 'dark'
-          ? theme.colors.dark[4]
+          ? // theme.colors.dark[4]
+            '#2c324f'
           : theme.colors.gray[0],
     },
     assistant: {
-      backgroundColor:
+      background:
         theme.colorScheme === 'dark'
-          ? theme.colors.dark[6]
+          ? `linear-gradient(to right bottom, #8a3ffb 40%, #3646e8)`
           : theme.colors.gray[0],
     },
     icon: {

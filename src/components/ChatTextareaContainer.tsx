@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-04-23 10:37:58
+ * @LastEditTime: 2023-04-23 19:02:41
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatTextareaContainer.tsx
  */
@@ -40,13 +40,17 @@ const useStyles = createStyles((theme) => ({
     flex: 1,
   },
   iconContainer: {
-    height: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
+    bottom: 0,
     right: 0,
+    transform: 'translate(5%, 10%)',
     padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
+    borderRadius: theme.radius.xl,
+    backgroundColor: theme.colors.darkButton[0],
+    boxShadow: theme.colors.darkButton[0],
   },
 
   utilsContainer: {
@@ -118,7 +122,7 @@ export function ChatTextarea() {
       <Box className={classes.container}>
         <ChatTextareaInput />
         <Box className={classes.iconContainer}>
-          <ActionIcon color="cyan" size="lg" onClick={submitMessage}>
+          <ActionIcon color="gray" size="lg" onClick={submitMessage}>
             <IconSend size="1.625rem" />
           </ActionIcon>
         </Box>

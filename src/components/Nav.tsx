@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-04-23 10:26:16
+ * @LastEditTime: 2023-04-23 19:29:32
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/Nav.tsx
  */
@@ -18,10 +18,6 @@ const get = useChatStore.getState
 
 const useStyles = createStyles((theme) => ({
   chatItem: {
-    backgroundColor:
-      theme.colorScheme === 'dark'
-        ? theme.colors.dark[6]
-        : theme.colors.gray[0],
     width: '100%',
     padding: theme.spacing.xs,
     borderRadius: theme.radius.md,
@@ -34,7 +30,8 @@ const useStyles = createStyles((theme) => ({
     },
   },
   chatItemActive: {
-    backgroundColor: theme.colors.dark[8],
+    // backgroundColor: theme.colors.dark[8],
+    backgroundColor: `#2c3453`,
   },
   sessionContainer: {
     height: '100%',
@@ -70,40 +67,65 @@ export function Nav() {
   chatsList.reverse()
 
   return (
-    <Navbar width={{ base: 230 }} p="xs">
-      <Button
-        leftIcon={<IconPlus />}
-        variant="subtle"
-        onClick={newChat}
-        uppercase
+    <Navbar
+      width={{ base: 330 }}
+      sx={() => ({
+        padding: '20px',
+        backgroundColor: 'transparent',
+        border: 'none',
+      })}
+      p="xs"
+    >
+      <Box
+        sx={(theme) => ({
+          height: '100%',
+          background:
+            theme.colorScheme === 'dark'
+              ? // theme.colors.dark[7]
+                `linear-gradient(to bottom, #262d42 60%, transparent)`
+              : theme.colors.gray[0],
+          borderRadius: theme.radius.xl,
+          padding: theme.spacing.xl,
+          boxShadow: theme.shadows.xl,
+        })}
       >
-        New Chat Session
-      </Button>
+        <Flex>
+          <Button
+            leftIcon={<IconPlus />}
+            variant="subtle"
+            color="gray"
+            onClick={newChat}
+            uppercase
+          >
+            New
+          </Button>
 
-      <Divider my="sm" variant="dashed" />
-
-      <Flex
-        mih={50}
-        gap="md"
-        justify="space-evenly"
-        align="center"
-        direction="column"
-        wrap="wrap"
-        className={classes.sessionContainer}
-      >
-        <Flex
-          justify="flex-start"
-          align="center"
-          direction="column"
-          wrap="nowrap"
-          gap="md"
-          className={classes.chatContainer}
-        >
-          {chatsList}
+          <UtilsContainer />
         </Flex>
 
-        <UtilsContainer />
-      </Flex>
+        <Divider my="sm" variant="dashed" />
+
+        <Flex
+          mih={50}
+          gap="md"
+          justify="space-evenly"
+          align="center"
+          direction="column"
+          wrap="wrap"
+          className={classes.sessionContainer}
+        >
+          <Flex
+            justify="flex-start"
+            align="center"
+            direction="column"
+            wrap="nowrap"
+            gap="md"
+            className={classes.chatContainer}
+          >
+            {chatsList}
+          </Flex>
+        </Flex>
+      </Box>
     </Navbar>
   )
 }

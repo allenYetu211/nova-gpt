@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-04-23 16:08:27
+ * @LastEditTime: 2023-04-23 18:20:28
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatContent.tsx
  */
@@ -17,6 +17,7 @@ const useStyles = createStyles((theme) => ({
     paddingBottom: theme.spacing.md,
     flex: 1,
     overflow: 'auto',
+    marginRight: `-${theme.spacing.md}`,
   },
 }))
 

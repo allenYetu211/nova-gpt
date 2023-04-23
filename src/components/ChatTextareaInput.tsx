@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 10:35:16
- * @LastEditTime: 2023-04-23 16:19:06
+ * @LastEditTime: 2023-04-23 18:14:00
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatTextareaInput.tsx
  */
@@ -20,11 +20,18 @@ export const ChatTextareaInput = () => {
 
   return (
     <Textarea
-      sx={{
+      sx={(theme) => ({
         flex: 1,
         maxHeight: 300,
         overflow: 'auto',
-      }}
+        border: 'none',
+        borderRadius: theme.radius.xl,
+        textarea: {
+          border: 'none',
+          backgroundColor: '#181a29',
+          boxShadow: theme.shadows.sm,
+        },
+      })}
       placeholder="Your question"
       value={textareaMessage}
       withAsterisk

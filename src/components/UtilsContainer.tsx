@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 16:50:34
- * @LastEditTime: 2023-04-21 17:30:45
+ * @LastEditTime: 2023-04-23 19:31:01
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/UtilsContainer.tsx
  */
@@ -183,6 +183,7 @@ export const UtilsContainer = memo(() => {
       <Button
         onClick={open}
         sx={{ width: '100%' }}
+        color="gray"
         leftIcon={<IconSettings />}
         variant="subtle"
       >

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-04-20 17:39:51
+ * @LastEditTime: 2023-04-23 18:18:51
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/pages/_app.tsx
  */
@@ -10,14 +10,18 @@ import '@/styles/globals.css'
 import '@/styles/Markdown.css'
 
 import type { AppProps } from 'next/app'
+import { createStyles } from '@mantine/core'
 import Head from 'next/head'
 import { Nav } from '@/components/Nav'
 import { MantineProvider, AppShell, Box, Header } from '@mantine/core'
 import { useState, useEffect } from 'react'
+import { ThemeColor } from '@/models/ThemeColor'
+
+const useStyles = createStyles({})
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isHydrated, setIsHydrated] = useState(false)
-
+  const { theme } = useStyles()
   //Wait till NextJS rehydration completes
   useEffect(() => {
     setIsHydrated(true)
@@ -42,54 +46,33 @@ export default function App({ Component, pageProps }: AppProps) {
         theme={{
           /** Put your mantine theme override here */
           colorScheme: 'dark',
-          colors: {
-            // https://smart-swatch.netlify.app/#4cdf9c
-            light: [
-              '#defef0',
-              '#b8f4d9',
-              '#90edc2',
-              '#66e4ab',
-              '#3cdc93',
-              '#23c37a',
-              '#16975e',
-              '#0a6c43',
-              '#014227',
-              '#00180a',
-            ],
-            // https://smart-swatch.netlify.app/#1d241d
-            dark: [
-              '#e8f3ff',
-              '#cfd8e3',
-              '#b5bdcc',
-              '#97a3b4',
-              '#7b899d',
-              '#626f84',
-              '#4b5768',
-              '#343e4b',
-              '#1e2530',
-              '#070c18',
-            ],
-          },
+          colors: ThemeColor,
         }}
       >
         <AppShell
           padding="md"
           navbar={<Nav />}
-          header={
-            <Header height={60} p="xs">
-              Speak GPT
-            </Header>
-          }
+          // header={
+          //   <Header height={60} p="xs">
+          //     Speak GPT
+          //   </Header>
+          // }
           styles={(theme) => ({
             main: {
-              backgroundColor:
+              background:
                 theme.colorScheme === 'dark'
-                  ? theme.colors.dark[8]
+                  ? // ? `linear-gradient(to top, ${theme.colors.dark[8]} 30%,  ${theme.colors.dark[0]} 95%)`
+                    // `linear-gradient(to top, ${theme.colors.dark[8]} 70%, ${theme.colors.dark[0]} 70%);`
+                    `linear-gradient(to bottom left, #202539 30%,  #332538 100%);`
                   : theme.colors.gray[0],
             },
           })}
         >
-          <Box sx={{ height: `calc(100vh - 100px)` }}>
+          <Box
+            sx={{
+              height: `calc(100vh - 3rem)`,
+            }}
+          >
             <Component {...pageProps} />
           </Box>
         </AppShell>
