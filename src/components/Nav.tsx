@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-04-23 22:55:39
+ * @LastEditTime: 2023-04-24 00:38:11
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/Nav.tsx
  */
@@ -12,7 +12,6 @@ import { IconPlus, IconSettings } from '@tabler/icons-react'
 import { useChatStore } from '@/stores/ChatStore'
 import { switchIsSetting } from '@/stores/SettingAction'
 import { newChat, changeActiveChatId } from '@/stores/ChatAction'
-import { UtilsContainer } from '@/components/UtilsContainer'
 import { ChatSessionInput } from '@/components/ChatSessionInput'
 
 const useStyles = createStyles((theme) => ({
@@ -75,7 +74,8 @@ export function Nav() {
       })}
       p="xs"
     >
-      <Box
+      <Flex
+        direction="column"
         sx={(theme) => ({
           height: '100%',
           background:
@@ -132,7 +132,7 @@ export function Nav() {
             {chatsList}
           </Flex>
         </Flex>
-      </Box>
+      </Flex>
     </Navbar>
   )
 }

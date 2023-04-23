@@ -1,10 +1,10 @@
-import { useSettingStore, SettingState } from './SettingStore'
+import { useSettingStore, SettingState } from "./SettingStore";
 
-const getSetting = useSettingStore.getState
-const setSetting = useSettingStore.setState
+const getSetting = useSettingStore.getState;
+const setSetting = useSettingStore.setState;
 
 export const updateOpenAIConfig = (
-  newState: Partial<SettingState['openAI'] | SettingState['openAI']['config']>,
+  newState: Partial<SettingState["openAI"] | SettingState["openAI"]["config"]>
 ) => {
   setSetting((state) => ({
     openAI: {
@@ -14,11 +14,11 @@ export const updateOpenAIConfig = (
         ...newState,
       },
     },
-  }))
-}
+  }));
+};
 
 export const switchIsSetting = () => {
   setSetting((state) => ({
     isSetting: !state.isSetting,
-  }))
-}
+  }));
+};
