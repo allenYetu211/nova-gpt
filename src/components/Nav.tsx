@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-04-20 16:34:40
+ * @LastEditTime: 2023-04-23 10:26:16
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/Nav.tsx
  */
@@ -19,11 +19,13 @@ import {
 } from '@mantine/core'
 
 import { IconPlus, IconEdit } from '@tabler/icons-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useChatStore, ChatState } from '@/stores/ChatStore'
 import { newChat, changeActiveChatId } from '@/stores/ChatAction'
 import { UtilsContainer } from '@/components/UtilsContainer'
 import { ChatSessionInput } from '@/components/ChatSessionInput'
+
+const get = useChatStore.getState
 
 const useStyles = createStyles((theme) => ({
   chatItem: {
@@ -56,27 +58,24 @@ const useStyles = createStyles((theme) => ({
 }))
 
 export function Nav() {
-  const [chats, setChats] = useState<ChatState['chats'] | null>(null)
   const { classes, cx } = useStyles()
-  const chatsStore = useChatStore((state) => state.chats)
+  const chats = useChatStore((state) => state.chats)
   const activeChatId = useChatStore((state) => state.activeChatId)
 
-  useEffect(() => {
-    setChats(useChatStore.getState().chats)
-  }, [chatsStore])
-
   const chatsList = chats
-    ? Object.entries(chats).map(([id, chat]) => (
-        <Box
-          key={id}
-          className={cx(classes.chatItem, {
-            [classes.chatItemActive]: activeChatId === id,
-          })}
-          onClick={() => changeActiveChatId(id)}
-        >
-          <ChatSessionInput title={chat.title} id={id} />
-        </Box>
-      ))
+    ? chats.map((chat) => {
+        return (
+          <Box
+            key={chat.id}
+            className={cx(classes.chatItem, {
+              [classes.chatItemActive]: activeChatId === chat.id,
+            })}
+            onClick={() => changeActiveChatId(chat.id)}
+          >
+            <ChatSessionInput title={chat.title} id={chat.id} />
+          </Box>
+        )
+      })
     : []
 
   chatsList.reverse()

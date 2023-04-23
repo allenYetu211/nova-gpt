@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-04-21 00:34:16
+ * @LastEditTime: 2023-04-23 14:27:08
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatMessage.tsx
  */
@@ -11,6 +11,7 @@ import { Message } from '@/stores/ChatStore'
 import { Box, createStyles, Text, Flex } from '@mantine/core'
 import IconBot from '@/images/svg/bot'
 import IconUser from '@/images/svg/user'
+import { Markdown } from '@/components/Markdown'
 
 interface ChatMessageProps {
   message: Message
@@ -30,13 +31,13 @@ const useStyles = createStyles((theme) => {
     user: {
       backgroundColor:
         theme.colorScheme === 'dark'
-          ? theme.colors.dark[6]
+          ? theme.colors.dark[4]
           : theme.colors.gray[0],
     },
     assistant: {
       backgroundColor:
         theme.colorScheme === 'dark'
-          ? theme.colors.dark[4]
+          ? theme.colors.dark[6]
           : theme.colors.gray[0],
     },
     icon: {
@@ -49,8 +50,8 @@ const useStyles = createStyles((theme) => {
 
 export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {
   const { content, createdAt, role } = message
-
   const { classes, cx, theme } = useStyles()
+
   return (
     <>
       <Flex
@@ -63,12 +64,12 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {
         {role === 'assistant' && <IconBot className={classes.icon} />}
 
         <Box
-          className={cx(classes.container, {
+          className={cx(classes.container, 'markdown-body', {
             [classes.user]: role === 'user',
             [classes.assistant]: role === 'assistant',
           })}
         >
-          <Text>{content}</Text>
+          <Markdown content={content} />
         </Box>
         {role === 'user' && <IconUser className={classes.icon} />}
       </Flex>

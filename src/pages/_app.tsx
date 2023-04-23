@@ -7,6 +7,8 @@
  * @FilePath: /speak-gpt/src/pages/_app.tsx
  */
 import '@/styles/globals.css'
+import '@/styles/Markdown.css'
+
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Nav } from '@/components/Nav'

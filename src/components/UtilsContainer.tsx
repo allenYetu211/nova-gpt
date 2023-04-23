@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 16:50:34
- * @LastEditTime: 2023-04-21 00:40:49
+ * @LastEditTime: 2023-04-21 17:30:45
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/UtilsContainer.tsx
  */
@@ -20,7 +20,7 @@ import {
   NumberInput,
 } from '@mantine/core'
 import { IconSettings } from '@tabler/icons-react'
-import { useRef } from 'react'
+import { useRef, memo } from 'react'
 
 import { useDisclosure } from '@mantine/hooks'
 import { useChatStore } from '@/stores/ChatStore'
@@ -37,11 +37,10 @@ const useStyles = createStyles((theme) => ({
   },
 }))
 
-export const UtilsContainer = () => {
+export const UtilsContainer = memo(() => {
   const selectEl = useRef<HTMLInputElement>(null)
   const inputEl = useRef<HTMLInputElement>(null)
   const { classes, theme } = useStyles()
-
   const [opened, { open, close }] = useDisclosure(false)
 
   const openAIKey = useChatStore((state) => state.openAIKey)
@@ -191,4 +190,4 @@ export const UtilsContainer = () => {
       </Button>
     </>
   )
-}
+})

@@ -2,13 +2,13 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 11:28:09
- * @LastEditTime: 2023-04-20 14:54:31
+ * @LastEditTime: 2023-04-23 14:59:40
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/stores/ChatStore.ts
  */
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import produce from 'immer'
+import throttle from 'lodash/throttle'
 
 export const excludeKeys = ['textareaMessage', 'isRecording']
 
@@ -47,11 +47,15 @@ export interface Message {
 }
 
 export interface Chat {
-  [id: string]: {
-    message: Message[]
-    createdAt: Date
-    title: string
-  }
+  id: string
+  message: Message[]
+  createdAt: Date
+  title: string
+  // [id: string]: {
+  //   message: Message[]
+  //   createdAt: Date
+  //   title: string
+  // }
 }
 
 export interface ChatState {
@@ -65,7 +69,7 @@ export interface ChatState {
   /**
    * Chat Components Messages
    */
-  chats: Chat
+  chats: Chat[]
   activeChatId: string | undefined
   /**
    *  Textarea Components State
@@ -89,7 +93,7 @@ export const initialState = {
   openAIHistory: 4,
   openAIConfig: defaultSettings,
 
-  chats: {},
+  chats: [],
   activeChatId: undefined,
 
   isRecording: false,

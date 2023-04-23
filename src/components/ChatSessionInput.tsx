@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 17:34:12
- * @LastEditTime: 2023-04-20 13:55:59
+ * @LastEditTime: 2023-04-23 10:30:49
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatSessionInput.tsx
  */
@@ -37,10 +37,10 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
     }, 0)
   }
 
-  const onEditBlur = useCallback(() => {
+  const onEditBlur = () => {
     changeChatTitle(props.id, inputEl.current?.value)
     setEditState(false)
-  }, [props.id])
+  }
 
   const onDeleteClick = () => {
     deleteChat(props.id)

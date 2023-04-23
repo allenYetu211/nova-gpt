@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-04-20 13:56:09
+ * @LastEditTime: 2023-04-23 10:37:58
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /speak-gpt/src/components/ChatTextarea.tsx
+ * @FilePath: /speak-gpt/src/components/ChatTextareaContainer.tsx
  */
 
 import {
@@ -22,11 +22,12 @@ import {
   IconMicrophone2Off,
 } from '@tabler/icons-react'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { InstallExtension } from '@/models/InstallExtension'
 import { useChatStore } from '@/stores/ChatStore'
 import { submitMessage } from '@/stores/SubmitAction'
 import { update } from '@/stores/ChatAction'
+import { ChatTextareaInput } from '@/components/ChatTextareaInput'
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -57,7 +58,6 @@ export function ChatTextarea() {
   const { classes } = useStyles()
   const tcr = useRef<InstallExtension>()
 
-  const textareaMessage = useChatStore((state) => state.textareaMessage)
   const isRecording = useChatStore((state) => state.isRecording)
   const selectValue = useChatStore((state) => state.selectValue)
   const selectData = useChatStore((state) => state.selectData)
@@ -89,12 +89,6 @@ export function ChatTextarea() {
     update({ isRecording: false })
   }
 
-  const onChangeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    update({ textareaMessage: e.target.value })
-  }
-
-  const sendMessageGPT = () => {}
-
   return (
     <div>
       <Flex
@@ -122,20 +116,7 @@ export function ChatTextarea() {
       </Flex>
 
       <Box className={classes.container}>
-        <Textarea
-          className={classes.textarea}
-          placeholder="Your question"
-          value={textareaMessage}
-          withAsterisk
-          onChange={onChangeTextarea}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              e.preventDefault()
-              e.stopPropagation()
-              submitMessage()
-            }
-          }}
-        />
+        <ChatTextareaInput />
         <Box className={classes.iconContainer}>
           <ActionIcon color="cyan" size="lg" onClick={submitMessage}>
             <IconSend size="1.625rem" />
