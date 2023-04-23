@@ -6,25 +6,25 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/Main.tsx
  */
-import { MantineTheme, createStyles } from '@mantine/core'
+import { MantineTheme, createStyles } from "@mantine/core";
 
-import { ChatTextarea } from '@/components/ChatTextareaContainer'
-import { ChatContent } from '@/components/ChatContent'
+import { ChatTextarea } from "@/components/ChatTextareaContainer";
+import { ChatContent } from "@/components/ChatContent";
 
 const useStyles = createStyles((theme: MantineTheme) => {
   return {
     mainContainer: {
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100%',
+      display: "flex",
+      flexDirection: "column",
+      height: "100%",
     },
 
     chatTextareaContainer: {},
-  }
-})
+  };
+});
 
 export function Main() {
-  const { classes, theme } = useStyles()
+  const { classes, theme } = useStyles();
 
   return (
     <div className={classes.mainContainer}>
@@ -32,5 +32,5 @@ export function Main() {
 
       <ChatTextarea />
     </div>
-  )
+  );
 }

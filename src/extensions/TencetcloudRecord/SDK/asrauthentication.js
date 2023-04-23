@@ -7,7 +7,7 @@
  * @FilePath: /speak-gpt/src/core/TencetcloudRecord/SDK/asrauthentication.js
  */
 /** 获取签名 start */
-import  crypto from 'crypto-js'
+import crypto from "crypto-js";
 
 function toUint8Array(wordArray) {
   // Shortcuts
@@ -22,8 +22,8 @@ function toUint8Array(wordArray) {
   return u8;
 }
 
-function Uint8ArrayToString(fileData){
-  let dataString = '';
+function Uint8ArrayToString(fileData) {
+  let dataString = "";
   for (let i = 0; i < fileData.length; i++) {
     dataString += String.fromCharCode(fileData[i]);
   }

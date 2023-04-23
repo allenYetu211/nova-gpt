@@ -6,25 +6,32 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/Nav.tsx
  */
-import { Button, Divider, Flex, Navbar, createStyles, Box } from '@mantine/core'
+import {
+  Button,
+  Divider,
+  Flex,
+  Navbar,
+  createStyles,
+  Box,
+} from "@mantine/core";
 
-import { IconPlus } from '@tabler/icons-react'
-import { useChatStore } from '@/stores/ChatStore'
-import { newChat, changeActiveChatId } from '@/stores/ChatAction'
-import { UtilsContainer } from '@/components/UtilsContainer'
-import { ChatSessionInput } from '@/components/ChatSessionInput'
+import { IconPlus } from "@tabler/icons-react";
+import { useChatStore } from "@/stores/ChatStore";
+import { newChat, changeActiveChatId } from "@/stores/ChatAction";
+import { UtilsContainer } from "@/components/UtilsContainer";
+import { ChatSessionInput } from "@/components/ChatSessionInput";
 
-const get = useChatStore.getState
+const get = useChatStore.getState;
 
 const useStyles = createStyles((theme) => ({
   chatItem: {
-    width: '100%',
+    width: "100%",
     padding: theme.spacing.xs,
     borderRadius: theme.radius.md,
-    cursor: 'pointer',
-    '&:hover': {
+    cursor: "pointer",
+    "&:hover": {
       backgroundColor:
-        theme.colorScheme === 'dark'
+        theme.colorScheme === "dark"
           ? theme.colors.dark[5]
           : theme.colors.gray[1],
     },
@@ -34,19 +41,19 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: `#2c3453`,
   },
   sessionContainer: {
-    height: '100%',
+    height: "100%",
   },
   chatContainer: {
     flex: 1,
-    width: '100%',
-    overflow: 'auto',
+    width: "100%",
+    overflow: "auto",
   },
-}))
+}));
 
 export function Nav() {
-  const { classes, cx } = useStyles()
-  const chats = useChatStore((state) => state.chats)
-  const activeChatId = useChatStore((state) => state.activeChatId)
+  const { classes, cx } = useStyles();
+  const chats = useChatStore((state) => state.chats);
+  const activeChatId = useChatStore((state) => state.activeChatId);
 
   const chatsList = chats
     ? chats.map((chat) => {
@@ -60,27 +67,27 @@ export function Nav() {
           >
             <ChatSessionInput title={chat.title} id={chat.id} />
           </Box>
-        )
+        );
       })
-    : []
+    : [];
 
-  chatsList.reverse()
+  chatsList.reverse();
 
   return (
     <Navbar
       width={{ base: 330 }}
       sx={() => ({
-        padding: '20px',
-        backgroundColor: 'transparent',
-        border: 'none',
+        padding: "20px",
+        backgroundColor: "transparent",
+        border: "none",
       })}
       p="xs"
     >
       <Box
         sx={(theme) => ({
-          height: '100%',
+          height: "100%",
           background:
-            theme.colorScheme === 'dark'
+            theme.colorScheme === "dark"
               ? // theme.colors.dark[7]
                 `linear-gradient(to bottom, #262d42 60%, transparent)`
               : theme.colors.gray[0],
@@ -127,5 +134,5 @@ export function Nav() {
         </Flex>
       </Box>
     </Navbar>
-  )
+  );
 }

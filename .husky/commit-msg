@@ -1,0 +1,12 @@
+###
+ # @Author: Allen OYang
+ # @Email:  allenwill211@gmail.com
+ # @Date: 2023-04-23 21:37:52
+ # @LastEditTime: 2023-04-23 21:48:55
+ # @LastEditors: Allen OYang allenwill211@gmail.com
+ # @FilePath: /speak-gpt/.husky/commit-msg
+### 
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# npx commitlint -- edit $1

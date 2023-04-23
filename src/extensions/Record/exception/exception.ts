@@ -4,5 +4,5 @@
  * @param {*} message   错误消息
  */
 export function throwError(message: string) {
-    throw new Error(message);
+  throw new Error(message);
 }

@@ -6,42 +6,40 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/extensions/TencetcloudRecord/index.ts
  */
-import { InstallExtension } from '@/models/InstallExtension'
-import webRecorder from './SDK/webRecorder'
-import SpeechRecognizer from './SDK/speechRecognizer'
-import { signCallback } from './SDK/asrauthentication'
+import { InstallExtension } from "@/models/InstallExtension";
+import webRecorder from "./SDK/webRecorder";
+import SpeechRecognizer from "./SDK/speechRecognizer";
+import { signCallback } from "./SDK/asrauthentication";
 
 const config = {
-  secretkey:process.env.NEXT_PUBLIC_SECRET_KEY,
+  secretkey: process.env.NEXT_PUBLIC_SECRET_KEY,
   secretid: process.env.NEXT_PUBLIC_SECRET_ID,
   appid: process.env.NEXT_PUBLIC_APPID,
   signCallback: signCallback, // 鉴权函数 用户提供鉴权函数，不传则为null
   // 用户参数
   // 实时识别接口参数
-  engine_model_type: '16k_zh', // 引擎
+  engine_model_type: "16k_zh", // 引擎
   voice_format: 1,
   // 以下为非必填参数，可跟据业务自行修改
-  hotword_id: '08003a00000000000000000000000000',
+  hotword_id: "08003a00000000000000000000000000",
   needvad: 1,
   filter_dirty: 1,
   filter_modal: 1,
   filter_punc: 1,
   convert_num_mode: 1,
-  word_info: 2
-}
-
+  word_info: 2,
+};
 
 export class TencetCloudRecord {
   private recorder: webRecorder | null = null;
   private speechRecognizer: SpeechRecognizer | null = null;
   private isCanSendData: boolean = false;
   private isCanStop: boolean = false;
-  private  resultText: string = ''
-
+  private resultText: string = "";
 
   public startRecord() {
-    this.recorder = new webRecorder()
-    const self = this
+    this.recorder = new webRecorder();
+    const self = this;
     this.recorder.OnReceivedData = (res) => {
       // res 为采集到浏览器数据
       if (self.isCanSendData) {
@@ -57,7 +55,7 @@ export class TencetCloudRecord {
 
     if (!this.speechRecognizer) {
       this.speechRecognizer = new SpeechRecognizer(config);
-      this.addListenerCallBack()
+      this.addListenerCallBack();
 
       // 建立连接
       this.speechRecognizer!.start();
@@ -78,27 +76,26 @@ export class TencetCloudRecord {
 
     this.speechRecognizer!.OnRecognitionResultChange = (res) => {
       const currentText = `${this.resultText}${res.result.voice_text_str}`;
-      InstallExtension.emitter.emit('ResultChange', currentText)
+      InstallExtension.emitter.emit("ResultChange", currentText);
     };
     // 一句话结束
     this.speechRecognizer!.OnSentenceEnd = (res) => {
       this.resultText += res.result.voice_text_str;
-      InstallExtension.emitter.emit('SentenceEnd', this.resultText)
+      InstallExtension.emitter.emit("SentenceEnd", this.resultText);
     };
     // 识别结束
     this.speechRecognizer!.OnRecognitionComplete = (res) => {
       this.isCanSendData = false;
-      InstallExtension.emitter.emit('RecognitionComplete', res)
+      InstallExtension.emitter.emit("RecognitionComplete", res);
     };
     // 识别错误
     this.speechRecognizer!.OnError = (res) => {
       this.isCanSendData = false;
-      InstallExtension.emitter.emit('Error', res)
+      InstallExtension.emitter.emit("Error", res);
     };
-
   }
 
-  static extensionName = 'TencetCloudRecord'
+  static extensionName = "TencetCloudRecord";
 }
 
-InstallExtension.use(TencetCloudRecord.extensionName, TencetCloudRecord)
+InstallExtension.use(TencetCloudRecord.extensionName, TencetCloudRecord);

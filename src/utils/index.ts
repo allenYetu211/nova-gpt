@@ -1,22 +1,22 @@
-import { Chat } from '@/stores/ChatStore'
+import { Chat } from "@/stores/ChatStore";
 
 export function keepDecimal(num: number, decimal: number) {
-  return Math.round(num * Math.pow(10, decimal)) / Math.pow(10, decimal)
+  return Math.round(num * Math.pow(10, decimal)) / Math.pow(10, decimal);
 }
 
 export function updateActionsChatMessage(
   chats: Chat[],
   id: string,
-  callback: (message: Chat['message']) => Chat['message'],
+  callback: (message: Chat["message"]) => Chat["message"]
 ) {
   return chats.map((chat) => {
     if (chat.id === id) {
-      chat.message = callback(chat.message)
+      chat.message = callback(chat.message);
     }
-    return chat
-  })
+    return chat;
+  });
 }
 
 export const getActiveChat = (chats: Chat[], id: string) => {
-  return chats.find((chat) => chat.id === id)
-}
+  return chats.find((chat) => chat.id === id);
+};

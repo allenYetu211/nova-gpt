@@ -14,39 +14,39 @@ import {
   createStyles,
   Select,
   Flex,
-} from '@mantine/core'
+} from "@mantine/core";
 
 import {
   IconMicrophone2,
   IconSend,
   IconMicrophone2Off,
-} from '@tabler/icons-react'
+} from "@tabler/icons-react";
 
-import { useEffect, useRef } from 'react'
-import { InstallExtension } from '@/models/InstallExtension'
-import { useChatStore } from '@/stores/ChatStore'
-import { submitMessage } from '@/stores/SubmitAction'
-import { update } from '@/stores/ChatAction'
-import { ChatTextareaInput } from '@/components/ChatTextareaInput'
+import { useEffect, useRef } from "react";
+import { InstallExtension } from "@/models/InstallExtension";
+import { useChatStore } from "@/stores/ChatStore";
+import { submitMessage } from "@/stores/SubmitAction";
+import { update } from "@/stores/ChatAction";
+import { ChatTextareaInput } from "@/components/ChatTextareaInput";
 
 const useStyles = createStyles((theme) => ({
   container: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    position: 'relative',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    position: "relative",
   },
   textarea: {
     flex: 1,
   },
   iconContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
     bottom: 0,
     right: 0,
-    transform: 'translate(5%, 10%)',
+    transform: "translate(5%, 10%)",
     padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
     borderRadius: theme.radius.xl,
     backgroundColor: theme.colors.darkButton[0],
@@ -56,42 +56,42 @@ const useStyles = createStyles((theme) => ({
   utilsContainer: {
     paddingLeft: `${theme.spacing.xs} ${theme.spacing.sm}`,
   },
-}))
+}));
 
 export function ChatTextarea() {
-  const { classes } = useStyles()
-  const tcr = useRef<InstallExtension>()
+  const { classes } = useStyles();
+  const tcr = useRef<InstallExtension>();
 
-  const isRecording = useChatStore((state) => state.isRecording)
-  const selectValue = useChatStore((state) => state.selectValue)
-  const selectData = useChatStore((state) => state.selectData)
+  const isRecording = useChatStore((state) => state.isRecording);
+  const selectValue = useChatStore((state) => state.selectValue);
+  const selectData = useChatStore((state) => state.selectData);
 
   useEffect(() => {
     if (!tcr.current) {
-      tcr.current = new InstallExtension()
+      tcr.current = new InstallExtension();
       update({
         selectData: tcr.current.extensions,
         selectValue: tcr.current.extensions[0].value,
-      })
-      addListen()
+      });
+      addListen();
     }
-  }, [])
+  }, []);
 
   const addListen = () => {
-    InstallExtension.emitter.on('ResultChange', (text: string) => {
-      useChatStore.setState({ textareaMessage: text })
-    })
-  }
+    InstallExtension.emitter.on("ResultChange", (text: string) => {
+      useChatStore.setState({ textareaMessage: text });
+    });
+  };
 
   const startRecord = async () => {
-    await tcr.current?.startRecord()
-    update({ textareaMessage: '', isRecording: true })
-  }
+    await tcr.current?.startRecord();
+    update({ textareaMessage: "", isRecording: true });
+  };
 
   const stopRecord = async () => {
-    await tcr.current?.stopRecord()
-    update({ isRecording: false })
-  }
+    await tcr.current?.stopRecord();
+    update({ isRecording: false });
+  };
 
   return (
     <div>
@@ -128,5 +128,5 @@ export function ChatTextarea() {
         </Box>
       </Box>
     </div>
-  )
+  );
 }

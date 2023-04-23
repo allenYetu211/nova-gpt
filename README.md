@@ -6,19 +6,17 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/README.md
 -->
+
 # SpeakGPT
-- 支持语音对话GPT
-  
+
+- 支持语音对话 GPT
+
 ### 语音识别：
+
 - [ ] 阿里（暂缓支持）
-- [X] 腾讯
+- [x] 腾讯
 - [ ] 本地语音识别模型
 
-
 ### Promat 能力
+
 - [ ] 行业问题提问集合
-
-
-
-
-

@@ -6,19 +6,19 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/UIFormTextInput.tsx
  */
-import { Flex, Text, ActionIcon } from '@mantine/core'
-import { IconRefresh } from '@tabler/icons-react'
-import type { FC, PropsWithChildren } from 'react'
-import type { TextInputProps } from '@mantine/core'
+import { Flex, Text, ActionIcon } from "@mantine/core";
+import { IconRefresh } from "@tabler/icons-react";
+import type { FC, PropsWithChildren } from "react";
+import type { TextInputProps } from "@mantine/core";
 
 interface UIFormTextInputProps extends TextInputProps {
-  onChecked?: () => void
+  onChecked?: () => void;
 }
 
 export const UIFormTextInput: FC<PropsWithChildren<UIFormTextInputProps>> = (
-  props,
+  props
 ) => {
-  const { label, onChecked, children } = props
+  const { label, onChecked, children } = props;
   return (
     <Flex
       justify="space-evenly"
@@ -29,8 +29,8 @@ export const UIFormTextInput: FC<PropsWithChildren<UIFormTextInputProps>> = (
     >
       <Text
         sx={(theme) => ({
-          textAlign: 'left',
-          width: '40%',
+          textAlign: "left",
+          width: "40%",
           paddingRight: theme.spacing.xs,
         })}
         size="sm"
@@ -43,7 +43,7 @@ export const UIFormTextInput: FC<PropsWithChildren<UIFormTextInputProps>> = (
         align="center"
         sx={(theme) => ({
           flex: 1,
-          display: 'flex',
+          display: "flex",
         })}
       >
         {children}
@@ -61,5 +61,5 @@ export const UIFormTextInput: FC<PropsWithChildren<UIFormTextInputProps>> = (
         </ActionIcon>
       )}
     </Flex>
-  )
-}
+  );
+};

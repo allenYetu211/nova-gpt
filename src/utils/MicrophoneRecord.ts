@@ -1,24 +1,24 @@
-declare let window: any
+declare let window: any;
 
-let source: any = null
-let playTime: number = 0 // 相对时间，记录暂停位置
-let playStamp: number = 0 // 开始或暂停后开始的时间戳(绝对)
-let context: any = null
-let analyser: any = null
+let source: any = null;
+let playTime: number = 0; // 相对时间，记录暂停位置
+let playStamp: number = 0; // 开始或暂停后开始的时间戳(绝对)
+let context: any = null;
+let analyser: any = null;
 
-let audioData: any = null
+let audioData: any = null;
 // let hasInit: boolean = false;           // 是否已经初始化了
-let isPaused: boolean = false
-let totalTime: number = 0
-let endplayFn: any = function () {}
+let isPaused: boolean = false;
+let totalTime: number = 0;
+let endplayFn: any = function () {};
 
 /**
  * 初始化
  */
 function init(): void {
-  context = new (window.AudioContext || window.webkitAudioContext)()
-  analyser = context.createAnalyser()
-  analyser.fftSize = 2048 // 表示存储频域的大小
+  context = new (window.AudioContext || window.webkitAudioContext)();
+  analyser = context.createAnalyser();
+  analyser.fftSize = 2048; // 表示存储频域的大小
 }
 
 /**
@@ -26,44 +26,44 @@ function init(): void {
  * @returns {Promise<{}>}
  */
 function playAudio(): Promise<{}> {
-  isPaused = false
+  isPaused = false;
 
   return context.decodeAudioData(
     audioData.slice(0),
     (buffer: any) => {
-      source = context.createBufferSource()
+      source = context.createBufferSource();
 
       // 播放结束的事件绑定
       source.onended = () => {
         if (!isPaused) {
           // 暂停的时候也会触发该事件
           // 计算音频总时长
-          totalTime = context.currentTime - playStamp + playTime
-          endplayFn()
+          totalTime = context.currentTime - playStamp + playTime;
+          endplayFn();
         }
-      }
+      };
 
       // 设置数据
-      source.buffer = buffer
+      source.buffer = buffer;
       // connect到分析器，还是用录音的，因为播放时不能录音的
-      source.connect(analyser)
-      analyser.connect(context.destination)
-      source.start(0, playTime)
+      source.connect(analyser);
+      analyser.connect(context.destination);
+      source.start(0, playTime);
 
       // 记录当前的时间戳，以备暂停时使用
-      playStamp = context.currentTime
+      playStamp = context.currentTime;
     },
     function (e: any) {
-      console.log('error:', e)
-    },
-  )
+      console.log("error:", e);
+    }
+  );
 }
 
 // 销毁source, 由于 decodeAudioData 产生的source每次停止后就不能使用，所以暂停也意味着销毁，下次需重新启动。
 function destroySource() {
   if (source) {
-    source.stop()
-    source = null
+    source.stop();
+    source = null;
   }
 }
 
@@ -77,14 +77,14 @@ export class Player {
   static play(arraybuffer: any): Promise<{}> {
     if (!context) {
       // 第一次播放要初始化
-      init()
+      init();
     }
-    this.stopPlay()
+    this.stopPlay();
     // 缓存播放数据
-    audioData = arraybuffer
-    totalTime = 0
+    audioData = arraybuffer;
+    totalTime = 0;
 
-    return playAudio()
+    return playAudio();
   }
 
   /**
@@ -92,10 +92,10 @@ export class Player {
    * @memberof Player
    */
   static pausePlay(): void {
-    destroySource()
+    destroySource();
     // 多次暂停需要累加
-    playTime += context.currentTime - playStamp
-    isPaused = true
+    playTime += context.currentTime - playStamp;
+    isPaused = true;
   }
 
   /**
@@ -103,7 +103,7 @@ export class Player {
    * @memberof Player
    */
   static resumePlay(): Promise<{}> {
-    return playAudio()
+    return playAudio();
   }
 
   /**
@@ -111,22 +111,22 @@ export class Player {
    * @memberof Player
    */
   static stopPlay() {
-    playTime = 0
-    audioData = null
+    playTime = 0;
+    audioData = null;
 
-    destroySource()
+    destroySource();
   }
 
   static destroyPlay() {
-    this.stopPlay()
+    this.stopPlay();
   }
 
   static getAnalyseData() {
-    let dataArray = new Uint8Array(analyser.frequencyBinCount)
+    let dataArray = new Uint8Array(analyser.frequencyBinCount);
     // 将数据拷贝到dataArray中。
-    analyser.getByteTimeDomainData(dataArray)
+    analyser.getByteTimeDomainData(dataArray);
 
-    return dataArray
+    return dataArray;
   }
 
   /**
@@ -137,13 +137,15 @@ export class Player {
    * @memberof Player
    */
   static addPlayEnd(fn: any = function () {}) {
-    endplayFn = fn
+    endplayFn = fn;
   }
 
   // 获取已经播放的时长
   static getPlayTime(): number {
-    let pTime = isPaused ? playTime : context.currentTime - playStamp + playTime
+    let pTime = isPaused
+      ? playTime
+      : context.currentTime - playStamp + playTime;
 
-    return totalTime || pTime
+    return totalTime || pTime;
   }
 }

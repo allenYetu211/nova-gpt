@@ -1,1 +1,1 @@
-import './TencetcloudRecord'
+import "./TencetcloudRecord";

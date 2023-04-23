@@ -45,7 +45,7 @@ function to16BitPCM(input) {
   }
   return dataView;
 }
-function to16kHz(audioData, sampleRate= 44100) {
+function to16kHz(audioData, sampleRate = 44100) {
   const data = new Float32Array(audioData);
   const fitCount = Math.round(data.length * (16000 / sampleRate));
   const newData = new Float32Array(fitCount);
@@ -76,22 +76,26 @@ export default class WebRecorder {
   }
   start() {
     if (this.audioContext) {
-      this.OnError('录音已开启');
+      this.OnError("录音已开启");
       return;
     }
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia
-      || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    navigator.getUserMedia =
+      navigator.getUserMedia ||
+      navigator.webkitGetUserMedia ||
+      navigator.mozGetUserMedia ||
+      navigator.msGetUserMedia;
 
     try {
-      this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      this.audioContext = new (window.AudioContext ||
+        window.webkitAudioContext)();
       this.audioContext.resume();
       if (!this.audioContext) {
-        this.OnError('浏览器不支持webAudioApi相关接口');
+        this.OnError("浏览器不支持webAudioApi相关接口");
         return;
       }
     } catch (e) {
       if (!this.audioContext) {
-        this.OnError('浏览器不支持webAudioApi相关接口');
+        this.OnError("浏览器不支持webAudioApi相关接口");
         return;
       }
     }
@@ -103,10 +107,10 @@ export default class WebRecorder {
           audio: true,
           video: false,
         })
-        .then(stream => {
-            getAudioSuccess(stream);
+        .then((stream) => {
+          getAudioSuccess(stream);
         })
-        .catch(e => {
+        .catch((e) => {
           getAudioFail(e);
         });
     } else if (navigator.getUserMedia) {
@@ -115,39 +119,60 @@ export default class WebRecorder {
           audio: true,
           video: false,
         },
-        stream => {
+        (stream) => {
           getAudioSuccess(stream);
         },
-        function(e) {
+        function (e) {
           getAudioFail(e);
         }
       );
     } else {
-      if (navigator.userAgent.toLowerCase().match(/chrome/) && location.origin.indexOf('https://') < 0) {
-        this.OnError('chrome下获取浏览器录音功能，因为安全性问题，需要在localhost或127.0.0.1或https下才能获取权限');
+      if (
+        navigator.userAgent.toLowerCase().match(/chrome/) &&
+        location.origin.indexOf("https://") < 0
+      ) {
+        this.OnError(
+          "chrome下获取浏览器录音功能，因为安全性问题，需要在localhost或127.0.0.1或https下才能获取权限"
+        );
       } else {
-        this.OnError('无法获取浏览器录音功能，请升级浏览器或使用chrome');
+        this.OnError("无法获取浏览器录音功能，请升级浏览器或使用chrome");
       }
       this.audioContext && this.audioContext.close();
       return;
     }
     const getAudioSuccess = (stream) => {
       this.stream = stream;
-      const mediaStreamSource = this.audioContext.createMediaStreamSource(this.stream); // 将声音对象输入这个对象
+      const mediaStreamSource = this.audioContext.createMediaStreamSource(
+        this.stream
+      ); // 将声音对象输入这个对象
       if (this.audioContext.audioWorklet) {
-        const audioWorkletBlobURL = window.URL.createObjectURL(new Blob([audioWorkletCode], { type: 'text/javascript' }));
+        const audioWorkletBlobURL = window.URL.createObjectURL(
+          new Blob([audioWorkletCode], { type: "text/javascript" })
+        );
 
-        this.audioContext.audioWorklet.addModule(audioWorkletBlobURL).then(() => {
-          const myNode = new AudioWorkletNode(this.audioContext, 'my-processor', { numberOfInputs: 1, numberOfOutputs: 1, channelCount: 1 });
-          myNode.port.onmessage = (event) => {
-            this.OnReceivedData(event.data.audioData);
-          };
-          mediaStreamSource.connect(myNode).connect(this.audioContext.destination);
-        })
+        this.audioContext.audioWorklet
+          .addModule(audioWorkletBlobURL)
+          .then(() => {
+            const myNode = new AudioWorkletNode(
+              this.audioContext,
+              "my-processor",
+              { numberOfInputs: 1, numberOfOutputs: 1, channelCount: 1 }
+            );
+            myNode.port.onmessage = (event) => {
+              this.OnReceivedData(event.data.audioData);
+            };
+            mediaStreamSource
+              .connect(myNode)
+              .connect(this.audioContext.destination);
+          })
           .catch(console.error);
       } else {
         // 创建一个音频分析对象，采样的缓冲区大小为0（自动适配），输入和输出都是单声道
-        const scriptProcessor = this.audioContext.createScriptProcessor(0, 1, 1);
+        const scriptProcessor = this.audioContext.createScriptProcessor(
+          0,
+          1,
+          1
+        );
         scriptProcessor.onaudioprocess = (e) => {
           // 去处理音频数据
           const inputData = e.inputBuffer.getChannelData(0);
@@ -171,7 +196,12 @@ export default class WebRecorder {
     };
   }
   stop() {
-    if (!(/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent))){
+    if (
+      !(
+        /Safari/.test(navigator.userAgent) &&
+        !/Chrome/.test(navigator.userAgent)
+      )
+    ) {
       this.audioContext && this.audioContext.suspend();
     }
     this.audioContext && this.audioContext.suspend();
@@ -183,10 +213,8 @@ export default class WebRecorder {
       this.stream = null;
     }
   }
-  OnReceivedData(data) { // 获取音频数据
-
+  OnReceivedData(data) {
+    // 获取音频数据
   }
-  OnError(res) {
-
-  }
+  OnError(res) {}
 }

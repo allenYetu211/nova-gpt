@@ -16,37 +16,37 @@ import {
   Tooltip,
   Group,
   CloseButton,
-} from '@mantine/core'
-import { IconEdit, IconTrash } from '@tabler/icons-react'
-import { useState, useRef, memo } from 'react'
-import { deleteChat, changeChatTitle } from '@/stores/ChatAction'
+} from "@mantine/core";
+import { IconEdit, IconTrash } from "@tabler/icons-react";
+import { useState, useRef, memo } from "react";
+import { deleteChat, changeChatTitle } from "@/stores/ChatAction";
 
 interface ChatSessionInputProps {
-  title: string
-  id: string
+  title: string;
+  id: string;
 }
 
 export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
-  const [editState, setEditState] = useState<boolean>(false)
-  const inputEl = useRef<HTMLInputElement>(null)
+  const [editState, setEditState] = useState<boolean>(false);
+  const inputEl = useRef<HTMLInputElement>(null);
 
   const onEditClick = (e: any) => {
-    setEditState(true)
+    setEditState(true);
     setTimeout(() => {
-      inputEl.current?.focus()
-    }, 0)
-    e.stopPropagation()
-  }
+      inputEl.current?.focus();
+    }, 0);
+    e.stopPropagation();
+  };
 
   const onEditBlur = () => {
-    changeChatTitle(props.id, inputEl.current?.value)
-    setEditState(false)
-  }
+    changeChatTitle(props.id, inputEl.current?.value);
+    setEditState(false);
+  };
 
   const onDeleteClick = (e: any) => {
-    deleteChat(props.id)
-    e.stopPropagation()
-  }
+    deleteChat(props.id);
+    e.stopPropagation();
+  };
   return (
     <>
       <Flex
@@ -62,13 +62,13 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
             defaultValue={props.title}
             onBlur={onEditBlur}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                onEditBlur()
+              if (e.key === "Enter") {
+                onEditBlur();
               }
             }}
             size="xs"
             sx={() => ({
-              border: 'none',
+              border: "none",
               borderRadius: 0,
               flex: 1,
             })}
@@ -76,7 +76,7 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
         ) : (
           <Tooltip position="top-start" withArrow label={props.title}>
             <Text sx={() => ({ flex: 1 })} truncate size="xs">
-              {props.title || ''}
+              {props.title || ""}
             </Text>
           </Tooltip>
         )}
@@ -92,5 +92,5 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
         </Group>
       </Flex>
     </>
-  )
-})
+  );
+});

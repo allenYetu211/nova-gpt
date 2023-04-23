@@ -18,6 +18,12 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/extensions/TencetcloudRecord/SDK/webRecorder.js", "src/extensions/TencetcloudRecord/SDK/webRecorder.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/extensions/TencetcloudRecord/SDK/webRecorder.js",
+    "src/extensions/TencetcloudRecord/SDK/webRecorder.js"
+  ],
   "exclude": ["node_modules"]
 }
