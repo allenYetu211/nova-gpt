@@ -18,15 +18,18 @@ import {
   Select,
   Slider,
   NumberInput,
-} from "@mantine/core";
-import { IconSettings } from "@tabler/icons-react";
-import { useRef, memo } from "react";
+} from '@mantine/core'
+import { IconSettings } from '@tabler/icons-react'
+import { useRef, memo } from 'react'
 
-import { useDisclosure } from "@mantine/hooks";
-import { useChatStore } from "@/stores/ChatStore";
-import { update, updateOpenAIConfig } from "@/stores/ChatAction";
-import { UIFormTextInput } from "@/components/UIFormTextInput";
-import { keepDecimal } from "@/utils";
+import { useDisclosure } from '@mantine/hooks'
+// import { useChatStore } from '@/stores/ChatStore'
+// import { update } from '@/stores/ChatAction'
+
+import { useSettingStore } from '@/stores/SettingStore'
+import { updateOpenAIConfig } from '@/stores/SettingAction'
+import { UIFormTextInput } from '@/components/UIFormTextInput'
+import { keepDecimal } from '@/utils'
 
 const useStyles = createStyles((theme) => ({
   boxContainer: {
@@ -35,42 +38,46 @@ const useStyles = createStyles((theme) => ({
   boxTitle: {
     paddingBottom: theme.spacing.xs,
   },
-}));
+}))
 
 export const UtilsContainer = memo(() => {
-  const selectEl = useRef<HTMLInputElement>(null);
-  const inputEl = useRef<HTMLInputElement>(null);
-  const { classes, theme } = useStyles();
-  const [opened, { open, close }] = useDisclosure(false);
+  const selectEl = useRef<HTMLInputElement>(null)
+  const inputEl = useRef<HTMLInputElement>(null)
+  const { classes, theme } = useStyles()
+  const [opened, { open, close }] = useDisclosure(false)
 
-  const openAIKey = useChatStore((state) => state.openAIKey);
+  const openAIKey = useSettingStore((state) => state.openAI.key)
   const setOpenAIKey = (newState: string) => {
-    update({ openAIKey: newState });
-  };
+    updateOpenAIConfig({ key: newState })
+  }
 
-  const openAIModels = useChatStore((state) => state.openAIModels);
+  const openAIModels = useSettingStore((state) => state.openAI.models)
 
-  const openAITargetModels = useChatStore((state) => state.openAIConfig.model);
+  const openAITargetModels = useSettingStore(
+    (state) => state.openAI.config.model,
+  )
   const setOpenAITargetModels = (newState: string) => {
-    updateOpenAIConfig({ model: newState });
-  };
+    updateOpenAIConfig({ model: newState })
+  }
 
-  const temperature = useChatStore((state) => state.openAIConfig.temperature);
+  const temperature = useSettingStore(
+    (state) => state.openAI.config.temperature,
+  )
   const setTemperature = (newState: number) => {
-    updateOpenAIConfig({ temperature: keepDecimal(newState, 1) });
-  };
+    updateOpenAIConfig({ temperature: keepDecimal(newState, 1) })
+  }
 
-  const max_tokens = useChatStore((state) => state.openAIConfig.max_tokens);
+  const max_tokens = useSettingStore((state) => state.openAI.config.max_tokens)
   const setMax_tokens = (newState: string) => {
-    updateOpenAIConfig({ max_tokens: Number(newState) });
-  };
+    updateOpenAIConfig({ max_tokens: Number(newState) })
+  }
 
-  const presence_penalty = useChatStore(
-    (state) => state.openAIConfig.presence_penalty
-  );
+  const presence_penalty = useSettingStore(
+    (state) => state.openAI.config.presence_penalty,
+  )
   const setPresence_penalty = (newState: number) => {
-    updateOpenAIConfig({ presence_penalty: keepDecimal(newState, 1) });
-  };
+    updateOpenAIConfig({ presence_penalty: keepDecimal(newState, 1) })
+  }
 
   return (
     <>
@@ -87,17 +94,17 @@ export const UtilsContainer = memo(() => {
             {/* OPEN AI KEY */}
             <UIFormTextInput
               onChecked={() => {
-                console.log(inputEl.current?.value);
+                console.log(inputEl.current?.value)
               }}
               label="OpenAI Key"
             >
               <TextInput
                 ref={inputEl}
                 size="xs"
-                sx={{ width: "100%" }}
+                sx={{ width: '100%' }}
                 onChange={(e) => setOpenAIKey(e.target.value)}
                 placeholder="sk-xxxxxxx-xxxxx-xxx-xxxxx"
-                value={openAIKey || ""}
+                value={openAIKey || ''}
               />
             </UIFormTextInput>
 
@@ -106,9 +113,9 @@ export const UtilsContainer = memo(() => {
                 ref={selectEl}
                 size="xs"
                 searchable
-                sx={{ width: "100%" }}
+                sx={{ width: '100%' }}
                 onSearchChange={() => {
-                  setOpenAITargetModels(selectEl.current?.value || "");
+                  setOpenAITargetModels(selectEl.current?.value || '')
                 }}
                 defaultValue={openAITargetModels}
                 nothingFound="No options"
@@ -121,9 +128,9 @@ export const UtilsContainer = memo(() => {
                 max={5000}
                 min={500}
                 size="xs"
-                sx={{ width: "100%" }}
+                sx={{ width: '100%' }}
                 onBlur={(e: any) => {
-                  setMax_tokens(e.target.value);
+                  setMax_tokens(e.target.value)
                 }}
                 defaultValue={max_tokens}
               />
@@ -141,11 +148,11 @@ export const UtilsContainer = memo(() => {
                 showLabelOnHover={false}
                 labelAlwaysOn={false}
                 onChangeEnd={setTemperature}
-                sx={{ width: "100px" }}
+                sx={{ width: '100px' }}
               />
               <Text
                 size="xs"
-                sx={{ paddingLeft: theme.spacing.lg, width: "50px" }}
+                sx={{ paddingLeft: theme.spacing.lg, width: '50px' }}
               >
                 {temperature}
               </Text>
@@ -160,16 +167,16 @@ export const UtilsContainer = memo(() => {
                 label={(value) => value.toFixed(1)}
                 step={0.1}
                 onChangeEnd={(value) => {
-                  setPresence_penalty(value);
+                  setPresence_penalty(value)
                 }}
                 defaultValue={presence_penalty}
                 showLabelOnHover={false}
                 labelAlwaysOn={false}
-                sx={{ width: "100px" }}
+                sx={{ width: '100px' }}
               />
               <Text
                 size="xs"
-                sx={{ paddingLeft: theme.spacing.lg, width: "50px" }}
+                sx={{ paddingLeft: theme.spacing.lg, width: '50px' }}
               >
                 {presence_penalty}
               </Text>
@@ -182,7 +189,7 @@ export const UtilsContainer = memo(() => {
 
       <Button
         onClick={open}
-        sx={{ width: "100%" }}
+        sx={{ width: '100%' }}
         color="gray"
         leftIcon={<IconSettings />}
         variant="subtle"
@@ -190,5 +197,5 @@ export const UtilsContainer = memo(() => {
         <Text>Settings</Text>
       </Button>
     </>
-  );
-});
+  )
+})
