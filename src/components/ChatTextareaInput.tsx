@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 10:35:16
- * @LastEditTime: 2023-04-23 10:39:04
+ * @LastEditTime: 2023-04-23 16:19:06
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatTextareaInput.tsx
  */
@@ -20,15 +20,19 @@ export const ChatTextareaInput = () => {
 
   return (
     <Textarea
-      sx={{ flex: 1 }}
+      sx={{
+        flex: 1,
+        maxHeight: 300,
+        overflow: 'auto',
+      }}
       placeholder="Your question"
       value={textareaMessage}
       withAsterisk
+      autosize={true}
       onChange={onChangeTextarea}
       onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault()
-          e.stopPropagation()
+        if (e.key !== 'Enter') return
+        if (e.ctrlKey && e.key === 'Enter') {
           submitMessage()
         }
       }}

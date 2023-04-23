@@ -6,21 +6,10 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/Nav.tsx
  */
-import {
-  Group,
-  Button,
-  Divider,
-  Text,
-  Flex,
-  Navbar,
-  createStyles,
-  Box,
-  ActionIcon,
-} from '@mantine/core'
+import { Button, Divider, Flex, Navbar, createStyles, Box } from '@mantine/core'
 
-import { IconPlus, IconEdit } from '@tabler/icons-react'
-import { useEffect, useState, useMemo } from 'react'
-import { useChatStore, ChatState } from '@/stores/ChatStore'
+import { IconPlus } from '@tabler/icons-react'
+import { useChatStore } from '@/stores/ChatStore'
 import { newChat, changeActiveChatId } from '@/stores/ChatAction'
 import { UtilsContainer } from '@/components/UtilsContainer'
 import { ChatSessionInput } from '@/components/ChatSessionInput'

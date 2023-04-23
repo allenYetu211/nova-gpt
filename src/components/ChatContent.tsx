@@ -2,15 +2,15 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-04-23 11:37:02
+ * @LastEditTime: 2023-04-23 16:08:27
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatContent.tsx
  */
 
-import { Box, createStyles, Text } from '@mantine/core'
-import { useChatStore, Chat } from '@/stores/ChatStore'
+import { createStyles } from '@mantine/core'
+import { useChatStore } from '@/stores/ChatStore'
 import { ChatMessage } from './ChatMessage'
-import { use, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, memo } from 'react'
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -20,8 +20,8 @@ const useStyles = createStyles((theme) => ({
   },
 }))
 
-export const ChatContent = () => {
-  const { classes, theme } = useStyles()
+export const ChatContent = memo(() => {
+  const { classes } = useStyles()
   const activeChatId = useChatStore((state) => state.activeChatId)
   const chats = useChatStore((state) => state.chats)
   const activeChat = chats.find((item) => item.id === activeChatId)
@@ -62,4 +62,4 @@ export const ChatContent = () => {
       </div>
     </div>
   )
-}
+})

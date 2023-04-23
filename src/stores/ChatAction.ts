@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 12:36:37
- * @LastEditTime: 2023-04-23 10:28:29
+ * @LastEditTime: 2023-04-23 15:56:31
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/stores/ChatAction.ts
  */
@@ -54,12 +54,13 @@ export const changeActiveChatId = (id: string) => {
 }
 
 export const deleteChat = (id: string) => {
-  console.log('deleteChat', id)
   set((state) => ({
     chats: state.chats.filter((chat) => {
       return chat.id !== id
     }),
   }))
+
+  console.log('get().activeChatId', get().activeChatId)
 }
 
 export const changeChatTitle = (id: string, newTitle?: string) => {

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 17:34:12
- * @LastEditTime: 2023-04-23 10:30:49
+ * @LastEditTime: 2023-04-23 16:06:55
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatSessionInput.tsx
  */
@@ -18,7 +18,7 @@ import {
   CloseButton,
 } from '@mantine/core'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
-import { useState, useRef, memo, useCallback } from 'react'
+import { useState, useRef, memo } from 'react'
 import { deleteChat, changeChatTitle } from '@/stores/ChatAction'
 
 interface ChatSessionInputProps {
@@ -30,11 +30,12 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
   const [editState, setEditState] = useState<boolean>(false)
   const inputEl = useRef<HTMLInputElement>(null)
 
-  const onEditClick = () => {
+  const onEditClick = (e: any) => {
     setEditState(true)
     setTimeout(() => {
       inputEl.current?.focus()
     }, 0)
+    e.stopPropagation()
   }
 
   const onEditBlur = () => {
@@ -42,8 +43,9 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
     setEditState(false)
   }
 
-  const onDeleteClick = () => {
+  const onDeleteClick = (e: any) => {
     deleteChat(props.id)
+    e.stopPropagation()
   }
   return (
     <>

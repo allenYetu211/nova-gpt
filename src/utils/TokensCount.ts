@@ -1,11 +1,3 @@
-/*
- * @Author: Allen OYang
- * @Email:  allenwill211@gmail.com
- * @Date: 2023-04-17 22:34:23
- * @LastEditTime: 2023-04-20 14:53:42
- * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /speak-gpt/src/models/ChatMessage.ts
- */
 import encoder from '@nem035/gpt-3-encoder'
 
 export const countTokens = (text: string) => encoder.encode(text).length

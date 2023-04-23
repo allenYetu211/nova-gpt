@@ -2,13 +2,13 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-04-23 14:27:08
+ * @LastEditTime: 2023-04-23 15:55:48
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatMessage.tsx
  */
 import { FC } from 'react'
 import { Message } from '@/stores/ChatStore'
-import { Box, createStyles, Text, Flex } from '@mantine/core'
+import { Box, createStyles, Flex } from '@mantine/core'
 import IconBot from '@/images/svg/bot'
 import IconUser from '@/images/svg/user'
 import { Markdown } from '@/components/Markdown'
@@ -56,7 +56,7 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {
     <>
       <Flex
         justify={role === 'user' ? 'flex-end' : 'flex-start'}
-        align="center"
+        align="flex-end"
         sx={{
           fontSize: theme.fontSizes.sm,
         }}

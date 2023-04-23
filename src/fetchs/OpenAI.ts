@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:58:17
- * @LastEditTime: 2023-04-21 01:04:35
+ * @LastEditTime: 2023-04-23 16:13:46
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/fetchs/OpenAI.ts
  */
@@ -10,7 +10,7 @@ import { IncomingMessage } from 'http'
 import https from 'https'
 import axios from 'axios'
 import { Message } from '@/stores/ChatStore'
-import { truncateMessages, countTokens } from '@/models/ChatMessage'
+import { countTokens, truncateMessages } from '@/utils/TokensCount'
 import { getModelInfo } from '@/models/ModelsAccount'
 
 const fetchOpenAIData = async (url: string, key: string) => {

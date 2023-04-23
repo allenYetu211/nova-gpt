@@ -6,7 +6,7 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/UIFormTextInput.tsx
  */
-import { Flex, Text, TextInput, ActionIcon, Box } from '@mantine/core'
+import { Flex, Text, ActionIcon } from '@mantine/core'
 import { IconRefresh } from '@tabler/icons-react'
 import type { FC, PropsWithChildren } from 'react'
 import type { TextInputProps } from '@mantine/core'
