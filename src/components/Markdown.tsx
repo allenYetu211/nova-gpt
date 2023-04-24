@@ -6,17 +6,17 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/Markdown.tsx
  */
-import 'katex/dist/katex.min.css'
-import { FC, useRef } from 'react'
-import ReactMarkdown from 'react-markdown'
-import RehypeKatex from 'rehype-katex'
-import RehypePrsim from 'rehype-prism-plus'
-import RemarkBreaks from 'remark-breaks'
-import RemarkGfm from 'remark-gfm'
-import RemarkMath from 'remark-math'
+import "katex/dist/katex.min.css";
+import { FC, useRef } from "react";
+import ReactMarkdown from "react-markdown";
+import RehypeKatex from "rehype-katex";
+import RehypePrsim from "rehype-prism-plus";
+import RemarkBreaks from "remark-breaks";
+import RemarkGfm from "remark-gfm";
+import RemarkMath from "remark-math";
 
 interface MarkdownProps {
-  content: string
+  content: string;
 }
 export const Markdown: FC<MarkdownProps> = ({ content }) => {
   return (
@@ -29,11 +29,11 @@ export const Markdown: FC<MarkdownProps> = ({ content }) => {
     >
       {content}
     </ReactMarkdown>
-  )
-}
+  );
+};
 
 export const PreCode = (props: { children: any }) => {
-  const ref = useRef<HTMLPreElement>(null)
+  const ref = useRef<HTMLPreElement>(null);
 
-  return <pre ref={ref}>{props.children}</pre>
-}
+  return <pre ref={ref}>{props.children}</pre>;
+};

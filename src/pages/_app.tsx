@@ -6,34 +6,34 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/_app.tsx
  */
-import '@/styles/globals.css'
-import '@/styles/Markdown.css'
+import "@/styles/globals.css";
+import "@/styles/Markdown.css";
 
-import { Nav } from '@/components/Nav'
-import { ThemeColor } from '@/models/ThemeColor'
+import { Nav } from "@/components/Nav";
+import { ThemeColor } from "@/models/ThemeColor";
 import {
   AppShell,
   Box,
   createStyles,
   Header,
   MantineProvider,
-} from '@mantine/core'
-import type { AppProps } from 'next/app'
-import Head from 'next/head'
-import { useEffect, useState } from 'react'
+} from "@mantine/core";
+import type { AppProps } from "next/app";
+import Head from "next/head";
+import { useEffect, useState } from "react";
 
-const useStyles = createStyles({})
+const useStyles = createStyles({});
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [isHydrated, setIsHydrated] = useState(false)
-  const { theme } = useStyles()
+  const [isHydrated, setIsHydrated] = useState(false);
+  const { theme } = useStyles();
   //Wait till NextJS rehydration completes
   useEffect(() => {
-    setIsHydrated(true)
-  }, [])
+    setIsHydrated(true);
+  }, []);
 
   if (!isHydrated) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   return (
@@ -51,7 +51,7 @@ export default function App({ Component, pageProps }: AppProps) {
         withNormalizeCSS
         theme={{
           /** Put your mantine theme override here */
-          colorScheme: 'dark',
+          colorScheme: "dark",
           colors: ThemeColor,
         }}
       >
@@ -61,7 +61,7 @@ export default function App({ Component, pageProps }: AppProps) {
           styles={(theme) => ({
             main: {
               background:
-                theme.colorScheme === 'dark'
+                theme.colorScheme === "dark"
                   ? theme.colors.gradient[0]
                   : theme.colors.gray[0],
             },
@@ -77,5 +77,5 @@ export default function App({ Component, pageProps }: AppProps) {
         </AppShell>
       </MantineProvider>
     </>
-  )
+  );
 }

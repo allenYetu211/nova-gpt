@@ -16,24 +16,24 @@ import {
   Tooltip,
   createStyles,
   Group,
-} from '@mantine/core'
+} from "@mantine/core";
 
-import { ChatSessionInput } from '@/components/ChatSessionInput'
-import { changeActiveChatId, newChat } from '@/stores/ChatAction'
-import { useChatStore } from '@/stores/ChatStore'
-import { switchIsSetting } from '@/stores/SettingAction'
-import { IconPlus, IconSettings } from '@tabler/icons-react'
-import IconLogo from '@/images/svg/logo'
+import { ChatSessionInput } from "@/components/ChatSessionInput";
+import { changeActiveChatId, newChat } from "@/stores/ChatAction";
+import { useChatStore } from "@/stores/ChatStore";
+import { switchIsSetting } from "@/stores/SettingAction";
+import { IconPlus, IconSettings } from "@tabler/icons-react";
+import IconLogo from "@/images/svg/logo";
 
 const useStyles = createStyles((theme) => ({
   chatItem: {
-    width: '100%',
+    width: "100%",
     padding: theme.spacing.xs,
     borderRadius: theme.radius.md,
-    cursor: 'pointer',
-    '&:hover': {
+    cursor: "pointer",
+    "&:hover": {
       backgroundColor:
-        theme.colorScheme === 'dark'
+        theme.colorScheme === "dark"
           ? theme.colors.dark[5]
           : theme.colors.gray[1],
     },
@@ -42,32 +42,32 @@ const useStyles = createStyles((theme) => ({
     background: theme.colors.gradient[3],
   },
   sessionContainer: {
-    height: '100%',
+    height: "100%",
   },
   chatContainer: {
     flex: 1,
-    width: '100%',
-    overflow: 'auto',
+    width: "100%",
+    overflow: "auto",
   },
   icon: {
     width: 40,
     height: 40,
     padding: theme.spacing.xs,
   },
-}))
+}));
 
 export function Nav() {
-  const { classes, theme, cx } = useStyles()
-  const chats = useChatStore((state) => state.chats)
-  const activeChatId = useChatStore((state) => state.activeChatId)
+  const { classes, theme, cx } = useStyles();
+  const chats = useChatStore((state) => state.chats);
+  const activeChatId = useChatStore((state) => state.activeChatId);
 
   const tooltipCommon = {
     openDelay: 200,
     color:
-      theme.colorScheme === 'dark'
+      theme.colorScheme === "dark"
         ? theme.colors.dark[5]
         : theme.colors.gray[1],
-  }
+  };
 
   const chatsList = chats
     ? chats.map((chat) => {
@@ -86,19 +86,19 @@ export function Nav() {
               amount={chat.message.length}
             />
           </Box>
-        )
+        );
       })
-    : []
+    : [];
 
-  chatsList.reverse()
+  chatsList.reverse();
 
   return (
     <Navbar
       width={{ base: 330 }}
       sx={() => ({
-        padding: '20px',
-        backgroundColor: 'transparent',
-        border: 'none',
+        padding: "20px",
+        backgroundColor: "transparent",
+        border: "none",
       })}
       p="xs"
     >
@@ -107,9 +107,9 @@ export function Nav() {
       <Flex
         direction="column"
         sx={(theme) => ({
-          height: '100%',
+          height: "100%",
           background:
-            theme.colorScheme === 'dark'
+            theme.colorScheme === "dark"
               ? theme.colors.gradient[2]
               : theme.colors.gray[0],
           borderRadius: theme.radius.xl,
@@ -169,5 +169,5 @@ export function Nav() {
         </Flex>
       </Flex>
     </Navbar>
-  )
+  );
 }
