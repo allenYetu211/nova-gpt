@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-04-24 00:38:11
+ * @LastEditTime: 2023-04-24 10:24:12
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/Nav.tsx
  */
@@ -28,8 +28,7 @@ const useStyles = createStyles((theme) => ({
     },
   },
   chatItemActive: {
-    // backgroundColor: theme.colors.dark[8],
-    backgroundColor: `#2c3453`,
+    background: theme.colors.gradient[3],
   },
   sessionContainer: {
     height: '100%',
@@ -56,7 +55,12 @@ export function Nav() {
             })}
             onClick={() => changeActiveChatId(chat.id)}
           >
-            <ChatSessionInput title={chat.title} id={chat.id} />
+            <ChatSessionInput
+              title={chat.title}
+              id={chat.id}
+              date={chat.createdAt}
+              amount={chat.message.length}
+            />
           </Box>
         )
       })
@@ -80,8 +84,7 @@ export function Nav() {
           height: '100%',
           background:
             theme.colorScheme === 'dark'
-              ? // theme.colors.dark[7]
-                `linear-gradient(to bottom, #262d42 60%, transparent)`
+              ? theme.colors.gradient[2]
               : theme.colors.gray[0],
           borderRadius: theme.radius.xl,
           padding: theme.spacing.xl,

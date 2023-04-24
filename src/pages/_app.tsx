@@ -2,33 +2,33 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-04-23 18:18:51
+ * @LastEditTime: 2023-04-24 10:11:24
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/pages/_app.tsx
  */
-import "@/styles/globals.css";
-import "@/styles/Markdown.css";
+import '@/styles/globals.css'
+import '@/styles/Markdown.css'
 
-import type { AppProps } from "next/app";
-import { createStyles } from "@mantine/core";
-import Head from "next/head";
-import { Nav } from "@/components/Nav";
-import { MantineProvider, AppShell, Box, Header } from "@mantine/core";
-import { useState, useEffect } from "react";
-import { ThemeColor } from "@/models/ThemeColor";
+import type { AppProps } from 'next/app'
+import { createStyles } from '@mantine/core'
+import Head from 'next/head'
+import { Nav } from '@/components/Nav'
+import { MantineProvider, AppShell, Box, Header } from '@mantine/core'
+import { useState, useEffect } from 'react'
+import { ThemeColor } from '@/models/ThemeColor'
 
-const useStyles = createStyles({});
+const useStyles = createStyles({})
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [isHydrated, setIsHydrated] = useState(false);
-  const { theme } = useStyles();
+  const [isHydrated, setIsHydrated] = useState(false)
+  const { theme } = useStyles()
   //Wait till NextJS rehydration completes
   useEffect(() => {
-    setIsHydrated(true);
-  }, []);
+    setIsHydrated(true)
+  }, [])
 
   if (!isHydrated) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
@@ -45,7 +45,7 @@ export default function App({ Component, pageProps }: AppProps) {
         withNormalizeCSS
         theme={{
           /** Put your mantine theme override here */
-          colorScheme: "dark",
+          colorScheme: 'dark',
           colors: ThemeColor,
         }}
       >
@@ -60,10 +60,8 @@ export default function App({ Component, pageProps }: AppProps) {
           styles={(theme) => ({
             main: {
               background:
-                theme.colorScheme === "dark"
-                  ? // ? `linear-gradient(to top, ${theme.colors.dark[8]} 30%,  ${theme.colors.dark[0]} 95%)`
-                    // `linear-gradient(to top, ${theme.colors.dark[8]} 70%, ${theme.colors.dark[0]} 70%);`
-                    `linear-gradient(to bottom left, #202539 30%,  #332538 100%)`
+                theme.colorScheme === 'dark'
+                  ? theme.colors.gradient[0]
                   : theme.colors.gray[0],
             },
           })}
@@ -78,5 +76,5 @@ export default function App({ Component, pageProps }: AppProps) {
         </AppShell>
       </MantineProvider>
     </>
-  );
+  )
 }
