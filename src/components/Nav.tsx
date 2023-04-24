@@ -2,37 +2,38 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-04-24 18:11:47
+ * @LastEditTime: 2023-04-24 23:42:52
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /speak-gpt/src/components/Nav.tsx
+ * @FilePath: /nova-gpt/src/components/Nav.tsx
  */
 import {
-  Button,
+  ActionIcon,
+  Box,
+  Text,
   Divider,
   Flex,
   Navbar,
-  createStyles,
-  Box,
-  ActionIcon,
   Tooltip,
-} from "@mantine/core";
+  createStyles,
+  Group,
+} from '@mantine/core'
 
-import { IconPlus, IconSettings } from "@tabler/icons-react";
-import { useChatStore } from "@/stores/ChatStore";
-import { switchIsSetting } from "@/stores/SettingAction";
-import { newChat, changeActiveChatId } from "@/stores/ChatAction";
-import { ChatSessionInput } from "@/components/ChatSessionInput";
-import { AudioAnimation } from "@/components/AudioAnimation";
+import { ChatSessionInput } from '@/components/ChatSessionInput'
+import { changeActiveChatId, newChat } from '@/stores/ChatAction'
+import { useChatStore } from '@/stores/ChatStore'
+import { switchIsSetting } from '@/stores/SettingAction'
+import { IconPlus, IconSettings } from '@tabler/icons-react'
+import IconLogo from '@/images/svg/logo'
 
 const useStyles = createStyles((theme) => ({
   chatItem: {
-    width: "100%",
+    width: '100%',
     padding: theme.spacing.xs,
     borderRadius: theme.radius.md,
-    cursor: "pointer",
-    "&:hover": {
+    cursor: 'pointer',
+    '&:hover': {
       backgroundColor:
-        theme.colorScheme === "dark"
+        theme.colorScheme === 'dark'
           ? theme.colors.dark[5]
           : theme.colors.gray[1],
     },
@@ -41,27 +42,32 @@ const useStyles = createStyles((theme) => ({
     background: theme.colors.gradient[3],
   },
   sessionContainer: {
-    height: "100%",
+    height: '100%',
   },
   chatContainer: {
     flex: 1,
-    width: "100%",
-    overflow: "auto",
+    width: '100%',
+    overflow: 'auto',
   },
-}));
+  icon: {
+    width: 40,
+    height: 40,
+    padding: theme.spacing.xs,
+  },
+}))
 
 export function Nav() {
-  const { classes, theme, cx } = useStyles();
-  const chats = useChatStore((state) => state.chats);
-  const activeChatId = useChatStore((state) => state.activeChatId);
+  const { classes, theme, cx } = useStyles()
+  const chats = useChatStore((state) => state.chats)
+  const activeChatId = useChatStore((state) => state.activeChatId)
 
   const tooltipCommon = {
     openDelay: 200,
     color:
-      theme.colorScheme === "dark"
+      theme.colorScheme === 'dark'
         ? theme.colors.dark[5]
         : theme.colors.gray[1],
-  };
+  }
 
   const chatsList = chats
     ? chats.map((chat) => {
@@ -80,19 +86,19 @@ export function Nav() {
               amount={chat.message.length}
             />
           </Box>
-        );
+        )
       })
-    : [];
+    : []
 
-  chatsList.reverse();
+  chatsList.reverse()
 
   return (
     <Navbar
       width={{ base: 330 }}
       sx={() => ({
-        padding: "20px",
-        backgroundColor: "transparent",
-        border: "none",
+        padding: '20px',
+        backgroundColor: 'transparent',
+        border: 'none',
       })}
       p="xs"
     >
@@ -101,9 +107,9 @@ export function Nav() {
       <Flex
         direction="column"
         sx={(theme) => ({
-          height: "100%",
+          height: '100%',
           background:
-            theme.colorScheme === "dark"
+            theme.colorScheme === 'dark'
               ? theme.colors.gradient[2]
               : theme.colors.gray[0],
           borderRadius: theme.radius.xl,
@@ -111,14 +117,28 @@ export function Nav() {
           boxShadow: theme.shadows.xl,
         })}
       >
+        <Flex
+          sx={{
+            marginBottom: theme.spacing.xl,
+          }}
+          justify="space-between"
+          align="center"
+        >
+          <Box>
+            <Text fw={700}>Nova GPT</Text>
+            <Text size="xs">Chat GPT NEXT WEB </Text>
+          </Box>
+          <IconLogo height="40px" width="40px" />
+        </Flex>
+
         <Flex gap="md">
-          <Tooltip {...tooltipCommon} label="new chat">
+          <Tooltip {...tooltipCommon} label="New chat">
             <ActionIcon variant="default" size="xs" onClick={newChat}>
               <IconPlus />
             </ActionIcon>
           </Tooltip>
 
-          <Tooltip {...tooltipCommon} label="setting">
+          <Tooltip {...tooltipCommon} label="Setting">
             <ActionIcon variant="default" size="xs" onClick={switchIsSetting}>
               <IconSettings />
             </ActionIcon>
@@ -149,5 +169,5 @@ export function Nav() {
         </Flex>
       </Flex>
     </Navbar>
-  );
+  )
 }
