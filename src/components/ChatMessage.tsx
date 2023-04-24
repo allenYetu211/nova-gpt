@@ -2,19 +2,19 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-04-24 10:39:49
+ * @LastEditTime: 2023-04-24 16:19:46
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/components/ChatMessage.tsx
  */
-import { FC } from "react";
-import { Message } from "@/stores/ChatStore";
-import { Box, createStyles, Flex } from "@mantine/core";
-import IconBot from "@/images/svg/bot";
-import IconUser from "@/images/svg/user";
-import { Markdown } from "@/components/Markdown";
+import { FC } from 'react'
+import { Message } from '@/stores/ChatStore'
+import { Box, createStyles, Flex } from '@mantine/core'
+import IconBot from '@/images/svg/bot'
+import IconUser from '@/images/svg/user'
+import { Markdown } from '@/components/Markdown'
 
 interface ChatMessageProps {
-  message: Message;
+  message: Message
 }
 
 const useStyles = createStyles((theme) => {
@@ -23,20 +23,20 @@ const useStyles = createStyles((theme) => {
       padding: theme.spacing.xs,
       borderRadius: theme.radius.md,
       marginBottom: theme.spacing.xs,
-      display: "inline-block",
-      maxWidth: "80%",
+      display: 'inline-block',
+      maxWidth: '80%',
     },
 
     user: {
       backgroundColor:
-        theme.colorScheme === "dark"
+        theme.colorScheme === 'dark'
           ? theme.colors.dark[6]
           : // '#2c324f'
             theme.colors.gray[0],
     },
     assistant: {
       background:
-        theme.colorScheme === "dark"
+        theme.colorScheme === 'dark'
           ? theme.colors.gradient[1]
           : theme.colors.gray[0],
     },
@@ -45,34 +45,35 @@ const useStyles = createStyles((theme) => {
       height: 40,
       padding: theme.spacing.xs,
     },
-  };
-});
+  }
+})
 
 export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {
-  const { content, role } = message;
-  const { classes, cx, theme } = useStyles();
+  const { content, role } = message
+  const { classes, cx, theme } = useStyles()
 
   return (
     <>
       <Flex
-        justify={role === "user" ? "flex-end" : "flex-start"}
-        align="flex-end"
+        justify={role === 'user' ? 'flex-end' : 'flex-start'}
+        align="flex-start"
+        // align="flex-end"
         sx={{
           fontSize: theme.fontSizes.sm,
         }}
       >
-        {role === "assistant" && <IconBot className={classes.icon} />}
+        {role === 'assistant' && <IconBot className={classes.icon} />}
 
         <Box
-          className={cx(classes.container, "markdown-body", {
-            [classes.user]: role === "user",
-            [classes.assistant]: role === "assistant",
+          className={cx(classes.container, 'markdown-body', {
+            [classes.user]: role === 'user',
+            [classes.assistant]: role === 'assistant',
           })}
         >
           <Markdown content={content} />
         </Box>
-        {role === "user" && <IconUser className={classes.icon} />}
+        {role === 'user' && <IconUser className={classes.icon} />}
       </Flex>
     </>
-  );
-};
+  )
+}
