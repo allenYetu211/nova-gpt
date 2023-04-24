@@ -1,13 +1,13 @@
-import { Button } from '@mantine/core'
+import { Button } from "@mantine/core";
 
-import {} from 'react'
+import {} from "react";
 
 export const AudioAnimation = () => {
   return (
     <div>
       <Button> play </Button>
     </div>
-  )
-}
+  );
+};
 
-const mediaSource = () => {}
+const mediaSource = () => {};

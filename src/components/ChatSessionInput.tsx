@@ -16,53 +16,53 @@ import {
   Tooltip,
   Group,
   Transition,
-} from '@mantine/core'
-import { IconEdit, IconTrash } from '@tabler/icons-react'
-import { useState, useRef, memo } from 'react'
-import { deleteChat, changeChatTitle } from '@/stores/ChatAction'
-import dayjs from 'dayjs'
+} from "@mantine/core";
+import { IconEdit, IconTrash } from "@tabler/icons-react";
+import { useState, useRef, memo } from "react";
+import { deleteChat, changeChatTitle } from "@/stores/ChatAction";
+import dayjs from "dayjs";
 
 const useStyles = createStyles((theme) => ({
   utilsContainer: {
-    position: 'absolute',
+    position: "absolute",
     right: 0,
     top: 0,
   },
   container: {
-    position: 'relative',
+    position: "relative",
   },
-}))
+}));
 
 interface ChatSessionInputProps {
-  title: string
-  id: string
-  date: Date
-  amount: number
+  title: string;
+  id: string;
+  date: Date;
+  amount: number;
 }
 
 export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
-  const [editState, setEditState] = useState<boolean>(false)
-  const inputEl = useRef<HTMLInputElement>(null)
-  const [open, setOpen] = useState<boolean>(false)
-  const { classes } = useStyles()
+  const [editState, setEditState] = useState<boolean>(false);
+  const inputEl = useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState<boolean>(false);
+  const { classes } = useStyles();
 
   const onEditClick = (e: any) => {
-    setEditState(true)
+    setEditState(true);
     setTimeout(() => {
-      inputEl.current?.focus()
-    }, 0)
-    e.stopPropagation()
-  }
+      inputEl.current?.focus();
+    }, 0);
+    e.stopPropagation();
+  };
 
   const onEditBlur = () => {
-    changeChatTitle(props.id, inputEl.current?.value)
-    setEditState(false)
-  }
+    changeChatTitle(props.id, inputEl.current?.value);
+    setEditState(false);
+  };
 
   const onDeleteClick = (e: any) => {
-    deleteChat(props.id)
-    e.stopPropagation()
-  }
+    deleteChat(props.id);
+    e.stopPropagation();
+  };
   return (
     <Flex
       className={classes.container}
@@ -72,10 +72,10 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
       direction="row"
       wrap="wrap"
       onMouseEnter={() => {
-        setOpen(true)
+        setOpen(true);
       }}
       onMouseLeave={() => {
-        setOpen(false)
+        setOpen(false);
       }}
     >
       <Flex direction="column" w="100%">
@@ -85,32 +85,32 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
             defaultValue={props.title}
             onBlur={onEditBlur}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                onEditBlur()
+              if (e.key === "Enter") {
+                onEditBlur();
               }
             }}
             w="150px"
             size="xs"
             sx={() => ({
-              border: 'none',
+              border: "none",
               borderRadius: 0,
               flex: 1,
             })}
           />
         ) : (
           <Text
-            sx={() => ({ flex: 1, lineHeight: '2.1431' })}
+            sx={() => ({ flex: 1, lineHeight: "2.1431" })}
             truncate
             size="sm"
           >
-            {props.title || ''}
+            {props.title || ""}
           </Text>
         )}
 
         <Flex justify="space-between">
           <Text size="xs"> 共 {props.amount} 条记录</Text>
           <Text size="xs">
-            {dayjs(props.date).format('YYYY/MM/DD HH:mm:ss')}
+            {dayjs(props.date).format("YYYY/MM/DD HH:mm:ss")}
           </Text>
         </Flex>
       </Flex>
@@ -134,5 +134,5 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
         )}
       </Transition>
     </Flex>
-  )
-})
+  );
+});

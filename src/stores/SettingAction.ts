@@ -6,13 +6,13 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/stores/SettingAction.ts
  */
-import { useSettingStore, SettingState } from './SettingStore'
+import { useSettingStore, SettingState } from "./SettingStore";
 
-const getSetting = useSettingStore.getState
-const setSetting = useSettingStore.setState
+const getSetting = useSettingStore.getState;
+const setSetting = useSettingStore.setState;
 
 export const updateOpenAIConfig = (
-  newState: Partial<SettingState['openAI'] | SettingState['openAI']['config']>,
+  newState: Partial<SettingState["openAI"] | SettingState["openAI"]["config"]>
 ) => {
   setSetting((state) => ({
     openAI: {
@@ -22,22 +22,22 @@ export const updateOpenAIConfig = (
         ...newState,
       },
     },
-  }))
-}
+  }));
+};
 
 export const updateOpenAIHistory = (
-  newState: SettingState['openAI']['history'],
+  newState: SettingState["openAI"]["history"]
 ) => {
   setSetting((state) => ({
     openAI: {
       ...state.openAI,
       history: newState,
     },
-  }))
-}
+  }));
+};
 
 export const switchIsSetting = () => {
   setSetting((state) => ({
     isSetting: !state.isSetting,
-  }))
-}
+  }));
+};
