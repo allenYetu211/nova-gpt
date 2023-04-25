@@ -16,31 +16,31 @@ import {
   Tooltip,
   createStyles,
   Group,
-} from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
-import { ChatSessionInput } from '@/components/ChatSessionInput'
-import { changeActiveChatId, newChat } from '@/stores/ChatAction'
-import { useChatStore } from '@/stores/ChatStore'
-import { useSettingStore } from '@/stores/SettingStore'
-import { switchIsSetting } from '@/stores/SettingAction'
+} from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { ChatSessionInput } from "@/components/ChatSessionInput";
+import { changeActiveChatId, newChat } from "@/stores/ChatAction";
+import { useChatStore } from "@/stores/ChatStore";
+import { useSettingStore } from "@/stores/SettingStore";
+import { switchIsSetting } from "@/stores/SettingAction";
 import {
   IconPlus,
   IconSettings,
   IconX,
   IconArrowBarToRight,
   IconArrowBarToLeft,
-} from '@tabler/icons-react'
-import IconLogo from '@/images/svg/logo'
+} from "@tabler/icons-react";
+import IconLogo from "@/images/svg/logo";
 
 const useStyles = createStyles((theme) => ({
   chatItem: {
-    width: '100%',
+    width: "100%",
     padding: theme.spacing.xs,
     borderRadius: theme.radius.md,
-    cursor: 'pointer',
-    '&:hover': {
+    cursor: "pointer",
+    "&:hover": {
       backgroundColor:
-        theme.colorScheme === 'dark'
+        theme.colorScheme === "dark"
           ? theme.colors.dark[5]
           : theme.colors.gray[1],
     },
@@ -49,12 +49,12 @@ const useStyles = createStyles((theme) => ({
     background: theme.colors.gradient[3],
   },
   sessionContainer: {
-    height: '100%',
+    height: "100%",
   },
   chatContainer: {
     flex: 1,
-    width: '100%',
-    overflow: 'auto',
+    width: "100%",
+    overflow: "auto",
   },
   icon: {
     width: 40,
@@ -69,22 +69,22 @@ const useStyles = createStyles((theme) => ({
   //     width: 50,
   //   },
   // },
-}))
+}));
 
 export function Nav() {
-  const { classes, theme, cx } = useStyles()
-  const chats = useChatStore((state) => state.chats)
-  const activeChatId = useChatStore((state) => state.activeChatId)
-  const isMobile = useSettingStore((state) => state.isMobile)
-  const [opened, { toggle }] = useDisclosure(!isMobile)
+  const { classes, theme, cx } = useStyles();
+  const chats = useChatStore((state) => state.chats);
+  const activeChatId = useChatStore((state) => state.activeChatId);
+  const isMobile = useSettingStore((state) => state.isMobile);
+  const [opened, { toggle }] = useDisclosure(!isMobile);
 
   const tooltipCommon = {
     openDelay: 200,
     color:
-      theme.colorScheme === 'dark'
+      theme.colorScheme === "dark"
         ? theme.colors.dark[5]
         : theme.colors.gray[1],
-  }
+  };
 
   const chatsList = chats
     ? chats.map((chat) => {
@@ -103,16 +103,16 @@ export function Nav() {
               amount={chat.message.length}
             />
           </Box>
-        )
+        );
       })
-    : []
+    : [];
 
-  chatsList.reverse()
+  chatsList.reverse();
 
   return (
     <Box
       sx={{
-        position: 'relative',
+        position: "relative",
       }}
     >
       <Navbar
@@ -120,13 +120,13 @@ export function Nav() {
         // className={classes.nav}
         width={{ base: 330 }}
         sx={(theme) => ({
-          padding: '20px',
-          background: 'transparent',
-          border: 'none',
+          padding: "20px",
+          background: "transparent",
+          border: "none",
           [`@media (max-width: ${theme.breakpoints.sm})`]: {
-            width: '100%',
+            width: "100%",
             background: theme.colors.dark[7],
-            display: opened ? 'flex' : 'none',
+            display: opened ? "flex" : "none",
           },
         })}
         p="xs"
@@ -136,9 +136,9 @@ export function Nav() {
         <Flex
           direction="column"
           sx={(theme) => ({
-            height: '100%',
+            height: "100%",
             background:
-              theme.colorScheme === 'dark'
+              theme.colorScheme === "dark"
                 ? theme.colors.gradient[2]
                 : theme.colors.gray[0],
             borderRadius: theme.radius.xl,
@@ -182,7 +182,7 @@ export function Nav() {
             <Group
               sx={(theme) => ({
                 [`@media (min-width: ${theme.breakpoints.sm})`]: {
-                  display: 'none',
+                  display: "none",
                 },
               })}
             >
@@ -220,11 +220,11 @@ export function Nav() {
 
       <Group
         sx={(theme) => ({
-          display: !opened ? 'block' : 'none',
+          display: !opened ? "block" : "none",
           [`@media (min-width: ${theme.breakpoints.sm})`]: {
-            display: 'none',
+            display: "none",
           },
-          position: 'absolute',
+          position: "absolute",
           left: 5,
           top: 10,
         })}
@@ -235,5 +235,5 @@ export function Nav() {
         </ActionIcon>
       </Group>
     </Box>
-  )
+  );
 }
