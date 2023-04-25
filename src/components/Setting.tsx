@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 22:05:39
- * @LastEditTime: 2023-04-24 23:49:11
+ * @LastEditTime: 2023-04-25 12:53:41
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Setting.tsx
  */
@@ -11,9 +11,9 @@ import {
   updateOpenAIConfig,
   updateOpenAIHistory,
   updateOpenAIKey,
-} from "@/stores/SettingAction";
-import { useSettingStore } from "@/stores/SettingStore";
-import { keepDecimal } from "@/utils";
+} from '@/stores/SettingAction'
+import { useSettingStore } from '@/stores/SettingStore'
+import { keepDecimal } from '@/utils'
 import {
   ActionIcon,
   Box,
@@ -25,31 +25,44 @@ import {
   Slider,
   Text,
   createStyles,
-} from "@mantine/core";
-import { IconX } from "@tabler/icons-react";
-import { Fragment, useRef } from "react";
+} from '@mantine/core'
+import { IconX } from '@tabler/icons-react'
+import { Fragment, useRef } from 'react'
 
 export const useStyles = createStyles((theme) => ({
   settingItem: {
-    background: theme.colorScheme === "dark" ? "#2c3453" : "#fff",
+    background: theme.colorScheme === 'dark' ? '#2c3453' : '#fff',
     padding: theme.spacing.md,
     borderRadius: theme.radius.md,
     boxShadow: theme.shadows.md,
     margin: `${theme.spacing.md} 0 ${theme.spacing.md} 0`,
     [`& > .item`]: {
       borderBottom: `1px solid ${
-        theme.colorScheme === "dark"
+        theme.colorScheme === 'dark'
           ? theme.colors.dark[5]
           : theme.colors.gray[2]
       }`,
     },
   },
-}));
+}))
 
 export const Setting = () => {
-  const { classes, cx } = useStyles();
+  const { classes, cx } = useStyles()
   return (
-    <>
+    <Box
+      sx={(theme) => ({
+        [`@media (max-width: ${theme.breakpoints.sm})`]: {
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 100,
+          padding: theme.spacing.md,
+          background: theme.colors.dark[8],
+        },
+      })}
+    >
       <Flex
         justify="space-between"
         align="center"
@@ -64,7 +77,15 @@ export const Setting = () => {
         </ActionIcon>
       </Flex>
 
-      <Box w="80%" sx={{ margin: "0 auto" }}>
+      <Box
+        sx={(theme) => ({
+          margin: '0 auto',
+          width: '80%',
+          [`@media (max-width: ${theme.breakpoints.sm})`]: {
+            width: '100%',
+          },
+        })}
+      >
         <Text fz="md" fw={500}>
           Open AI
         </Text>
@@ -72,49 +93,49 @@ export const Setting = () => {
           <OpenAIConfig />
         </Box>
       </Box>
-    </>
-  );
-};
+    </Box>
+  )
+}
 
 const OpenAIConfig = () => {
-  const selectEl = useRef<HTMLInputElement>(null);
-  const max_tokens = useSettingStore((state) => state.openAI.config.max_tokens);
-  const key = useSettingStore((state) => state.openAI.key);
-  const models = useSettingStore((state) => state.openAI.models);
-  const history = useSettingStore((state) => state.openAI.history);
-  const currentModels = useSettingStore((state) => state.openAI.config.model);
+  const selectEl = useRef<HTMLInputElement>(null)
+  const max_tokens = useSettingStore((state) => state.openAI.config.max_tokens)
+  const key = useSettingStore((state) => state.openAI.key)
+  const models = useSettingStore((state) => state.openAI.models)
+  const history = useSettingStore((state) => state.openAI.history)
+  const currentModels = useSettingStore((state) => state.openAI.config.model)
   const presence_penalty = useSettingStore(
-    (state) => state.openAI.config.presence_penalty
-  );
+    (state) => state.openAI.config.presence_penalty,
+  )
   const temperature = useSettingStore(
-    (state) => state.openAI.config.temperature
-  );
+    (state) => state.openAI.config.temperature,
+  )
 
   const config = [
     {
-      name: "key",
-      introduction: "Open AI API key",
+      name: 'key',
+      introduction: 'Open AI API key',
       template: (
         <Input
           value={key}
           size="xs"
-          sx={{ width: "100%" }}
+          sx={{ width: '100%' }}
           onChange={(e) => {
-            updateOpenAIKey(e.target.value);
+            updateOpenAIKey(e.target.value)
           }}
           placeholder="sk-xxxxxxx-xxxxx-xxx-xxxxx"
         />
       ),
     },
     {
-      name: "max_tokens",
-      introduction: "单次交互所用的最大 Token 数",
+      name: 'max_tokens',
+      introduction: '单次交互所用的最大 Token 数',
       template: (
         <NumberInput
           max={2048}
           min={100}
           size="xs"
-          sx={{ width: "100%" }}
+          sx={{ width: '100%' }}
           onBlur={(e) =>
             updateOpenAIConfig({ max_tokens: Number(e.currentTarget.value) })
           }
@@ -123,8 +144,8 @@ const OpenAIConfig = () => {
       ),
     },
     {
-      name: "temperature",
-      introduction: "回答随随机性 |  取值范围建议：0.7~ 1.0",
+      name: 'temperature',
+      introduction: '回答随随机性 |  取值范围建议：0.7~ 1.0',
       template: (
         <Flex justify="flex-end" align="center">
           <Slider
@@ -138,16 +159,16 @@ const OpenAIConfig = () => {
             showLabelOnHover={false}
             labelAlwaysOn={false}
             onChangeEnd={(value) => {
-              updateOpenAIConfig({ temperature: keepDecimal(value, 1) });
+              updateOpenAIConfig({ temperature: keepDecimal(value, 1) })
             }}
-            sx={{ width: "100px" }}
+            sx={{ width: '100px' }}
           />
 
           <Text
             size="xs"
             sx={(theme) => ({
               paddingLeft: theme.spacing.lg,
-              width: "50px",
+              width: '50px',
             })}
           >
             {temperature}
@@ -156,8 +177,8 @@ const OpenAIConfig = () => {
       ),
     },
     {
-      name: "presence_penalty",
-      introduction: "GPT 惩罚机制 |  取值范围建议：0.9~ 1.2",
+      name: 'presence_penalty',
+      introduction: 'GPT 惩罚机制 |  取值范围建议：0.9~ 1.2',
       template: (
         <Flex justify="flex-end" align="center">
           <Slider
@@ -168,18 +189,18 @@ const OpenAIConfig = () => {
             label={(value) => value.toFixed(1)}
             step={0.1}
             onChangeEnd={(value) => {
-              updateOpenAIConfig({ presence_penalty: keepDecimal(value, 1) });
+              updateOpenAIConfig({ presence_penalty: keepDecimal(value, 1) })
             }}
             defaultValue={presence_penalty}
             showLabelOnHover={false}
             labelAlwaysOn={false}
-            sx={{ width: "100px" }}
+            sx={{ width: '100px' }}
           />
           <Text
             size="xs"
             sx={(theme) => ({
               paddingLeft: theme.spacing.lg,
-              width: "50px",
+              width: '50px',
             })}
           >
             {presence_penalty}
@@ -188,16 +209,16 @@ const OpenAIConfig = () => {
       ),
     },
     {
-      name: "models",
-      introduction: "选择模型",
+      name: 'models',
+      introduction: '选择模型',
       template: (
         <Select
           ref={selectEl}
           size="xs"
           searchable
-          sx={{ width: "100%" }}
+          sx={{ width: '100%' }}
           onSearchChange={(value) => {
-            updateOpenAIConfig({ model: value });
+            updateOpenAIConfig({ model: value })
           }}
           defaultValue={currentModels}
           nothingFound="No options"
@@ -206,8 +227,8 @@ const OpenAIConfig = () => {
       ),
     },
     {
-      name: "history",
-      introduction: "携带最大历史信息",
+      name: 'history',
+      introduction: '携带最大历史信息',
       template: (
         <Flex justify="flex-end" align="center">
           <Slider
@@ -218,18 +239,18 @@ const OpenAIConfig = () => {
             label={(value) => value.toFixed(0)}
             step={1}
             onChangeEnd={(value) => {
-              updateOpenAIHistory(keepDecimal(value, 1));
+              updateOpenAIHistory(keepDecimal(value, 1))
             }}
             defaultValue={history}
             showLabelOnHover={false}
             labelAlwaysOn={false}
-            sx={{ width: "100px" }}
+            sx={{ width: '100px' }}
           />
           <Text
             size="xs"
             sx={(theme) => ({
               paddingLeft: theme.spacing.lg,
-              width: "50px",
+              width: '50px',
             })}
           >
             {history}
@@ -237,7 +258,7 @@ const OpenAIConfig = () => {
         </Flex>
       ),
     },
-  ];
+  ]
   return (
     <>
       {config.map((item, index) => {
@@ -259,8 +280,8 @@ const OpenAIConfig = () => {
               <Divider my="sm" variant="dashed" />
             )}
           </Fragment>
-        );
+        )
       })}
     </>
-  );
-};
+  )
+}
