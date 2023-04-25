@@ -2,38 +2,56 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-04-24 23:09:08
+ * @LastEditTime: 2023-04-25 11:50:46
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/_app.tsx
  */
-import "@/styles/globals.css";
-import "@/styles/Markdown.css";
+import '@/styles/globals.css'
+import '@/styles/Markdown.css'
 
-import { Nav } from "@/components/Nav";
-import { ThemeColor } from "@/models/ThemeColor";
+import { Nav } from '@/components/Nav'
+import { ThemeColor } from '@/models/ThemeColor'
 import {
   AppShell,
   Box,
   createStyles,
   Header,
   MantineProvider,
-} from "@mantine/core";
-import type { AppProps } from "next/app";
-import Head from "next/head";
-import { useEffect, useState } from "react";
+} from '@mantine/core'
+import type { AppProps } from 'next/app'
+import Head from 'next/head'
+import { useEffect, useState } from 'react'
 
-const useStyles = createStyles({});
+const useStyles = createStyles((theme) => ({
+  appShell: {
+    [`@media (max-width: ${theme.breakpoints.sm})`]: {
+      // paddingLeft: 500,
+    },
+
+    // [`.mantine-AppShell-main`]: {
+    //   [`@media (max-width: ${theme.breakpoints.sm})`]: {
+    //     paddingLeft: 0,
+    //   },
+    // },
+    // [`.mantine-Navbar-root`]: {
+    //   [`@media (max-width: ${theme.breakpoints.sm})`]: {
+    //     width: '100%',
+    //     opacity: 0,
+    //   },
+    // },
+  },
+}))
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [isHydrated, setIsHydrated] = useState(false);
-  const { theme } = useStyles();
+  const [isHydrated, setIsHydrated] = useState(false)
+  const { classes, theme } = useStyles()
   //Wait till NextJS rehydration completes
   useEffect(() => {
-    setIsHydrated(true);
-  }, []);
+    setIsHydrated(true)
+  }, [])
 
   if (!isHydrated) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
@@ -51,19 +69,24 @@ export default function App({ Component, pageProps }: AppProps) {
         withNormalizeCSS
         theme={{
           /** Put your mantine theme override here */
-          colorScheme: "dark",
+          colorScheme: 'dark',
           colors: ThemeColor,
         }}
       >
         <AppShell
+          className={classes.appShell}
           padding="md"
+          layout="alt"
           navbar={<Nav />}
           styles={(theme) => ({
             main: {
               background:
-                theme.colorScheme === "dark"
+                theme.colorScheme === 'dark'
                   ? theme.colors.gradient[0]
                   : theme.colors.gray[0],
+              [`@media (max-width: ${theme.breakpoints.sm})`]: {
+                paddingLeft: '1rem',
+              },
             },
           })}
         >
@@ -77,5 +100,5 @@ export default function App({ Component, pageProps }: AppProps) {
         </AppShell>
       </MantineProvider>
     </>
-  );
+  )
 }
