@@ -6,12 +6,12 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/fetch/Request.ts
  */
-import { Message } from '@/stores/ChatStore'
-import { SettingsForm } from '@/stores/SettingStore'
+import { Message } from "@/stores/ChatStore";
+import { SettingsForm } from "@/stores/SettingStore";
 
-type ChatCompletionParams = Omit<SettingsForm, 'auto_title'>
+type ChatCompletionParams = Omit<SettingsForm, "auto_title">;
 
-import { paramKeys } from '@/stores/SettingStore'
+import { paramKeys } from "@/stores/SettingStore";
 
 export const requestOpenAI = async (
   messages: Message[],
@@ -20,11 +20,11 @@ export const requestOpenAI = async (
   abortController?: AbortController,
   callback?: ((value: string) => void) | undefined,
   endCallback?: (() => void) | undefined,
-  errorCallback?: ((body: string) => void) | undefined,
+  errorCallback?: ((body: string) => void) | undefined
 ) => {
   const submitParams = Object.fromEntries(
-    Object.entries(params).filter(([key]) => paramKeys.includes(key)),
-  )
+    Object.entries(params).filter(([key]) => paramKeys.includes(key))
+  );
   const payload = JSON.stringify({
     stream: true,
     messages: messages.map(({ content, role }) => ({ content, role })),
@@ -33,42 +33,42 @@ export const requestOpenAI = async (
       logit_bias: {},
       max_tokens: params.max_tokens || undefined,
     },
-  })
+  });
 
   try {
-    const response = await fetch('/api/chat-stream', {
-      method: 'POST',
+    const response = await fetch("/api/chat-stream", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         apiKey: apiKey,
-        path: 'v1/chat/completions',
+        path: "v1/chat/completions",
       },
       body: payload,
       signal: abortController!.signal,
-    })
+    });
 
     if (!response.ok) {
-      throw new Error(response.statusText)
+      throw new Error(response.statusText);
     }
 
-    const data = response.body
+    const data = response.body;
     if (!data) {
-      return
+      return;
     }
 
-    const reader = data.getReader()
-    const decoder = new TextDecoder()
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
 
     while (true) {
-      const { value, done: doneReading } = await reader.read()
+      const { value, done: doneReading } = await reader.read();
       if (doneReading) {
-        endCallback!()
-        break
+        endCallback!();
+        break;
       }
-      const chunkValue = decoder.decode(value)
-      callback!(chunkValue)
+      const chunkValue = decoder.decode(value);
+      callback!(chunkValue);
     }
   } catch (e: any) {
-    errorCallback!(e.message)!
+    errorCallback!(e.message)!;
   }
-}
+};
