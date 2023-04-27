@@ -9,7 +9,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export const excludeKeys = ["textareaMessage", "isRecording"];
+export const excludeKeys = ["textareaMessage", "isRecording", "loadingChats"];
 
 export interface Message {
   content: string;
@@ -29,6 +29,7 @@ export interface ChatState {
   /**
    * Chat Components Messages
    */
+  loadingChats: string[];
   chats: Chat[];
   activeChatId: string | undefined;
   /**
@@ -41,6 +42,7 @@ export interface ChatState {
 }
 
 export const initialState = {
+  loadingChats: [],
   chats: [],
   activeChatId: undefined,
 

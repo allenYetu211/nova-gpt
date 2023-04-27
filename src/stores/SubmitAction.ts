@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-04-27 19:25:13
+ * @LastEditTime: 2023-04-28 00:28:53
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
@@ -57,6 +57,14 @@ export const submitMessage = () => {
   const openAIKey = openAI.key;
   const responseMessageId = uuidv4();
 
+  setChat((state) => {
+    const loadingChats = [...state.loadingChats];
+    loadingChats.push(responseMessageId);
+    return {
+      loadingChats,
+    };
+  });
+
   const botResponseMessage: Message = {
     content: "",
     role: "assistant",
@@ -86,6 +94,14 @@ export const submitMessage = () => {
 
   const endCallback = () => {
     console.log("endCallback");
+
+    setChat((state) => {
+      return {
+        loadingChats: state.loadingChats.filter(
+          (id) => id !== responseMessageId
+        ),
+      };
+    });
   };
 
   const errorCallback = (content: string) => {

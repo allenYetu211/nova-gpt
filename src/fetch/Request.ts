@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-26 09:44:32
- * @LastEditTime: 2023-04-27 19:28:09
+ * @LastEditTime: 2023-04-27 23:48:13
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/fetch/Request.ts
  */
@@ -68,6 +68,8 @@ export const requestOpenAI = async (
       const chunkValue = decoder.decode(value);
       callback!(chunkValue);
     }
+
+    abortController!.abort();
   } catch (e: any) {
     errorCallback!(e.message)!;
   }

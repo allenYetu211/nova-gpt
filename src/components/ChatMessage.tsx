@@ -2,15 +2,15 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-04-24 22:52:55
+ * @LastEditTime: 2023-04-28 00:34:27
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatMessage.tsx
  */
 import { Markdown } from "@/components/Markdown";
 import IconBot from "@/images/svg/bot";
 import IconUser from "@/images/svg/user";
-import { Message } from "@/stores/ChatStore";
-import { Box, createStyles, Flex } from "@mantine/core";
+import { Message, useChatStore } from "@/stores/ChatStore";
+import { Box, createStyles, Flex, Group } from "@mantine/core";
 import { FC } from "react";
 
 interface ChatMessageProps {
@@ -28,6 +28,7 @@ const useStyles = createStyles((theme) => {
     },
 
     user: {
+      marginRight: theme.spacing.md,
       backgroundColor:
         theme.colorScheme === "dark"
           ? theme.colors.dark[6]
@@ -35,6 +36,7 @@ const useStyles = createStyles((theme) => {
             theme.colors.gray[0],
     },
     assistant: {
+      marginLeft: theme.spacing.md,
       background:
         theme.colorScheme === "dark"
           ? theme.colors.gradient[1]
@@ -51,18 +53,29 @@ const useStyles = createStyles((theme) => {
 export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {
   const { content, role } = message;
   const { classes, cx, theme } = useStyles();
+  const loadingChats = useChatStore((state) => state.loadingChats);
 
   return (
     <>
       <Flex
-        justify={role === "user" ? "flex-end" : "flex-start"}
-        align="flex-start"
+        align={role === "user" ? "flex-end" : "flex-start"}
+        justify="flex-start"
         // align="flex-end"
+        direction="column"
         sx={{
           fontSize: theme.fontSizes.sm,
         }}
       >
-        {role === "assistant" && <IconBot className={classes.icon} />}
+        <Group>
+          {role === "assistant" && (
+            <Box>
+              <IconBot className={classes.icon} />
+              {/* {loadingChats.includes(message.id) && 'loading'} */}
+            </Box>
+          )}
+
+          {role === "user" && <IconUser className={classes.icon} />}
+        </Group>
 
         <Box
           className={cx(classes.container, "markdown-body", {
@@ -72,7 +85,6 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {
         >
           <Markdown content={content} />
         </Box>
-        {role === "user" && <IconUser className={classes.icon} />}
       </Flex>
     </>
   );

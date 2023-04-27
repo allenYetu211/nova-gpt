@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-04-23 18:20:28
+ * @LastEditTime: 2023-04-28 00:20:20
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /speak-gpt/src/components/ChatContent.tsx
+ * @FilePath: /nova-gpt/src/components/ChatContent.tsx
  */
 
 import { useChatStore } from "@/stores/ChatStore";
@@ -18,6 +18,7 @@ const useStyles = createStyles((theme) => ({
     flex: 1,
     overflow: "auto",
     marginRight: `-${theme.spacing.md}`,
+    paddingRight: theme.spacing.md,
   },
 }));
 
