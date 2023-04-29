@@ -7,9 +7,9 @@
  * @FilePath: /speak-gpt/src/pages/index.tsx
  */
 
-import { Main } from "@/components/Main";
-import "@/extensions";
+import { Main } from '@/components/Main';
+import '@/extensions';
 
 export default function Home() {
-  return <Main />;
+	return <Main />;
 }

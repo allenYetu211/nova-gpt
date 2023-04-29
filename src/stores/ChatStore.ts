@@ -6,60 +6,58 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /speak-gpt/src/stores/ChatStore.ts
  */
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-export const excludeKeys = ["textareaMessage", "isRecording", "loadingChats"];
+export const excludeKeys = ['textareaMessage', 'isRecording', 'loadingChats'];
 
 export interface Message {
-  content: string;
-  id: string;
-  createdAt: Date;
-  role: "user" | "system" | "assistant";
+	content: string;
+	id: string;
+	createdAt: Date;
+	role: 'user' | 'system' | 'assistant';
 }
 
 export interface Chat {
-  id: string;
-  message: Message[];
-  createdAt: Date;
-  title: string;
+	id: string;
+	message: Message[];
+	createdAt: Date;
+	title: string;
 }
 
 export interface ChatState {
-  /**
-   * Chat Components Messages
-   */
-  loadingChats: string[];
-  chats: Chat[];
-  activeChatId: string | undefined;
-  /**
-   *  Textarea Components State
-   */
-  isRecording: boolean;
-  textareaMessage: string;
-  recordItems: { value: string; label: string }[];
-  recordModel: string;
+	/**
+	 * Chat Components Messages
+	 */
+	loadingChats: string[];
+	chats: Chat[];
+	activeChatId: string | undefined;
+	/**
+	 *  Textarea Components State
+	 */
+	isRecording: boolean;
+	textareaMessage: string;
+	recordItems: { value: string; label: string }[];
+	recordModel: string;
 }
 
 export const initialState = {
-  loadingChats: [],
-  chats: [],
-  activeChatId: undefined,
+	loadingChats: [],
+	chats: [],
+	activeChatId: undefined,
 
-  isRecording: false,
-  textareaMessage: "",
-  recordItems: [],
-  recordModel: "",
+	isRecording: false,
+	textareaMessage: '',
+	recordItems: [],
+	recordModel: '',
 };
 
 const store = () => ({ ...initialState } as ChatState);
 
 export const useChatStore = create<ChatState>()(
-  persist(store, {
-    name: "chat-store",
-    partialize: (state) =>
-      Object.fromEntries(
-        Object.entries(state).filter(([key]) => !excludeKeys.includes(key))
-      ),
-  })
+	persist(store, {
+		name: 'chat-store',
+		partialize: (state) =>
+			Object.fromEntries(Object.entries(state).filter(([key]) => !excludeKeys.includes(key))),
+	}),
 );

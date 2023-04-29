@@ -13,6 +13,9 @@ dependencies:
   '@mantine/hooks':
     specifier: ^6.0.7
     version: 6.0.7(react@18.2.0)
+  '@mantine/notifications':
+    specifier: ^6.0.2
+    version: 6.0.9(@mantine/core@6.0.7)(@mantine/hooks@6.0.7)(react-dom@18.2.0)(react@18.2.0)
   '@nem035/gpt-3-encoder':
     specifier: ^1.1.7
     version: 1.1.7
@@ -67,6 +70,9 @@ dependencies:
   remark-math:
     specifier: ^5.1.1
     version: 5.1.1
+  undici:
+    specifier: ^5.22.0
+    version: 5.22.0
   uuid:
     specifier: ^9.0.0
     version: 9.0.0
@@ -573,6 +579,22 @@ packages:
       react: 18.2.0
     dev: false
 
+  /@mantine/notifications@6.0.9(@mantine/core@6.0.7)(@mantine/hooks@6.0.7)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-X0Nyv9Fe9/1wrjxkyGTCE5VlOfzCbQjVWJ9uCWshqGkDSs8HTaWWZ9FM8fUeIXtI/LVB65OwPBegKw4/POgZQQ==}
+    peerDependencies:
+      '@mantine/core': 6.0.9
+      '@mantine/hooks': 6.0.9
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@mantine/core': 6.0.7(@emotion/react@11.10.6)(@mantine/hooks@6.0.7)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0)
+      '@mantine/hooks': 6.0.7(react@18.2.0)
+      '@mantine/utils': 6.0.9(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-transition-group: 4.4.2(react-dom@18.2.0)(react@18.2.0)
+    dev: false
+
   /@mantine/styles@6.0.7(@emotion/react@11.10.6)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-vbR2I853wFY40NOi66N97n3pstjA0bEU1Y0QitX1EAOvmHvuzTuaUtrEq9EqHOiwx8h9e0TndqsYapjDbkw0eg==}
     peerDependencies:
@@ -589,6 +611,14 @@ packages:
 
   /@mantine/utils@6.0.7(react@18.2.0):
     resolution: {integrity: sha512-XMm66GNn9hXnc9s/twXzL9iqhzM8HLVOyuKDo4WUn/ZM6NEJYJJVcTTlSIXOPq9AWo8bI76vbAHkIry1aEbgmg==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@mantine/utils@6.0.9(react@18.2.0):
+    resolution: {integrity: sha512-zEDZixO8dw2ZSNZiQ1g7S+Bq2q4E8ps6bvpyZsxpiXBdh3g2H0WOEdJdDpBTiTRPWotSlU1kaKN3tOplCRDQ2Q==}
     peerDependencies:
       react: '>=16.8.0'
     dependencies:
@@ -1597,6 +1627,13 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
+
+  /dom-helpers@5.2.1:
+    resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
+    dependencies:
+      '@babel/runtime': 7.21.0
+      csstype: 3.1.2
+    dev: false
 
   /dot-prop@5.3.0:
     resolution: {integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==}
@@ -3483,6 +3520,20 @@ packages:
       - '@types/react'
     dev: false
 
+  /react-transition-group@4.4.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg==}
+    peerDependencies:
+      react: '>=16.6.0'
+      react-dom: '>=16.6.0'
+    dependencies:
+      '@babel/runtime': 7.21.0
+      dom-helpers: 5.2.1
+      loose-envify: 1.4.0
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
@@ -4088,6 +4139,14 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
+
+  /undici@5.22.0:
+    resolution: {integrity: sha512-f6pTQ9RF4DQtwoWSaC42P/NKlUjvezVvd9r155ohqkwFNRyBKM3f3pcty3ouusefNRyM25XhIQEbeQ46sZDJfQ==, tarball: https://registry.npmmirror.com/undici/-/undici-5.22.0.tgz}
+    engines: {node: '>=12.18'}
+    deprecated: '[WARNING] Use 5.21.2 instead of 5.22.0, reason: https://github.com/nodejs/undici/pull/2091'
+    dependencies:
+      busboy: 1.6.0
+    dev: false
 
   /unified@10.1.2:
     resolution: {integrity: sha512-pUSWAi/RAnVy1Pif2kAoeWNBa3JVrx0MId2LASj8G+7AiHWoKZNTomq6LG326T68U7/e263X6fTdcXIy7XnF7Q==}
