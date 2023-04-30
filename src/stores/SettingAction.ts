@@ -32,6 +32,12 @@ export const updateOpenAIKey = (newState: Partial<SettingState['openAI']['key']>
 	}));
 };
 
+export const updateAccessToken = (newState: Partial<SettingState['accessToken']>) => {
+	setSetting(() => ({
+		accessToken: newState,
+	}));
+};
+
 export const updateOpenAIHistory = (newState: SettingState['openAI']['history']) => {
 	setSetting((state) => ({
 		openAI: {

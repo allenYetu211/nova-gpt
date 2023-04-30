@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 12:08:23
- * @LastEditTime: 2023-04-25 14:19:12
+ * @LastEditTime: 2023-05-01 00:36:12
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Main.tsx
  */
@@ -35,7 +35,7 @@ export function Main() {
 		<>
 			<Setting />
 			<div className={classes.mainContainer}>
-				{notKey || notChats ? <EmptyChats /> : <ChatContent />}
+				{notChats ? <EmptyChats /> : <ChatContent />}
 				<ChatTextarea />
 			</div>
 		</>

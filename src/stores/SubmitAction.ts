@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-04-30 22:47:52
+ * @LastEditTime: 2023-05-01 01:07:28
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
@@ -19,8 +19,27 @@ const getSetting = useSettingStore.getState;
 
 export const submitMessage = () => {
 	const { activeChatId, textareaMessage, chats } = getChat();
-	const { openAI } = getSetting();
-	if (!openAI.key || !activeChatId || !textareaMessage.length) {
+	const { openAI, accessToken } = getSetting();
+	if (!activeChatId || !textareaMessage.length) {
+		console.log('activeChatId or textareaMessage is null');
+		return;
+	}
+
+	if (!openAI.key && !accessToken) {
+		setChat((state) => ({
+			textareaMessage: '',
+			chats: updateActionsChatMessage(state.chats, activeChatId, (chat) => {
+				chat.message.push({
+					content: 'Please fill in the Open AI key or access token in the settings.',
+					role: 'system',
+					id: uuidv4(),
+					exception: true,
+					loading: false,
+					createdAt: new Date(),
+				});
+				return chat;
+			}),
+		}));
 		return;
 	}
 
@@ -66,8 +85,11 @@ export const submitMessage = () => {
 
 	const abortController = new AbortController();
 	const GPTConfig = openAI.config;
-	const openAIKey = openAI.key;
 	const responseMessageId = uuidv4();
+	const customRequestInformation = {
+		'api-key': openAI.key,
+		'access-token': accessToken,
+	};
 
 	ControllerAbort.addController(responseMessageId, abortController);
 
@@ -137,7 +159,7 @@ export const submitMessage = () => {
 	requestOpenAI(
 		submitMessage || [],
 		GPTConfig,
-		openAIKey,
+		customRequestInformation,
 		abortController,
 		callback,
 		endCallback,

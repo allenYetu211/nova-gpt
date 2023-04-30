@@ -2,12 +2,13 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-04-30 20:23:52
+ * @LastEditTime: 2023-05-01 01:10:53
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatMessage.tsx
  */
 import { Markdown } from '@/components/Markdown';
 import IconBot from '@/images/svg/bot';
+import IconLogo from '@/images/svg/logo';
 import IconUser from '@/images/svg/user';
 import { Message } from '@/stores/ChatStore';
 import { ControllerAbort } from '@/stores/SubmitAction';
@@ -40,17 +41,16 @@ const useStyles = createStyles((theme) => {
 
 		user: {
 			marginRight: theme.spacing.md,
-			backgroundColor:
-				theme.colorScheme === 'dark'
-					? theme.colors.dark[6]
-					: // '#2c324f'
-					  theme.colors.gray[0],
+			backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
 		},
 		assistant: {
 			marginLeft: theme.spacing.md,
 			background: theme.colorScheme === 'dark' ? theme.colors.gradient[1] : theme.colors.gray[0],
 		},
-
+		system: {
+			marginLeft: theme.spacing.md,
+			background: theme.colorScheme === 'dark' ? theme.colors.gradient[2] : theme.colors.gray[0],
+		},
 		exception: {
 			background: theme.colorScheme === 'dark' ? theme.colors.gradient[5] : theme.colors.gray[0],
 		},
@@ -88,9 +88,18 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {
 				}}
 			>
 				<Group>
-					{role === 'assistant' && (
+					{role === 'system' && (
 						<Flex align="center">
 							<IconBot className={classes.icon} />
+							<Text color="#838e99" fz="xs">
+								{dayjs(createdAt).format('YYYY/MM/DD HH:mm:ss')}
+							</Text>
+						</Flex>
+					)}
+
+					{role === 'assistant' && (
+						<Flex align="center">
+							<IconLogo className={classes.icon} />
 							<Text color="#838e99" fz="xs">
 								{dayjs(createdAt).format('YYYY/MM/DD HH:mm:ss')}
 							</Text>
@@ -126,6 +135,7 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {
 					className={cx(classes.container, 'markdown-body', {
 						[classes.user]: role === 'user',
 						[classes.assistant]: role === 'assistant',
+						[classes.system]: role === 'system',
 						[classes.exception]: exception,
 					})}
 				>

@@ -2,11 +2,14 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-27 15:40:21
- * @LastEditTime: 2023-04-30 17:44:22
+ * @LastEditTime: 2023-05-01 00:54:14
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/api/chat-stream.ts
  */
-import { OpenAIStream } from './openAIStream';
+const HOST = 'api.openai.com';
+const OPEN_AI_KEY = process.env.OPEN_AI_KEY ?? '';
+const ACCESS_CODE = process.env.ACCESS_CODE ?? '';
+
 import { createParser, ParsedEvent, ReconnectInterval } from 'eventsource-parser';
 
 export const config = {
@@ -14,43 +17,75 @@ export const config = {
 };
 
 export default async function POST(req: Request): Promise<Response> {
-	const apiKey = req.headers.get('apiKey');
+	const apiKey = req.headers.get('api-key');
 	const path = req.headers.get('path');
+	const accessToken = req.headers.get('access-token');
+	const forwardedFor = req.headers.get('x-forwarded-for');
+
+	let API_KEY;
 
 	let ip = req.headers.get('x-real-ip');
-	const forwardedFor = req.headers.get('x-forwarded-for');
 	if (!ip && forwardedFor) {
 		ip = forwardedFor.split(',').at(0) ?? 'Unknown';
 	}
 
-	console.log(`[[Request]]: ip: ${ip}  | apiKey: ${apiKey} | path: ${path}`);
+	console.log(
+		`[[Request]]: ip: ${ip}  | apiKey: ${apiKey} | accessToken: ${accessToken} | path: ${path}`,
+	);
 
-	if (!apiKey) {
-		return new Response('ApiKey is required', { status: 400 });
-	}
 	if (!path) {
-		return new Response('Path is required', { status: 400 });
+		return handledError({
+			content: JSON.stringify({
+				error_message: 'Open AI Request Path Error.',
+			}),
+			status: 403,
+		});
+	}
+
+	if (apiKey) {
+		API_KEY = apiKey;
+	} else if (accessToken) {
+		if (ACCESS_CODE.includes(accessToken)) {
+			API_KEY = OPEN_AI_KEY;
+		} else {
+			return handledError({
+				content: JSON.stringify({
+					error_message: 'Invalid access code.',
+				}),
+				status: 403,
+			});
+		}
+	} else {
+		return handledError({
+			content: JSON.stringify({
+				error_message: 'You need to fill in your OPEN AI Key or authorization code.',
+			}),
+			status: 403,
+		});
 	}
 
 	try {
-		const stream = await loadStream(req);
+		const stream = await loadStream(req, API_KEY, path);
 		return new Response(stream);
 	} catch (error: any) {
-		// return new Response(handlerError(error.content ?? error), {
-		return new Response(error.content ?? error, {
-			status: error.status ?? 403,
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
+		return handledError(error);
 	}
 }
 
-async function loadStream(req: Request) {
+function handledError(error: any) {
+	return new Response(error.content ?? error, {
+		status: error.status ?? 403,
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+}
+
+async function loadStream(req: Request, apiKey: string, path: string) {
 	const encoder = new TextEncoder();
 	const decoder = new TextDecoder();
 
-	const res = await OpenAIStream(req);
+	const res = await OpenAIStream(req, apiKey, path);
 	const ContentType = (await res.headers.get('content-type')) ?? '';
 	if (!ContentType.includes('stream')) {
 		const text = await res.text();
@@ -90,4 +125,19 @@ async function loadStream(req: Request) {
 	});
 
 	return stream;
+}
+
+async function OpenAIStream(req: Request, apiKey: string, path: string) {
+	const payload = await req.json();
+
+	let options: RequestInit = {
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${apiKey ?? ''}`,
+		},
+		method: 'POST',
+		body: JSON.stringify(payload),
+	};
+
+	return await fetch(`https://${HOST}/${path}`, options);
 }

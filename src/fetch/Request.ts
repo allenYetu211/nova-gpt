@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-26 09:44:32
- * @LastEditTime: 2023-04-30 20:22:49
+ * @LastEditTime: 2023-05-01 01:02:12
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/fetch/Request.ts
  */
@@ -15,7 +15,10 @@ type ChatCompletionParams = Omit<SettingsForm, 'auto_title'>;
 export const requestOpenAI = async (
 	messages: Message[],
 	params: ChatCompletionParams,
-	apiKey: string,
+	customRequestInformation: {
+		'api-key'?: string;
+		'access-token'?: string;
+	},
 	abortController: AbortController,
 	callback?: ((value: string) => void) | undefined,
 	endCallback?: (() => void) | undefined,
@@ -40,11 +43,13 @@ export const requestOpenAI = async (
 	try {
 		const response = await fetch('/api/chat-stream', {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				apiKey: apiKey,
-				path: 'v1/chat/completions',
-			},
+			headers: Object.assign(
+				{
+					'Content-Type': 'application/json',
+					path: 'v1/chat/completions',
+				},
+				customRequestInformation,
+			),
 			body: payload,
 			signal: abortController.signal,
 		});
@@ -54,9 +59,9 @@ export const requestOpenAI = async (
 			throw new Error('请求频繁，超出三分钟访问限制，请升级付费 key。');
 		}
 
-		if (!response.ok) {
-			const data = await response.json();
-			throw new Error(data ? handlerError(data) : response.statusText);
+		if (response.status === 403 || !response.ok) {
+			const data_json = await response.json();
+			throw new Error(data_json ? handlerError(data_json) : response.statusText);
 		}
 
 		const data = response.body;

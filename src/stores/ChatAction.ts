@@ -2,14 +2,13 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 12:36:37
- * @LastEditTime: 2023-04-24 23:51:32
+ * @LastEditTime: 2023-04-30 23:08:18
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/ChatAction.ts
  */
 import { useChatStore, ChatState } from './ChatStore';
 import { v4 as uuidv4 } from 'uuid';
 
-const getChat = useChatStore.getState;
 const setChat = useChatStore.setState;
 
 export const update = (newState: Partial<ChatState>) => setChat(() => newState);

@@ -48,3 +48,14 @@ export const copyToClipboard = async (text: string) => {
 		document.body.removeChild(textArea);
 	}
 };
+
+export const initStateMessage = (message: string) => {
+	return {
+		content: message,
+		role: 'system',
+		id: '',
+		exception: true,
+		loading: false,
+		createdAt: new Date(),
+	};
+};

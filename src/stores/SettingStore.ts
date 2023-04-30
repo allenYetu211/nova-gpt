@@ -54,6 +54,7 @@ export interface SettingsForm {
 export interface SettingState {
 	isSetting: boolean;
 	isMobile: boolean;
+	accessToken: string;
 	openAI: {
 		/**
 		 * open ai config
@@ -68,8 +69,9 @@ export interface SettingState {
 const initialSettingState: SettingState = {
 	isSetting: false,
 	isMobile: isMobile(),
+	accessToken: '',
 	openAI: {
-		key: process.env.NEXT_PUBLIC_OPEN_AI_KEY || '',
+		key: '',
 		models: [
 			'gpt-3.5-turbo',
 			'gpt-3.5-turbo-0301',
