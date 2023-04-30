@@ -70,9 +70,6 @@ dependencies:
   remark-math:
     specifier: ^5.1.1
     version: 5.1.1
-  undici:
-    specifier: ^5.22.0
-    version: 5.22.0
   uuid:
     specifier: ^9.0.0
     version: 9.0.0
@@ -4139,14 +4136,6 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
-
-  /undici@5.22.0:
-    resolution: {integrity: sha512-f6pTQ9RF4DQtwoWSaC42P/NKlUjvezVvd9r155ohqkwFNRyBKM3f3pcty3ouusefNRyM25XhIQEbeQ46sZDJfQ==, tarball: https://registry.npmmirror.com/undici/-/undici-5.22.0.tgz}
-    engines: {node: '>=12.18'}
-    deprecated: '[WARNING] Use 5.21.2 instead of 5.22.0, reason: https://github.com/nodejs/undici/pull/2091'
-    dependencies:
-      busboy: 1.6.0
-    dev: false
 
   /unified@10.1.2:
     resolution: {integrity: sha512-pUSWAi/RAnVy1Pif2kAoeWNBa3JVrx0MId2LASj8G+7AiHWoKZNTomq6LG326T68U7/e263X6fTdcXIy7XnF7Q==}
