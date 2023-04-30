@@ -2,13 +2,13 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-27 15:40:21
- * @LastEditTime: 2023-05-01 00:54:14
+ * @LastEditTime: 2023-05-01 01:30:55
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/api/chat-stream.ts
  */
 const HOST = 'api.openai.com';
 const OPEN_AI_KEY = process.env.OPEN_AI_KEY ?? '';
-const ACCESS_CODE = process.env.ACCESS_CODE ?? '';
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN ?? '';
 
 import { createParser, ParsedEvent, ReconnectInterval } from 'eventsource-parser';
 
@@ -45,12 +45,12 @@ export default async function POST(req: Request): Promise<Response> {
 	if (apiKey) {
 		API_KEY = apiKey;
 	} else if (accessToken) {
-		if (ACCESS_CODE.includes(accessToken)) {
+		if (ACCESS_TOKEN.includes(accessToken)) {
 			API_KEY = OPEN_AI_KEY;
 		} else {
 			return handledError({
 				content: JSON.stringify({
-					error_message: 'Invalid access code.',
+					error_message: 'Invalid Access Token.',
 				}),
 				status: 403,
 			});

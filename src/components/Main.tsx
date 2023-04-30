@@ -26,8 +26,6 @@ const useStyles = createStyles((theme: MantineTheme) => {
 });
 
 export function Main() {
-	const isSetting = useSettingStore((state) => state.isSetting);
-	const notKey = useSettingStore((state) => !state.openAI.key);
 	const notChats = useChatStore((state) => !state.chats.length);
 	const { classes } = useStyles();
 

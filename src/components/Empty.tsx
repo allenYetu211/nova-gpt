@@ -1,3 +1,11 @@
+/*
+ * @Author: Allen OYang
+ * @Email:  allenwill211@gmail.com
+ * @Date: 2023-04-25 14:06:24
+ * @LastEditTime: 2023-05-01 01:29:18
+ * @LastEditors: Allen OYang allenwill211@gmail.com
+ * @FilePath: /nova-gpt/src/components/Empty.tsx
+ */
 import { newChat } from '@/stores/ChatAction';
 import { switchIsSetting } from '@/stores/SettingAction';
 import { useSettingStore } from '@/stores/SettingStore';
@@ -28,7 +36,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const EmptyChats = () => {
-	const key = useSettingStore((state) => state.openAI.key);
+	const notKey = useSettingStore((state) => !state.openAI.key);
+	const notAccessToken = useSettingStore((state) => !state.accessToken);
 	const { classes, theme } = useStyles();
 
 	return (
@@ -69,7 +78,7 @@ export const EmptyChats = () => {
 				</List>
 			</Group>
 
-			{key ? (
+			{!notKey || !notAccessToken ? (
 				<Button
 					radius="xl"
 					style={{
@@ -81,7 +90,7 @@ export const EmptyChats = () => {
 				</Button>
 			) : (
 				<Button radius="xl" onClick={switchIsSetting}>
-					Configuring the application
+					Adding an OpenAI key or access token
 				</Button>
 			)}
 		</Box>

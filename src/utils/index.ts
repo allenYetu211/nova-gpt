@@ -31,7 +31,6 @@ export const getActiveChat = (chats: Chat[], id: string) => {
 };
 
 export const copyToClipboard = async (text: string) => {
-	console.log('text', text);
 	try {
 		await navigator.clipboard.writeText(text);
 	} catch (error) {
