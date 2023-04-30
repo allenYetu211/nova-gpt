@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-27 15:40:21
- * @LastEditTime: 2023-04-30 16:00:07
+ * @LastEditTime: 2023-04-30 17:44:22
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/api/chat-stream.ts
  */
@@ -36,8 +36,13 @@ export default async function POST(req: Request): Promise<Response> {
 		const stream = await loadStream(req);
 		return new Response(stream);
 	} catch (error: any) {
-		console.error('[[Stream Error]]', error);
-		return new Response(['```json\n', JSON.stringify(error, null, '  '), '\n```'].join(''));
+		// return new Response(handlerError(error.content ?? error), {
+		return new Response(error.content ?? error, {
+			status: error.status ?? 403,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
 	}
 }
 
@@ -50,7 +55,10 @@ async function loadStream(req: Request) {
 	if (!ContentType.includes('stream')) {
 		const text = await res.text();
 		const content = await text.replace(/provided:.*. You/, 'provided: ***. You');
-		return '```json\n' + content + '```';
+		return Promise.reject({
+			content,
+			status: res.status,
+		});
 	}
 
 	const stream = new ReadableStream({

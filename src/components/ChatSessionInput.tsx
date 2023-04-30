@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 17:34:12
- * @LastEditTime: 2023-04-24 14:57:45
+ * @LastEditTime: 2023-04-30 16:40:40
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /speak-gpt/src/components/ChatSessionInput.tsx
+ * @FilePath: /nova-gpt/src/components/ChatSessionInput.tsx
  */
 
 import { Input, Text, Flex, ActionIcon, createStyles, Group, Transition } from '@mantine/core';

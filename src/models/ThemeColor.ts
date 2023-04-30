@@ -65,5 +65,6 @@ export const ThemeColor: DeepPartial<
 		`linear-gradient(to bottom, #262d42 60%, transparent)`,
 		`linear-gradient(to right,  #8a3ffb  20%, #3646e8 60%, #2c3453)`,
 		`linear-gradient(to right,  #8a3ffb  40%, #3646e8 90%, #3646e8)`,
+		`linear-gradient(to right bottom, #fb3f95 40%, #7d5151)`,
 	],
 };

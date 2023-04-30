@@ -16,6 +16,8 @@ export interface Message {
 	id: string;
 	createdAt: Date;
 	role: 'user' | 'system' | 'assistant';
+	exception?: boolean;
+	loading?: boolean;
 }
 
 export interface Chat {
@@ -23,14 +25,12 @@ export interface Chat {
 	message: Message[];
 	createdAt: Date;
 	title: string;
-	exception?: boolean;
 }
 
 export interface ChatState {
 	/**
 	 * Chat Components Messages
 	 */
-	loadingChats: string[];
 	chats: Chat[];
 	activeChatId: string | undefined;
 	/**

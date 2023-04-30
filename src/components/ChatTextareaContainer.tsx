@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-04-24 18:10:25
+ * @LastEditTime: 2023-04-30 16:41:07
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /speak-gpt/src/components/ChatTextareaContainer.tsx
+ * @FilePath: /nova-gpt/src/components/ChatTextareaContainer.tsx
  */
 
 import { ActionIcon, createStyles, Flex, Group, Menu, Text } from '@mantine/core';
@@ -37,14 +37,12 @@ const useStyles = createStyles((theme) => ({
 		flex: 1,
 	},
 	iconContainer: {
-		// padding: `${theme.spacing.sm} 0 ${theme.spacing.sm} 0`,
 		marginLeft: theme.spacing.xs,
 		borderRadius: theme.radius.xl,
 		backgroundColor: theme.colors.darkButton[0],
 		boxShadow: theme.colors.darkButton[0],
 	},
 	iconItem: {
-		// margin: `5px`,
 		margin: `4px`,
 	},
 	menu: {
@@ -57,8 +55,6 @@ export function ChatTextarea() {
 	const tcr = useRef<InstallExtension>();
 
 	const isRecording = useChatStore((state) => state.isRecording);
-	// const selectValue = useChatStore((state) => state.selectValue)
-	// const selectData = useChatStore((state) => state.selectData)
 
 	useEffect(() => {
 		if (!tcr.current) {

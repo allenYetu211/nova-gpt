@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-04-30 14:53:38
+ * @LastEditTime: 2023-04-30 22:47:52
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
@@ -24,13 +24,6 @@ export const submitMessage = () => {
 		return;
 	}
 
-	const newMessage: Message = {
-		content: textareaMessage,
-		role: 'user',
-		id: uuidv4(),
-		createdAt: new Date(),
-	};
-
 	/**
 	 * 提交最后 4 条内容
 	 */
@@ -41,14 +34,33 @@ export const submitMessage = () => {
 		return;
 	}
 
-	const submitMessage = chat?.message.slice((openAI.history - 1) * -1);
+	let submitMessage = [];
+	let historyIndex = chat.message.length - 1;
+
+	while (historyIndex > 0 && submitMessage.length <= openAI.history - 1) {
+		const message = chat.message[historyIndex];
+		if (!message.exception) {
+			submitMessage.unshift(chat.message[historyIndex]);
+		}
+		historyIndex--;
+	}
+
+	const newMessage: Message = {
+		content: textareaMessage,
+		role: 'user',
+		id: uuidv4(),
+		exception: false,
+		loading: true,
+		createdAt: new Date(),
+	};
+
 	submitMessage.push(newMessage);
 
 	setChat((state) => ({
 		textareaMessage: '',
-		chats: updateActionsChatMessage(state.chats, activeChatId, (message) => {
-			message.push(newMessage);
-			return message;
+		chats: updateActionsChatMessage(state.chats, activeChatId, (chat) => {
+			chat.message.push(newMessage);
+			return chat;
 		}),
 	}));
 
@@ -57,55 +69,69 @@ export const submitMessage = () => {
 	const openAIKey = openAI.key;
 	const responseMessageId = uuidv4();
 
+	ControllerAbort.addController(responseMessageId, abortController);
+
 	const botResponseMessage: Message = {
 		content: '',
 		role: 'assistant',
 		id: responseMessageId,
 		createdAt: new Date(),
+		loading: true,
+		exception: false,
 	};
 
 	setChat((state) => {
-		const loadingChats = [...state.loadingChats];
-		loadingChats.push(responseMessageId);
 		return {
-			loadingChats,
-			chats: updateActionsChatMessage(state.chats, activeChatId, (message: Chat['message']) => {
-				message.push(botResponseMessage);
-				return message;
+			chats: updateActionsChatMessage(state.chats, activeChatId, (chat: Chat) => {
+				chat.message.push(botResponseMessage);
+				return chat;
 			}),
 		};
 	});
 
 	const callback = (content: string) => {
 		setChat((state) => ({
-			chats: updateActionsChatMessage(state.chats, activeChatId, (message: Chat['message']) => {
-				const assistantMessage = message.find((m) => m.id === responseMessageId);
+			chats: updateActionsChatMessage(state.chats, activeChatId, (chat: Chat) => {
+				const assistantMessage = chat.message.find((m) => m.id === responseMessageId);
 				if (assistantMessage) {
 					assistantMessage.content += content;
 				}
-				return message;
+				return chat;
 			}),
 		}));
 	};
 
 	const endCallback = () => {
-		setChat((state) => {
-			return {
-				loadingChats: state.loadingChats.filter((id) => id !== responseMessageId),
-			};
-		});
-	};
-
-	const errorCallback = (content: string) => {
+		ControllerAbort.remove(responseMessageId);
 		setChat((state) => ({
-			chats: updateActionsChatMessage(state.chats, activeChatId, (message: Chat['message']) => {
-				const assistantMessage = message.find((m) => m.id === responseMessageId);
+			chats: updateActionsChatMessage(state.chats, activeChatId, (chat: Chat) => {
+				const assistantMessage = chat.message.find((m) => m.id === responseMessageId);
 				if (assistantMessage) {
-					assistantMessage.content = `⚠️ \n ${content}`;
+					assistantMessage.loading = false;
 				}
-				return message;
+				return chat;
 			}),
 		}));
+	};
+
+	const errorCallback = (content: string, type: 'USER_ABORT_ACTION' | 'TIME_OUT') => {
+		if (type === 'TIME_OUT') {
+			content = '[Request] 请求超时';
+		}
+
+		setChat((state) => {
+			return {
+				chats: updateActionsChatMessage(state.chats, activeChatId, (chat: Chat) => {
+					const assistantMessage = chat.message.find((m) => m.id === responseMessageId);
+					if (type !== 'USER_ABORT_ACTION' && assistantMessage) {
+						assistantMessage.content = `${content}`;
+						assistantMessage!.exception = true;
+					}
+					assistantMessage!.loading = false;
+					return chat;
+				}),
+			};
+		});
 	};
 
 	requestOpenAI(
@@ -117,4 +143,31 @@ export const submitMessage = () => {
 		endCallback,
 		errorCallback,
 	);
+};
+
+export const ControllerAbort = {
+	controllers: {} as Record<string, AbortController>,
+
+	addController(key: string, controller: AbortController) {
+		this.controllers[key] = controller;
+	},
+
+	stop(key: string) {
+		const controller = this.controllers[key];
+		controller?.abort({
+			type: 'USER_ABORT_ACTION',
+		});
+	},
+
+	stopAll() {
+		Object.values(this.controllers).forEach((v) => v.abort());
+	},
+
+	hasPending() {
+		return Object.values(this.controllers).length > 0;
+	},
+
+	remove(key: string) {
+		delete this.controllers[key];
+	},
 };
