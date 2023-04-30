@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-17 10:36:51
- * @LastEditTime: 2023-04-17 19:11:53
+ * @LastEditTime: 2023-05-01 01:39:00
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /speak-gpt/src/extensions/TencetcloudRecord/index.ts
+ * @FilePath: /nova-gpt/src/extensions/TencetcloudRecord/index.ts
  */
 import { InstallExtension } from '@/models/InstallExtension'
 import webRecorder from './SDK/webRecorder'
@@ -12,9 +12,9 @@ import SpeechRecognizer from './SDK/speechRecognizer'
 import { signCallback } from './SDK/asrauthentication'
 
 const config = {
-  secretkey: process.env.NEXT_PUBLIC_SECRET_KEY,
-  secretid: process.env.NEXT_PUBLIC_SECRET_ID,
-  appid: process.env.NEXT_PUBLIC_APPID,
+  secretkey: process.env.SECRET_KEY,
+  secretid: process.env.SECRET_ID,
+  appid: process.env.APPID,
   signCallback: signCallback, // 鉴权函数 用户提供鉴权函数，不传则为null
   // 用户参数
   // 实时识别接口参数
