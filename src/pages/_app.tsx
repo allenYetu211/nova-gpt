@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-04-29 19:41:10
+ * @LastEditTime: 2023-04-30 11:05:59
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/_app.tsx
  */
@@ -11,7 +11,7 @@ import '@/styles/Markdown.css';
 
 import { Nav } from '@/components/Nav';
 import { ThemeColor } from '@/models/ThemeColor';
-import { AppShell, Box, createStyles, Header, MantineProvider, Loader } from '@mantine/core';
+import { AppShell, Box, createStyles, MantineProvider, Loader } from '@mantine/core';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
@@ -21,18 +21,6 @@ const useStyles = createStyles((theme) => ({
 		[`@media (max-width: ${theme.breakpoints.sm})`]: {
 			// paddingLeft: 500,
 		},
-
-		// [`.mantine-AppShell-main`]: {
-		//   [`@media (max-width: ${theme.breakpoints.sm})`]: {
-		//     paddingLeft: 0,
-		//   },
-		// },
-		// [`.mantine-Navbar-root`]: {
-		//   [`@media (max-width: ${theme.breakpoints.sm})`]: {
-		//     width: '100%',
-		//     opacity: 0,
-		//   },
-		// },
 	},
 }));
 

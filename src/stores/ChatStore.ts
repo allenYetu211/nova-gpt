@@ -23,6 +23,7 @@ export interface Chat {
 	message: Message[];
 	createdAt: Date;
 	title: string;
+	exception?: boolean;
 }
 
 export interface ChatState {

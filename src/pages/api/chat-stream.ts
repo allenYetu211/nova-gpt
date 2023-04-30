@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-27 15:40:21
- * @LastEditTime: 2023-04-27 19:16:20
+ * @LastEditTime: 2023-04-30 16:00:07
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/api/chat-stream.ts
  */
@@ -17,6 +17,14 @@ export default async function POST(req: Request): Promise<Response> {
 	const apiKey = req.headers.get('apiKey');
 	const path = req.headers.get('path');
 
+	let ip = req.headers.get('x-real-ip');
+	const forwardedFor = req.headers.get('x-forwarded-for');
+	if (!ip && forwardedFor) {
+		ip = forwardedFor.split(',').at(0) ?? 'Unknown';
+	}
+
+	console.log(`[[Request]]: ip: ${ip}  | apiKey: ${apiKey} | path: ${path}`);
+
 	if (!apiKey) {
 		return new Response('ApiKey is required', { status: 400 });
 	}
@@ -24,8 +32,13 @@ export default async function POST(req: Request): Promise<Response> {
 		return new Response('Path is required', { status: 400 });
 	}
 
-	const stream = await loadStream(req);
-	return new Response(stream);
+	try {
+		const stream = await loadStream(req);
+		return new Response(stream);
+	} catch (error: any) {
+		console.error('[[Stream Error]]', error);
+		return new Response(['```json\n', JSON.stringify(error, null, '  '), '\n```'].join(''));
+	}
 }
 
 async function loadStream(req: Request) {
@@ -33,6 +46,12 @@ async function loadStream(req: Request) {
 	const decoder = new TextDecoder();
 
 	const res = await OpenAIStream(req);
+	const ContentType = (await res.headers.get('content-type')) ?? '';
+	if (!ContentType.includes('stream')) {
+		const text = await res.text();
+		const content = await text.replace(/provided:.*. You/, 'provided: ***. You');
+		return '```json\n' + content + '```';
+	}
 
 	const stream = new ReadableStream({
 		async start(controller) {
@@ -47,14 +66,10 @@ async function loadStream(req: Request) {
 					try {
 						const json = JSON.parse(data);
 						const text = json.choices[0].delta?.content || '';
-						// if (counter < 2 && (text.match(/\n/) || []).length) {
-						//   return
-						// }
+
 						const queue = encoder.encode(text);
 						controller.enqueue(queue);
-						// counter++
 					} catch (e) {
-						// maybe parse error
 						controller.error(e);
 					}
 				}

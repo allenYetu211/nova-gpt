@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-26 09:44:32
- * @LastEditTime: 2023-04-27 23:48:13
+ * @LastEditTime: 2023-04-30 14:53:02
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/fetch/Request.ts
  */
@@ -17,11 +17,15 @@ export const requestOpenAI = async (
 	messages: Message[],
 	params: ChatCompletionParams,
 	apiKey: string,
-	abortController?: AbortController,
+	abortController: AbortController,
 	callback?: ((value: string) => void) | undefined,
 	endCallback?: (() => void) | undefined,
 	errorCallback?: ((body: string) => void) | undefined,
 ) => {
+	const requestTimeout = setTimeout(() => {
+		new Error('Request timed out');
+		abortController.abort();
+	}, 3000);
 	const submitParams = Object.fromEntries(
 		Object.entries(params).filter(([key]) => paramKeys.includes(key)),
 	);
@@ -44,9 +48,9 @@ export const requestOpenAI = async (
 				path: 'v1/chat/completions',
 			},
 			body: payload,
-			signal: abortController!.signal,
+			signal: abortController.signal,
 		});
-
+		clearTimeout(requestTimeout);
 		if (!response.ok) {
 			throw new Error(response.statusText);
 		}
@@ -71,6 +75,7 @@ export const requestOpenAI = async (
 
 		abortController!.abort();
 	} catch (e: any) {
-		errorCallback!(e.message)!;
+		const message = e.message.replace(/The user aborted a request/, '[网络超时]: 请求终止');
+		errorCallback!(message)!;
 	}
 };

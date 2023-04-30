@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-04-29 15:53:13
+ * @LastEditTime: 2023-04-30 14:53:38
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
@@ -97,7 +97,15 @@ export const submitMessage = () => {
 	};
 
 	const errorCallback = (content: string) => {
-		console.log('content', content);
+		setChat((state) => ({
+			chats: updateActionsChatMessage(state.chats, activeChatId, (message: Chat['message']) => {
+				const assistantMessage = message.find((m) => m.id === responseMessageId);
+				if (assistantMessage) {
+					assistantMessage.content = `⚠️ \n ${content}`;
+				}
+				return message;
+			}),
+		}));
 	};
 
 	requestOpenAI(
