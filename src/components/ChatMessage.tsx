@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-05-01 01:10:53
+ * @LastEditTime: 2023-05-01 10:42:34
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatMessage.tsx
  */
@@ -137,6 +137,7 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {
 						[classes.assistant]: role === 'assistant',
 						[classes.system]: role === 'system',
 						[classes.exception]: exception,
+						['allow-select']: role === 'assistant' || role === 'system',
 					})}
 				>
 					{!content.length && role === 'assistant' && (

@@ -64,6 +64,7 @@ export interface SettingState {
 		history: number;
 		config: SettingsForm;
 	};
+	translations: string[];
 }
 
 const initialSettingState: SettingState = {
@@ -83,6 +84,7 @@ const initialSettingState: SettingState = {
 		history: 4,
 		config: defaultSettings,
 	},
+	translations: ['zh_cn', 'en'],
 };
 
 const store = () => ({ ...initialSettingState } as SettingState);

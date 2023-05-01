@@ -14,7 +14,6 @@ import RehypePrsim from 'rehype-prism-plus';
 import RemarkBreaks from 'remark-breaks';
 import RemarkGfm from 'remark-gfm';
 import RemarkMath from 'remark-math';
-import { copyToClipboard } from '@/utils';
 import { Badge, createStyles } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({

@@ -52,3 +52,13 @@ export const switchIsSetting = () => {
 		isSetting: !state.isSetting,
 	}));
 };
+
+export const toggleTranslations = (newState: string) => {
+	const translations = getSetting().translations;
+	translations.includes(newState)
+		? translations.splice(translations.indexOf(newState), 1)
+		: translations.push(newState);
+	setSetting(() => ({
+		translations,
+	}));
+};

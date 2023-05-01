@@ -2,12 +2,12 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-05-01 01:07:28
+ * @LastEditTime: 2023-05-02 00:29:22
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
-import { useChatStore, Message, Chat } from './ChatStore';
-import { useSettingStore } from './SettingStore';
+import { useChatStore, Message, Chat, ChatState } from './ChatStore';
+import { useSettingStore, SettingsForm } from './SettingStore';
 import { requestOpenAI } from '@/fetch/Request';
 import { updateActionsChatMessage, getActiveChat } from '@/utils';
 import { v4 as uuidv4 } from 'uuid';
@@ -111,6 +111,27 @@ export const submitMessage = () => {
 		};
 	});
 
+	request(
+		submitMessage || [],
+		GPTConfig,
+		customRequestInformation,
+		abortController,
+		activeChatId,
+		responseMessageId,
+	);
+};
+
+export const request = (
+	submitMessage: Message[],
+	GPTConfig: SettingsForm,
+	customRequestInformation: {
+		'api-key': string;
+		'access-token': string;
+	},
+	abortController: AbortController,
+	activeChatId: string,
+	responseMessageId: string,
+) => {
 	const callback = (content: string) => {
 		setChat((state) => ({
 			chats: updateActionsChatMessage(state.chats, activeChatId, (chat: Chat) => {

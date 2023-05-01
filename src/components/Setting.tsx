@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 22:05:39
- * @LastEditTime: 2023-05-01 00:34:40
+ * @LastEditTime: 2023-05-01 15:00:25
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Setting.tsx
  */
@@ -214,7 +214,6 @@ const Config = () => {
 					<Select
 						ref={selectEl}
 						size="xs"
-						searchable
 						sx={{ width: '100%' }}
 						onSearchChange={(value) => {
 							updateOpenAIConfig({ model: value });
