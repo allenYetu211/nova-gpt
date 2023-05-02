@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 11:28:09
- * @LastEditTime: 2023-04-23 14:59:40
+ * @LastEditTime: 2023-05-02 09:16:54
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /speak-gpt/src/stores/ChatStore.ts
+ * @FilePath: /nova-gpt/src/stores/ChatStore.ts
  */
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -16,6 +16,7 @@ export interface Message {
 	id: string;
 	createdAt: Date;
 	role: 'user' | 'system' | 'assistant';
+	hide?: boolean;
 	exception?: boolean;
 	loading?: boolean;
 }
@@ -32,7 +33,7 @@ export interface ChatState {
 	 * Chat Components Messages
 	 */
 	chats: Chat[];
-	activeChatId: string | undefined;
+	activeChatId: string;
 	/**
 	 *  Textarea Components State
 	 */
@@ -45,7 +46,7 @@ export interface ChatState {
 export const initialState = {
 	loadingChats: [],
 	chats: [],
-	activeChatId: undefined,
+	activeChatId: '',
 
 	isRecording: false,
 	textareaMessage: '',

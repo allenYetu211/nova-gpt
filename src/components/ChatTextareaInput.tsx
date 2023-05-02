@@ -8,7 +8,7 @@
  */
 import { update } from '@/stores/ChatAction';
 import { useChatStore } from '@/stores/ChatStore';
-import { submitMessage } from '@/stores/SubmitAction';
+import { userMessage } from '@/stores/SubmitAction';
 import { Input, Textarea, createStyles } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
@@ -49,7 +49,7 @@ export const ChatTextareaInput = () => {
 			onKeyDown={(e) => {
 				if (e.key !== 'Enter') return;
 				if (e.ctrlKey && e.key === 'Enter') {
-					submitMessage();
+					userMessage();
 				}
 			}}
 		/>

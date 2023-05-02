@@ -65,6 +65,7 @@ export interface SettingState {
 		config: SettingsForm;
 	};
 	translations: string[];
+	language: 'zh_cn';
 }
 
 const initialSettingState: SettingState = {
@@ -85,6 +86,8 @@ const initialSettingState: SettingState = {
 		config: defaultSettings,
 	},
 	translations: ['zh_cn', 'en'],
+
+	language: 'zh_cn',
 };
 
 const store = () => ({ ...initialSettingState } as SettingState);

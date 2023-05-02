@@ -22,7 +22,7 @@ import { InstallExtension } from '@/models/InstallExtension';
 import { useChatStore } from '@/stores/ChatStore';
 import { useSettingStore } from '@/stores/SettingStore';
 import { updateOpenAIConfig } from '@/stores/SettingAction';
-import { submitMessage } from '@/stores/SubmitAction';
+import { userMessage } from '@/stores/SubmitAction';
 import { update } from '@/stores/ChatAction';
 import { ChatTextareaInput } from '@/components/ChatTextareaInput';
 
@@ -95,7 +95,7 @@ export function ChatTextarea() {
 					{isRecording ? <IconMicrophone size="1.625rem" /> : <IconMicrophoneOff size="1.625rem" />}
 				</ActionIcon>
 
-				<ActionIcon className={classes.iconItem} color="gray" size="lg" onClick={submitMessage}>
+				<ActionIcon className={classes.iconItem} color="gray" size="lg" onClick={userMessage}>
 					<IconSend size="1.625rem" />
 				</ActionIcon>
 			</Flex>
@@ -165,7 +165,7 @@ const SettingMenu = () => {
 	return (
 		<Menu position="left-end" radius="lg" shadow="md" width={200}>
 			<Menu.Target>
-				<ActionIcon className={classes.iconItem} color="gray" size="lg" onClick={submitMessage}>
+				<ActionIcon className={classes.iconItem} color="gray" size="lg" onClick={userMessage}>
 					<IconDotsVertical size="1.625rem" />
 				</ActionIcon>
 			</Menu.Target>

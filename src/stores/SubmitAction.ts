@@ -2,136 +2,112 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-05-02 00:29:22
+ * @LastEditTime: 2023-05-02 10:38:36
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
-import { useChatStore, Message, Chat, ChatState } from './ChatStore';
+import { useChatStore, Message, Chat } from './ChatStore';
 import { useSettingStore, SettingsForm } from './SettingStore';
 import { requestOpenAI } from '@/fetch/Request';
 import { updateActionsChatMessage, getActiveChat } from '@/utils';
 import { v4 as uuidv4 } from 'uuid';
+import * as prompt from '@/prompt';
 
 const getChat = useChatStore.getState;
 const setChat = useChatStore.setState;
 
 const getSetting = useSettingStore.getState;
 
-export const submitMessage = () => {
-	const { activeChatId, textareaMessage, chats } = getChat();
-	const { openAI, accessToken } = getSetting();
-	if (!activeChatId || !textareaMessage.length) {
-		console.log('activeChatId or textareaMessage is null');
+/**
+ * 用户信息
+ */
+export const userMessage = () => {
+	if (!checkConfig()) {
 		return;
 	}
-
-	if (!openAI.key && !accessToken) {
-		setChat((state) => ({
-			textareaMessage: '',
-			chats: updateActionsChatMessage(state.chats, activeChatId, (chat) => {
-				chat.message.push({
-					content: 'Please fill in the Open AI key or access token in the settings.',
-					role: 'system',
-					id: uuidv4(),
-					exception: true,
-					loading: false,
-					createdAt: new Date(),
-				});
-				return chat;
-			}),
-		}));
+	const { activeChatId, textareaMessage } = getChat();
+	const userMessage = createMessage(textareaMessage, 'user');
+	const message = submitMessageHistory();
+	if (!message) {
 		return;
 	}
-
-	/**
-	 * 提交最后 4 条内容
-	 */
-
-	const chat = getActiveChat(chats, activeChatId);
-	if (!chat) {
-		console.error(`chat not found:${activeChatId}`);
-		return;
-	}
-
-	let submitMessage = [];
-	let historyIndex = chat.message.length - 1;
-
-	while (historyIndex > 0 && submitMessage.length <= openAI.history - 1) {
-		const message = chat.message[historyIndex];
-		if (!message.exception) {
-			submitMessage.unshift(chat.message[historyIndex]);
-		}
-		historyIndex--;
-	}
-
-	const newMessage: Message = {
-		content: textareaMessage,
-		role: 'user',
-		id: uuidv4(),
-		exception: false,
-		loading: true,
-		createdAt: new Date(),
-	};
-
-	submitMessage.push(newMessage);
-
+	message.push(userMessage);
 	setChat((state) => ({
 		textareaMessage: '',
 		chats: updateActionsChatMessage(state.chats, activeChatId, (chat) => {
-			chat.message.push(newMessage);
+			chat.message.push(userMessage);
 			return chat;
 		}),
 	}));
 
-	const abortController = new AbortController();
-	const GPTConfig = openAI.config;
-	const responseMessageId = uuidv4();
-	const customRequestInformation = {
-		'api-key': openAI.key,
-		'access-token': accessToken,
-	};
+	submitMessage(message);
+};
 
-	ControllerAbort.addController(responseMessageId, abortController);
-
-	const botResponseMessage: Message = {
-		content: '',
-		role: 'assistant',
-		id: responseMessageId,
-		createdAt: new Date(),
-		loading: true,
-		exception: false,
-	};
-
+/**
+ * 生成预留的 gpt response message 消息， 并填充至展示区域
+ */
+const gptMessage = () => {
+	const { activeChatId } = getChat();
+	const gtpMessage = createMessage('', 'assistant');
 	setChat((state) => {
 		return {
 			chats: updateActionsChatMessage(state.chats, activeChatId, (chat: Chat) => {
-				chat.message.push(botResponseMessage);
+				chat.message.push(gtpMessage);
 				return chat;
 			}),
 		};
 	});
 
-	request(
-		submitMessage || [],
-		GPTConfig,
-		customRequestInformation,
-		abortController,
-		activeChatId,
-		responseMessageId,
-	);
+	return gtpMessage;
 };
 
-export const request = (
+/**
+ * 创建系统消息，完成特定角色任务
+ * @param target
+ * @param content
+ */
+export const systemMessage = (target: keyof (typeof prompt)['zh_cn'], content: string) => {
+	const language = getSetting().language;
+	const fun = prompt[language][target];
+	const systemMessage = createMessage(fun(content), 'system', true);
+	const message = submitMessageHistory();
+	if (!message) {
+		return;
+	}
+	message.push(systemMessage);
+	submitMessage(message);
+};
+
+/**
+ * 发送消息对话
+ */
+const submitMessage = (message: Message[]) => {
+	const { activeChatId } = getChat();
+	const { openAI } = getSetting();
+	const GPTConfig = openAI.config;
+	const gtpMessage = gptMessage();
+	const gptResponseMessageId = gtpMessage.id;
+	streamOpenAI(message, GPTConfig, activeChatId, gptResponseMessageId);
+};
+
+/**
+ * 消息推送
+ */
+const streamOpenAI = (
 	submitMessage: Message[],
 	GPTConfig: SettingsForm,
-	customRequestInformation: {
-		'api-key': string;
-		'access-token': string;
-	},
-	abortController: AbortController,
 	activeChatId: string,
 	responseMessageId: string,
 ) => {
+	const { openAI, accessToken } = getSetting();
+	const customRequestInformation = {
+		'api-key': openAI.key,
+		'access-token': accessToken,
+	};
+
+	const abortController = new AbortController();
+	ControllerAbort.addController(responseMessageId, abortController);
+
 	const callback = (content: string) => {
 		setChat((state) => ({
 			chats: updateActionsChatMessage(state.chats, activeChatId, (chat: Chat) => {
@@ -188,6 +164,96 @@ export const request = (
 	);
 };
 
+/**
+ * 检查配置信息
+ * @returns boolean
+ */
+const checkConfig = (): boolean => {
+	const { activeChatId, textareaMessage } = getChat();
+	const { openAI, accessToken } = getSetting();
+	if (!activeChatId || !textareaMessage.length) {
+		console.log('activeChatId or textareaMessage is null');
+		return false;
+	}
+
+	if (!openAI.key && !accessToken) {
+		setChat((state) => ({
+			textareaMessage: '',
+			chats: updateActionsChatMessage(state.chats, activeChatId, (chat) => {
+				chat.message.push({
+					content: 'Please fill in the Open AI key or access token in the settings.',
+					role: 'system',
+					id: uuidv4(),
+					exception: true,
+					loading: false,
+					createdAt: new Date(),
+				});
+				return chat;
+			}),
+		}));
+		return false;
+	}
+	return true;
+};
+
+/**
+ * 获取携带的历史信息
+ * @returns Message[]
+ */
+const submitMessageHistory = () => {
+	const { activeChatId, chats } = getChat();
+	const { openAI } = getSetting();
+	const chat = getActiveChat(chats, activeChatId);
+	if (!chat) {
+		console.error(`chat not found:${activeChatId}`);
+		return;
+	}
+
+	let submitMessage = [];
+	let historyIndex = chat.message.length - 1;
+
+	while (historyIndex > 0 && submitMessage.length <= openAI.history - 1) {
+		const message = chat.message[historyIndex];
+		if (!message.exception) {
+			submitMessage.unshift(chat.message[historyIndex]);
+		}
+		historyIndex--;
+	}
+
+	return submitMessage;
+};
+
+/**
+ * 创建新信息
+ * @param message 信息
+ * @param role 角色
+ * @param hide 是否隐藏信息
+ * @param exception 是否为异常状态
+ * @param loading  是否为loading状态
+ * @returns Message
+ */
+
+const createMessage = (
+	message: string,
+	role: Message['role'],
+	hide: boolean = false,
+	exception: boolean = false,
+	loading: boolean = true,
+): Message => {
+	return {
+		content: message,
+		role,
+		id: uuidv4(),
+		hide,
+		exception,
+		loading,
+		createdAt: new Date(),
+	};
+};
+
+/**
+ * Abort控制
+ */
 export const ControllerAbort = {
 	controllers: {} as Record<string, AbortController>,
 

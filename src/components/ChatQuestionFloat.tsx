@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-01 08:58:14
- * @LastEditTime: 2023-05-02 00:22:08
+ * @LastEditTime: 2023-05-02 10:43:15
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatQuestionFloat.tsx
  */
@@ -19,6 +19,8 @@ import {
 } from '@mantine/core';
 import { IconQuestionMark, IconZoomQuestion, IconArrowsLeftRight } from '@tabler/icons-react';
 import React, { Fragment, forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import { systemMessage } from '@/stores/SubmitAction';
+
 const useStyles = createStyles((theme) => ({
 	container: {
 		padding: `3px ${theme.spacing.xs}`,
@@ -80,27 +82,9 @@ export const ChatQuestionFloat = forwardRef((props, ref) => {
 		[],
 	);
 
-	// const container = [
-	// 	{
-	// 		icon: (
-	// 			<Menu trigger="hover" openDelay={100} closeDelay={400}>
-	// 				<IconZoomQuestion />,
-	// 			</Menu>
-	// 		),
-	// 		label: 'Question',
-	// 		onClick: () => {
-	// 			console.log('create');
-	// 		},
-	// 	},
-	// 	{
-	// 		icon: <IconQuestionMark />,
-	// 		label:
-	// 			'我还没有想好加什么功能.... , 如果你有什么想法可以告诉我，请联系我 allenwill211@gmail.com',
-	// 		onClick: () => {
-	// 			console.log('create');
-	// 		},
-	// 	},
-	// ];
+	const translations = () => {
+		systemMessage('translation', selectionContent.current);
+	};
 
 	return (
 		<Box
@@ -113,13 +97,13 @@ export const ChatQuestionFloat = forwardRef((props, ref) => {
 			className={classes.container}
 		>
 			<Group>
-				<QuestionMenu />
+				<QuestionMenu translations={translations} />
 			</Group>
 		</Box>
 	);
 });
 
-function QuestionMenu() {
+function QuestionMenu({ translations }: { translations: () => void }) {
 	return (
 		<Menu trigger="hover" shadow="md" width={200}>
 			<Menu.Target>
@@ -130,7 +114,9 @@ function QuestionMenu() {
 
 			<Menu.Dropdown>
 				<Menu.Item icon={<IconQuestionMark size={14} />}>The selected content explains</Menu.Item>
-				<Menu.Item icon={<IconArrowsLeftRight size={14} />}>Translation</Menu.Item>
+				<Menu.Item icon={<IconArrowsLeftRight size={14} />} onClick={translations}>
+					Translation
+				</Menu.Item>
 			</Menu.Dropdown>
 		</Menu>
 	);
