@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-05-01 10:42:34
+ * @LastEditTime: 2023-05-02 17:34:27
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatMessage.tsx
  */
@@ -12,12 +12,23 @@ import IconLogo from '@/images/svg/logo';
 import IconUser from '@/images/svg/user';
 import { Message } from '@/stores/ChatStore';
 import { ControllerAbort } from '@/stores/SubmitAction';
-import { Box, Flex, Group, Loader, createStyles, keyframes, Text, Badge } from '@mantine/core';
+import {
+	Box,
+	Flex,
+	Group,
+	Loader,
+	createStyles,
+	keyframes,
+	Text,
+	Badge,
+	Divider,
+} from '@mantine/core';
 import dayjs from 'dayjs';
 import { FC } from 'react';
 
 interface ChatMessageProps {
 	message: Message;
+	onMouseUp: (event: React.MouseEvent<HTMLElement, MouseEvent>, id: Message['id']) => void;
 }
 
 const rotate = keyframes`
@@ -67,8 +78,8 @@ const useStyles = createStyles((theme) => {
 	};
 });
 
-export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {
-	const { content, role, exception, createdAt, id, loading } = message;
+export const ChatMessage: FC<ChatMessageProps> = ({ message, onMouseUp }) => {
+	const { content, role, exception, createdAt, id, loading, question } = message;
 	const { classes, cx, theme } = useStyles();
 
 	return (
@@ -139,9 +150,21 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message }) => {
 						[classes.exception]: exception,
 						['allow-select']: role === 'assistant' || role === 'system',
 					})}
+					onMouseUp={(event) => {
+						(role === 'assistant' || role === 'system') && onMouseUp(event, id);
+					}}
 				>
 					{!content.length && role === 'assistant' && (
 						<Loader color="dark" size="sm" variant="dots" />
+					)}
+
+					{question && (
+						<>
+							<Text truncate fz="xs" fs="italic" color="white" mb={theme.spacing.xs}>
+								{question}
+							</Text>
+							<Divider sx={{ marginBottom: theme.spacing.xs }} />
+						</>
 					)}
 					<Markdown content={content} />
 				</Box>

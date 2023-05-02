@@ -16,6 +16,7 @@ export interface Message {
 	id: string;
 	createdAt: Date;
 	role: 'user' | 'system' | 'assistant';
+	question?: string;
 	hide?: boolean;
 	exception?: boolean;
 	loading?: boolean;

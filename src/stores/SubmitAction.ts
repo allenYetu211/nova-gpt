@@ -2,12 +2,20 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-05-02 10:38:36
+ * @LastEditTime: 2023-05-02 18:09:38
+ * @LastEditors: Allen OYang allenwill211@gmail.com
+ * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
+ */
+/*
+ * @Author: Allen OYang
+ * @Email:  allenwill211@gmail.com
+ * @Date: 2023-04-19 10:23:55
+ * @LastEditTime: 2023-05-02 17:49:43
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
 import { useChatStore, Message, Chat } from './ChatStore';
-import { useSettingStore, SettingsForm } from './SettingStore';
+import { useSettingStore, SettingsForm, Language } from './SettingStore';
 import { requestOpenAI } from '@/fetch/Request';
 import { updateActionsChatMessage, getActiveChat } from '@/utils';
 import { v4 as uuidv4 } from 'uuid';
@@ -25,22 +33,59 @@ export const userMessage = () => {
 	if (!checkConfig()) {
 		return;
 	}
-	const { activeChatId, textareaMessage } = getChat();
-	const userMessage = createMessage(textareaMessage, 'user');
+	const { textareaMessage } = getChat();
+	const userMessage = createMessage({ message: textareaMessage, role: 'user' });
 	const message = submitMessageHistory();
 	if (!message) {
 		return;
 	}
 	message.push(userMessage);
+	setChat(() => ({ textareaMessage: '' }));
+	updateChatContentMessage(message);
+	submitMessage(message);
+};
+
+/**
+ *  更新chat 页面 内容展现消息
+ */
+const updateChatContentMessage = (message: Message[] | Message) => {
+	const { activeChatId } = getChat();
 	setChat((state) => ({
 		textareaMessage: '',
 		chats: updateActionsChatMessage(state.chats, activeChatId, (chat) => {
-			chat.message.push(userMessage);
+			if (Array.isArray(message)) {
+				message.forEach((item) => {
+					chat.message.push(item);
+				});
+			} else {
+				chat.message.push(message);
+			}
 			return chat;
 		}),
 	}));
+};
 
-	submitMessage(message);
+/**
+ * 用户提问内容，携带上下文进行咨询
+ */
+export const userQuestion = (question: string, message: string, messageId: Message['id']) => {
+	const { activeChatId, chats } = getChat();
+	const chat = chats.find((chat) => chat.id === activeChatId);
+	const context = chat?.message.find((message) => message.id === messageId);
+	const make = getSystemMake('questions');
+	const contextUserMessage = createMessage({ message, question, role: 'user' });
+	const contextMessage = createMessage({
+		message: `${make}${context?.content}`,
+		hide: true,
+		role: 'system',
+	});
+
+	updateChatContentMessage([contextMessage, contextUserMessage]);
+	submitMessage([contextMessage, contextUserMessage]);
+
+	/**
+	 * 获取上下文
+	 */
 };
 
 /**
@@ -48,7 +93,7 @@ export const userMessage = () => {
  */
 const gptMessage = () => {
 	const { activeChatId } = getChat();
-	const gtpMessage = createMessage('', 'assistant');
+	const gtpMessage = createMessage({ message: '', role: 'assistant' });
 	setChat((state) => {
 		return {
 			chats: updateActionsChatMessage(state.chats, activeChatId, (chat: Chat) => {
@@ -62,20 +107,39 @@ const gptMessage = () => {
 };
 
 /**
- * 创建系统消息，完成特定角色任务
+ * 创建系统消息，完成特定角色任务, 获取系统的上下文
  * @param target
  * @param content
  */
-export const systemMessage = (target: keyof (typeof prompt)['zh_cn'], content: string) => {
+export const systemMessage = (content: string) => {
+	const systemMessage = createMessage({ message: content, role: 'system', hide: true });
+	// const message = submitMessageHistory();
+	// if (!message) {
+	// 	return;
+	// }
+	// message.push(systemMessage);
+	submitMessage([systemMessage]);
+};
+
+export const systemTranslations = (targetLanguage: Language, content: string) => {
+	const message = getSystemMake('translation');
+	const systemMessage = createMessage({
+		message: `${message}${prompt.language[targetLanguage]}：`,
+		role: 'system',
+		hide: true,
+	});
+	const userMessage = createMessage({
+		message: content,
+		question: `翻译成至${prompt.language[targetLanguage]}`,
+		role: 'user',
+	});
+	updateChatContentMessage([systemMessage, userMessage]);
+	submitMessage([systemMessage, userMessage]);
+};
+
+const getSystemMake = (target: keyof (typeof prompt)['zh_cn']) => {
 	const language = getSetting().language;
-	const fun = prompt[language][target];
-	const systemMessage = createMessage(fun(content), 'system', true);
-	const message = submitMessageHistory();
-	if (!message) {
-		return;
-	}
-	message.push(systemMessage);
-	submitMessage(message);
+	return prompt[language][target];
 };
 
 /**
@@ -171,7 +235,7 @@ const streamOpenAI = (
 const checkConfig = (): boolean => {
 	const { activeChatId, textareaMessage } = getChat();
 	const { openAI, accessToken } = getSetting();
-	if (!activeChatId || !textareaMessage.length) {
+	if (!activeChatId || !textareaMessage.trim()) {
 		console.log('activeChatId or textareaMessage is null');
 		return false;
 	}
@@ -233,16 +297,27 @@ const submitMessageHistory = () => {
  * @returns Message
  */
 
-const createMessage = (
-	message: string,
-	role: Message['role'],
-	hide: boolean = false,
-	exception: boolean = false,
-	loading: boolean = true,
-): Message => {
+const createMessage = (container: {
+	message: string;
+	role: Message['role'];
+	hide?: boolean;
+	question?: string;
+	exception?: boolean;
+	loading?: boolean;
+}): Message => {
+	const {
+		message,
+		role,
+		question = '',
+		hide = false,
+		exception = false,
+		loading = true,
+	} = container;
+
 	return {
 		content: message,
 		role,
+		question,
 		id: uuidv4(),
 		hide,
 		exception,

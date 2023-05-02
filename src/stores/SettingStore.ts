@@ -51,6 +51,7 @@ export interface SettingsForm {
 	auto_title: boolean;
 }
 
+export type Language = 'zh_cn' | 'en';
 export interface SettingState {
 	isSetting: boolean;
 	isMobile: boolean;
@@ -65,7 +66,8 @@ export interface SettingState {
 		config: SettingsForm;
 	};
 	translations: string[];
-	language: 'zh_cn';
+	language: Language;
+	languages: Language[];
 }
 
 const initialSettingState: SettingState = {
@@ -88,6 +90,7 @@ const initialSettingState: SettingState = {
 	translations: ['zh_cn', 'en'],
 
 	language: 'zh_cn',
+	languages: ['zh_cn', 'en'],
 };
 
 const store = () => ({ ...initialSettingState } as SettingState);

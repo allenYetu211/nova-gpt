@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-05-01 13:14:47
+ * @LastEditTime: 2023-05-02 17:25:31
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent.tsx
  */
@@ -56,20 +56,23 @@ export const ChatContent = memo(() => {
 		containerRef.current!.scrollTop = height!;
 	};
 
-	const onMouseUp = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+	const onMouseUp = (event: React.MouseEvent<HTMLElement, MouseEvent>, id: string) => {
 		const x_up = event.clientX;
 		const y_up = event.clientY;
 		// @ts-ignore
-		chatElRef.current!.onSelectedPosition(containerRef.current!.scrollTop + y_up, x_up);
+		chatElRef.current!.onSelectedPosition(containerRef.current!.scrollTop + y_up, x_up, id);
 	};
 
 	return (
 		<div className={classes.container} ref={containerRef}>
 			<ChatQuestionFloat ref={chatElRef} />
-			<div className="allow-select-region" onMouseUp={onMouseUp} ref={contentRef}>
+			<div className="allow-select-region" ref={contentRef}>
 				{activeChat &&
 					activeChat.message.map((item) => {
-						return <ChatMessage key={item.id} message={item} />;
+						if (item.hide) {
+							return null;
+						}
+						return <ChatMessage onMouseUp={onMouseUp} key={item.id} message={item} />;
 					})}
 			</div>
 		</div>

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 22:05:39
- * @LastEditTime: 2023-05-01 15:00:25
+ * @LastEditTime: 2023-05-02 11:18:45
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Setting.tsx
  */
@@ -12,8 +12,9 @@ import {
 	updateOpenAIConfig,
 	updateOpenAIHistory,
 	updateOpenAIKey,
+	updateLanguage,
 } from '@/stores/SettingAction';
-import { useSettingStore } from '@/stores/SettingStore';
+import { useSettingStore, Language } from '@/stores/SettingStore';
 import { keepDecimal } from '@/utils';
 import {
 	ActionIcon,
@@ -98,7 +99,6 @@ export const Setting = () => {
 
 const Config = () => {
 	const { classes, cx } = useStyles();
-	const selectEl = useRef<HTMLInputElement>(null);
 	const max_tokens = useSettingStore((state) => state.openAI.config.max_tokens);
 	const key = useSettingStore((state) => state.openAI.key);
 	const models = useSettingStore((state) => state.openAI.models);
@@ -107,6 +107,9 @@ const Config = () => {
 	const presence_penalty = useSettingStore((state) => state.openAI.config.presence_penalty);
 	const temperature = useSettingStore((state) => state.openAI.config.temperature);
 	const accessToken = useSettingStore((state) => state.accessToken);
+
+	const language = useSettingStore((state) => state.language);
+	const languages = useSettingStore((state) => state.languages);
 
 	const config = {
 		'Open AI': [
@@ -212,7 +215,6 @@ const Config = () => {
 				introduction: '选择模型',
 				template: (
 					<Select
-						ref={selectEl}
 						size="xs"
 						sx={{ width: '100%' }}
 						onSearchChange={(value) => {
@@ -270,6 +272,24 @@ const Config = () => {
 							updateAccessToken(e.target.value);
 						}}
 						placeholder="NOVA-xxx"
+					/>
+				),
+			},
+		],
+		'System Setting': [
+			{
+				name: 'language',
+				introduction: '选择语言',
+				template: (
+					<Select
+						size="xs"
+						sx={{ width: '100%' }}
+						onSearchChange={(value: Language) => {
+							updateLanguage(value);
+						}}
+						defaultValue={language}
+						nothingFound="No options"
+						data={languages}
 					/>
 				),
 			},

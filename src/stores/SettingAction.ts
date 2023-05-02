@@ -23,6 +23,12 @@ export const updateOpenAIConfig = (newState: Partial<SettingState['openAI']['con
 	}));
 };
 
+export const updateLanguage = (newState: Partial<SettingState['language']>) => {
+	setSetting(() => ({
+		language: newState,
+	}));
+};
+
 export const updateOpenAIKey = (newState: Partial<SettingState['openAI']['key']>) => {
 	setSetting((state) => ({
 		openAI: {
