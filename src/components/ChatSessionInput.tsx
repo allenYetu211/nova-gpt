@@ -104,10 +104,6 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
 				{(styles) => (
 					<Group className={classes.utilsContainer} style={styles}>
 						<ActionIcon size="xs" variant="default">
-							<IconEdit onClick={onEditClick} size="0.75rem" />
-						</ActionIcon>
-
-						<ActionIcon size="xs" variant="default">
 							<IconTrash onClick={onDeleteClick} size="0.75rem" />
 						</ActionIcon>
 					</Group>

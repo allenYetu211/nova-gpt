@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-04-30 11:05:59
+ * @LastEditTime: 2023-05-02 21:53:11
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/_app.tsx
  */
@@ -69,6 +69,9 @@ export default function App({ Component, pageProps }: AppProps) {
 				withGlobalStyles
 				withNormalizeCSS
 				theme={{
+					fontFamily: 'Verdana, sans-serif',
+					fontFamilyMonospace: 'Monaco, Courier, monospace',
+					headings: { fontFamily: 'Greycliff CF, sans-serif' },
 					/** Put your mantine theme override here */
 					colorScheme: 'dark',
 					colors: ThemeColor,
