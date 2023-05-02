@@ -2,12 +2,12 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-04-30 16:41:07
+ * @LastEditTime: 2023-05-02 21:22:56
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatTextareaContainer.tsx
  */
 
-import { ActionIcon, createStyles, Flex, Group, Menu, Text } from '@mantine/core';
+import { ActionIcon, Box, createStyles, Flex, Group, Menu, Button } from '@mantine/core';
 
 import {
 	IconMicrophone,
@@ -24,6 +24,7 @@ import { useSettingStore } from '@/stores/SettingStore';
 import { updateOpenAIConfig } from '@/stores/SettingAction';
 import { userMessage } from '@/stores/SubmitAction';
 import { update } from '@/stores/ChatAction';
+import { UICard } from '@/components/UICard';
 import { ChatTextareaInput } from '@/components/ChatTextareaInput';
 
 const useStyles = createStyles((theme) => ({
@@ -48,10 +49,17 @@ const useStyles = createStyles((theme) => ({
 	menu: {
 		border: 'none',
 	},
+	send: {
+		position: 'absolute',
+		right: theme.spacing.xs,
+		bottom: theme.spacing.xs,
+		background: theme.colors.dark[6],
+		color: theme.colors.dark[0],
+	},
 }));
 
 export function ChatTextarea() {
-	const { classes } = useStyles();
+	const { classes, theme } = useStyles();
 	const tcr = useRef<InstallExtension>();
 
 	const isRecording = useChatStore((state) => state.isRecording);
@@ -80,26 +88,44 @@ export function ChatTextarea() {
 	};
 
 	return (
-		<Flex justify="space-between" align="flex-end">
-			<ChatTextareaInput />
-
-			<Flex className={classes.iconContainer} direction="column">
-				{/* 设置更多， 待扩展 */}
-				<SettingMenu />
-				<ActionIcon
-					color="gray"
-					size="lg"
-					className={classes.iconItem}
-					onClick={isRecording ? stopRecord : startRecord}
+		<>
+			<UICard
+				container={
+					<>
+						<ActionIcon
+							color="gray"
+							size="lg"
+							className={classes.iconItem}
+							onClick={isRecording ? stopRecord : startRecord}
+						>
+							{isRecording ? (
+								<IconMicrophone size="1.25rem" />
+							) : (
+								<IconMicrophoneOff size="1.25rem" />
+							)}
+						</ActionIcon>
+						<SettingMenu />
+					</>
+				}
+			>
+				<Box
+					sx={{
+						position: 'relative',
+					}}
 				>
-					{isRecording ? <IconMicrophone size="1.625rem" /> : <IconMicrophoneOff size="1.625rem" />}
-				</ActionIcon>
-
-				<ActionIcon className={classes.iconItem} color="gray" size="lg" onClick={userMessage}>
-					<IconSend size="1.625rem" />
-				</ActionIcon>
-			</Flex>
-		</Flex>
+					<ChatTextareaInput />
+					<Button
+						className={classes.send}
+						leftIcon={<IconSend size="1.25rem" />}
+						variant="white"
+						fz={theme.fontSizes.xs}
+						radius={theme.radius.xl}
+					>
+						Send
+					</Button>
+				</Box>
+			</UICard>
+		</>
 	);
 }
 
@@ -163,10 +189,10 @@ const SettingMenu = () => {
 		},
 	];
 	return (
-		<Menu position="left-end" radius="lg" shadow="md" width={200}>
+		<Menu position="top" radius="lg" shadow="md" width={200}>
 			<Menu.Target>
-				<ActionIcon className={classes.iconItem} color="gray" size="lg" onClick={userMessage}>
-					<IconDotsVertical size="1.625rem" />
+				<ActionIcon className={classes.iconItem} color="gray" size="1.25rem" onClick={userMessage}>
+					<IconDotsVertical fontSize="xs" />
 				</ActionIcon>
 			</Menu.Target>
 

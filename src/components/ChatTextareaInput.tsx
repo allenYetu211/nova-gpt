@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 10:35:16
- * @LastEditTime: 2023-04-28 00:00:36
+ * @LastEditTime: 2023-05-02 21:12:54
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatTextareaInput.tsx
  */
@@ -15,10 +15,11 @@ const useStyles = createStyles((theme) => ({
 	textarea: {
 		width: '100%',
 		height: 125,
+		minHeight: '100%',
 		overflow: 'auto',
 		border: 'none',
 		borderRadius: theme.radius.xl,
-		backgroundColor: '#181a29',
+		backgroundColor: theme.colors.dark[8],
 		color: theme.colors.dark[0],
 		boxShadow: theme.shadows.sm,
 		padding: theme.spacing.xl,

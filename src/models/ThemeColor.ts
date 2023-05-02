@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 17:19:37
- * @LastEditTime: 2023-04-25 14:53:11
+ * @LastEditTime: 2023-05-02 21:14:38
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/models/ThemeColor.ts
  */
@@ -45,6 +45,8 @@ export const ThemeColor: DeepPartial<
 		'#2f3450',
 		'#1c2031',
 		'#070a15',
+		// '#181a29',
+
 		// "#ededff",
 		// "#cbcdea",
 		// "#a8acd6",
