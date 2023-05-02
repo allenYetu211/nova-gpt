@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-01 08:58:14
- * @LastEditTime: 2023-05-02 17:42:41
+ * @LastEditTime: 2023-05-02 19:29:07
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatQuestionFloat.tsx
  */
@@ -158,7 +158,6 @@ function Question({
 				}
 				setOpened(false);
 			}}
-			withArrow
 			shadow="md"
 			width={300}
 		>
@@ -183,6 +182,7 @@ function Question({
 						</Text>
 					</Text>
 					<Flex justify="flex-end" align="center">
+						{/* 这里有问题， 但是我不想自己写动画了 */}
 						<Input
 							ref={inputRef}
 							sx={(theme) => ({

@@ -2,15 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-05-02 18:09:38
- * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
- */
-/*
- * @Author: Allen OYang
- * @Email:  allenwill211@gmail.com
- * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-05-02 17:49:43
+ * @LastEditTime: 2023-05-02 18:51:11
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
@@ -35,34 +27,16 @@ export const userMessage = () => {
 	}
 	const { textareaMessage } = getChat();
 	const userMessage = createMessage({ message: textareaMessage, role: 'user' });
+
+	setChat(() => ({ textareaMessage: '' }));
+	updateChatContentMessage(userMessage);
+
 	const message = submitMessageHistory();
 	if (!message) {
 		return;
 	}
 	message.push(userMessage);
-	setChat(() => ({ textareaMessage: '' }));
-	updateChatContentMessage(message);
 	submitMessage(message);
-};
-
-/**
- *  更新chat 页面 内容展现消息
- */
-const updateChatContentMessage = (message: Message[] | Message) => {
-	const { activeChatId } = getChat();
-	setChat((state) => ({
-		textareaMessage: '',
-		chats: updateActionsChatMessage(state.chats, activeChatId, (chat) => {
-			if (Array.isArray(message)) {
-				message.forEach((item) => {
-					chat.message.push(item);
-				});
-			} else {
-				chat.message.push(message);
-			}
-			return chat;
-		}),
-	}));
 };
 
 /**
@@ -92,18 +66,9 @@ export const userQuestion = (question: string, message: string, messageId: Messa
  * 生成预留的 gpt response message 消息， 并填充至展示区域
  */
 const gptMessage = () => {
-	const { activeChatId } = getChat();
-	const gtpMessage = createMessage({ message: '', role: 'assistant' });
-	setChat((state) => {
-		return {
-			chats: updateActionsChatMessage(state.chats, activeChatId, (chat: Chat) => {
-				chat.message.push(gtpMessage);
-				return chat;
-			}),
-		};
-	});
-
-	return gtpMessage;
+	const message = createMessage({ message: '', role: 'assistant' });
+	updateChatContentMessage(message);
+	return message;
 };
 
 /**
@@ -354,4 +319,25 @@ export const ControllerAbort = {
 	remove(key: string) {
 		delete this.controllers[key];
 	},
+};
+
+/**
+ *  更新chat 页面 内容展现消息
+ */
+const updateChatContentMessage = (message: Message[] | Message) => {
+	const { activeChatId } = getChat();
+	setChat((state) => ({
+		textareaMessage: '',
+		chats: updateActionsChatMessage(state.chats, activeChatId, (chat) => {
+			if (Array.isArray(message)) {
+				console.log('message Array');
+				message.forEach((item) => {
+					chat.message.push(item);
+				});
+			} else {
+				chat.message.push(message);
+			}
+			return chat;
+		}),
+	}));
 };
