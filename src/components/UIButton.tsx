@@ -9,11 +9,11 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-interface UIButtonProps extends ButtonProps {}
+interface UIButtonProps extends ButtonProps {
+	onClick?: () => void;
+}
 
-export const UIButton: FC<UIButtonProps> = (
-	props: ButtonProps & React.RefAttributes<HTMLButtonElement>,
-) => {
+export const UIButton: FC<UIButtonProps & React.RefAttributes<HTMLButtonElement>> = (props) => {
 	const { children } = props;
 	const { classes, theme } = useStyles();
 	return (
