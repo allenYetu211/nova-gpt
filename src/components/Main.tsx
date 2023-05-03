@@ -2,13 +2,12 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 12:08:23
- * @LastEditTime: 2023-05-01 00:36:12
+ * @LastEditTime: 2023-05-03 16:43:38
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Main.tsx
  */
 import { ChatContent } from '@/components/ChatContent';
 import { ChatTextarea } from '@/components/ChatTextareaContainer';
-import { useSettingStore } from '@/stores/SettingStore';
 import { MantineTheme, createStyles } from '@mantine/core';
 import { Setting } from './Setting';
 import { EmptyChats } from './Empty';

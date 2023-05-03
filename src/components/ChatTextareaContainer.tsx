@@ -7,17 +7,7 @@
  * @FilePath: /nova-gpt/src/components/ChatTextareaContainer.tsx
  */
 
-import {
-	ActionIcon,
-	Box,
-	Button,
-	Flex,
-	Group,
-	Menu,
-	Switch,
-	createStyles,
-	useMantineTheme,
-} from '@mantine/core';
+import { ActionIcon, Box, Button, Flex, Group, Menu, Switch, createStyles } from '@mantine/core';
 
 import { ChatTextareaInput } from '@/components/ChatTextareaInput';
 import { UICard } from '@/components/UICard';

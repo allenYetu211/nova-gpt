@@ -9,18 +9,7 @@
 
 import { changeChatTitle } from '@/stores/ChatAction';
 import { useChatStore } from '@/stores/ChatStore';
-import {
-	ActionIcon,
-	Box,
-	Button,
-	Flex,
-	Group,
-	Input,
-	Modal,
-	Text,
-	Title,
-	createStyles,
-} from '@mantine/core';
+import { ActionIcon, Box, Flex, Group, Input, Text, Title, createStyles } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconEdit } from '@tabler/icons-react';
 import dayjs from 'dayjs';

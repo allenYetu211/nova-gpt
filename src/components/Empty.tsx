@@ -10,17 +10,7 @@ import i18n from '@/i18n';
 import { newChat } from '@/stores/ChatAction';
 import { switchIsSetting } from '@/stores/SettingAction';
 import { useSettingStore } from '@/stores/SettingStore';
-import {
-	Box,
-	Button,
-	List,
-	Text,
-	ThemeIcon,
-	Title,
-	createStyles,
-	Divider,
-	Group,
-} from '@mantine/core';
+import { Box, Button, List, Text, ThemeIcon, Title, createStyles, Group } from '@mantine/core';
 import { IconCheck } from '@tabler/icons-react';
 
 const useStyles = createStyles((theme) => ({
