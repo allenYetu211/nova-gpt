@@ -2,32 +2,38 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-01 08:58:14
- * @LastEditTime: 2023-05-02 19:29:07
+ * @LastEditTime: 2023-05-03 10:18:08
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatQuestionFloat.tsx
  */
+import { Language } from '@/stores/SettingStore';
+import { systemTranslations, userQuestion } from '@/stores/SubmitAction';
 import {
 	ActionIcon,
 	Box,
 	Divider,
 	Flex,
 	Group,
+	Input,
 	Menu,
+	Modal,
+	Text,
 	Tooltip,
 	createStyles,
-	Text,
-	Input,
 } from '@mantine/core';
+import { ChatTextareaInput } from '@/components/ChatTextareaInput';
+import { useDisclosure } from '@mantine/hooks';
 import {
-	IconQuestionMark,
-	IconLanguage,
-	IconZoomQuestion,
 	IconArrowsLeftRight,
+	IconLanguage,
+	IconQuestionMark,
 	IconSend,
+	IconZoomQuestion,
 } from '@tabler/icons-react';
+
 import React, { Fragment, forwardRef, useImperativeHandle, useRef, useState } from 'react';
-import { systemTranslations, userQuestion } from '@/stores/SubmitAction';
-import { Language } from '@/stores/SettingStore';
+import { UICard } from './UICard';
+import { UIModal } from './UIModal';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -50,7 +56,8 @@ interface Position {
 	top: number;
 	left: number;
 }
-export const ChatQuestionFloat = forwardRef((props, ref) => {
+
+export const ChatQuestionFloat = forwardRef((props: { updateScroll: () => void }, ref) => {
 	const { classes, theme } = useStyles();
 	const [position, setPosition] = useState<Position>({
 		top: 0,
@@ -95,11 +102,13 @@ export const ChatQuestionFloat = forwardRef((props, ref) => {
 
 	const translations = (language: Language) => {
 		systemTranslations(language, selectionContent.current);
+		props.updateScroll();
 		setShow(false);
 	};
 
 	const sendQuestion = (text: string) => {
 		userQuestion(selectionContent.current, text, messageId.current);
+		props.updateScroll();
 		setShow(false);
 	};
 
@@ -128,86 +137,74 @@ function Question({
 	selectionContent: string;
 	sendQuestion: (text: string) => void;
 }) {
-	const [opened, setOpened] = useState<boolean>(false);
-	const inputRef = useRef<HTMLInputElement>(null);
-	const menuItemRef = useRef<HTMLButtonElement>(null);
+	const [textValue, setTextValue] = useState<string>('');
+	const [opened, { open, close }] = useDisclosure(false);
 
 	const sendUserQuestion = () => {
-		const value = inputRef.current?.value.trim();
-		if (!value) {
+		if (!textValue.trim()) {
 			return;
 		}
-		sendQuestion(value);
-		setOpened(false);
+
+		sendQuestion(textValue);
+		setTextValue('');
+		close();
 	};
 	return (
-		<Menu
-			radius="xs"
-			trigger="hover"
-			opened={opened}
-			onOpen={() => {
-				setOpened(true);
-			}}
-			onClose={() => {
-				// 检查当前是否聚焦在输入框中
-				if (
-					inputRef.current === document.activeElement ||
-					menuItemRef.current === document.activeElement
-				) {
-					return;
-				}
-				setOpened(false);
-			}}
-			shadow="md"
-			width={300}
-		>
-			<Menu.Target>
-				<ActionIcon variant="transparent" color="gray" radius="sm" size="sm">
-					<IconQuestionMark />
-				</ActionIcon>
-			</Menu.Target>
-
-			<Menu.Dropdown>
-				<Menu.Item ref={menuItemRef}>
+		<>
+			<ActionIcon onClick={open} variant="transparent" color="gray" radius="sm" size="sm">
+				<IconQuestionMark />
+			</ActionIcon>
+			<UIModal
+				close={close}
+				opened={opened}
+				container={
 					<Text
 						fz="xs"
 						sx={(theme) => ({
 							marginBottom: theme.spacing.xs,
+							padding: `${theme.spacing.xs} 0`,
 						})}
 						color="white"
 					>
-						对以下内容提问：
-						<Text fs="italic" truncate>
-							{selectionContent}
-						</Text>
+						提问：{selectionContent}
 					</Text>
-					<Flex justify="flex-end" align="center">
-						{/* 这里有问题， 但是我不想自己写动画了 */}
-						<Input
-							ref={inputRef}
-							sx={(theme) => ({
-								flex: 1,
-								marginRight: theme.spacing.xs,
-							})}
-							onKeyDown={(e) => {
-								if (e.key === 'Enter') {
-									sendUserQuestion();
-								}
-							}}
-						/>
-						<ActionIcon
-							onClick={sendUserQuestion}
-							variant="transparent"
-							color="gray"
-							radius="sm"
-							size="sm"
-						>
-							<IconSend />
-						</ActionIcon>
-					</Flex>
-				</Menu.Item>
-			</Menu.Dropdown>
-		</Menu>
+				}
+			>
+				<Flex
+					justify="flex-end"
+					align="center"
+					sx={(theme) => ({
+						width: '100%',
+						['.chat-textarea-input']: {
+							padding: `${theme.spacing.xl} 0`,
+						},
+					})}
+				>
+					<ChatTextareaInput
+						message={textValue}
+						placeholder="提出你的问题，使用Enter发送"
+						onKeyDown={(e) => {
+							if (e.key === 'Enter') {
+								sendUserQuestion();
+							}
+						}}
+						update={(value) => {
+							setTextValue(value);
+						}}
+					/>
+
+					<ActionIcon
+						onClick={sendUserQuestion}
+						variant="transparent"
+						color="gray"
+						radius="sm"
+						size="sm"
+					>
+						<IconSend />
+					</ActionIcon>
+				</Flex>
+			</UIModal>
+		</>
 	);
 }
 

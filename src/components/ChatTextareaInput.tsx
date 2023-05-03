@@ -10,6 +10,7 @@ import { update } from '@/stores/ChatAction';
 import { useChatStore } from '@/stores/ChatStore';
 import { userMessage } from '@/stores/SubmitAction';
 import { Input, Textarea, createStyles } from '@mantine/core';
+import { FC } from 'react';
 
 const useStyles = createStyles((theme) => ({
 	textarea: {
@@ -21,7 +22,7 @@ const useStyles = createStyles((theme) => ({
 		borderRadius: theme.radius.xl,
 		backgroundColor: theme.colors.dark[8],
 		color: theme.colors.dark[0],
-		boxShadow: theme.shadows.sm,
+		// boxShadow: theme.shadows.sm,
 		padding: theme.spacing.xl,
 		fontSize: theme.fontSizes.sm,
 		resize: 'none',
@@ -31,28 +32,27 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-export const ChatTextareaInput = () => {
-	const textareaMessage = useChatStore((state) => state.textareaMessage);
-	const { classes } = useStyles();
+interface ChatTextareaInputProps {
+	message: string;
+	update: (message: string) => void;
+	placeholder?: string;
+	onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+}
 
+export const ChatTextareaInput: FC<ChatTextareaInputProps> = (props) => {
+	const { message, update, placeholder, onKeyDown } = props;
+	const { classes, cx } = useStyles();
 	const onChangeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		update({ textareaMessage: e.target.value });
+		update(e.target.value);
 	};
 
 	return (
 		<textarea
-			className={classes.textarea}
-			placeholder="Ctrl + Enter Send Message"
-			value={textareaMessage}
-			// withAsterisk
-			// autosize={true}
+			className={cx(classes.textarea, 'chat-textarea-input')}
+			placeholder={placeholder ?? 'Ctrl + Enter Send Message'}
+			value={message}
 			onChange={onChangeTextarea}
-			onKeyDown={(e) => {
-				if (e.key !== 'Enter') return;
-				if (e.ctrlKey && e.key === 'Enter') {
-					userMessage();
-				}
-			}}
+			onKeyDown={onKeyDown}
 		/>
 	);
 };

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-05-02 21:22:56
+ * @LastEditTime: 2023-05-03 08:54:44
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatTextareaContainer.tsx
  */
@@ -61,7 +61,7 @@ const useStyles = createStyles((theme) => ({
 export function ChatTextarea() {
 	const { classes, theme } = useStyles();
 	const tcr = useRef<InstallExtension>();
-
+	const textareaMessage = useChatStore((state) => state.textareaMessage);
 	const isRecording = useChatStore((state) => state.isRecording);
 
 	useEffect(() => {
@@ -73,7 +73,8 @@ export function ChatTextarea() {
 
 	const addListen = () => {
 		InstallExtension.emitter.on('ResultChange', (text: string) => {
-			useChatStore.setState({ textareaMessage: text });
+			// useChatStore.setState({ textareaMessage: text });
+			update({ textareaMessage: text });
 		});
 	};
 
@@ -85,6 +86,10 @@ export function ChatTextarea() {
 	const stopRecord = async () => {
 		await tcr.current?.stopRecord();
 		update({ isRecording: false });
+	};
+
+	const onChangeText = (text: string) => {
+		update({ textareaMessage: text });
 	};
 
 	return (
@@ -113,7 +118,16 @@ export function ChatTextarea() {
 						position: 'relative',
 					}}
 				>
-					<ChatTextareaInput />
+					<ChatTextareaInput
+						message={textareaMessage}
+						update={onChangeText}
+						onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+							if (e.key !== 'Enter') return;
+							if (e.ctrlKey && e.key === 'Enter') {
+								userMessage();
+							}
+						}}
+					/>
 					<Button
 						className={classes.send}
 						leftIcon={<IconSend size="1.25rem" />}

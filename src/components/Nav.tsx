@@ -111,7 +111,6 @@ export function Nav() {
 		>
 			<Navbar
 				fixed={true}
-				// className={classes.nav}
 				width={{ base: 330 }}
 				sx={(theme) => ({
 					padding: '20px',

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-05-02 22:10:04
+ * @LastEditTime: 2023-05-03 10:14:35
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent.tsx
  */
@@ -27,6 +27,8 @@ import dayjs from 'dayjs';
 import { memo, useEffect, useRef } from 'react';
 import { ChatMessage } from './ChatMessage';
 import { ChatQuestionFloat } from './ChatQuestionFloat';
+import { UIModal } from './UIModal';
+import { UIButton } from './UIButton';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -44,15 +46,24 @@ const useStyles = createStyles((theme) => ({
 		left: 0,
 		right: theme.spacing.md,
 		borderRadius: theme.radius.md,
-		boxShadow: `1px 2px 25px ${theme.colors.dark[9]}`,
-		background: theme.colorScheme === 'dark' ? theme.colors.gradient[4] : theme.colors.light[0],
+		boxShadow: `1px 10px 50px ${theme.colors.dark[8]}`,
+		background: theme.colorScheme === 'dark' ? theme.colors.gradient[2] : theme.colors.light[0],
 		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.dark[9],
-		padding: `3px ${theme.spacing.md}`,
+		padding: `5px ${theme.spacing.md}`,
+	},
+
+	changeTitleInput: {
+		width: '100%',
+		[`& .mantine-Input-input`]: {
+			flex: 1,
+			border: `none`,
+			backgroundColor: 'transparent',
+		},
 	},
 }));
 
 export const ChatContent = memo(() => {
-	const { classes } = useStyles();
+	const { classes, theme } = useStyles();
 	const activeChatId = useChatStore((state) => state.activeChatId);
 	const chats = useChatStore((state) => state.chats);
 	const activeChat = chats.find((item) => item.id === activeChatId);
@@ -94,7 +105,7 @@ export const ChatContent = memo(() => {
 
 	return (
 		<div className={classes.container} ref={containerRef}>
-			<ChatQuestionFloat ref={chatElRef} />
+			<ChatQuestionFloat ref={chatElRef} updateScroll={updateScroll} />
 
 			<Box className={classes.titleContainer}>
 				<Title order={5}>
@@ -109,25 +120,47 @@ export const ChatContent = memo(() => {
 				<Text fz="xs">{dayjs(activeChat!.createdAt).format('YYYY/MM/DD HH:mm:ss')}</Text>
 			</Box>
 
-			<Modal opened={opened} onClose={close} title="Change Title">
-				<Flex gap={10}>
+			<UIModal
+				opened={opened}
+				close={close}
+				container={
+					<>
+						<Title
+							order={3}
+							sx={(theme) => ({
+								padding: `${theme.spacing.xs} 0 0`,
+							})}
+						>
+							Change Title
+						</Title>
+					</>
+				}
+			>
+				<Flex
+					gap={10}
+					sx={() => ({
+						width: '100%',
+					})}
+				>
 					<Input
-						sx={{ flex: 1 }}
+						className={classes.changeTitleInput}
 						defaultValue={activeChat!.title}
+						placeholder="聊天窗口标题"
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 							inputValue.current = e.target.value;
 						}}
 					/>
-					<Button
+
+					<UIButton
 						onClick={() => {
 							changeChatTitle(activeChat!.id, inputValue.current);
 							close();
 						}}
 					>
 						确认
-					</Button>
+					</UIButton>
 				</Flex>
-			</Modal>
+			</UIModal>
 
 			<div className="allow-select-region" ref={contentRef}>
 				{activeChat &&

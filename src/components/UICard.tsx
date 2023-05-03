@@ -9,7 +9,7 @@
 import React, { FC, PropsWithChildren } from 'react';
 import { createStyles, Group, Box, Flex } from '@mantine/core';
 
-interface Props extends PropsWithChildren {
+export interface UICardProps extends PropsWithChildren {
 	container: React.ReactNode;
 }
 const useStyles = createStyles((theme) => ({
@@ -32,17 +32,17 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-export const UICard: FC<Props> = (props) => {
+export const UICard: FC<UICardProps> = (props) => {
 	const { children, container } = props;
-	const { classes, theme } = useStyles();
+	const { classes, theme, cx } = useStyles();
 
 	return (
-		<Flex direction="column" justify="center" className={classes.wrapper}>
-			<Group spacing="xs" className={classes.utils}>
+		<Flex direction="column" justify="center" className={cx(classes.wrapper, 'card-container')}>
+			<Group spacing="xs" className={cx(classes.utils, 'card-utils')}>
 				{container}
 			</Group>
 
-			<Box className={classes.container}>{children}</Box>
+			<Box className={cx(classes.container, 'card-box-container')}>{children}</Box>
 		</Flex>
 	);
 };
