@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-05-03 11:09:33
+ * @LastEditTime: 2023-05-03 16:26:19
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav.tsx
  */
@@ -40,11 +40,11 @@ const useStyles = createStyles((theme) => ({
 		borderRadius: theme.radius.md,
 		cursor: 'pointer',
 		'&:hover': {
-			backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
+			backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.light[2],
 		},
 	},
 	chatItemActive: {
-		background: theme.colors.gradient[3],
+		background: theme.colorScheme === 'dark' ? theme.colors.gradient[3] : theme.colors.light[1],
 	},
 	sessionContainer: {
 		height: '100%',
@@ -78,7 +78,7 @@ export function Nav() {
 
 	const tooltipCommon = {
 		openDelay: 200,
-		color: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
+		color: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.light[7],
 	};
 
 	const chatsList = chats
@@ -132,7 +132,7 @@ export function Nav() {
 					sx={(theme) => ({
 						height: '100%',
 						background:
-							theme.colorScheme === 'dark' ? theme.colors.gradient[2] : theme.colors.gray[0],
+							theme.colorScheme === 'dark' ? theme.colors.gradient[2] : theme.colors.dark[0],
 						borderRadius: theme.radius.xl,
 						padding: theme.spacing.xl,
 						boxShadow: theme.shadows.xl,

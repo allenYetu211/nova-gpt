@@ -8,6 +8,11 @@ export const zh_cn = {
 	changeTitle: '修改聊天的标题',
 	changeTitlePlaceholder: '输入新的标题名字',
 	confirm: '确认',
+	targetLanguage: '目标语言',
+	languages: {
+		zh_cn: '中文',
+		en: '英文',
+	},
 	setting: {
 		openai: {
 			key: {

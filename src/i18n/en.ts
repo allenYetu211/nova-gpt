@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-03 10:37:53
- * @LastEditTime: 2023-05-03 11:46:44
+ * @LastEditTime: 2023-05-03 16:39:02
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/i18n/en.ts
  */
@@ -16,6 +16,11 @@ export const en = {
 	changeTitle: 'Change the title of the chat',
 	changeTitlePlaceholder: 'Enter the new name for the title',
 	confirm: 'Confirm',
+	targetLanguage: 'Target Language',
+	languages: {
+		zh_cn: 'Chinese',
+		en: 'English',
+	},
 	setting: {
 		openai: {
 			key: {

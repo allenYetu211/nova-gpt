@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-05-02 21:53:11
+ * @LastEditTime: 2023-05-03 16:21:48
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/_app.tsx
  */
@@ -11,10 +11,11 @@ import '@/styles/Markdown.css';
 
 import { Nav } from '@/components/Nav';
 import { ThemeColor } from '@/models/ThemeColor';
-import { AppShell, Box, createStyles, MantineProvider, Loader } from '@mantine/core';
+import { AppShell, Box, createStyles, MantineProvider, Loader, rem } from '@mantine/core';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import { useSettingStore } from '@/stores/SettingStore';
 
 const useStyles = createStyles((theme) => ({
 	appShell: {
@@ -26,6 +27,8 @@ const useStyles = createStyles((theme) => ({
 
 export default function App({ Component, pageProps }: AppProps) {
 	const [isHydrated, setIsHydrated] = useState(false);
+	const colorScheme = useSettingStore((state) => state.colorScheme);
+
 	const { classes, theme } = useStyles();
 	//Wait till NextJS rehydration completes
 	useEffect(() => {
@@ -71,10 +74,14 @@ export default function App({ Component, pageProps }: AppProps) {
 				theme={{
 					fontFamily: 'Verdana, sans-serif',
 					fontFamilyMonospace: 'Monaco, Courier, monospace',
-					headings: { fontFamily: 'Greycliff CF, sans-serif' },
-					/** Put your mantine theme override here */
-					colorScheme: 'dark',
+					// headings: { fontFamily: 'Greycliff CF, sans-serif' },
+					colorScheme: colorScheme,
 					colors: ThemeColor,
+					focusRingStyles: {
+						resetStyles: () => ({ outline: 'none' }),
+						styles: (theme) => ({ outline: `${rem(1)} solid ${theme.colors.dark[1]}` }),
+						inputStyles: (theme) => ({ outline: `${rem(1)} solid ${theme.colors.dark[1]}` }),
+					},
 				}}
 			>
 				<AppShell

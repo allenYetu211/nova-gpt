@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-02 20:15:51
- * @LastEditTime: 2023-05-02 21:20:42
+ * @LastEditTime: 2023-05-03 16:29:37
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/UICard.tsx
  */
@@ -15,19 +15,23 @@ export interface UICardProps extends PropsWithChildren {
 const useStyles = createStyles((theme) => ({
 	wrapper: {
 		width: '100%',
-		background: theme.colors.dark[6],
+		background: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.light[0],
 		borderRadius: theme.radius.xl,
 		padding: 0,
 		overflow: 'hidden',
 	},
 	utils: {
 		padding: `0 ${theme.spacing.md}`,
+		color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.light[6],
 	},
 	container: {
-		background: theme.colors.dark[8],
+		background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.light[1],
 		padding: 0,
 		borderRadius: theme.radius.xl,
-		boxShadow: `-1px 5px 25px ${theme.colors.dark[9]}}`,
+		boxShadow:
+			theme.colorScheme === 'dark'
+				? `-1px 5px 25px ${theme.colors.dark[9]}}`
+				: `-1px 5px 25px ${theme.colors.light[3]}}`,
 		lineHeight: 0,
 	},
 }));

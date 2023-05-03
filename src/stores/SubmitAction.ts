@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-05-02 18:51:11
+ * @LastEditTime: 2023-05-03 16:07:25
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
@@ -90,13 +90,13 @@ export const systemMessage = (content: string) => {
 export const systemTranslations = (targetLanguage: Language, content: string) => {
 	const message = getSystemMake('translation');
 	const systemMessage = createMessage({
-		message: `${message}${prompt.language[targetLanguage]}：`,
+		message: `${message}${i18n.languages[targetLanguage]}：`,
 		role: 'system',
 		hide: true,
 	});
 	const userMessage = createMessage({
 		message: content,
-		question: `翻译成至${prompt.language[targetLanguage]}`,
+		question: `${i18n.targetLanguage}: ${i18n.languages[targetLanguage]}`,
 		role: 'user',
 	});
 	updateChatContentMessage([systemMessage, userMessage]);
@@ -331,7 +331,6 @@ const updateChatContentMessage = (message: Message[] | Message) => {
 		textareaMessage: '',
 		chats: updateActionsChatMessage(state.chats, activeChatId, (chat) => {
 			if (Array.isArray(message)) {
-				console.log('message Array');
 				message.forEach((item) => {
 					chat.message.push(item);
 				});

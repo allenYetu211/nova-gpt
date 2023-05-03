@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-05-03 11:40:44
+ * @LastEditTime: 2023-05-03 16:31:10
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent.tsx
  */
@@ -47,7 +47,7 @@ const useStyles = createStyles((theme) => ({
 		left: 0,
 		right: theme.spacing.md,
 		borderRadius: theme.radius.md,
-		boxShadow: `1px 10px 50px ${theme.colors.dark[8]}`,
+		boxShadow: theme.colorScheme === 'dark' ? `1px 10px 50px ${theme.colors.dark[8]}` : `0`,
 		background: theme.colorScheme === 'dark' ? theme.colors.gradient[2] : theme.colors.light[0],
 		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.dark[9],
 		padding: `5px ${theme.spacing.md}`,

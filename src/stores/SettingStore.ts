@@ -68,6 +68,8 @@ export interface SettingState {
 	translations: string[];
 	language: Language;
 	languages: Language[];
+
+	colorScheme: 'light' | 'dark';
 }
 
 const initialSettingState: SettingState = {
@@ -91,6 +93,8 @@ const initialSettingState: SettingState = {
 
 	language: 'zh_cn',
 	languages: ['zh_cn', 'en'],
+
+	colorScheme: 'dark',
 };
 
 const store = () => ({ ...initialSettingState } as SettingState);

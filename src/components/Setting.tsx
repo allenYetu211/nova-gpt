@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 22:05:39
- * @LastEditTime: 2023-05-03 11:54:11
+ * @LastEditTime: 2023-05-03 16:20:31
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Setting.tsx
  */
@@ -31,6 +31,7 @@ import {
 import { IconX } from '@tabler/icons-react';
 import { Fragment, useRef } from 'react';
 import i18n from '@/i18n';
+import { UISelect } from './UISelect';
 
 export const useStyles = createStyles((theme) => ({
 	settingItem: {
@@ -41,33 +42,40 @@ export const useStyles = createStyles((theme) => ({
 		margin: `${theme.spacing.md} 0 ${theme.spacing.md} 0`,
 		[`& > .item`]: {
 			borderBottom: `1px solid ${
-				theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
+				theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.light[2]
 			}`,
 		},
 		[`.mantine-Slider-bar`]: {
-			background: theme.colors.gradient[3],
+			background: theme.colorScheme === 'dark' ? theme.colors.gradient[3] : theme.colors.light[2],
 		},
+		[`.mantine-Slider-thumb`]: {
+			borderColor: theme.colors.light[3],
+		},
+	},
+
+	container: {
+		position: 'absolute',
+		left: 0,
+		top: 0,
+		right: 0,
+		bottom: 0,
+		zIndex: 1000,
+		padding: theme.spacing.md,
+		background: theme.colorScheme === 'dark' ? theme.colors.gradient[0] : theme.colors.light[0],
+		transition: 'all 0.3s ease',
 	},
 }));
 
 export const Setting = () => {
 	const isSetting = useSettingStore((state) => state.isSetting);
-
+	const { classes, cx } = useStyles();
 	return (
 		<Box
-			sx={(theme) => ({
-				position: 'absolute',
-				left: 0,
-				top: 0,
-				right: 0,
-				bottom: 0,
-				zIndex: 1000,
-				padding: theme.spacing.md,
-				background: theme.colors.gradient[0],
-				transition: 'all 0.3s ease',
+			sx={{
 				opacity: isSetting ? 1 : 0,
 				pointerEvents: isSetting ? 'all' : 'none',
-			})}
+			}}
+			className={classes.container}
 		>
 			<Flex
 				justify="space-between"
@@ -215,7 +223,7 @@ const Config = () => {
 				name: i18n.setting.openai.models.title,
 				introduction: i18n.setting.openai.models.title,
 				template: (
-					<Select
+					<UISelect
 						size="xs"
 						sx={{ width: '100%' }}
 						onSearchChange={(value) => {
@@ -282,13 +290,12 @@ const Config = () => {
 				name: i18n.setting.system.language.title,
 				introduction: i18n.setting.system.language.introduction,
 				template: (
-					<Select
+					<UISelect
 						size="xs"
 						sx={{ width: '100%' }}
 						onSearchChange={(value: Language) => {
 							if (language !== value) {
 								updateLanguage(value);
-								console.log('System Setting');
 								window.location.reload();
 							}
 						}}

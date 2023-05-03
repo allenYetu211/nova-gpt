@@ -11,6 +11,12 @@ import { useSettingStore, SettingState } from './SettingStore';
 const getSetting = useSettingStore.getState;
 const setSetting = useSettingStore.setState;
 
+export const switchColorScheme = (newState: SettingState['colorScheme']) => {
+	setSetting(() => ({
+		colorScheme: newState,
+	}));
+};
+
 export const updateOpenAIConfig = (newState: Partial<SettingState['openAI']['config']>) => {
 	setSetting((state) => ({
 		openAI: {

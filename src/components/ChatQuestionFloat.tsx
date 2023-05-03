@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-01 08:58:14
- * @LastEditTime: 2023-05-03 11:14:02
+ * @LastEditTime: 2023-05-03 16:31:55
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatQuestionFloat.tsx
  */
@@ -39,7 +39,7 @@ import i18n from '@/i18n';
 const useStyles = createStyles((theme) => ({
 	container: {
 		padding: `3px ${theme.spacing.xs}`,
-		background: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.white,
+		background: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.light[0],
 		borderRadius: theme.radius.md,
 		width: 'fit-content',
 		position: 'absolute',
@@ -164,8 +164,8 @@ function Question({
 						sx={(theme) => ({
 							marginBottom: theme.spacing.xs,
 							padding: `${theme.spacing.xs} 0`,
+							color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.light[6],
 						})}
-						color="white"
 					>
 						{i18n.float_question.subject} : {selectionContent}
 					</Text>

@@ -22,16 +22,26 @@ export const ThemeColor: DeepPartial<
 > = {
 	// https://smart-swatch.netlify.app/#2d3160
 	light: [
-		'#defef0',
-		'#b8f4d9',
-		'#90edc2',
-		'#66e4ab',
-		'#3cdc93',
-		'#23c37a',
-		'#16975e',
-		'#0a6c43',
-		'#014227',
-		'#00180a',
+		'#ededff',
+		'#cacdeb',
+		'#a8acd8',
+		'#868bc6',
+		'#6469b5',
+		'#4a509b',
+		'#3a3e7a',
+		'#282c58',
+		'#171b38',
+		'#060819',
+		// '#defef0',
+		// '#b8f4d9',
+		// '#90edc2',
+		// '#66e4ab',
+		// '#3cdc93',
+		// '#23c37a',
+		// '#16975e',
+		// '#0a6c43',
+		// '#014227',
+		// '#00180a',
 	],
 	// https://smart-swatch.netlify.app/#2d3160
 	dark: [
@@ -69,4 +79,6 @@ export const ThemeColor: DeepPartial<
 		`linear-gradient(to right,  #8a3ffb  40%, #3646e8 90%, #3646e8)`,
 		`linear-gradient(to right bottom, #fb3f95 40%, #7d5151)`,
 	],
+
+	warn: ['#ffabab'],
 };

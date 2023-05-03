@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-05-02 17:34:27
+ * @LastEditTime: 2023-05-03 16:24:52
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatMessage.tsx
  */
@@ -52,18 +52,21 @@ const useStyles = createStyles((theme) => {
 
 		user: {
 			marginRight: theme.spacing.md,
-			backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+			backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.light[0],
 		},
 		assistant: {
 			marginLeft: theme.spacing.md,
-			background: theme.colorScheme === 'dark' ? theme.colors.gradient[1] : theme.colors.gray[0],
+			background: theme.colorScheme === 'dark' ? theme.colors.gradient[1] : theme.colors.light[1],
 		},
 		system: {
 			marginLeft: theme.spacing.md,
 			background: theme.colorScheme === 'dark' ? theme.colors.gradient[2] : theme.colors.gray[0],
 		},
 		exception: {
-			background: theme.colorScheme === 'dark' ? theme.colors.gradient[5] : theme.colors.gray[0],
+			background: theme.colorScheme === 'dark' ? theme.colors.gradient[5] : theme.colors.warn[0],
+		},
+		question: {
+			color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.light[8],
 		},
 
 		icon: {
@@ -160,7 +163,7 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message, onMouseUp }) => {
 
 					{question && (
 						<>
-							<Text truncate fz="xs" fs="italic" color="white" mb={theme.spacing.xs}>
+							<Text truncate fz="xs" fs="italic" className={classes.question} mb={theme.spacing.xs}>
 								{question}
 							</Text>
 							<Divider sx={{ marginBottom: theme.spacing.xs }} />

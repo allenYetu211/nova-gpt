@@ -2,15 +2,15 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 17:34:12
- * @LastEditTime: 2023-05-03 11:18:11
+ * @LastEditTime: 2023-05-03 14:57:00
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatSessionInput.tsx
  */
 
-import { Input, Text, Flex, ActionIcon, createStyles, Group, Transition } from '@mantine/core';
-import { IconEdit, IconTrash } from '@tabler/icons-react';
-import { useState, useRef, memo } from 'react';
-import { deleteChat, changeChatTitle } from '@/stores/ChatAction';
+import { Text, Flex, ActionIcon, createStyles, Group, Transition } from '@mantine/core';
+import { IconTrash } from '@tabler/icons-react';
+import { useState, memo } from 'react';
+import { deleteChat } from '@/stores/ChatAction';
 import dayjs from 'dayjs';
 import i18n from '@/i18n';
 
@@ -33,23 +33,8 @@ interface ChatSessionInputProps {
 }
 
 export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
-	const [editState, setEditState] = useState<boolean>(false);
-	const inputEl = useRef<HTMLInputElement>(null);
 	const [open, setOpen] = useState<boolean>(false);
 	const { classes } = useStyles();
-
-	const onEditClick = (e: any) => {
-		setEditState(true);
-		setTimeout(() => {
-			inputEl.current?.focus();
-		}, 0);
-		e.stopPropagation();
-	};
-
-	const onEditBlur = () => {
-		changeChatTitle(props.id, inputEl.current?.value);
-		setEditState(false);
-	};
 
 	const onDeleteClick = (e: any) => {
 		deleteChat(props.id);
@@ -71,29 +56,9 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
 			}}
 		>
 			<Flex direction="column" w="100%">
-				{editState ? (
-					<Input
-						ref={inputEl}
-						defaultValue={props.title}
-						onBlur={onEditBlur}
-						onKeyDown={(e) => {
-							if (e.key === 'Enter') {
-								onEditBlur();
-							}
-						}}
-						w="150px"
-						size="xs"
-						sx={() => ({
-							border: 'none',
-							borderRadius: 0,
-							flex: 1,
-						})}
-					/>
-				) : (
-					<Text sx={() => ({ flex: 1, lineHeight: '2.1431' })} truncate size="sm">
-						{props.title || ''}
-					</Text>
-				)}
+				<Text sx={() => ({ flex: 1, lineHeight: '2.1431' })} truncate size="sm">
+					{props.title || ''}
+				</Text>
 
 				<Flex justify="space-between">
 					<Text size="xs">{i18n.record(props.amount)}</Text>
