@@ -12,6 +12,7 @@ import { requestOpenAI } from '@/fetch/Request';
 import { updateActionsChatMessage, getActiveChat } from '@/utils';
 import { v4 as uuidv4 } from 'uuid';
 import * as prompt from '@/prompt';
+import i18n from '@/i18n';
 
 const getChat = useChatStore.getState;
 const setChat = useChatStore.setState;
@@ -164,7 +165,7 @@ const streamOpenAI = (
 
 	const errorCallback = (content: string, type: 'USER_ABORT_ACTION' | 'TIME_OUT') => {
 		if (type === 'TIME_OUT') {
-			content = '[Request] 请求超时';
+			content = i18n.request.timedOut;
 		}
 
 		setChat((state) => {

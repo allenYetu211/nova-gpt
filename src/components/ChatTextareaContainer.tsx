@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-05-03 08:54:44
+ * @LastEditTime: 2023-05-03 11:16:27
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatTextareaContainer.tsx
  */
@@ -26,6 +26,7 @@ import { userMessage } from '@/stores/SubmitAction';
 import { update } from '@/stores/ChatAction';
 import { UICard } from '@/components/UICard';
 import { ChatTextareaInput } from '@/components/ChatTextareaInput';
+import i18n from '@/i18n';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -135,7 +136,7 @@ export function ChatTextarea() {
 						fz={theme.fontSizes.xs}
 						radius={theme.radius.xl}
 					>
-						Send
+						{i18n.send}
 					</Button>
 				</Box>
 			</UICard>

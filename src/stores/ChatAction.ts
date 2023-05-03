@@ -6,6 +6,7 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/ChatAction.ts
  */
+import i18n from '@/i18n';
 import { useChatStore, ChatState } from './ChatStore';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -22,7 +23,7 @@ export const newChat = () => {
 			message: [
 				{
 					id: uuidv4(),
-					content: '有什么能帮到你的呢?',
+					content: i18n.chat.firstQuestion,
 					createdAt: new Date(),
 					role: 'assistant',
 				},

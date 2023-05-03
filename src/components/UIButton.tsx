@@ -1,3 +1,4 @@
+import i18n from '@/i18n';
 import { Button, ButtonProps, createStyles } from '@mantine/core';
 import { FC } from 'react';
 
@@ -11,6 +12,7 @@ const useStyles = createStyles((theme) => ({
 interface UIButtonProps extends ButtonProps {}
 
 export const UIButton: FC<UIButtonProps> = (props) => {
+	const { children } = props;
 	const { classes, theme } = useStyles();
 	return (
 		<Button
@@ -23,7 +25,7 @@ export const UIButton: FC<UIButtonProps> = (props) => {
 			radius={theme.radius.xl}
 			{...props}
 		>
-			Send
+			{children ?? i18n.send}
 		</Button>
 	);
 };

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 22:05:39
- * @LastEditTime: 2023-05-02 11:18:45
+ * @LastEditTime: 2023-05-03 11:54:11
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Setting.tsx
  */
@@ -30,6 +30,7 @@ import {
 } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 import { Fragment, useRef } from 'react';
+import i18n from '@/i18n';
 
 export const useStyles = createStyles((theme) => ({
 	settingItem: {
@@ -114,8 +115,8 @@ const Config = () => {
 	const config = {
 		'Open AI': [
 			{
-				name: 'key',
-				introduction: 'Open AI API key',
+				name: i18n.setting.openai.key.title,
+				introduction: i18n.setting.openai.key.introduction,
 				template: (
 					<Input
 						value={key}
@@ -129,8 +130,8 @@ const Config = () => {
 				),
 			},
 			{
-				name: 'max_tokens',
-				introduction: '单次交互所用的最大 Token 数',
+				name: i18n.setting.openai.tokens.title,
+				introduction: i18n.setting.openai.tokens.introduction,
 				template: (
 					<NumberInput
 						max={2048}
@@ -143,8 +144,8 @@ const Config = () => {
 				),
 			},
 			{
-				name: 'temperature',
-				introduction: '回答随随机性 |  取值范围建议：0.7~ 1.0',
+				name: i18n.setting.openai.temperature.title,
+				introduction: i18n.setting.openai.temperature.introduction,
 				template: (
 					<Flex justify="flex-end" align="center">
 						<Slider
@@ -179,8 +180,8 @@ const Config = () => {
 				),
 			},
 			{
-				name: 'presence_penalty',
-				introduction: 'GPT 惩罚机制 |  取值范围建议：0.9~ 1.2',
+				name: i18n.setting.openai.presence_penalty.title,
+				introduction: i18n.setting.openai.presence_penalty.introduction,
 				template: (
 					<Flex justify="flex-end" align="center">
 						<Slider
@@ -211,8 +212,8 @@ const Config = () => {
 				),
 			},
 			{
-				name: 'models',
-				introduction: '选择模型',
+				name: i18n.setting.openai.models.title,
+				introduction: i18n.setting.openai.models.title,
 				template: (
 					<Select
 						size="xs"
@@ -227,8 +228,8 @@ const Config = () => {
 				),
 			},
 			{
-				name: 'history',
-				introduction: '携带最大历史信息',
+				name: i18n.setting.openai.history.title,
+				introduction: i18n.setting.openai.history.introduction,
 				template: (
 					<Flex justify="flex-end" align="center">
 						<Slider
@@ -261,8 +262,8 @@ const Config = () => {
 		],
 		'Access Token': [
 			{
-				name: 'Token',
-				introduction: 'Nova Access Token',
+				name: i18n.setting.access.token.title,
+				introduction: i18n.setting.access.token.introduction,
 				template: (
 					<Input
 						value={accessToken}
@@ -278,14 +279,18 @@ const Config = () => {
 		],
 		'System Setting': [
 			{
-				name: 'language',
-				introduction: '选择语言',
+				name: i18n.setting.system.language.title,
+				introduction: i18n.setting.system.language.introduction,
 				template: (
 					<Select
 						size="xs"
 						sx={{ width: '100%' }}
 						onSearchChange={(value: Language) => {
-							updateLanguage(value);
+							if (language !== value) {
+								updateLanguage(value);
+								console.log('System Setting');
+								window.location.reload();
+							}
 						}}
 						defaultValue={language}
 						nothingFound="No options"

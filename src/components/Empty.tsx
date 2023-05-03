@@ -2,10 +2,11 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-25 14:06:24
- * @LastEditTime: 2023-05-01 01:29:18
+ * @LastEditTime: 2023-05-03 11:27:02
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Empty.tsx
  */
+import i18n from '@/i18n';
 import { newChat } from '@/stores/ChatAction';
 import { switchIsSetting } from '@/stores/SettingAction';
 import { useSettingStore } from '@/stores/SettingStore';
@@ -51,7 +52,7 @@ export const EmptyChats = () => {
 				c="dimmed"
 				fz="sm"
 			>
-				Smarter and more visually appealing Chat GPT WEB.
+				{i18n.empty.describe}
 			</Text>
 
 			<Group className={classes.listGroup}>
@@ -65,16 +66,10 @@ export const EmptyChats = () => {
 						</ThemeIcon>
 					}
 				>
-					<List.Item>
-						{' '}
-						Run locally on your browser - no need to install any applications No need
-					</List.Item>
-					<List.Item> No need for users in China to use a VPN</List.Item>
-					<List.Item> Support microphone input - using Tencent Cloud Speech Recognition</List.Item>
-					<List.Item>
-						{' '}
-						API key and data stored in local storage - ensuring your data privacy and security
-					</List.Item>
+					<List.Item>{i18n.empty.introduction[0]}</List.Item>
+					<List.Item> {i18n.empty.introduction[1]}</List.Item>
+					<List.Item> {i18n.empty.introduction[2]}</List.Item>
+					<List.Item>{i18n.empty.introduction[3]}</List.Item>
 				</List>
 			</Group>
 
@@ -86,11 +81,11 @@ export const EmptyChats = () => {
 					}}
 					onClick={newChat}
 				>
-					Create First Chat
+					{i18n.empty.createFirstChat}
 				</Button>
 			) : (
 				<Button radius="xl" onClick={switchIsSetting}>
-					Adding an OpenAI key or access token
+					{i18n.empty.adding}
 				</Button>
 			)}
 		</Box>

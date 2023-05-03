@@ -6,6 +6,7 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/fetch/Request.ts
  */
+import i18n from '@/i18n';
 import { Message } from '@/stores/ChatStore';
 import { SettingsForm, paramKeys } from '@/stores/SettingStore';
 import { handlerError } from '@/utils/TransformData';
@@ -56,7 +57,7 @@ export const requestOpenAI = async (
 		clearTimeout(requestTimeout);
 
 		if (response.status === 429) {
-			throw new Error('请求频繁，超出三分钟访问限制，请升级付费 key。');
+			throw new Error(i18n.request.overuse);
 		}
 
 		if (response.status === 403 || !response.ok) {

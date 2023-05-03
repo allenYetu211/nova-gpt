@@ -6,11 +6,9 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatTextareaInput.tsx
  */
-import { update } from '@/stores/ChatAction';
-import { useChatStore } from '@/stores/ChatStore';
-import { userMessage } from '@/stores/SubmitAction';
-import { Input, Textarea, createStyles } from '@mantine/core';
+import { createStyles } from '@mantine/core';
 import { FC } from 'react';
+import i18n from '@/i18n';
 
 const useStyles = createStyles((theme) => ({
 	textarea: {
@@ -49,7 +47,7 @@ export const ChatTextareaInput: FC<ChatTextareaInputProps> = (props) => {
 	return (
 		<textarea
 			className={cx(classes.textarea, 'chat-textarea-input')}
-			placeholder={placeholder ?? 'Ctrl + Enter Send Message'}
+			placeholder={placeholder ?? i18n.textarea.placeholder}
 			value={message}
 			onChange={onChangeTextarea}
 			onKeyDown={onKeyDown}

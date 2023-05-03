@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 17:34:12
- * @LastEditTime: 2023-04-30 16:40:40
+ * @LastEditTime: 2023-05-03 11:18:11
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatSessionInput.tsx
  */
@@ -12,6 +12,7 @@ import { IconEdit, IconTrash } from '@tabler/icons-react';
 import { useState, useRef, memo } from 'react';
 import { deleteChat, changeChatTitle } from '@/stores/ChatAction';
 import dayjs from 'dayjs';
+import i18n from '@/i18n';
 
 const useStyles = createStyles((theme) => ({
 	utilsContainer: {
@@ -95,7 +96,7 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
 				)}
 
 				<Flex justify="space-between">
-					<Text size="xs"> 共 {props.amount} 条记录</Text>
+					<Text size="xs">{i18n.record(props.amount)}</Text>
 					<Text size="xs">{dayjs(props.date).format('YYYY/MM/DD HH:mm:ss')}</Text>
 				</Flex>
 			</Flex>

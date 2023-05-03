@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-04-25 14:03:31
+ * @LastEditTime: 2023-05-03 11:09:33
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav.tsx
  */
@@ -31,6 +31,7 @@ import {
 	IconArrowBarToLeft,
 } from '@tabler/icons-react';
 import IconLogo from '@/images/svg/logo';
+import i18n from '@/i18n';
 
 const useStyles = createStyles((theme) => ({
 	chatItem: {
@@ -145,21 +146,22 @@ export function Nav() {
 						align="center"
 					>
 						<Box>
-							<Text fw={700}>Nova GPT</Text>
-							<Text size="xs">Chat GPT NEXT WEB </Text>
+							<Text fw={700}> {i18n.title}</Text>
+							{/* <Text size="xs">Chat GPT NEXT WEB </Text> */}
+							<Text size="xs">{i18n.introduction}</Text>
 						</Box>
 						<IconLogo height="40px" width="40px" />
 					</Flex>
 
 					<Flex gap="md" justify="space-between" align="center">
 						<Group>
-							<Tooltip {...tooltipCommon} label="New chat">
+							<Tooltip {...tooltipCommon} label={i18n.Nav.new}>
 								<ActionIcon variant="default" size="xs" onClick={newChat}>
 									<IconPlus />
 								</ActionIcon>
 							</Tooltip>
 
-							<Tooltip {...tooltipCommon} label="Setting">
+							<Tooltip {...tooltipCommon} label={i18n.Nav.setting}>
 								<ActionIcon variant="default" size="xs" onClick={switchIsSetting}>
 									<IconSettings />
 								</ActionIcon>

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-05-03 10:14:35
+ * @LastEditTime: 2023-05-03 11:40:44
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent.tsx
  */
@@ -29,6 +29,7 @@ import { ChatMessage } from './ChatMessage';
 import { ChatQuestionFloat } from './ChatQuestionFloat';
 import { UIModal } from './UIModal';
 import { UIButton } from './UIButton';
+import i18n from '@/i18n';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -126,12 +127,12 @@ export const ChatContent = memo(() => {
 				container={
 					<>
 						<Title
-							order={3}
+							order={5}
 							sx={(theme) => ({
-								padding: `${theme.spacing.xs} 0 0`,
+								padding: `${theme.spacing.xs} 0 `,
 							})}
 						>
-							Change Title
+							{i18n.changeTitle}
 						</Title>
 					</>
 				}
@@ -145,7 +146,7 @@ export const ChatContent = memo(() => {
 					<Input
 						className={classes.changeTitleInput}
 						defaultValue={activeChat!.title}
-						placeholder="聊天窗口标题"
+						placeholder={i18n.changeTitlePlaceholder}
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 							inputValue.current = e.target.value;
 						}}
@@ -157,7 +158,7 @@ export const ChatContent = memo(() => {
 							close();
 						}}
 					>
-						确认
+						{i18n.confirm}
 					</UIButton>
 				</Flex>
 			</UIModal>

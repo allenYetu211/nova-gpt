@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-01 08:58:14
- * @LastEditTime: 2023-05-03 10:18:08
+ * @LastEditTime: 2023-05-03 11:14:02
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatQuestionFloat.tsx
  */
@@ -34,6 +34,7 @@ import {
 import React, { Fragment, forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { UICard } from './UICard';
 import { UIModal } from './UIModal';
+import i18n from '@/i18n';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -166,7 +167,7 @@ function Question({
 						})}
 						color="white"
 					>
-						提问：{selectionContent}
+						{i18n.float_question.subject} : {selectionContent}
 					</Text>
 				}
 			>
@@ -182,7 +183,7 @@ function Question({
 				>
 					<ChatTextareaInput
 						message={textValue}
-						placeholder="提出你的问题，使用Enter发送"
+						placeholder={i18n.float_question.placeholder}
 						onKeyDown={(e) => {
 							if (e.key === 'Enter') {
 								sendUserQuestion();
@@ -218,8 +219,10 @@ function Translation({ translations }: { translations: (languages: Language) => 
 			</Menu.Target>
 
 			<Menu.Dropdown>
-				<Menu.Item onClick={() => translations('en')}>English</Menu.Item>
-				<Menu.Item onClick={() => translations('zh_cn')}>中文</Menu.Item>
+				<Menu.Item onClick={() => translations('en')}>{i18n.float_translation.english}</Menu.Item>
+				<Menu.Item onClick={() => translations('zh_cn')}>
+					{i18n.float_translation.chinese}
+				</Menu.Item>
 			</Menu.Dropdown>
 		</Menu>
 	);
