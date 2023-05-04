@@ -2,14 +2,17 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-05-04 11:19:34
+ * @LastEditTime: 2023-05-04 11:20:59
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/README.md
 -->
 
-Nova-GPT
+# Nova-GPT
 
 > 可以快速部署已经定制开发的 WEB CHAT GPT 应用,这是个人项目， 如果大家有想要的功能， 可以随时在提出， 评估后我会尽
+
+---
+
 > Nova-GPT is a tool that allows for quick deployment of customized WEB CHAT GPT applications. This is a personal project, so if there are any desired features, feel free to suggest them, and I will develop them as soon as possible after evaluation.
 
 | pc web                                                                                                                                                                                                                                                                                            | mobile web                                                                                                                                                                                                                                                                                        | deskTop APP | mobile App |
