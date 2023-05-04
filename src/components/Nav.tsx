@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-05-03 16:26:19
+ * @LastEditTime: 2023-05-04 10:51:28
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav.tsx
  */
@@ -78,7 +78,7 @@ export function Nav() {
 
 	const tooltipCommon = {
 		openDelay: 200,
-		color: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.light[7],
+		color: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.light[3],
 	};
 
 	const chatsList = chats

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 10:35:16
- * @LastEditTime: 2023-05-03 15:22:05
+ * @LastEditTime: 2023-05-04 10:35:33
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatTextareaInput.tsx
  */
@@ -19,7 +19,7 @@ const useStyles = createStyles((theme) => ({
 		border: 'none',
 		borderRadius: theme.radius.xl,
 		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.light[1],
-		color: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.light[6],
+		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.light[6],
 		// boxShadow: theme.shadows.sm,
 		padding: theme.spacing.xl,
 		fontSize: theme.fontSizes.sm,

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 12:36:37
- * @LastEditTime: 2023-04-30 23:08:18
+ * @LastEditTime: 2023-05-04 10:49:50
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/ChatAction.ts
  */
@@ -42,9 +42,8 @@ export const changeActiveChatId = (id: string) => {
 
 export const deleteChat = (id: string) => {
 	setChat((state) => ({
-		chats: state.chats.filter((chat) => {
-			return chat.id !== id;
-		}),
+		activeChatId: id === state.activeChatId ? state.chats[0].id : state.activeChatId,
+		chats: state.chats.filter((chat) => chat.id !== id),
 	}));
 };
 

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-05-03 15:26:23
+ * @LastEditTime: 2023-05-04 11:00:24
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatTextareaContainer.tsx
  */
@@ -62,6 +62,7 @@ export function ChatTextarea() {
 	const tcr = useRef<InstallExtension>();
 	const textareaMessage = useChatStore((state) => state.textareaMessage);
 	const isRecording = useChatStore((state) => state.isRecording);
+	const colorScheme = useSettingStore((state) => state.colorScheme);
 
 	useEffect(() => {
 		if (!tcr.current) {
@@ -114,8 +115,8 @@ export function ChatTextarea() {
 
 						<Group position="center">
 							<Switch
+								checked={colorScheme === 'light' ? true : false}
 								onChange={(event) => {
-									console.log('event', event.currentTarget.checked ? 'dark' : 'light');
 									switchColorScheme(event.currentTarget.checked ? 'light' : 'dark');
 								}}
 								color={theme.colorScheme === 'dark' ? 'gray' : 'dark'}
