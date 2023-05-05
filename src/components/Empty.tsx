@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-25 14:06:24
- * @LastEditTime: 2023-05-03 11:27:02
+ * @LastEditTime: 2023-05-05 09:50:06
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Empty.tsx
  */

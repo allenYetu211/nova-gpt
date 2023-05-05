@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-01 08:58:14
- * @LastEditTime: 2023-05-03 16:31:55
+ * @LastEditTime: 2023-05-05 09:37:47
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/components/ChatQuestionFloat.tsx
+ * @FilePath: /nova-gpt/src/components/ChatContent/ChatQuestionFloat.tsx
  */
 import { Language } from '@/stores/SettingStore';
 import { systemTranslations, userQuestion } from '@/stores/SubmitAction';
@@ -21,7 +21,7 @@ import {
 	Tooltip,
 	createStyles,
 } from '@mantine/core';
-import { ChatTextareaInput } from '@/components/ChatTextareaInput';
+import { ChatTextareaInput } from '@/components/ChatContent/ChatTextareaInput';
 import { useDisclosure } from '@mantine/hooks';
 import {
 	IconArrowsLeftRight,
@@ -32,8 +32,8 @@ import {
 } from '@tabler/icons-react';
 
 import React, { Fragment, forwardRef, useImperativeHandle, useRef, useState } from 'react';
-import { UICard } from './UICard';
-import { UIModal } from './UIModal';
+import { UICard } from '@/components/Common/UICard';
+import { UIModal } from '@/components/Common/UIModal';
 import i18n from '@/i18n';
 
 const useStyles = createStyles((theme) => ({

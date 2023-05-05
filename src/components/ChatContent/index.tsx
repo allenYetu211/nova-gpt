@@ -2,23 +2,43 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-05-03 16:31:10
+ * @LastEditTime: 2023-05-05 11:39:38
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/components/ChatContent.tsx
+ * @FilePath: /nova-gpt/src/components/ChatContent/index.tsx
+ */
+/*
+ * @Author: Allen OYang
+ * @Email:  allenwill211@gmail.com
+ * @Date: 2023-04-20 00:19:37
+ * @LastEditTime: 2023-05-05 10:19:12
+ * @LastEditors: Allen OYang allenwill211@gmail.com
+ * @FilePath: /nova-gpt/src/components/ChatContent/index.tsx
  */
 
-import { changeChatTitle } from '@/stores/ChatAction';
+import { changeActionChat } from '@/stores/ChatAction';
 import { useChatStore } from '@/stores/ChatStore';
-import { ActionIcon, Box, Flex, Group, Input, Text, Title, createStyles } from '@mantine/core';
+import {
+	ActionIcon,
+	Box,
+	Flex,
+	Group,
+	Input,
+	Text,
+	Title,
+	createStyles,
+	Popover,
+	Button,
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconEdit } from '@tabler/icons-react';
 import dayjs from 'dayjs';
-import { memo, useEffect, useRef } from 'react';
-import { ChatMessage } from './ChatMessage';
-import { ChatQuestionFloat } from './ChatQuestionFloat';
-import { UIModal } from './UIModal';
-import { UIButton } from './UIButton';
+import { memo, useEffect, useRef, useState } from 'react';
+import { ChatMessage } from '@/components/ChatContent/ChatMessage';
+import { ChatQuestionFloat } from '@/components/ChatContent/ChatQuestionFloat';
+import { UIModal } from '@/components/Common/UIModal';
+import { UIButton } from '@/components/Common/UIButton';
 import i18n from '@/i18n';
+import { Picker, EmojiIcon } from '@/components/Common/Emoji';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -93,6 +113,12 @@ export const ChatContent = memo(() => {
 		chatElRef.current!.onSelectedPosition(containerRef.current!.scrollTop + y_up, x_up, id);
 	};
 
+	const onEmojiClick = (e: any) => {
+		changeActionChat(activeChat!.id, {
+			titleIcon: e.unified,
+		});
+	};
+
 	return (
 		<div className={classes.container} ref={containerRef}>
 			<ChatQuestionFloat ref={chatElRef} updateScroll={updateScroll} />
@@ -100,8 +126,21 @@ export const ChatContent = memo(() => {
 			<Box className={classes.titleContainer}>
 				<Title order={5}>
 					<Group>
-						<span>{activeChat?.title}</span>
+						<Popover>
+							<Popover.Target>
+								<ActionIcon size="xs">
+									<EmojiIcon unified={activeChat!.titleIcon!} />
+								</ActionIcon>
+							</Popover.Target>
 
+							<Popover.Dropdown>
+								<Text size="sm">
+									<Picker onEmojiClick={onEmojiClick} />
+								</Text>
+							</Popover.Dropdown>
+						</Popover>
+
+						<span>{activeChat?.title}</span>
 						<ActionIcon size="xs" onClick={open}>
 							<IconEdit size="0.75rem" />
 						</ActionIcon>
@@ -143,7 +182,9 @@ export const ChatContent = memo(() => {
 
 					<UIButton
 						onClick={() => {
-							changeChatTitle(activeChat!.id, inputValue.current);
+							changeActionChat(activeChat!.id, {
+								title: inputValue.current,
+							});
 							close();
 						}}
 					>

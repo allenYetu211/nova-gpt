@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-05-04 10:51:28
+ * @LastEditTime: 2023-05-05 09:42:35
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/components/Nav.tsx
+ * @FilePath: /nova-gpt/src/components/Nav/Nav.tsx
  */
 import {
 	ActionIcon,
@@ -17,8 +17,9 @@ import {
 	createStyles,
 	Group,
 } from '@mantine/core';
+
 import { useDisclosure } from '@mantine/hooks';
-import { ChatSessionInput } from '@/components/ChatSessionInput';
+import { ChatSessionInput } from '@/components/Nav/ChatSessionInput';
 import { changeActiveChatId, newChat } from '@/stores/ChatAction';
 import { useChatStore } from '@/stores/ChatStore';
 import { useSettingStore } from '@/stores/SettingStore';
@@ -95,6 +96,7 @@ export function Nav() {
 							title={chat.title}
 							id={chat.id}
 							date={chat.createdAt}
+							titleIcon={chat.titleIcon}
 							amount={chat.message.length}
 						/>
 					</Box>

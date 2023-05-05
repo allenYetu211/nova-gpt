@@ -2,23 +2,22 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-05-04 11:00:24
+ * @LastEditTime: 2023-05-05 09:36:31
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/components/ChatTextareaContainer.tsx
+ * @FilePath: /nova-gpt/src/components/ChatContent/ChatTextareaContainer.tsx
  */
 
 import { ActionIcon, Box, Button, Flex, Group, Menu, Switch, createStyles } from '@mantine/core';
 
-import { ChatTextareaInput } from '@/components/ChatTextareaInput';
-import { UICard } from '@/components/UICard';
+import { ChatTextareaInput } from '@/components/ChatContent/ChatTextareaInput';
+import { UICard } from '@/components/Common/UICard';
 import i18n from '@/i18n';
 import { InstallExtension } from '@/models/InstallExtension';
 import { update } from '@/stores/ChatAction';
 import { useChatStore } from '@/stores/ChatStore';
-import { updateOpenAIConfig, switchColorScheme } from '@/stores/SettingAction';
+import { switchColorScheme, updateOpenAIConfig } from '@/stores/SettingAction';
 import { useSettingStore } from '@/stores/SettingStore';
 import { userMessage } from '@/stores/SubmitAction';
-import { UIButton } from './UIButton';
 import {
 	IconCheck,
 	IconDotsVertical,
@@ -29,6 +28,7 @@ import {
 	IconSun,
 } from '@tabler/icons-react';
 import { Fragment, useEffect, useRef } from 'react';
+import { UIButton } from '../Common/UIButton';
 
 const useStyles = createStyles((theme) => ({
 	container: {

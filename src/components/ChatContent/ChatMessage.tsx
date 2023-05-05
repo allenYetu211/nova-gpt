@@ -2,11 +2,11 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-05-03 16:24:52
+ * @LastEditTime: 2023-05-05 09:34:14
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/components/ChatMessage.tsx
+ * @FilePath: /nova-gpt/src/components/ChatContent/ChatMessage.tsx
  */
-import { Markdown } from '@/components/Markdown';
+import { Markdown } from '@/components/ChatContent/Markdown';
 import IconBot from '@/images/svg/bot';
 import IconLogo from '@/images/svg/logo';
 import IconUser from '@/images/svg/user';

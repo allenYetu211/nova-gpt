@@ -27,6 +27,11 @@ export interface Chat {
 	message: Message[];
 	createdAt: Date;
 	title: string;
+	// 标签图标
+	titleIcon?: string;
+	userIcon?: string;
+	systemIcon?: string;
+	assistantIcon?: string;
 }
 
 export interface ChatState {

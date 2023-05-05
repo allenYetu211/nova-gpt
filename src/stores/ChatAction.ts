@@ -2,12 +2,12 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 12:36:37
- * @LastEditTime: 2023-05-04 10:49:50
+ * @LastEditTime: 2023-05-05 11:44:53
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/ChatAction.ts
  */
 import i18n from '@/i18n';
-import { useChatStore, ChatState } from './ChatStore';
+import { useChatStore, ChatState, Chat } from './ChatStore';
 import { v4 as uuidv4 } from 'uuid';
 
 const setChat = useChatStore.setState;
@@ -20,6 +20,7 @@ export const newChat = () => {
 		activeChatId: id,
 		chats: state.chats.concat({
 			id,
+			titleIcon: '2795',
 			message: [
 				{
 					id: uuidv4(),
@@ -29,7 +30,7 @@ export const newChat = () => {
 				},
 			],
 			createdAt: new Date(),
-			title: 'New Chat',
+			title: 'Undefined',
 		}),
 	}));
 };
@@ -47,12 +48,12 @@ export const deleteChat = (id: string) => {
 	}));
 };
 
-export const changeChatTitle = (id: string, newTitle?: string) => {
+export const changeActionChat = (id: string, newTitle?: Partial<Omit<Chat, 'message'>>) => {
 	if (!newTitle) return;
 	setChat((state) => ({
 		chats: state.chats.map((chat) => {
 			if (chat.id === id) {
-				chat.title = newTitle;
+				chat = { ...chat, ...newTitle };
 			}
 			return chat;
 		}),

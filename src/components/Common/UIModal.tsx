@@ -2,11 +2,11 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-03 08:06:57
- * @LastEditTime: 2023-05-03 09:50:34
+ * @LastEditTime: 2023-05-05 09:46:12
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/components/UIModal.tsx
+ * @FilePath: /nova-gpt/src/components/Common/UIModal.tsx
  */
-import { UICard, UICardProps } from './UICard';
+import { UICard, UICardProps } from '@/components/Common/UICard';
 import { FC } from 'react';
 import { Modal, createStyles, ModalProps } from '@mantine/core';
 

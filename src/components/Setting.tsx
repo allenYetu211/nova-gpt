@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 22:05:39
- * @LastEditTime: 2023-05-03 16:20:31
+ * @LastEditTime: 2023-05-05 09:45:29
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Setting.tsx
  */
@@ -29,9 +29,9 @@ import {
 	createStyles,
 } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
-import { Fragment, useRef } from 'react';
+import { Fragment } from 'react';
 import i18n from '@/i18n';
-import { UISelect } from './UISelect';
+import { UISelect } from '@/components/Common/UISelect';
 
 export const useStyles = createStyles((theme) => ({
 	settingItem: {

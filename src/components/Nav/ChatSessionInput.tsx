@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 17:34:12
- * @LastEditTime: 2023-05-03 14:57:00
+ * @LastEditTime: 2023-05-05 10:56:44
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/components/ChatSessionInput.tsx
+ * @FilePath: /nova-gpt/src/components/Nav/ChatSessionInput.tsx
  */
 
 import { Text, Flex, ActionIcon, createStyles, Group, Transition } from '@mantine/core';
@@ -13,6 +13,7 @@ import { useState, memo } from 'react';
 import { deleteChat } from '@/stores/ChatAction';
 import dayjs from 'dayjs';
 import i18n from '@/i18n';
+import { EmojiIcon } from '@/components/Common/Emoji';
 
 const useStyles = createStyles((theme) => ({
 	utilsContainer: {
@@ -27,6 +28,7 @@ const useStyles = createStyles((theme) => ({
 
 interface ChatSessionInputProps {
 	title: string;
+	titleIcon?: string;
 	id: string;
 	date: Date;
 	amount: number;
@@ -56,9 +58,16 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
 			}}
 		>
 			<Flex direction="column" w="100%">
-				<Text sx={() => ({ flex: 1, lineHeight: '2.1431' })} truncate size="sm">
-					{props.title || ''}
-				</Text>
+				<Flex align="center" justify="center">
+					<EmojiIcon unified={props.titleIcon!} />
+					<Text
+						sx={(theme) => ({ flex: 1, lineHeight: '2.1431', marginLeft: theme.spacing.xs })}
+						truncate
+						size="sm"
+					>
+						{props.title || ''}
+					</Text>
+				</Flex>
 
 				<Flex justify="space-between">
 					<Text size="xs">{i18n.record(props.amount)}</Text>
