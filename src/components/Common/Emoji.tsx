@@ -31,7 +31,7 @@ const useStyles = createStyles((theme) => ({
 export const Picker: FC<EmojiProps> = (props) => {
 	const colorScheme = useSettingStore((state) => state.colorScheme);
 	const { classes } = useStyles();
-	const theme = colorScheme!.toUpperCase() as 'DARK' | 'LIGHT' | 'AUTO';
+	const theme = colorScheme!.toUpperCase() as 'DARK' | 'LIGHT';
 
 	return (
 		<div className={classes.pickContainer}>

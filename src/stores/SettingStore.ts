@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 22:06:37
- * @LastEditTime: 2023-04-25 14:01:42
+ * @LastEditTime: 2023-05-05 19:37:23
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SettingStore.ts
  */
@@ -69,7 +69,7 @@ export interface SettingState {
 	language: Language;
 	languages: Language[];
 
-	colorScheme: 'light' | 'dark' | 'auto';
+	colorScheme: 'light' | 'dark';
 }
 
 const initialSettingState: SettingState = {
