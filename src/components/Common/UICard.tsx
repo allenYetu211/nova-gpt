@@ -2,15 +2,16 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-02 20:15:51
- * @LastEditTime: 2023-05-03 16:29:37
+ * @LastEditTime: 2023-05-05 16:02:06
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/components/UICard.tsx
+ * @FilePath: /nova-gpt/src/components/Common/UICard.tsx
  */
 import React, { FC, PropsWithChildren } from 'react';
-import { createStyles, Group, Box, Flex } from '@mantine/core';
+import { createStyles, Group, Box, Flex, Styles, CSSObject } from '@mantine/core';
 
 export interface UICardProps extends PropsWithChildren {
-	container: React.ReactNode;
+	container?: React.ReactNode;
+	cardBoxStyles?: CSSObject;
 }
 const useStyles = createStyles((theme) => ({
 	wrapper: {
@@ -37,16 +38,20 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const UICard: FC<UICardProps> = (props) => {
-	const { children, container } = props;
-	const { classes, theme, cx } = useStyles();
+	const { children, container, cardBoxStyles } = props;
+	const { classes, cx } = useStyles();
 
 	return (
 		<Flex direction="column" justify="center" className={cx(classes.wrapper, 'card-container')}>
-			<Group spacing="xs" className={cx(classes.utils, 'card-utils')}>
-				{container}
-			</Group>
+			{container ? (
+				<Group spacing="xs" className={cx(classes.utils, 'card-utils')}>
+					{container}
+				</Group>
+			) : null}
 
-			<Box className={cx(classes.container, 'card-box-container')}>{children}</Box>
+			<Box sx={cardBoxStyles} className={cx(classes.container, 'card-box-container')}>
+				{children}
+			</Box>
 		</Flex>
 	);
 };

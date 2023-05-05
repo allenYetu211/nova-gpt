@@ -1,4 +1,4 @@
-import EmojiPicker, { EmojiStyle, EmojiClickData, Emoji } from 'emoji-picker-react';
+import EmojiPicker, { EmojiStyle, EmojiClickData, Emoji, Theme } from 'emoji-picker-react';
 import { FC } from 'react';
 import { useSettingStore } from '@/stores/SettingStore';
 import { createStyles } from '@mantine/core';
@@ -31,10 +31,11 @@ const useStyles = createStyles((theme) => ({
 export const Picker: FC<EmojiProps> = (props) => {
 	const colorScheme = useSettingStore((state) => state.colorScheme);
 	const { classes } = useStyles();
+	const theme = colorScheme!.toUpperCase() as 'DARK' | 'LIGHT' | 'AUTO';
 
 	return (
 		<div className={classes.pickContainer}>
-			<EmojiPicker theme={colorScheme ?? 'dark'} onEmojiClick={props.onEmojiClick} />
+			<EmojiPicker theme={Theme[theme]} onEmojiClick={props.onEmojiClick} />
 		</div>
 	);
 };

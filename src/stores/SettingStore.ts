@@ -69,7 +69,7 @@ export interface SettingState {
 	language: Language;
 	languages: Language[];
 
-	colorScheme: 'light' | 'dark';
+	colorScheme: 'light' | 'dark' | 'auto';
 }
 
 const initialSettingState: SettingState = {

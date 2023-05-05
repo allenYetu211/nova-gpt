@@ -156,7 +156,7 @@ function Question({
 				<IconQuestionMark />
 			</ActionIcon>
 			<UIModal
-				close={close}
+				onClose={close}
 				opened={opened}
 				container={
 					<Text

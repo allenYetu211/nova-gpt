@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-05-05 09:36:31
+ * @LastEditTime: 2023-05-05 16:46:31
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/ChatTextareaContainer.tsx
  */
@@ -18,6 +18,10 @@ import { useChatStore } from '@/stores/ChatStore';
 import { switchColorScheme, updateOpenAIConfig } from '@/stores/SettingAction';
 import { useSettingStore } from '@/stores/SettingStore';
 import { userMessage } from '@/stores/SubmitAction';
+import { useDisclosure } from '@mantine/hooks';
+import { Modal, useMantineTheme } from '@mantine/core';
+import { UIInput } from '@/components/Common/UIInput';
+
 import {
 	IconCheck,
 	IconDotsVertical,
@@ -26,9 +30,12 @@ import {
 	IconMoonStars,
 	IconSend,
 	IconSun,
+	IconJewishStar,
 } from '@tabler/icons-react';
-import { Fragment, useEffect, useRef } from 'react';
-import { UIButton } from '../Common/UIButton';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import { UIButton } from '@/components/Common/UIButton';
+import { UIModal } from '@/components/Common/UIModal';
+import { RolePlaying } from '@/components/RolePlaying';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -98,6 +105,8 @@ export function ChatTextarea() {
 				container={
 					<Flex justify="space-between" align="center" w="100%">
 						<Group spacing="xs">
+							<RolePlayingModel />
+
 							<ActionIcon
 								color="gray"
 								size="lg"
@@ -158,6 +167,48 @@ export function ChatTextarea() {
 		</>
 	);
 }
+
+const RolePlayingModel = () => {
+	const [opened, { open, close }] = useDisclosure(false);
+	const theme = useMantineTheme();
+	const [value, setValue] = useState<string>('');
+
+	return (
+		<>
+			<ActionIcon color="gray" size="lg" onClick={open}>
+				<IconJewishStar size="1.25rem" />
+			</ActionIcon>
+
+			<UIModal
+				opened={opened}
+				onClose={close}
+				cardBoxStyles={{
+					maxHeight: '80vh',
+					minHeight: '200px',
+				}}
+				overlayProps={{
+					color: theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2],
+					opacity: 0.55,
+					blur: 3,
+				}}
+				container={
+					<Box sx={{ padding: `${theme.spacing.xl} 0`, width: '100%' }}>
+						<UIInput
+							placeholder="搜索角色"
+							withAsterisk
+							onChange={(e) => {
+								setValue(e.target.value);
+							}}
+						/>
+					</Box>
+				}
+			>
+				<RolePlaying value={value} />
+				{/* Modal content */}
+			</UIModal>
+		</>
+	);
+};
 
 const SettingMenu = () => {
 	const { classes } = useStyles();

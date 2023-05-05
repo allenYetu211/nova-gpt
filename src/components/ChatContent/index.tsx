@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-05-05 11:39:38
+ * @LastEditTime: 2023-05-05 15:44:07
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/index.tsx
  */
@@ -38,7 +38,7 @@ import { ChatQuestionFloat } from '@/components/ChatContent/ChatQuestionFloat';
 import { UIModal } from '@/components/Common/UIModal';
 import { UIButton } from '@/components/Common/UIButton';
 import i18n from '@/i18n';
-import { Picker, EmojiIcon } from '@/components/Common/Emoji';
+// import { Picker, EmojiIcon } from '@/components/Common/Emoji';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -126,7 +126,7 @@ export const ChatContent = memo(() => {
 			<Box className={classes.titleContainer}>
 				<Title order={5}>
 					<Group>
-						<Popover>
+						{/* <Popover>
 							<Popover.Target>
 								<ActionIcon size="xs">
 									<EmojiIcon unified={activeChat!.titleIcon!} />
@@ -138,7 +138,7 @@ export const ChatContent = memo(() => {
 									<Picker onEmojiClick={onEmojiClick} />
 								</Text>
 							</Popover.Dropdown>
-						</Popover>
+						</Popover> */}
 
 						<span>{activeChat?.title}</span>
 						<ActionIcon size="xs" onClick={open}>
@@ -151,7 +151,7 @@ export const ChatContent = memo(() => {
 
 			<UIModal
 				opened={opened}
-				close={close}
+				onClose={close}
 				container={
 					<>
 						<Title
