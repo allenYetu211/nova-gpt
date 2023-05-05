@@ -16,8 +16,7 @@
 		"incremental": true,
 		"paths": {
 			"@/*": ["./src/*"]
-		},
-		"types": ["@emoji-mart/react"]
+		}
 	},
 	"include": [
 		"next-env.d.ts",
