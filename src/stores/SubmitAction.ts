@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-05-03 16:07:25
+ * @LastEditTime: 2023-05-06 14:17:52
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
@@ -10,7 +10,8 @@ import { useChatStore, Message, Chat } from './ChatStore';
 import { useSettingStore, SettingsForm, Language } from './SettingStore';
 import { requestOpenAI } from '@/fetch/Request';
 import { updateActionsChatMessage, getActiveChat } from '@/utils';
-import { v4 as uuidv4 } from 'uuid';
+import { createMessage } from '@/utils';
+
 import * as prompt from '@/prompt';
 import i18n from '@/i18n';
 
@@ -210,14 +211,14 @@ const checkConfig = (): boolean => {
 		setChat((state) => ({
 			textareaMessage: '',
 			chats: updateActionsChatMessage(state.chats, activeChatId, (chat) => {
-				chat.message.push({
-					content: 'Please fill in the Open AI key or access token in the settings.',
-					role: 'system',
-					id: uuidv4(),
-					exception: true,
-					loading: false,
-					createdAt: new Date(),
-				});
+				chat.message.push(
+					createMessage({
+						message: 'Please fill in the Open AI key or access token in the settings.',
+						role: 'system',
+						exception: true,
+						loading: false,
+					}),
+				);
 				return chat;
 			}),
 		}));
@@ -242,7 +243,7 @@ const submitMessageHistory = () => {
 	let submitMessage = [];
 	let historyIndex = chat.message.length - 1;
 
-	while (historyIndex > 0 && submitMessage.length <= openAI.history - 1) {
+	while (historyIndex >= 0 && submitMessage.length <= openAI.history - 1) {
 		const message = chat.message[historyIndex];
 		if (!message.exception) {
 			submitMessage.unshift(chat.message[historyIndex]);
@@ -251,45 +252,6 @@ const submitMessageHistory = () => {
 	}
 
 	return submitMessage;
-};
-
-/**
- * 创建新信息
- * @param message 信息
- * @param role 角色
- * @param hide 是否隐藏信息
- * @param exception 是否为异常状态
- * @param loading  是否为loading状态
- * @returns Message
- */
-
-const createMessage = (container: {
-	message: string;
-	role: Message['role'];
-	hide?: boolean;
-	question?: string;
-	exception?: boolean;
-	loading?: boolean;
-}): Message => {
-	const {
-		message,
-		role,
-		question = '',
-		hide = false,
-		exception = false,
-		loading = true,
-	} = container;
-
-	return {
-		content: message,
-		role,
-		question,
-		id: uuidv4(),
-		hide,
-		exception,
-		loading,
-		createdAt: new Date(),
-	};
 };
 
 /**

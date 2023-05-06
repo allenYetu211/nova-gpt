@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-05-05 15:44:07
+ * @LastEditTime: 2023-05-06 13:52:19
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/index.tsx
  */
@@ -114,9 +114,9 @@ export const ChatContent = memo(() => {
 	};
 
 	const onEmojiClick = (e: any) => {
-		changeActionChat(activeChat!.id, {
-			titleIcon: e.unified,
-		});
+		// changeActionChat(activeChat!.id, {
+		// 	avatar: e.unified,
+		// });
 	};
 
 	return (
@@ -199,7 +199,14 @@ export const ChatContent = memo(() => {
 						if (item.hide) {
 							return null;
 						}
-						return <ChatMessage onMouseUp={onMouseUp} key={item.id} message={item} />;
+						return (
+							<ChatMessage
+								avatar={activeChat.avatar}
+								onMouseUp={onMouseUp}
+								key={item.id}
+								message={item}
+							/>
+						);
 					})}
 			</div>
 		</div>

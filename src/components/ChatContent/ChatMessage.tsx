@@ -2,26 +2,28 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-05-05 09:34:14
+ * @LastEditTime: 2023-05-06 11:36:45
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/ChatMessage.tsx
  */
 import { Markdown } from '@/components/ChatContent/Markdown';
+import { EmojiIcon } from '@/components/Common/Emoji';
 import IconBot from '@/images/svg/bot';
 import IconLogo from '@/images/svg/logo';
 import IconUser from '@/images/svg/user';
-import { Message } from '@/stores/ChatStore';
+import { Chat, Message } from '@/stores/ChatStore';
 import { ControllerAbort } from '@/stores/SubmitAction';
 import {
+	Avatar,
+	Badge,
 	Box,
+	Divider,
 	Flex,
 	Group,
 	Loader,
+	Text,
 	createStyles,
 	keyframes,
-	Text,
-	Badge,
-	Divider,
 } from '@mantine/core';
 import dayjs from 'dayjs';
 import { FC } from 'react';
@@ -29,6 +31,7 @@ import { FC } from 'react';
 interface ChatMessageProps {
 	message: Message;
 	onMouseUp: (event: React.MouseEvent<HTMLElement, MouseEvent>, id: Message['id']) => void;
+	avatar?: Chat['avatar'];
 }
 
 const rotate = keyframes`
@@ -81,7 +84,7 @@ const useStyles = createStyles((theme) => {
 	};
 });
 
-export const ChatMessage: FC<ChatMessageProps> = ({ message, onMouseUp }) => {
+export const ChatMessage: FC<ChatMessageProps> = ({ message, onMouseUp, avatar }) => {
 	const { content, role, exception, createdAt, id, loading, question } = message;
 	const { classes, cx, theme } = useStyles();
 
@@ -112,8 +115,15 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message, onMouseUp }) => {
 					)}
 
 					{role === 'assistant' && (
-						<Flex align="center">
-							<IconLogo className={classes.icon} />
+						<Flex align="center" gap={10}>
+							{avatar ? (
+								<Avatar size="sm" color="grape" radius="xl">
+									<EmojiIcon unified={avatar} />
+								</Avatar>
+							) : (
+								<IconLogo className={classes.icon} />
+							)}
+
 							<Text color="#838e99" fz="xs">
 								{dayjs(createdAt).format('YYYY/MM/DD HH:mm:ss')}
 							</Text>

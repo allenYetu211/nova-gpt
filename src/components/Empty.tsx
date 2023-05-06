@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-25 14:06:24
- * @LastEditTime: 2023-05-05 09:50:06
+ * @LastEditTime: 2023-05-06 11:16:22
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Empty.tsx
  */
@@ -69,7 +69,9 @@ export const EmptyChats = () => {
 					style={{
 						background: theme.colors.gradient[4],
 					}}
-					onClick={newChat}
+					onClick={() => {
+						newChat();
+					}}
 				>
 					{i18n.empty.createFirstChat}
 				</Button>

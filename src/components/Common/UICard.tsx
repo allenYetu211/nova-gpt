@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-02 20:15:51
- * @LastEditTime: 2023-05-05 16:02:06
+ * @LastEditTime: 2023-05-06 10:24:09
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Common/UICard.tsx
  */
@@ -27,6 +27,7 @@ const useStyles = createStyles((theme) => ({
 	},
 	container: {
 		background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.light[1],
+		// color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.light[1],
 		padding: 0,
 		borderRadius: theme.radius.xl,
 		boxShadow:

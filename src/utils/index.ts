@@ -6,7 +6,8 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/utils/index.ts
  */
-import { Chat } from '@/stores/ChatStore';
+import { Chat, Message } from '@/stores/ChatStore';
+import { v4 as uuidv4 } from 'uuid';
 
 export function keepDecimal(num: number, decimal: number) {
 	return Math.round(num * Math.pow(10, decimal)) / Math.pow(10, decimal);
@@ -48,13 +49,41 @@ export const copyToClipboard = async (text: string) => {
 	}
 };
 
-export const initStateMessage = (message: string) => {
+/**
+ * 创建新信息
+ * @param message 信息
+ * @param role 角色
+ * @param hide 是否隐藏信息
+ * @param exception 是否为异常状态
+ * @param loading  是否为loading状态
+ * @returns Message
+ */
+
+export const createMessage = (container: {
+	message: string;
+	role: Message['role'];
+	hide?: boolean;
+	question?: string;
+	exception?: boolean;
+	loading?: boolean;
+}): Message => {
+	const {
+		message,
+		role,
+		question = '',
+		hide = false,
+		exception = false,
+		loading = true,
+	} = container;
+
 	return {
 		content: message,
-		role: 'system',
-		id: '',
-		exception: true,
-		loading: false,
+		role,
+		question,
+		id: uuidv4(),
+		hide,
+		exception,
+		loading,
 		createdAt: new Date(),
 	};
 };

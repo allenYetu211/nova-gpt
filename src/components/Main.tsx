@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 12:08:23
- * @LastEditTime: 2023-05-05 09:48:13
+ * @LastEditTime: 2023-05-06 14:03:37
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Main.tsx
  */
@@ -25,14 +25,17 @@ const useStyles = createStyles((theme: MantineTheme) => {
 });
 
 export function Main() {
-	const notChats = useChatStore((state) => !state.chats.length);
+	const { cl, activeChatId } = useChatStore((state) => ({
+		cl: state.chats.length,
+		activeChatId: state.activeChatId,
+	}));
 	const { classes } = useStyles();
 
 	return (
 		<>
 			<Setting />
 			<div className={classes.mainContainer}>
-				{notChats ? <EmptyChats /> : <ChatContent />}
+				{!cl || !activeChatId ? <EmptyChats /> : <ChatContent />}
 				<ChatTextarea />
 			</div>
 		</>

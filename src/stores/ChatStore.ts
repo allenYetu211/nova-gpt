@@ -8,6 +8,7 @@
  */
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { RolePlayType } from '@/role';
 
 export const excludeKeys = ['textareaMessage', 'isRecording', 'loadingChats'];
 
@@ -26,12 +27,12 @@ export interface Chat {
 	id: string;
 	message: Message[];
 	createdAt: Date;
-	title: string;
+	// 机器人名称
+	title: RolePlayType['title'];
 	// 标签图标
-	titleIcon?: string;
-	userIcon?: string;
-	systemIcon?: string;
-	assistantIcon?: string;
+	// 机器人头像
+	avatar?: RolePlayType['avatar'];
+	openAiConfig?: RolePlayType['openAiConfig'];
 }
 
 export interface ChatState {

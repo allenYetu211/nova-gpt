@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-05-05 16:46:31
+ * @LastEditTime: 2023-05-06 10:30:19
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/ChatTextareaContainer.tsx
  */
@@ -185,12 +185,9 @@ const RolePlayingModel = () => {
 				cardBoxStyles={{
 					maxHeight: '80vh',
 					minHeight: '200px',
+					padding: `${theme.spacing.md}`,
 				}}
-				overlayProps={{
-					color: theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2],
-					opacity: 0.55,
-					blur: 3,
-				}}
+				size="xl"
 				container={
 					<Box sx={{ padding: `${theme.spacing.xl} 0`, width: '100%' }}>
 						<UIInput
@@ -203,8 +200,14 @@ const RolePlayingModel = () => {
 					</Box>
 				}
 			>
-				<RolePlaying value={value} />
-				{/* Modal content */}
+				<Box
+					sx={{
+						padding: `${theme.spacing.xl} 0 `,
+						width: '100%',
+					}}
+				>
+					<RolePlaying clickCallback={close} value={value} />
+				</Box>
 			</UIModal>
 		</>
 	);

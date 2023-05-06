@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-05-05 09:42:35
+ * @LastEditTime: 2023-05-06 11:10:21
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/components/Nav/Nav.tsx
+ * @FilePath: /nova-gpt/src/components/Nav/index.tsx
  */
 import {
 	ActionIcon,
@@ -95,8 +95,8 @@ export function Nav() {
 						<ChatSessionInput
 							title={chat.title}
 							id={chat.id}
-							date={chat.createdAt}
-							titleIcon={chat.titleIcon}
+							createdAt={chat.createdAt}
+							avatar={chat.avatar}
 							amount={chat.message.length}
 						/>
 					</Box>
@@ -158,7 +158,13 @@ export function Nav() {
 					<Flex gap="md" justify="space-between" align="center">
 						<Group>
 							<Tooltip {...tooltipCommon} label={i18n.Nav.new}>
-								<ActionIcon variant="default" size="xs" onClick={newChat}>
+								<ActionIcon
+									variant="default"
+									size="xs"
+									onClick={() => {
+										newChat();
+									}}
+								>
 									<IconPlus />
 								</ActionIcon>
 							</Tooltip>

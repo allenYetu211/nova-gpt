@@ -14,6 +14,7 @@ import { deleteChat } from '@/stores/ChatAction';
 import dayjs from 'dayjs';
 import i18n from '@/i18n';
 import { EmojiIcon } from '@/components/Common/Emoji';
+import { Chat } from '@/stores/ChatStore';
 
 const useStyles = createStyles((theme) => ({
 	utilsContainer: {
@@ -26,13 +27,17 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-interface ChatSessionInputProps {
-	title: string;
-	titleIcon?: string;
-	id: string;
-	date: Date;
+interface ChatSessionInputProps extends Pick<Chat, 'createdAt' | 'title' | 'id' | 'avatar'> {
 	amount: number;
 }
+
+// interface ChatSessionInputProps {
+// 	title: Chat['title'];
+// 	titleIcon?: string;
+// 	id: Chat['id'];
+// 	date: Chat['createdAt'];
+// 	amount: number;
+// }
 
 export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
 	const [open, setOpen] = useState<boolean>(false);
@@ -71,7 +76,7 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
 
 				<Flex justify="space-between">
 					<Text size="xs">{i18n.record(props.amount)}</Text>
-					<Text size="xs">{dayjs(props.date).format('YYYY/MM/DD HH:mm:ss')}</Text>
+					<Text size="xs">{dayjs(props.createdAt).format('YYYY/MM/DD HH:mm:ss')}</Text>
 				</Flex>
 			</Flex>
 
