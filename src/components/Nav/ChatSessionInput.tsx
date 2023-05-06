@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 17:34:12
- * @LastEditTime: 2023-05-05 14:42:14
+ * @LastEditTime: 2023-05-06 16:13:06
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/ChatSessionInput.tsx
  */
@@ -13,7 +13,6 @@ import { useState, memo } from 'react';
 import { deleteChat } from '@/stores/ChatAction';
 import dayjs from 'dayjs';
 import i18n from '@/i18n';
-import { EmojiIcon } from '@/components/Common/Emoji';
 import { Chat } from '@/stores/ChatStore';
 
 const useStyles = createStyles((theme) => ({
@@ -30,14 +29,6 @@ const useStyles = createStyles((theme) => ({
 interface ChatSessionInputProps extends Pick<Chat, 'createdAt' | 'title' | 'id' | 'avatar'> {
 	amount: number;
 }
-
-// interface ChatSessionInputProps {
-// 	title: Chat['title'];
-// 	titleIcon?: string;
-// 	id: Chat['id'];
-// 	date: Chat['createdAt'];
-// 	amount: number;
-// }
 
 export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
 	const [open, setOpen] = useState<boolean>(false);

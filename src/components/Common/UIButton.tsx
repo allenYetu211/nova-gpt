@@ -1,11 +1,26 @@
+/*
+ * @Author: Allen OYang
+ * @Email:  allenwill211@gmail.com
+ * @Date: 2023-05-03 09:53:00
+ * @LastEditTime: 2023-05-06 18:25:07
+ * @LastEditors: Allen OYang allenwill211@gmail.com
+ * @FilePath: /nova-gpt/src/components/Common/UIButton.tsx
+ */
 import i18n from '@/i18n';
-import { Button, ButtonProps, createStyles } from '@mantine/core';
-import { FC } from 'react';
+import {
+	ActionIcon,
+	ActionIconProps,
+	Button,
+	ButtonProps,
+	createStyles,
+	Tooltip,
+} from '@mantine/core';
+import { FC, PropsWithChildren, DOMAttributes, ReactNode } from 'react';
 
 const useStyles = createStyles((theme) => ({
 	button: {
-		background: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.light[4],
-		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.light[0],
+		// background: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.light[4],
+		// color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.light[0],
 	},
 }));
 
@@ -14,17 +29,64 @@ interface UIButtonProps extends ButtonProps {
 }
 
 export const UIButton: FC<UIButtonProps & React.RefAttributes<HTMLButtonElement>> = (props) => {
-	const { children } = props;
-	const { classes, theme } = useStyles();
+	const { classes, theme, cx } = useStyles();
+	const {
+		children,
+		variant = 'outline',
+		fz = theme.fontSizes.xs,
+		radius = 'md',
+		className,
+		sx,
+		color = theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.light[4],
+		...other
+	} = props;
+
 	return (
 		<Button
-			className={classes.button}
-			variant="white"
-			fz={theme.fontSizes.xs}
-			radius={theme.radius.xl}
-			{...props}
+			className={cx(classes.button, className)}
+			sx={Object.assign(
+				{
+					color,
+					borderColor: color,
+				},
+				sx,
+			)}
+			variant={variant}
+			fz={fz}
+			radius={radius}
+			{...other}
 		>
 			{children ?? i18n.send}
 		</Button>
 	);
+};
+
+interface UIActionButtonProps extends ActionIconProps, DOMAttributes<HTMLButtonElement> {
+	label?: string;
+}
+
+export const UIActionButton: FC<PropsWithChildren<UIActionButtonProps>> = (props) => {
+	const { children, size = 'md', label, radius = 'md', variant = 'default', ...other } = props;
+
+	const PackageComponents = (component: ReactNode) => {
+		return (
+			<Tooltip
+				sx={(theme) => ({
+					openDelay: 200,
+					color: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.light[2],
+				})}
+				label={label}
+			>
+				{component}
+			</Tooltip>
+		);
+	};
+
+	const ActionButton = (
+		<ActionIcon size={size} radius={radius} variant={variant} {...other}>
+			{children}
+		</ActionIcon>
+	);
+
+	return label ? PackageComponents(ActionButton) : ActionButton;
 };

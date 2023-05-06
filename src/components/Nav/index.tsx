@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-05-06 11:10:21
+ * @LastEditTime: 2023-05-06 16:13:48
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/index.tsx
  */
@@ -17,22 +17,16 @@ import {
 	createStyles,
 	Group,
 } from '@mantine/core';
-
 import { useDisclosure } from '@mantine/hooks';
 import { ChatSessionInput } from '@/components/Nav/ChatSessionInput';
 import { changeActiveChatId, newChat } from '@/stores/ChatAction';
 import { useChatStore } from '@/stores/ChatStore';
+
 import { useSettingStore } from '@/stores/SettingStore';
-import { switchIsSetting } from '@/stores/SettingAction';
-import {
-	IconPlus,
-	IconSettings,
-	IconX,
-	IconArrowBarToRight,
-	IconArrowBarToLeft,
-} from '@tabler/icons-react';
+import { IconArrowBarToRight } from '@tabler/icons-react';
 import IconLogo from '@/images/svg/logo';
 import i18n from '@/i18n';
+import { NavContainer } from '@/components/Nav/NavContainer';
 
 const useStyles = createStyles((theme) => ({
 	chatItem: {
@@ -76,11 +70,6 @@ export function Nav() {
 	const activeChatId = useChatStore((state) => state.activeChatId);
 	const isMobile = useSettingStore((state) => state.isMobile);
 	const [opened, { toggle }] = useDisclosure(!isMobile);
-
-	const tooltipCommon = {
-		openDelay: 200,
-		color: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.light[3],
-	};
 
 	const chatsList = chats
 		? chats.map((chat) => {
@@ -155,40 +144,7 @@ export function Nav() {
 						<IconLogo height="40px" width="40px" />
 					</Flex>
 
-					<Flex gap="md" justify="space-between" align="center">
-						<Group>
-							<Tooltip {...tooltipCommon} label={i18n.Nav.new}>
-								<ActionIcon
-									variant="default"
-									size="xs"
-									onClick={() => {
-										newChat();
-									}}
-								>
-									<IconPlus />
-								</ActionIcon>
-							</Tooltip>
-
-							<Tooltip {...tooltipCommon} label={i18n.Nav.setting}>
-								<ActionIcon variant="default" size="xs" onClick={switchIsSetting}>
-									<IconSettings />
-								</ActionIcon>
-							</Tooltip>
-						</Group>
-
-						<Group
-							sx={(theme) => ({
-								[`@media (min-width: ${theme.breakpoints.sm})`]: {
-									display: 'none',
-								},
-							})}
-						>
-							{/* 添加navbar 开关  */}
-							<ActionIcon variant="default" size="xs" onClick={toggle}>
-								<IconArrowBarToLeft />
-							</ActionIcon>
-						</Group>
-					</Flex>
+					<NavContainer toggle={toggle} />
 
 					<Divider my="sm" variant="dashed" />
 
