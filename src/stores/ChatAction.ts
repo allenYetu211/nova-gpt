@@ -2,15 +2,15 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 12:36:37
- * @LastEditTime: 2023-05-06 15:08:09
+ * @LastEditTime: 2023-05-06 15:09:32
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/ChatAction.ts
  */
 import i18n from '@/i18n';
-import { useChatStore, ChatState, Chat } from './ChatStore';
-import { v4 as uuidv4 } from 'uuid';
 import type { RolePlayType } from '@/role';
 import { createMessage } from '@/utils';
+import { v4 as uuidv4 } from 'uuid';
+import { Chat, ChatState, useChatStore } from './ChatStore';
 const setChat = useChatStore.setState;
 export const update = (newState: Partial<ChatState>) => setChat(() => newState);
 
