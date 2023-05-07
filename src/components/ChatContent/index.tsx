@@ -29,7 +29,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const ChatContent = memo(() => {
-	const { classes, theme } = useStyles();
+	const { classes } = useStyles();
 	const activeChatId = useChatStore((state) => state.activeChatId);
 	const chats = useChatStore((state) => state.chats);
 	const activeChat = chats.find((item) => item.id === activeChatId);
@@ -38,9 +38,8 @@ export const ChatContent = memo(() => {
 	const lastMessage = activeChat?.message[activeChat?.message.length - 1];
 	const prevHeight = useRef<number>(0);
 	const chatElRef = useRef(null);
-	const inputValue = useRef<string>('');
 	const isScroll = useRef<boolean>(false);
-	const [opened, { open, close }] = useDisclosure(false);
+	const [opened] = useDisclosure(false);
 
 	useEffect(() => {
 		isScroll.current = true;
@@ -69,19 +68,13 @@ export const ChatContent = memo(() => {
 		chatElRef.current!.onSelectedPosition(containerRef.current!.scrollTop + y_up, x_up, id);
 	};
 
-	const onEmojiClick = (e: any) => {
-		// changeActionChat(activeChat!.id, {
-		// 	avatar: e.unified,
-		// });
-	};
-
 	return (
 		<div className={classes.container} ref={containerRef}>
 			<ChatQuestionFloat ref={chatElRef} updateScroll={updateScroll} />
 
 			<ChatTitlesContainer />
 
-			<div className="allow-select-region" ref={contentRef}>
+			<div id="message-container" className="allow-select-region" ref={contentRef}>
 				{activeChat &&
 					activeChat.message.map((item) => {
 						if (item.hide) {

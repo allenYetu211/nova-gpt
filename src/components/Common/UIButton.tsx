@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-03 09:53:00
- * @LastEditTime: 2023-05-06 18:25:07
+ * @LastEditTime: 2023-05-07 10:38:59
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Common/UIButton.tsx
  */
@@ -15,7 +15,7 @@ import {
 	createStyles,
 	Tooltip,
 } from '@mantine/core';
-import { FC, PropsWithChildren, DOMAttributes, ReactNode } from 'react';
+import { FC, PropsWithChildren, DOMAttributes, ReactNode, forwardRef } from 'react';
 
 const useStyles = createStyles((theme) => ({
 	button: {
@@ -65,7 +65,10 @@ interface UIActionButtonProps extends ActionIconProps, DOMAttributes<HTMLButtonE
 	label?: string;
 }
 
-export const UIActionButton: FC<PropsWithChildren<UIActionButtonProps>> = (props) => {
+export const UIActionButton: FC<PropsWithChildren<UIActionButtonProps>> = forwardRef<
+	HTMLButtonElement,
+	UIActionButtonProps
+>((props, ref) => {
 	const { children, size = 'md', label, radius = 'md', variant = 'default', ...other } = props;
 
 	const PackageComponents = (component: ReactNode) => {
@@ -83,10 +86,10 @@ export const UIActionButton: FC<PropsWithChildren<UIActionButtonProps>> = (props
 	};
 
 	const ActionButton = (
-		<ActionIcon size={size} radius={radius} variant={variant} {...other}>
+		<ActionIcon ref={ref} size={size} radius={radius} variant={variant} {...other}>
 			{children}
 		</ActionIcon>
 	);
 
 	return label ? PackageComponents(ActionButton) : ActionButton;
-};
+});

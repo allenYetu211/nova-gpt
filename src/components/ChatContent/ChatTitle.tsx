@@ -1,12 +1,13 @@
 import { changeActionChat } from '@/stores/ChatAction';
 import { useChatStore } from '@/stores/ChatStore';
-import { ActionIcon, Box, Flex, Group, Input, Text, Title, createStyles } from '@mantine/core';
+import { Menu, Box, Flex, Group, Input, Text, Title, createStyles } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconEdit } from '@tabler/icons-react';
+import { IconEdit, IconShare, IconMarkdown, IconPng } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import { useRef } from 'react';
 import { UIModal, UIButton, UIActionButton } from '@/components/Common';
 import i18n from '@/i18n';
+import { downloadAsCapture, downloadAsMarkdown } from '@/utils/download';
 
 const useStyles = createStyles((theme) => ({
 	titleContainer: {
@@ -39,6 +40,20 @@ export const ChatTitlesContainer = () => {
 	const inputValue = useRef<string>('');
 	const [opened, { open, close }] = useDisclosure(false);
 
+	const download = (type: 'png' | 'md') => {
+		if (!activeChat?.message.length) {
+			return;
+		}
+
+		const time = dayjs(activeChat!.createdAt).format('YYYY/MM/DD HH:mm:ss');
+
+		if (type === 'png') {
+			downloadAsCapture(`${activeChat.title}-${time}.png`);
+		} else {
+			downloadAsMarkdown(activeChat?.message, `${activeChat.title}-${time}.md`);
+		}
+	};
+
 	return (
 		<>
 			<Group position="apart" className={classes.titleContainer}>
@@ -47,11 +62,12 @@ export const ChatTitlesContainer = () => {
 					<Text fz="xs">{dayjs(activeChat!.createdAt).format('YYYY/MM/DD HH:mm:ss')}</Text>
 				</Box>
 
-				<Box>
+				<Group sx={{ position: 'relative' }}>
+					<ShareChatHistory download={download} />
 					<UIActionButton onClick={open}>
 						<IconEdit />
 					</UIActionButton>
-				</Box>
+				</Group>
 			</Group>
 
 			<UIModal
@@ -100,3 +116,36 @@ export const ChatTitlesContainer = () => {
 		</>
 	);
 };
+
+function ShareChatHistory({ download }: { download: (type: 'png' | 'md') => void }) {
+	return (
+		<Menu trigger="hover" shadow="md" width={200}>
+			<Menu.Target>
+				<UIActionButton>
+					<IconShare />
+				</UIActionButton>
+			</Menu.Target>
+
+			<Menu.Dropdown>
+				<Menu.Label>Download Content</Menu.Label>
+				<Menu.Item
+					onClick={() => {
+						download('md');
+					}}
+					icon={<IconMarkdown size={14} />}
+				>
+					Markdown
+				</Menu.Item>
+				<Menu.Item
+					onClick={() => {
+						download('png');
+					}}
+					icon={<IconPng size={14} />}
+				>
+					Picture
+				</Menu.Item>
+				{/* <Menu.Item icon={<IconPhoto size={14} />}>Gallery</Menu.Item> */}
+			</Menu.Dropdown>
+		</Menu>
+	);
+}
