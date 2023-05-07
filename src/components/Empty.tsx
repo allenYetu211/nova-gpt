@@ -12,6 +12,7 @@ import { switchIsSetting } from '@/stores/SettingAction';
 import { useSettingStore } from '@/stores/SettingStore';
 import { Box, Button, List, Text, ThemeIcon, Title, createStyles, Group } from '@mantine/core';
 import { IconCheck } from '@tabler/icons-react';
+import { useRouter } from 'next/router';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -27,6 +28,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const EmptyChats = () => {
+	const router = useRouter();
 	const notKey = useSettingStore((state) => !state.openAI.key);
 	const notAccessToken = useSettingStore((state) => !state.accessToken);
 	const { classes, theme } = useStyles();
@@ -70,7 +72,7 @@ export const EmptyChats = () => {
 						background: theme.colors.gradient[4],
 					}}
 					onClick={() => {
-						newChat();
+						newChat(router);
 					}}
 				>
 					{i18n.empty.createFirstChat}

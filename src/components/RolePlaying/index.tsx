@@ -8,9 +8,10 @@
  */
 import { EmojiIcon } from '@/components/Common/Emoji';
 import { ROLE_LIST, RolePlayType } from '@/role';
-import { Avatar, Box, Flex, Text, createStyles } from '@mantine/core';
-import { useMemo } from 'react';
 import { newChat } from '@/stores/ChatAction';
+import { Avatar, Box, Flex, Text, createStyles } from '@mantine/core';
+import { useRouter } from 'next/router';
+import { useMemo } from 'react';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -31,6 +32,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const RolePlaying = (props: { value: string; clickCallback: () => void }) => {
+	const router = useRouter();
 	const { classes } = useStyles();
 	const { value } = props;
 	const renderDate = useMemo(() => {
@@ -48,7 +50,7 @@ export const RolePlaying = (props: { value: string; clickCallback: () => void })
 				renderDate.map((item, key) => (
 					<Flex
 						onClick={() => {
-							newChat(item);
+							newChat(router, item);
 							props.clickCallback();
 						}}
 						gap={5}

@@ -2,24 +2,13 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-05-06 16:13:48
+ * @LastEditTime: 2023-05-07 15:17:56
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/index.tsx
  */
-import {
-	ActionIcon,
-	Box,
-	Text,
-	Divider,
-	Flex,
-	Navbar,
-	Tooltip,
-	createStyles,
-	Group,
-} from '@mantine/core';
+import { ActionIcon, Box, Text, Divider, Flex, Navbar, createStyles, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { ChatSessionInput } from '@/components/Nav/ChatSessionInput';
-import { changeActiveChatId, newChat } from '@/stores/ChatAction';
 import { useChatStore } from '@/stores/ChatStore';
 
 import { useSettingStore } from '@/stores/SettingStore';
@@ -27,6 +16,7 @@ import { IconArrowBarToRight } from '@tabler/icons-react';
 import IconLogo from '@/images/svg/logo';
 import i18n from '@/i18n';
 import { NavContainer } from '@/components/Nav/NavContainer';
+import { useRouter } from 'next/router';
 
 const useStyles = createStyles((theme) => ({
 	chatItem: {
@@ -65,6 +55,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function Nav() {
+	const router = useRouter();
 	const { classes, theme, cx } = useStyles();
 	const chats = useChatStore((state) => state.chats);
 	const activeChatId = useChatStore((state) => state.activeChatId);
@@ -79,7 +70,9 @@ export function Nav() {
 						className={cx(classes.chatItem, {
 							[classes.chatItemActive]: activeChatId === chat.id,
 						})}
-						onClick={() => changeActiveChatId(chat.id)}
+						onClick={() => {
+							router.push(`/chat/${chat.id}`);
+						}}
 					>
 						<ChatSessionInput
 							title={chat.title}

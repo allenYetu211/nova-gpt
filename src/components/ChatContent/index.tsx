@@ -15,6 +15,8 @@ import { ChatMessage } from '@/components/ChatContent/ChatMessage';
 import { ChatQuestionFloat } from '@/components/ChatContent/ChatQuestionFloat';
 import { ChatTitlesContainer } from '@/components/ChatContent/ChatTitle';
 // import { Picker, EmojiIcon } from '@/components/Common/Emoji';
+import { useRouter } from 'next/router';
+import { setActiveChatId } from '@/stores/ChatAction';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -29,8 +31,15 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const ChatContent = memo(() => {
+	const router = useRouter();
+	const activeChatId = router.query.chatId as string | undefined;
+
+	useEffect(() => {
+		setActiveChatId(activeChatId as string | undefined);
+	}, [activeChatId]);
+
 	const { classes } = useStyles();
-	const activeChatId = useChatStore((state) => state.activeChatId);
+	// const activeChatId = useChatStore((state) => state.activeChatId);
 	const chats = useChatStore((state) => state.chats);
 	const activeChat = chats.find((item) => item.id === activeChatId);
 	const contentRef = useRef<HTMLDivElement>(null);
@@ -39,7 +48,6 @@ export const ChatContent = memo(() => {
 	const prevHeight = useRef<number>(0);
 	const chatElRef = useRef(null);
 	const isScroll = useRef<boolean>(false);
-	const [opened] = useDisclosure(false);
 
 	useEffect(() => {
 		isScroll.current = true;

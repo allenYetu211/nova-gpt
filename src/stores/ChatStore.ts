@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 11:28:09
- * @LastEditTime: 2023-05-02 09:16:54
+ * @LastEditTime: 2023-05-07 22:40:32
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/ChatStore.ts
  */

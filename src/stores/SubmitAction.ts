@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-05-06 14:17:52
+ * @LastEditTime: 2023-05-07 23:50:35
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
@@ -11,6 +11,7 @@ import { useSettingStore, SettingsForm, Language } from './SettingStore';
 import { requestOpenAI } from '@/fetch/Request';
 import { updateActionsChatMessage, getActiveChat } from '@/utils';
 import { createMessage } from '@/utils';
+import { supabase } from '@/lib/supabaseClient';
 
 import * as prompt from '@/prompt';
 import i18n from '@/i18n';
@@ -157,6 +158,7 @@ const streamOpenAI = (
 			chats: updateActionsChatMessage(state.chats, activeChatId, (chat: Chat) => {
 				const assistantMessage = chat.message.find((m) => m.id === responseMessageId);
 				if (assistantMessage) {
+					updateAssistantMessage(assistantMessage.content, assistantMessage.id);
 					assistantMessage.loading = false;
 				}
 				return chat;
@@ -285,10 +287,11 @@ export const ControllerAbort = {
 };
 
 /**
- *  更新chat 页面 内容展现消息
+ *  更新chat 页面 内容展现消息, 存储消息至supbase
  */
 const updateChatContentMessage = (message: Message[] | Message) => {
 	const { activeChatId } = getChat();
+	insetSubmitMessage(message);
 	setChat((state) => ({
 		textareaMessage: '',
 		chats: updateActionsChatMessage(state.chats, activeChatId, (chat) => {
@@ -302,4 +305,30 @@ const updateChatContentMessage = (message: Message[] | Message) => {
 			return chat;
 		}),
 	}));
+};
+
+const insetSubmitMessage = (message: Message[] | Message) => {
+	// const { activeChatId } = getChat();
+	// const updateMessage = Array.isArray(message)
+	// 	? message.map((item) => {
+	// 			const { createdAt, ...other } = item;
+	// 			return {
+	// 				...other,
+	// 				createdat: createdAt,
+	// 				chat_id: activeChatId,
+	// 			};
+	// 	  })
+	// 	: (() => {
+	// 			const { createdAt, ...other } = message;
+	// 			return {
+	// 				...other,
+	// 				createdat: createdAt,
+	// 				chat_id: activeChatId,
+	// 			};
+	// 	  })();
+	// supabase.from('message').insert(updateMessage);
+};
+
+const updateAssistantMessage = async (content: string, message_id: string) => {
+	// await supabase.from('message').upsert({ id: message_id, content: content });
 };

@@ -6,6 +6,8 @@
 .pnp.js
 /.lh/
 
+inspector:
+
 # testing
 /coverage
 

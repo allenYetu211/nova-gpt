@@ -15,12 +15,16 @@ import { UIActionButton, UIModal, UIInput } from '@/components/Common';
 import { useDisclosure } from '@mantine/hooks';
 import { RolePlaying } from '@/components/RolePlaying';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+
 interface NavContainerProps {
 	toggle: () => void;
 }
 
 export const NavContainer = (props: NavContainerProps) => {
-	const theme = useMantineTheme();
+	// const theme = useMantineTheme();
+
+	const router = useRouter();
 
 	return (
 		<>
@@ -29,7 +33,7 @@ export const NavContainer = (props: NavContainerProps) => {
 					<UIActionButton
 						label={i18n.Nav.new}
 						onClick={() => {
-							newChat();
+							newChat(router);
 						}}
 					>
 						<IconPlus />

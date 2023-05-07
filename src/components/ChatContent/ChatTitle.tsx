@@ -54,6 +54,10 @@ export const ChatTitlesContainer = () => {
 		}
 	};
 
+	if (!activeChat) {
+		return null;
+	}
+
 	return (
 		<>
 			<Group position="apart" className={classes.titleContainer}>
@@ -144,7 +148,8 @@ function ShareChatHistory({ download }: { download: (type: 'png' | 'md') => void
 				>
 					Picture
 				</Menu.Item>
-				{/* <Menu.Item icon={<IconPhoto size={14} />}>Gallery</Menu.Item> */}
+				<Menu.Label>Share</Menu.Label>
+				<Menu.Item icon={<IconShare size={14} />}>Share Link</Menu.Item>
 			</Menu.Dropdown>
 		</Menu>
 	);
