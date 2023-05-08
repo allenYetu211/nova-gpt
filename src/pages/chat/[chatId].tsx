@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-07 14:59:47
- * @LastEditTime: 2023-05-07 16:34:50
+ * @LastEditTime: 2023-05-09 00:04:57
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/chat/[chatid].tsx
  */
@@ -30,8 +30,12 @@ export default function Chats() {
 				navbar={<Nav />}
 				styles={(theme) => ({
 					main: {
+						paddingTop: '0rem',
+						paddingBottom: '0rem',
+						paddingRight: '0rem',
+						paddingLeft: `var(--mantine-navbar-width, 0px)`,
 						background:
-							theme.colorScheme === 'dark' ? theme.colors.gradient[0] : theme.colors.gray[0],
+							theme.colorScheme === 'dark' ? theme.colors.dark_background[0] : theme.colors.gray[0],
 						[`@media (max-width: ${theme.breakpoints.sm})`]: {
 							paddingLeft: '1rem',
 						},
@@ -39,11 +43,16 @@ export default function Chats() {
 				})}
 			>
 				<Box
-					sx={{
-						height: `calc(100vh - 3rem)`,
-					}}
+					sx={(theme) => ({
+						height: `100vh`,
+						border: '0.1rem solid #5C6077',
+						// padding: `0 calc(var(--mantine-footer-height, 0px) + 2rem) calc(var(--mantine-footer-height, 0px) + 3rem)`,
+						borderRightWidth: 0,
+						borderRadius: `${theme.radius.lg} 0 0 ${theme.radius.lg}`,
+						background:
+							theme.colorScheme === 'dark' ? theme.colors.gradient[0] : theme.colors.gray[0],
+					})}
 				>
-					{/* <Component {...pageProps} /> */}
 					<Main />
 				</Box>
 			</AppShell>

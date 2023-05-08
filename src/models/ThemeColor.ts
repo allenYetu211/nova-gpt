@@ -80,5 +80,7 @@ export const ThemeColor: DeepPartial<
 		`linear-gradient(to right bottom, #fb3f95 40%, #7d5151)`,
 	],
 
+	dark_background: ['#101323'],
+
 	warn: ['#ffabab'],
 };

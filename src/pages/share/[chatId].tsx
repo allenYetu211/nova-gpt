@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-07 16:45:14
- * @LastEditTime: 2023-05-08 17:53:54
+ * @LastEditTime: 2023-05-08 18:07:28
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/share/[chatId].tsx
  */
@@ -30,8 +30,6 @@ const ShareChat = (props: { message: Message[]; chat: Chat[] }) => {
 	const activeChatId = router.query.chatId as string | undefined;
 	const { message, chat } = props;
 	const { classes } = useStyles();
-	console.log('props', props);
-
 	useEffect(() => {
 		setActiveChatId(activeChatId as string | undefined);
 	}, [activeChatId]);

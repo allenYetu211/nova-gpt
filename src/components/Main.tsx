@@ -2,16 +2,18 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 12:08:23
- * @LastEditTime: 2023-05-07 16:44:24
+ * @LastEditTime: 2023-05-08 23:36:31
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Main.tsx
  */
 import { ChatContent } from '@/components/ChatContent';
 import { ChatTextarea } from '@/components/ChatContent/ChatTextareaContainer';
-import { MantineTheme, createStyles } from '@mantine/core';
+import { Box, MantineTheme, createStyles } from '@mantine/core';
 import { Setting } from './Setting';
 import { EmptyChats } from './Empty';
 import { useChatStore } from '@/stores/ChatStore';
+
+import { ChatTitlesContainer } from '@/components/ChatContent/ChatTitle';
 
 const useStyles = createStyles((theme: MantineTheme) => {
 	return {
@@ -25,10 +27,12 @@ const useStyles = createStyles((theme: MantineTheme) => {
 });
 
 export function Main() {
-	const { cl, activeChatId } = useChatStore((state) => ({
+	const { cl, activeChatId, activeChat } = useChatStore((state) => ({
 		cl: state.chats.length,
 		activeChatId: state.activeChatId,
+		activeChat: state.chats.find((item) => item.id === state.activeChatId),
 	}));
+
 	const { classes } = useStyles();
 
 	return (
@@ -39,8 +43,15 @@ export function Main() {
 					<EmptyChats />
 				) : (
 					<>
+						{activeChat && <ChatTitlesContainer message={activeChat?.message} chat={activeChat} />}
 						<ChatContent />
-						<ChatTextarea />
+						<Box
+							sx={{
+								padding: `0 calc(var(--mantine-footer-height, 0px) + 2rem) calc(var(--mantine-footer-height, 0px) + 3rem)`,
+							}}
+						>
+							<ChatTextarea />
+						</Box>
 					</>
 				)}
 			</div>

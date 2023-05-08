@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-05-06 17:41:05
+ * @LastEditTime: 2023-05-08 23:37:53
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/index.tsx
  */
@@ -13,19 +13,15 @@ import { useDisclosure } from '@mantine/hooks';
 import { memo, useEffect, useRef } from 'react';
 import { ChatMessage } from '@/components/ChatContent/ChatMessage';
 import { ChatQuestionFloat } from '@/components/ChatContent/ChatQuestionFloat';
-import { ChatTitlesContainer } from '@/components/ChatContent/ChatTitle';
 // import { Picker, EmojiIcon } from '@/components/Common/Emoji';
 import { useRouter } from 'next/router';
 import { setActiveChatId } from '@/stores/ChatAction';
 
 const useStyles = createStyles((theme) => ({
 	container: {
-		paddingTop: '3rem',
-		paddingBottom: theme.spacing.md,
-		paddingRight: theme.spacing.md,
+		padding: `0 calc(var(--mantine-footer-height, 0px) + 2rem) calc(var(--mantine-footer-height, 0px) + 3rem)`,
 		flex: 1,
 		overflow: 'auto',
-		marginRight: `-${theme.spacing.md}`,
 		position: 'relative',
 	},
 }));
@@ -38,7 +34,7 @@ export const ChatContent = memo(() => {
 		setActiveChatId(activeChatId as string | undefined);
 	}, [activeChatId]);
 
-	const { classes } = useStyles();
+	const { classes, cx } = useStyles();
 	// const activeChatId = useChatStore((state) => state.activeChatId);
 	const chats = useChatStore((state) => state.chats);
 	const activeChat = chats.find((item) => item.id === activeChatId);
@@ -80,9 +76,7 @@ export const ChatContent = memo(() => {
 		<div className={classes.container} ref={containerRef}>
 			<ChatQuestionFloat ref={chatElRef} updateScroll={updateScroll} />
 
-			{activeChat && <ChatTitlesContainer message={activeChat?.message} chat={activeChat} />}
-
-			<div id="message-container" className="allow-select-region" ref={contentRef}>
+			<div id="message-container" className={cx('allow-select-region')} ref={contentRef}>
 				{activeChat &&
 					activeChat.message.map((item) => {
 						if (item.hide) {

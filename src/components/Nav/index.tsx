@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-05-07 15:17:56
+ * @LastEditTime: 2023-05-09 00:06:53
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/index.tsx
  */
@@ -23,13 +23,21 @@ const useStyles = createStyles((theme) => ({
 		width: '100%',
 		padding: theme.spacing.xs,
 		borderRadius: theme.radius.md,
+		border: '0.1rem solid #5C6077',
+		// border: '0.1rem solid transparent',
+		backgroundClip: `padding-box, border-box`,
+		backgroundOrigin: `padding-box, border-box`,
 		cursor: 'pointer',
 		'&:hover': {
-			backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.light[2],
+			border: '0.1rem solid #5C6077',
+			// border: '0.1rem solid transparent',
+			background: theme.colorScheme === 'dark' ? theme.colors.gradient[3] : theme.colors.light[2],
 		},
 	},
 	chatItemActive: {
-		background: theme.colorScheme === 'dark' ? theme.colors.gradient[3] : theme.colors.light[1],
+		border: '0.1rem solid transparent',
+		backgroundImage: `linear-gradient(to right, ${theme.colors.dark_background[0]}, ${theme.colors.dark_background[0]}), linear-gradient(90deg, #8F41E9, #578AEF)`,
+		// background: theme.colorScheme === 'dark' ? theme.colors.gradient[3] : theme.colors.light[1],
 	},
 	sessionContainer: {
 		height: '100%',
@@ -96,9 +104,9 @@ export function Nav() {
 		>
 			<Navbar
 				fixed={true}
-				width={{ base: 330 }}
+				width={{ base: 300 }}
 				sx={(theme) => ({
-					padding: '20px',
+					padding: '0rem !important',
 					background: 'transparent',
 					border: 'none',
 					[`@media (max-width: ${theme.breakpoints.sm})`]: {
@@ -115,9 +123,9 @@ export function Nav() {
 					direction="column"
 					sx={(theme) => ({
 						height: '100%',
-						background:
-							theme.colorScheme === 'dark' ? theme.colors.gradient[2] : theme.colors.dark[0],
-						borderRadius: theme.radius.xl,
+						// background:
+						// 	theme.colorScheme === 'dark' ? theme.colors.gradient[2] : theme.colors.dark[0],
+						// borderRadius: theme.radius.xl,
 						padding: theme.spacing.xl,
 						boxShadow: theme.shadows.xl,
 					})}
@@ -139,7 +147,7 @@ export function Nav() {
 
 					<NavContainer toggle={toggle} />
 
-					<Divider my="sm" variant="dashed" />
+					<Divider sx={{ margin: `0 -1.5rem` }} my="sm" />
 
 					<Flex
 						mih={50}
