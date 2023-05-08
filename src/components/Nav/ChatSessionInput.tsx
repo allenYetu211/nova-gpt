@@ -26,7 +26,7 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-interface ChatSessionInputProps extends Pick<Chat, 'createdAt' | 'title' | 'id' | 'avatar'> {
+interface ChatSessionInputProps extends Pick<Chat, 'created_at' | 'title' | 'id' | 'avatar'> {
 	amount: number;
 }
 
@@ -67,7 +67,7 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
 
 				<Flex justify="space-between">
 					<Text size="xs">{i18n.record(props.amount)}</Text>
-					<Text size="xs">{dayjs(props.createdAt).format('YYYY/MM/DD HH:mm:ss')}</Text>
+					<Text size="xs">{dayjs(props.created_at).format('YYYY/MM/DD HH:mm:ss')}</Text>
 				</Flex>
 			</Flex>
 

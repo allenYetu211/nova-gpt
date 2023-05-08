@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-05-06 11:36:45
+ * @LastEditTime: 2023-05-08 15:56:40
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/ChatMessage.tsx
  */
@@ -30,8 +30,9 @@ import { FC } from 'react';
 
 interface ChatMessageProps {
 	message: Message;
-	onMouseUp: (event: React.MouseEvent<HTMLElement, MouseEvent>, id: Message['id']) => void;
+	onMouseUp?: (event: React.MouseEvent<HTMLElement, MouseEvent>, id: Message['id']) => void;
 	avatar?: Chat['avatar'];
+	share?: boolean;
 }
 
 const rotate = keyframes`
@@ -84,8 +85,13 @@ const useStyles = createStyles((theme) => {
 	};
 });
 
-export const ChatMessage: FC<ChatMessageProps> = ({ message, onMouseUp, avatar }) => {
-	const { content, role, exception, createdAt, id, loading, question } = message;
+export const ChatMessage: FC<ChatMessageProps> = ({
+	message,
+	onMouseUp,
+	avatar,
+	share = false,
+}) => {
+	const { content, role, exception, created_at, id, loading, question } = message;
 	const { classes, cx, theme } = useStyles();
 
 	return (
@@ -109,7 +115,7 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message, onMouseUp, avatar }
 						<Flex align="center">
 							<IconBot className={classes.icon} />
 							<Text color="#838e99" fz="xs">
-								{dayjs(createdAt).format('YYYY/MM/DD HH:mm:ss')}
+								{dayjs(created_at).format('YYYY/MM/DD HH:mm:ss')}
 							</Text>
 						</Flex>
 					)}
@@ -125,9 +131,9 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message, onMouseUp, avatar }
 							)}
 
 							<Text color="#838e99" fz="xs">
-								{dayjs(createdAt).format('YYYY/MM/DD HH:mm:ss')}
+								{dayjs(created_at).format('YYYY/MM/DD HH:mm:ss')}
 							</Text>
-							{loading && (
+							{!share && loading && (
 								<Badge
 									className="badge-utils"
 									sx={{
@@ -148,7 +154,7 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message, onMouseUp, avatar }
 					{role === 'user' && (
 						<Flex align="center">
 							<Text color="#838e99" fz="xs">
-								{dayjs(createdAt).format('YYYY/MM/DD HH:mm:ss')}
+								{dayjs(created_at).format('YYYY/MM/DD HH:mm:ss')}
 							</Text>
 							<IconUser className={classes.icon} />
 						</Flex>
@@ -164,7 +170,7 @@ export const ChatMessage: FC<ChatMessageProps> = ({ message, onMouseUp, avatar }
 						['allow-select']: role === 'assistant' || role === 'system',
 					})}
 					onMouseUp={(event) => {
-						(role === 'assistant' || role === 'system') && onMouseUp(event, id);
+						(role === 'assistant' || role === 'system') && onMouseUp && onMouseUp(event, id);
 					}}
 				>
 					{!content.length && role === 'assistant' && (

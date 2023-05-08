@@ -21,9 +21,7 @@ export default function Home() {
 
 	if (!activeChat) {
 		// 没有指定的Chat，如果chats里面有长度， 则跳转至第一个chat
-		console.log('chats.length', chats.length);
 		if (chats.length) {
-			console.log('jinru>>>>');
 			router.push(`/chat/${chats[chats.length - 1].id}`);
 			return;
 		}

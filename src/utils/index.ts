@@ -84,6 +84,6 @@ export const createMessage = (container: {
 		hide,
 		exception,
 		loading,
-		createdAt: new Date(),
+		created_at: new Date(),
 	};
 };

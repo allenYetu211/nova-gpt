@@ -31,7 +31,7 @@ export const newChat = (router: NextRouter, role?: RolePlayType) => {
 				exception: false,
 			}),
 		],
-		createdAt: new Date(),
+		created_at: new Date(),
 		title: 'Undefined',
 	};
 
@@ -43,14 +43,14 @@ export const newChat = (router: NextRouter, role?: RolePlayType) => {
 		});
 	}
 
-	// supabase.from('chat').insert([
-	// 	{
-	// 		id,
-	// 		createdat: defaultInitChat.createdAt,
-	// 		title: defaultInitChat.title,
-	// 		avatar: defaultInitChat.avatar || '1f977',
-	// 	},
-	// ]);
+	supabase.insert('chat', [
+		{
+			id,
+			created_at: defaultInitChat.created_at,
+			title: defaultInitChat.title,
+			avatar: defaultInitChat.avatar || '1f977',
+		},
+	]);
 
 	setChat((state) => ({
 		activeChatId: id,

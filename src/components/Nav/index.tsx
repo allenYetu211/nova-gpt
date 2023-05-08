@@ -77,7 +77,7 @@ export function Nav() {
 						<ChatSessionInput
 							title={chat.title}
 							id={chat.id}
-							createdAt={chat.createdAt}
+							created_at={chat.created_at}
 							avatar={chat.avatar}
 							amount={chat.message.length}
 						/>

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-07 10:55:26
- * @LastEditTime: 2023-05-07 12:25:14
+ * @LastEditTime: 2023-05-08 16:19:09
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/utils/download.ts
  */
@@ -10,6 +10,8 @@ import type { Message } from '@/stores/ChatStore';
 import html2canvas from 'html2canvas';
 
 export function downloadAsMarkdown(message: Message[], filename: string) {
+	console.log('text', message);
+
 	const text = message2Markdown(message);
 
 	const element = document.createElement('a');
@@ -32,7 +34,10 @@ export function message2Markdown(message: Message[]) {
 		.join('\n\n');
 }
 
-export async function downloadAsCapture(filename: string) {
+export async function downloadAsCapture(
+	filename: string,
+	{ title, time }: { title: string; time: string },
+) {
 	const element = document.querySelector('#message-container')! as HTMLElement;
 
 	const innerContent = element.innerHTML;
@@ -42,6 +47,10 @@ export async function downloadAsCapture(filename: string) {
   <div id="dot-1"></div> 
   <div id="dot-2"></div> 
   <div id="dot-3"></div> 
+  <div id="title">
+    <div>${title}</div>
+    <div>${time}</div>
+  </div>
   ${innerContent}
   </div>
   `;
@@ -72,6 +81,30 @@ const borderStyle = () => {
     border-top-width: 50px;
     background: linear-gradient(to bottom left, #202539 30%, #332538 100%);
     position: relative;
+    color: #fff;
+  }
+
+  #title {
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    position: absolute;
+    top: -2.5rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 0.7rem;
+  }
+
+  #title > first-child {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  #title > last-child {
+    font-size: 12px;
   }
   #dot-1 {
     position: absolute;

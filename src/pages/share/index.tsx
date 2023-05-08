@@ -6,7 +6,7 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/share/index.tsx
  */
-// import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/lib/supabaseClient';
 
 function Page({ countries }: { countries: any }) {
 	return (
@@ -20,9 +20,7 @@ function Page({ countries }: { countries: any }) {
 
 export async function getServerSideProps() {
 	// let { data } = await supabase.from('countries').select();
-
 	// console.log('data', data);
-
 	// return {
 	// 	props: {
 	// 		countries: data,

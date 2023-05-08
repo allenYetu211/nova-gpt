@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-05-06 18:24:14
+ * @LastEditTime: 2023-05-08 15:57:20
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/ChatTextareaContainer.tsx
  */
@@ -148,7 +148,6 @@ export function ChatTextarea() {
 						leftIcon={<IconSend size="1.25rem" />}
 						fz={theme.fontSizes.xs}
 						radius={theme.radius.xl}
-						// variant="filled"
 						onClick={userMessage}
 					>
 						{i18n.send}

@@ -80,7 +80,7 @@ export const ChatContent = memo(() => {
 		<div className={classes.container} ref={containerRef}>
 			<ChatQuestionFloat ref={chatElRef} updateScroll={updateScroll} />
 
-			<ChatTitlesContainer />
+			{activeChat && <ChatTitlesContainer message={activeChat?.message} chat={activeChat} />}
 
 			<div id="message-container" className="allow-select-region" ref={contentRef}>
 				{activeChat &&

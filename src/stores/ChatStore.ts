@@ -15,7 +15,7 @@ export const excludeKeys = ['textareaMessage', 'isRecording', 'loadingChats'];
 export interface Message {
 	content: string;
 	id: string;
-	createdAt: Date;
+	created_at: Date;
 	role: 'user' | 'system' | 'assistant';
 	question?: string;
 	hide?: boolean;
@@ -26,7 +26,7 @@ export interface Message {
 export interface Chat {
 	id: string;
 	message: Message[];
-	createdAt: Date;
+	created_at: Date;
 	// 机器人名称
 	title: RolePlayType['title'];
 	// 标签图标

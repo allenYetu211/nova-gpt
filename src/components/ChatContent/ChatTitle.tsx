@@ -1,5 +1,5 @@
 import { changeActionChat } from '@/stores/ChatAction';
-import { useChatStore } from '@/stores/ChatStore';
+import { Chat, Message, useChatStore } from '@/stores/ChatStore';
 import { Menu, Box, Flex, Group, Input, Text, Title, createStyles } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconEdit, IconShare, IconMarkdown, IconPng } from '@tabler/icons-react';
@@ -32,45 +32,52 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-export const ChatTitlesContainer = () => {
+interface ChatTitlesContainerUIProps {
+	message: Message[];
+	chat: Chat;
+	share?: boolean;
+}
+
+export function ChatTitlesContainer(props: ChatTitlesContainerUIProps) {
+	const { message, chat, share = false } = props;
 	const { classes } = useStyles();
-	const activeChatId = useChatStore((state) => state.activeChatId);
-	const chats = useChatStore((state) => state.chats);
-	const activeChat = chats.find((item) => item.id === activeChatId);
 	const inputValue = useRef<string>('');
 	const [opened, { open, close }] = useDisclosure(false);
 
 	const download = (type: 'png' | 'md') => {
-		if (!activeChat?.message.length) {
+		console.log('message download', type, !!message.length);
+		if (!message.length) {
 			return;
 		}
 
-		const time = dayjs(activeChat!.createdAt).format('YYYY/MM/DD HH:mm:ss');
+		const time = dayjs(chat.created_at).format('YYYY/MM/DD HH:mm:ss');
 
 		if (type === 'png') {
-			downloadAsCapture(`${activeChat.title}-${time}.png`);
+			downloadAsCapture(`${chat.title}-${time}.png`, {
+				title: chat.title,
+				time,
+			});
 		} else {
-			downloadAsMarkdown(activeChat?.message, `${activeChat.title}-${time}.md`);
+			console.log('downloadAsMarkdown');
+			downloadAsMarkdown(message, `${chat.title}-${time}.md`);
 		}
 	};
-
-	if (!activeChat) {
-		return null;
-	}
 
 	return (
 		<>
 			<Group position="apart" className={classes.titleContainer}>
 				<Box>
-					<Title order={5}>{activeChat?.title}</Title>
-					<Text fz="xs">{dayjs(activeChat!.createdAt).format('YYYY/MM/DD HH:mm:ss')}</Text>
+					<Title order={5}>{chat.title}</Title>
+					<Text fz="xs">{dayjs(chat.created_at).format('YYYY/MM/DD HH:mm:ss')}</Text>
 				</Box>
 
 				<Group sx={{ position: 'relative' }}>
-					<ShareChatHistory download={download} />
-					<UIActionButton onClick={open}>
-						<IconEdit />
-					</UIActionButton>
+					<ShareChatHistory download={download} share={share} />
+					{!share && (
+						<UIActionButton onClick={open}>
+							<IconEdit />
+						</UIActionButton>
+					)}
 				</Group>
 			</Group>
 
@@ -98,7 +105,7 @@ export const ChatTitlesContainer = () => {
 				>
 					<Input
 						className={classes.changeTitleInput}
-						defaultValue={activeChat!.title}
+						defaultValue={chat.title}
 						placeholder={i18n.changeTitlePlaceholder}
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 							inputValue.current = e.target.value;
@@ -107,7 +114,7 @@ export const ChatTitlesContainer = () => {
 
 					<UIButton
 						onClick={() => {
-							changeActionChat(activeChat!.id, {
+							changeActionChat(chat.id, {
 								title: inputValue.current,
 							});
 							close();
@@ -119,9 +126,15 @@ export const ChatTitlesContainer = () => {
 			</UIModal>
 		</>
 	);
-};
+}
 
-function ShareChatHistory({ download }: { download: (type: 'png' | 'md') => void }) {
+function ShareChatHistory({
+	download,
+	share,
+}: {
+	download: (type: 'png' | 'md') => void;
+	share: boolean;
+}) {
 	return (
 		<Menu trigger="hover" shadow="md" width={200}>
 			<Menu.Target>
@@ -140,6 +153,7 @@ function ShareChatHistory({ download }: { download: (type: 'png' | 'md') => void
 				>
 					Markdown
 				</Menu.Item>
+
 				<Menu.Item
 					onClick={() => {
 						download('png');
@@ -148,8 +162,13 @@ function ShareChatHistory({ download }: { download: (type: 'png' | 'md') => void
 				>
 					Picture
 				</Menu.Item>
-				<Menu.Label>Share</Menu.Label>
-				<Menu.Item icon={<IconShare size={14} />}>Share Link</Menu.Item>
+
+				{!share && (
+					<>
+						<Menu.Label>Share</Menu.Label>
+						<Menu.Item icon={<IconShare size={14} />}>Share Link</Menu.Item>
+					</>
+				)}
 			</Menu.Dropdown>
 		</Menu>
 	);
