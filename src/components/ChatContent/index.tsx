@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-05-09 14:48:42
+ * @LastEditTime: 2023-05-09 15:01:17
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/index.tsx
  */
@@ -64,7 +64,6 @@ export const ChatContent = memo(() => {
 	};
 
 	const onMouseUp = (event: React.MouseEvent<HTMLElement, MouseEvent>, id: string) => {
-		console.log('onMouseUp >>>>> ');
 		const x_up = event.clientX;
 		const y_up = event.clientY;
 		chatElRef.current &&

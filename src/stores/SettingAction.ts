@@ -50,6 +50,15 @@ export const updateAccessToken = (newState: Partial<SettingState['accessToken']>
 	}));
 };
 
+export const updateSupabase = (newState: Partial<SettingState['supabase']>) => {
+	setSetting((state) => ({
+		supabase: {
+			...state.supabase,
+			...newState,
+		},
+	}));
+};
+
 export const updateOpenAIHistory = (newState: SettingState['openAI']['history']) => {
 	setSetting((state) => ({
 		openAI: {

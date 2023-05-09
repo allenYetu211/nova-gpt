@@ -60,6 +60,16 @@ export const en = {
 				introduction: 'System language',
 			},
 		},
+		supabase: {
+			url: {
+				title: 'Reuqest Url',
+				introduction: '',
+			},
+			token: {
+				title: 'Token',
+				introduction: 'Supabase Token',
+			},
+		},
 	},
 	float_question: {
 		subject: 'Question',

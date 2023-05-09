@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 22:05:39
- * @LastEditTime: 2023-05-05 09:45:29
+ * @LastEditTime: 2023-05-09 15:24:48
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Setting.tsx
  */
@@ -13,6 +13,7 @@ import {
 	updateOpenAIHistory,
 	updateOpenAIKey,
 	updateLanguage,
+	updateSupabase,
 } from '@/stores/SettingAction';
 import { useSettingStore, Language } from '@/stores/SettingStore';
 import { keepDecimal } from '@/utils';
@@ -116,6 +117,8 @@ const Config = () => {
 	const presence_penalty = useSettingStore((state) => state.openAI.config.presence_penalty);
 	const temperature = useSettingStore((state) => state.openAI.config.temperature);
 	const accessToken = useSettingStore((state) => state.accessToken);
+
+	const supabase = useSettingStore((state) => state.supabase);
 
 	const language = useSettingStore((state) => state.language);
 	const languages = useSettingStore((state) => state.languages);
@@ -302,6 +305,39 @@ const Config = () => {
 						defaultValue={language}
 						nothingFound="No options"
 						data={languages}
+					/>
+				),
+			},
+		],
+
+		'Supabase Setting': [
+			{
+				name: i18n.setting.supabase.url.title,
+				introduction: i18n.setting.supabase.url.introduction,
+				template: (
+					<Input
+						value={supabase.url}
+						size="xs"
+						sx={{ width: '100%' }}
+						onChange={(e) => {
+							updateSupabase({ url: e.target.value });
+						}}
+						placeholder="https://xxxxxx.supabase.co"
+					/>
+				),
+			},
+			{
+				name: i18n.setting.supabase.token.title,
+				introduction: i18n.setting.supabase.token.introduction,
+				template: (
+					<Input
+						value={supabase.token}
+						size="xs"
+						sx={{ width: '100%' }}
+						onChange={(e) => {
+							updateSupabase({ token: e.target.value });
+						}}
+						placeholder="xxx.xxx.xxx"
 					/>
 				),
 			},

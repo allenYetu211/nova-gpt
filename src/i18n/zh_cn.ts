@@ -52,6 +52,16 @@ export const zh_cn = {
 				introduction: '系统语言',
 			},
 		},
+		supabase: {
+			url: {
+				title: '请求地址',
+				introduction: 'Supabase 请求地址',
+			},
+			token: {
+				title: 'Token',
+				introduction: 'Supabase 请求秘钥',
+			},
+		},
 	},
 	float_question: {
 		subject: '问题',

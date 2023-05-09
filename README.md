@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-05-04 11:20:59
+ * @LastEditTime: 2023-05-09 15:11:44
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/README.md
 -->
@@ -25,13 +25,14 @@
 - 授权码访问登录
 - 响应式设计，支持黑暗模式
 - 语音识别
-- 深度提问（直接针对 GPT 会发内容继续深入提问）
+- 深度提问
 - 国际化
+- 聊天信息导出（markdown / json）
+- 聊天分享 （基于 supabase 数据存储）
 
 ### 待开发功能：
 
 - [ ] vercel 一键部署、docker 本地化部署
-- [ ] 聊天信息导出（markdown / json）
 - [ ] 针对行业定制 promat
 - [ ] 语音识别增强（本地化语音识别）
 - [ ] 自定义 LLM 模型支持 CHATGML / BELLE

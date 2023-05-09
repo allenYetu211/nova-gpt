@@ -53,6 +53,10 @@ export interface SettingsForm {
 
 export type Language = 'zh_cn' | 'en';
 export interface SettingState {
+	supabase: {
+		url: string;
+		token: string;
+	};
 	isSetting: boolean;
 	isMobile: boolean;
 	accessToken: string;
@@ -73,6 +77,10 @@ export interface SettingState {
 }
 
 const initialSettingState: SettingState = {
+	supabase: {
+		url: '',
+		token: '',
+	},
 	isSetting: false,
 	isMobile: isMobile(),
 	accessToken: '',
