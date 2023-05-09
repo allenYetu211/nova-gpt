@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-01 08:58:14
- * @LastEditTime: 2023-05-05 09:37:47
+ * @LastEditTime: 2023-05-09 14:51:55
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/ChatQuestionFloat.tsx
  */
@@ -31,7 +31,14 @@ import {
 	IconZoomQuestion,
 } from '@tabler/icons-react';
 
-import React, { Fragment, forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import React, {
+	Fragment,
+	forwardRef,
+	useEffect,
+	useImperativeHandle,
+	useRef,
+	useState,
+} from 'react';
 import { UICard } from '@/components/Common/UICard';
 import { UIModal } from '@/components/Common/UIModal';
 import i18n from '@/i18n';
@@ -58,6 +65,10 @@ interface Position {
 	left: number;
 }
 
+export interface RefCallbackFunc {
+	onSelectedPosition(y: number, x: number, id: string): void;
+	hide: () => void;
+}
 export const ChatQuestionFloat = forwardRef((props: { updateScroll: () => void }, ref) => {
 	const { classes, theme } = useStyles();
 	const [position, setPosition] = useState<Position>({
@@ -96,10 +107,23 @@ export const ChatQuestionFloat = forwardRef((props: { updateScroll: () => void }
 						left: x - offsetLeft,
 					});
 				},
+				hide: () => {
+					setShow(false);
+				},
 			};
 		},
 		[],
 	);
+
+	useEffect(() => {
+		const func = () => {
+			setShow(false);
+		};
+		document.addEventListener('mouseup', func);
+		return () => {
+			document.removeEventListener('mouseup', func);
+		};
+	}, []);
 
 	const translations = (language: Language) => {
 		systemTranslations(language, selectionContent.current);

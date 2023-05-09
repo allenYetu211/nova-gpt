@@ -11,14 +11,9 @@ import { downloadAsCapture, downloadAsMarkdown } from '@/utils/download';
 
 const useStyles = createStyles((theme) => ({
 	titleContainer: {
-		border: '0.1rem solid #5C6077',
+		border: theme.other.border01,
 		borderWidth: `0 0 0.1rem 0`,
-		// position: 'absolute',
-		// top: 0,
-		// left: 0,
 		right: theme.spacing.md,
-		// boxShadow: theme.colorScheme === 'dark' ? `1px 10px 50px ${theme.colors.dark[8]}` : `0`,
-		// background: theme.colorScheme === 'dark' ? theme.colors.gradient[2] : theme.colors.light[0],
 		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.dark[9],
 		padding: `5px ${theme.spacing.md}`,
 	},
@@ -107,6 +102,7 @@ export function ChatTitlesContainer(props: ChatTitlesContainerUIProps) {
 					<Input
 						className={classes.changeTitleInput}
 						defaultValue={chat.title}
+						variant="unstyled"
 						placeholder={i18n.changeTitlePlaceholder}
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 							inputValue.current = e.target.value;

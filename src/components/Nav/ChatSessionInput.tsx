@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 17:34:12
- * @LastEditTime: 2023-05-06 16:13:06
+ * @LastEditTime: 2023-05-09 14:32:44
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/ChatSessionInput.tsx
  */
@@ -56,11 +56,7 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
 			<Flex direction="column" w="100%">
 				<Flex align="center" justify="center">
 					{/* <EmojiIcon unified={props.titleIcon!} /> */}
-					<Text
-						sx={(theme) => ({ flex: 1, lineHeight: '2.1431', marginLeft: theme.spacing.xs })}
-						truncate
-						size="sm"
-					>
+					<Text sx={(theme) => ({ flex: 1, lineHeight: '2.1431' })} truncate size="sm">
 						{props.title || ''}
 					</Text>
 				</Flex>

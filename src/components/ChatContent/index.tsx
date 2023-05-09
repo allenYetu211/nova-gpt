@@ -2,18 +2,16 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-05-08 23:37:53
+ * @LastEditTime: 2023-05-09 14:48:42
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/index.tsx
  */
 
 import { useChatStore } from '@/stores/ChatStore';
 import { createStyles } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { memo, useEffect, useRef } from 'react';
+import { Ref, memo, useEffect, useRef } from 'react';
 import { ChatMessage } from '@/components/ChatContent/ChatMessage';
-import { ChatQuestionFloat } from '@/components/ChatContent/ChatQuestionFloat';
-// import { Picker, EmojiIcon } from '@/components/Common/Emoji';
+import { ChatQuestionFloat, RefCallbackFunc } from '@/components/ChatContent/ChatQuestionFloat';
 import { useRouter } from 'next/router';
 import { setActiveChatId } from '@/stores/ChatAction';
 
@@ -42,7 +40,7 @@ export const ChatContent = memo(() => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const lastMessage = activeChat?.message[activeChat?.message.length - 1];
 	const prevHeight = useRef<number>(0);
-	const chatElRef = useRef(null);
+	const chatElRef = useRef<Ref<RefCallbackFunc>>(null);
 	const isScroll = useRef<boolean>(false);
 
 	useEffect(() => {
@@ -66,10 +64,13 @@ export const ChatContent = memo(() => {
 	};
 
 	const onMouseUp = (event: React.MouseEvent<HTMLElement, MouseEvent>, id: string) => {
+		console.log('onMouseUp >>>>> ');
 		const x_up = event.clientX;
 		const y_up = event.clientY;
-		// @ts-ignore
-		chatElRef.current!.onSelectedPosition(containerRef.current!.scrollTop + y_up, x_up, id);
+		chatElRef.current &&
+			// @ts-ignore
+			chatElRef.current.onSelectedPosition(containerRef.current!.scrollTop + y_up - 40, x_up, id);
+		event.stopPropagation();
 	};
 
 	return (

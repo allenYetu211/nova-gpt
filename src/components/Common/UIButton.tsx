@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-03 09:53:00
- * @LastEditTime: 2023-05-07 10:38:59
+ * @LastEditTime: 2023-05-09 10:01:57
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Common/UIButton.tsx
  */
@@ -69,7 +69,7 @@ export const UIActionButton: FC<PropsWithChildren<UIActionButtonProps>> = forwar
 	HTMLButtonElement,
 	UIActionButtonProps
 >((props, ref) => {
-	const { children, size = 'md', label, radius = 'md', variant = 'default', ...other } = props;
+	const { children, size = 'xs', label, radius = 'md', variant = 'subtle', ...other } = props;
 
 	const PackageComponents = (component: ReactNode) => {
 		return (

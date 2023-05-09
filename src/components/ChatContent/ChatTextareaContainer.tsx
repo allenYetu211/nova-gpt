@@ -2,12 +2,12 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-05-08 15:57:20
+ * @LastEditTime: 2023-05-09 14:33:21
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/ChatTextareaContainer.tsx
  */
 
-import { ActionIcon, Box, Flex, Group, Menu, Switch, createStyles } from '@mantine/core';
+import { ActionIcon, Box, Flex, Group, Menu, Switch, createStyles, rem } from '@mantine/core';
 
 import { ChatTextareaInput } from '@/components/ChatContent/ChatTextareaInput';
 import { UICard } from '@/components/Common/UICard';
@@ -97,9 +97,9 @@ export function ChatTextarea() {
 		<>
 			<UICard
 				container={
-					<Flex justify="space-between" align="center" w="100%">
+					<Flex justify="space-between" align="center" w="100%" h={rem(45)}>
 						<Group spacing="xs">
-							<ActionIcon
+							{/* <ActionIcon
 								color="gray"
 								size="lg"
 								className={classes.iconItem}
@@ -110,11 +110,11 @@ export function ChatTextarea() {
 								) : (
 									<IconMicrophoneOff size="1.25rem" />
 								)}
-							</ActionIcon>
+							</ActionIcon> */}
 							<SettingMenu />
 						</Group>
 
-						<Group position="center">
+						{/* <Group position="center">
 							<Switch
 								checked={colorScheme === 'light' ? true : false}
 								onChange={(event) => {
@@ -124,13 +124,14 @@ export function ChatTextarea() {
 								onLabel={<IconSun size="1rem" stroke={2.5} color={theme.colors.yellow[4]} />}
 								offLabel={<IconMoonStars size="1rem" stroke={2.5} color={theme.colors.dark[2]} />}
 							/>
-						</Group>
+						</Group> */}
 					</Flex>
 				}
 			>
 				<Box
 					sx={{
 						position: 'relative',
+						height: rem(140),
 					}}
 				>
 					<ChatTextareaInput
@@ -218,7 +219,7 @@ const SettingMenu = () => {
 		},
 	];
 	return (
-		<Menu position="top" radius="lg" shadow="md" width={200}>
+		<Menu position="top" radius="md" shadow="md" width={200}>
 			<Menu.Target>
 				<ActionIcon className={classes.iconItem} color="gray" size="1.25rem" onClick={userMessage}>
 					<IconDotsVertical fontSize="xs" />

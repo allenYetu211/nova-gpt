@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-02 20:15:51
- * @LastEditTime: 2023-05-06 10:24:09
+ * @LastEditTime: 2023-05-09 11:23:57
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Common/UICard.tsx
  */
@@ -16,10 +16,15 @@ export interface UICardProps extends PropsWithChildren {
 const useStyles = createStyles((theme) => ({
 	wrapper: {
 		width: '100%',
-		background: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.light[0],
-		borderRadius: theme.radius.xl,
 		padding: 0,
+		// background: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.light[0],
+		background:
+			theme.colorScheme === 'dark'
+				? theme.colors.card_utils_dark_background[0]
+				: theme.colors.card_utils_light_background[0],
 		overflow: 'hidden',
+		borderRadius: theme.other.br24,
+		border: theme.other.border01,
 	},
 	utils: {
 		padding: `0 ${theme.spacing.md}`,
@@ -27,13 +32,10 @@ const useStyles = createStyles((theme) => ({
 	},
 	container: {
 		background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.light[1],
-		// color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.light[1],
 		padding: 0,
-		borderRadius: theme.radius.xl,
-		boxShadow:
-			theme.colorScheme === 'dark'
-				? `-1px 5px 25px ${theme.colors.dark[9]}}`
-				: `-1px 5px 25px ${theme.colors.light[3]}}`,
+		borderRadius: theme.other.br24,
+		border: theme.other.border01,
+		borderWidth: `0.1rem 0 0 0`,
 		lineHeight: 0,
 	},
 }));

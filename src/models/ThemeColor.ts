@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 17:19:37
- * @LastEditTime: 2023-05-02 21:14:38
+ * @LastEditTime: 2023-05-09 13:41:51
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/models/ThemeColor.ts
  */
@@ -78,9 +78,17 @@ export const ThemeColor: DeepPartial<
 		`linear-gradient(to right,  #8a3ffb  20%, #3646e8 60%, #2c3453)`,
 		`linear-gradient(to right,  #8a3ffb  40%, #3646e8 90%, #3646e8)`,
 		`linear-gradient(to right bottom, #fb3f95 40%, #7d5151)`,
+		`linear-gradient(135deg, #8D57DE 0%, #5E5EEF 100%)`,
 	],
 
-	dark_background: ['#101323'],
+	dark_background: ['#101323', 'linear-gradient(135.31deg, #232A4F 0.54%, #121A26 100%)'],
+	light_background: ['linear-gradient(315deg, #BCBAFF 0%, #E6E5FF 100%)', '#F6F7FF'],
+
+	input_dark_background: ['#121926'],
+	input_light_background: ['#FDFEFF'],
+
+	card_utils_dark_background: ['#202B3D'],
+	card_utils_light_background: ['#D3DAFF'],
 
 	warn: ['#ffabab'],
 };

@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 10:35:16
- * @LastEditTime: 2023-05-04 10:35:33
+ * @LastEditTime: 2023-05-09 13:52:57
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/components/ChatTextareaInput.tsx
+ * @FilePath: /nova-gpt/src/components/ChatContent/ChatTextareaInput.tsx
  */
 import { createStyles } from '@mantine/core';
 import { FC } from 'react';
@@ -17,10 +17,12 @@ const useStyles = createStyles((theme) => ({
 		minHeight: '100%',
 		overflow: 'auto',
 		border: 'none',
-		borderRadius: theme.radius.xl,
-		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.light[1],
+		borderRadius: theme.other.br24,
+		backgroundColor:
+			theme.colorScheme === 'dark'
+				? theme.colors.input_dark_background[0]
+				: theme.colors.input_light_background[0],
 		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.light[6],
-		// boxShadow: theme.shadows.sm,
 		padding: theme.spacing.xl,
 		fontSize: theme.fontSizes.sm,
 		resize: 'none',

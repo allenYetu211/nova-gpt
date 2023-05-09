@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-07 14:59:47
- * @LastEditTime: 2023-05-09 00:04:57
+ * @LastEditTime: 2023-05-09 13:43:31
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/chat/[chatid].tsx
  */
@@ -35,7 +35,9 @@ export default function Chats() {
 						paddingRight: '0rem',
 						paddingLeft: `var(--mantine-navbar-width, 0px)`,
 						background:
-							theme.colorScheme === 'dark' ? theme.colors.dark_background[0] : theme.colors.gray[0],
+							theme.colorScheme === 'dark'
+								? theme.colors.dark_background[0]
+								: theme.colors.light_background[0],
 						[`@media (max-width: ${theme.breakpoints.sm})`]: {
 							paddingLeft: '1rem',
 						},
@@ -45,12 +47,15 @@ export default function Chats() {
 				<Box
 					sx={(theme) => ({
 						height: `100vh`,
-						border: '0.1rem solid #5C6077',
+						border: theme.other.border01,
 						// padding: `0 calc(var(--mantine-footer-height, 0px) + 2rem) calc(var(--mantine-footer-height, 0px) + 3rem)`,
 						borderRightWidth: 0,
 						borderRadius: `${theme.radius.lg} 0 0 ${theme.radius.lg}`,
+						boxShadow: `0px 4px 4px rgba(0, 0, 0, 0.25)`,
 						background:
-							theme.colorScheme === 'dark' ? theme.colors.gradient[0] : theme.colors.gray[0],
+							theme.colorScheme === 'dark'
+								? theme.colors.dark_background[1]
+								: theme.colors.light_background[1],
 					})}
 				>
 					<Main />

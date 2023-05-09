@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-25 14:06:24
- * @LastEditTime: 2023-05-06 11:16:22
+ * @LastEditTime: 2023-05-09 09:28:09
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Empty.tsx
  */
@@ -16,9 +16,8 @@ import { useRouter } from 'next/router';
 
 const useStyles = createStyles((theme) => ({
 	container: {
-		paddingBottom: theme.spacing.md,
+		padding: `${theme.spacing.xl} ${theme.spacing.xl}`,
 		flex: 1,
-		// overflow: 'auto',
 		width: 'auto',
 		marginTop: theme.spacing.md,
 	},

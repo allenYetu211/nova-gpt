@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-05-08 14:45:53
+ * @LastEditTime: 2023-05-09 12:19:28
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/_app.tsx
  */
@@ -64,6 +64,14 @@ export default function App({ Component, pageProps }: AppProps) {
 				// headings: { fontFamily: 'Greycliff CF, sans-serif' },
 				colorScheme: colorScheme,
 				colors: ThemeColor,
+				other: {
+					border01: colorScheme === 'dark' ? `${rem(1)} solid #5C6077` : `${rem(1)} solid #C6C2E1`,
+					br24: rem(24),
+					text: {
+						dark: '',
+						light: '',
+					},
+				},
 				focusRingStyles: {
 					resetStyles: () => ({ outline: 'none' }),
 					styles: (theme) => ({ outline: `${rem(1)} solid ${theme.colors.dark[1]}` }),

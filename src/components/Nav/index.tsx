@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-05-09 00:06:53
+ * @LastEditTime: 2023-05-09 14:06:23
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/index.tsx
  */
@@ -24,20 +24,22 @@ const useStyles = createStyles((theme) => ({
 		padding: theme.spacing.xs,
 		borderRadius: theme.radius.md,
 		border: '0.1rem solid #5C6077',
-		// border: '0.1rem solid transparent',
 		backgroundClip: `padding-box, border-box`,
 		backgroundOrigin: `padding-box, border-box`,
 		cursor: 'pointer',
 		'&:hover': {
 			border: '0.1rem solid #5C6077',
-			// border: '0.1rem solid transparent',
-			background: theme.colorScheme === 'dark' ? theme.colors.gradient[3] : theme.colors.light[2],
+			color: '#fff',
+			background:
+				theme.colorScheme === 'dark' ? theme.colors.gradient[3] : theme.colors.gradient[6],
 		},
 	},
 	chatItemActive: {
 		border: '0.1rem solid transparent',
-		backgroundImage: `linear-gradient(to right, ${theme.colors.dark_background[0]}, ${theme.colors.dark_background[0]}), linear-gradient(90deg, #8F41E9, #578AEF)`,
-		// background: theme.colorScheme === 'dark' ? theme.colors.gradient[3] : theme.colors.light[1],
+		backgroundImage:
+			theme.colorScheme === 'dark'
+				? `linear-gradient(to right, ${theme.colors.dark_background[0]}, ${theme.colors.dark_background[0]}), linear-gradient(90deg, #8F41E9, #578AEF)`
+				: `linear-gradient(to right, #E6E5FF, #E6E5FF), linear-gradient(90deg, #8F41E9, #578AEF)`,
 	},
 	sessionContainer: {
 		height: '100%',

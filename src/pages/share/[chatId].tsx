@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-07 16:45:14
- * @LastEditTime: 2023-05-08 18:07:28
+ * @LastEditTime: 2023-05-09 14:53:51
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/share/[chatId].tsx
  */
@@ -58,12 +58,12 @@ const ShareChat = (props: { message: Message[]; chat: Chat[] }) => {
 };
 
 export async function getServerSideProps({ params }: { params: any }) {
-	let { data: message } = await supabase.select('message', '*', {
+	let { data: message }: any = await supabase.select('message', '*', {
 		key: 'chat_id',
 		value: params.chatId,
 	});
 
-	let { data: chat } = await supabase.select('chat', '*', {
+	let { data: chat }: any = await supabase.select('chat', '*', {
 		key: 'id',
 		value: params.chatId,
 	});
