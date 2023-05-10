@@ -13,12 +13,27 @@ dependencies:
   '@mantine/hooks':
     specifier: ^6.0.7
     version: 6.0.7(react@18.2.0)
+  '@mantine/modals':
+    specifier: ^6.0.10
+    version: 6.0.10(@mantine/core@6.0.7)(@mantine/hooks@6.0.7)(react-dom@18.2.0)(react@18.2.0)
   '@mantine/notifications':
     specifier: ^6.0.2
     version: 6.0.9(@mantine/core@6.0.7)(@mantine/hooks@6.0.7)(react-dom@18.2.0)(react@18.2.0)
   '@nem035/gpt-3-encoder':
     specifier: ^1.1.7
     version: 1.1.7
+  '@supabase/auth-helpers-nextjs':
+    specifier: ^0.6.1
+    version: 0.6.1(@supabase/supabase-js@2.21.0)
+  '@supabase/auth-helpers-react':
+    specifier: ^0.3.1
+    version: 0.3.1(@supabase/supabase-js@2.21.0)
+  '@supabase/auth-ui-react':
+    specifier: ^0.4.1
+    version: 0.4.1(@supabase/supabase-js@2.21.0)
+  '@supabase/auth-ui-shared':
+    specifier: ^0.1.5
+    version: 0.1.5(@supabase/supabase-js@2.21.0)
   '@supabase/supabase-js':
     specifier: ^2.21.0
     version: 2.21.0
@@ -585,6 +600,21 @@ packages:
       react: 18.2.0
     dev: false
 
+  /@mantine/modals@6.0.10(@mantine/core@6.0.7)(@mantine/hooks@6.0.7)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-NC1+xS/64JjLaedeQCtLiNtHkN84qr3hpsd3ez7td9UsyhWsOk85YNas21UfTP+eheHN18z7QXUJuUBoxYvZCQ==}
+    peerDependencies:
+      '@mantine/core': 6.0.10
+      '@mantine/hooks': 6.0.10
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@mantine/core': 6.0.7(@emotion/react@11.10.6)(@mantine/hooks@6.0.7)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0)
+      '@mantine/hooks': 6.0.7(react@18.2.0)
+      '@mantine/utils': 6.0.10(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /@mantine/notifications@6.0.9(@mantine/core@6.0.7)(@mantine/hooks@6.0.7)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-X0Nyv9Fe9/1wrjxkyGTCE5VlOfzCbQjVWJ9uCWshqGkDSs8HTaWWZ9FM8fUeIXtI/LVB65OwPBegKw4/POgZQQ==}
     peerDependencies:
@@ -613,6 +643,14 @@ packages:
       csstype: 3.0.9
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@mantine/utils@6.0.10(react@18.2.0):
+    resolution: {integrity: sha512-Lo4VUn3+/kqhdjSoPzUFbxXEjMxj5vS4pqRjKRGtJsTwHiMFNcm8u4cIESzMBAEsoaBrI1dGE4WttwOJhjUaSw==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@mantine/utils@6.0.7(react@18.2.0):
@@ -855,6 +893,57 @@ packages:
     dependencies:
       '@babel/runtime': 7.21.0
       react: 18.2.0
+    dev: false
+
+  /@stitches/core@1.2.8:
+    resolution: {integrity: sha512-Gfkvwk9o9kE9r9XNBmJRfV8zONvXThnm1tcuojL04Uy5uRyqg93DC83lDebl0rocZCfKSjUv+fWYtMQmEDJldg==}
+    dev: false
+
+  /@supabase/auth-helpers-nextjs@0.6.1(@supabase/supabase-js@2.21.0):
+    resolution: {integrity: sha512-ffDAR4pW2Cosj/CuuGRAhzOFfHtqzdgax7zqRGGyq334gxxPplsmJFGaLPRJ3Z/4mTSIJHyFd6LYdHMN0a+5Bw==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.0.4
+    dependencies:
+      '@supabase/auth-helpers-shared': 0.3.4(@supabase/supabase-js@2.21.0)
+      '@supabase/supabase-js': 2.21.0
+    dev: false
+
+  /@supabase/auth-helpers-react@0.3.1(@supabase/supabase-js@2.21.0):
+    resolution: {integrity: sha512-g3SFv08Dz9FapNif/ZY1b7qKGlMJDyTLSayHBz3kb3FuYxg7aLWgQtydDhm5AGbc0XtvpIBuhGTIOVevwpdosA==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.0.4
+    dependencies:
+      '@supabase/supabase-js': 2.21.0
+    dev: false
+
+  /@supabase/auth-helpers-shared@0.3.4(@supabase/supabase-js@2.21.0):
+    resolution: {integrity: sha512-8I3D0SPHHexkFTSfPg0nZgJSVazWoB3tZDpT6IjRv6w89vDMUzO99Lit4H9anVLF4teW8c/nJJxawDNbDlgbgg==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.0.4
+    dependencies:
+      '@supabase/supabase-js': 2.21.0
+      jose: 4.14.4
+    dev: false
+
+  /@supabase/auth-ui-react@0.4.1(@supabase/supabase-js@2.21.0):
+    resolution: {integrity: sha512-Ynhnnghc4onVX492Hq86H6WF06YSWKfX4VmVl2O1t5GNmXbu4ZOG5CxioRsq3clU5QRihM4Bt5m55vXZqENyaQ==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.21.0
+    dependencies:
+      '@stitches/core': 1.2.8
+      '@supabase/auth-ui-shared': 0.1.5(@supabase/supabase-js@2.21.0)
+      '@supabase/supabase-js': 2.21.0
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@supabase/auth-ui-shared@0.1.5(@supabase/supabase-js@2.21.0):
+    resolution: {integrity: sha512-fsF3LXvkLCGDFNGbhleaeP7s17YqN9H9y0ERxdv//zLng3UhC0GMi1JDAovqeh9yw5P/VIhTig6qa7cuPzHZ9g==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.21.0
+    dependencies:
+      '@supabase/supabase-js': 2.21.0
     dev: false
 
   /@supabase/functions-js@2.1.1:
@@ -2572,6 +2661,10 @@ packages:
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
+
+  /jose@4.14.4:
+    resolution: {integrity: sha512-j8GhLiKmUAh+dsFXlX1aJCbt5KMibuKb+d7j1JaOJG6s2UjX1PQlW+OKB/sD4a/5ZYF4RcmYmLSndOoU3Lt/3g==}
+    dev: false
 
   /js-audio-recorder@1.0.7:
     resolution: {integrity: sha512-JiDODCElVHGrFyjGYwYyNi7zCbKk9va9C77w+zCPMmi4C6ix7zsX2h3ddHugmo4dOTOTCym9++b/wVW9nC0IaA==}

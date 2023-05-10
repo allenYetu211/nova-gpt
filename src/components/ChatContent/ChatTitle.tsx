@@ -5,14 +5,16 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconEdit, IconShare, IconMarkdown, IconPng } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import { useRef } from 'react';
-import { UIModal, UIButton, UIActionButton } from '@/components/Common';
+import { UIModal, UIButton, UIActionButton, modal } from '@/components/Common';
 import i18n from '@/i18n';
 import { downloadAsCapture, downloadAsMarkdown } from '@/utils/download';
+import { copyToClipboard } from '@/utils';
+import { notifications } from '@mantine/notifications';
 
 const useStyles = createStyles((theme) => ({
 	titleContainer: {
-		border: theme.other.border01,
-		borderWidth: `0 0 0.1rem 0`,
+		// border: theme.other.border01,
+		// borderWidth: `0 0 0.1rem 0`,
 		right: theme.spacing.md,
 		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.dark[9],
 		padding: `5px ${theme.spacing.md}`,
@@ -20,11 +22,11 @@ const useStyles = createStyles((theme) => ({
 
 	changeTitleInput: {
 		width: '100%',
-		[`& .mantine-Input-input`]: {
-			flex: 1,
-			border: `none`,
-			backgroundColor: 'transparent',
-		},
+		// [`& .mantine-Input-input`]: {
+		// 	flex: 1,
+		// 	border: `none`,
+		// 	backgroundColor: 'transparent',
+		// },
 	},
 }));
 
@@ -38,10 +40,8 @@ export function ChatTitlesContainer(props: ChatTitlesContainerUIProps) {
 	const { message, chat, share = false } = props;
 	const { classes } = useStyles();
 	const inputValue = useRef<string>('');
-	const [opened, { open, close }] = useDisclosure(false);
 
 	const download = (type: 'png' | 'md') => {
-		console.log('message download', type, !!message.length);
 		if (!message.length) {
 			return;
 		}
@@ -59,40 +59,11 @@ export function ChatTitlesContainer(props: ChatTitlesContainerUIProps) {
 		}
 	};
 
-	return (
-		<>
-			<Group position="apart" className={classes.titleContainer}>
-				<Box>
-					<Title order={5}>{chat.title}</Title>
-					<Text fz="xs">{dayjs(chat.created_at).format('YYYY/MM/DD HH:mm:ss')}</Text>
-				</Box>
-
-				<Group sx={{ position: 'relative' }}>
-					<ShareChatHistory download={download} share={share} />
-					{!share && (
-						<UIActionButton onClick={open}>
-							<IconEdit />
-						</UIActionButton>
-					)}
-				</Group>
-			</Group>
-
-			<UIModal
-				opened={opened}
-				onClose={close}
-				container={
-					<>
-						<Title
-							order={5}
-							sx={(theme) => ({
-								padding: `${theme.spacing.xs} 0 `,
-							})}
-						>
-							{i18n.changeTitle}
-						</Title>
-					</>
-				}
-			>
+	const onOpenEditModal = () => {
+		modal.open({
+			id: 'changeEdit',
+			title: i18n.changeTitle,
+			children: (
 				<Flex
 					gap={10}
 					sx={() => ({
@@ -102,7 +73,6 @@ export function ChatTitlesContainer(props: ChatTitlesContainerUIProps) {
 					<Input
 						className={classes.changeTitleInput}
 						defaultValue={chat.title}
-						variant="unstyled"
 						placeholder={i18n.changeTitlePlaceholder}
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 							inputValue.current = e.target.value;
@@ -114,13 +84,33 @@ export function ChatTitlesContainer(props: ChatTitlesContainerUIProps) {
 							changeActionChat(chat.id, {
 								title: inputValue.current,
 							});
-							close();
+							modal.close('changeEdit');
 						}}
 					>
 						{i18n.confirm}
 					</UIButton>
 				</Flex>
-			</UIModal>
+			),
+		});
+	};
+
+	return (
+		<>
+			<Group position="apart" className={classes.titleContainer}>
+				<Box>
+					<Title order={5}>{chat.title}</Title>
+					<Text fz="xs">{dayjs(chat.created_at).format('YYYY/MM/DD HH:mm:ss')}</Text>
+				</Box>
+
+				<Group sx={{ position: 'relative' }}>
+					<ShareChatHistory download={download} share={share} />
+					{!share && (
+						<UIActionButton onClick={onOpenEditModal}>
+							<IconEdit />
+						</UIActionButton>
+					)}
+				</Group>
+			</Group>
 		</>
 	);
 }
@@ -163,7 +153,23 @@ function ShareChatHistory({
 				{!share && (
 					<>
 						<Menu.Label>Share</Menu.Label>
-						<Menu.Item icon={<IconShare size={14} />}>Share Link</Menu.Item>
+						<Menu.Item
+							onClick={() => {
+								const regex = /\/chat\//;
+								const replacedStr = window.location.href.replace(regex, '/share/');
+								copyToClipboard(replacedStr);
+
+								notifications.show({
+									title: `Share Link Copied`,
+									message: replacedStr,
+									color: 'rgb(190, 75, 219)',
+									autoClose: 5000,
+								});
+							}}
+							icon={<IconShare size={14} />}
+						>
+							Share Link
+						</Menu.Item>
 					</>
 				)}
 			</Menu.Dropdown>

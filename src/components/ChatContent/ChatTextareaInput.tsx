@@ -33,8 +33,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface ChatTextareaInputProps {
-	message: string;
-	update: (message: string) => void;
+	message?: string;
+	update?: (message: string) => void;
 	placeholder?: string;
 	onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
 }
@@ -43,7 +43,7 @@ export const ChatTextareaInput: FC<ChatTextareaInputProps> = (props) => {
 	const { message, update, placeholder, onKeyDown } = props;
 	const { classes, cx } = useStyles();
 	const onChangeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		update(e.target.value);
+		update && update(e.target.value);
 	};
 
 	return (

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-01 08:58:14
- * @LastEditTime: 2023-05-09 14:51:55
+ * @LastEditTime: 2023-05-10 23:29:37
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/ChatQuestionFloat.tsx
  */
@@ -23,6 +23,7 @@ import {
 } from '@mantine/core';
 import { ChatTextareaInput } from '@/components/ChatContent/ChatTextareaInput';
 import { useDisclosure } from '@mantine/hooks';
+import { modals } from '@mantine/modals';
 import {
 	IconArrowsLeftRight,
 	IconLanguage,
@@ -39,8 +40,7 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
-import { UICard } from '@/components/Common/UICard';
-import { UIModal } from '@/components/Common/UIModal';
+import { UICard, modal } from '@/components/Common';
 import i18n from '@/i18n';
 
 const useStyles = createStyles((theme) => ({
@@ -131,10 +131,56 @@ export const ChatQuestionFloat = forwardRef((props: { updateScroll: () => void }
 		setShow(false);
 	};
 
-	const sendQuestion = (text: string) => {
-		userQuestion(selectionContent.current, text, messageId.current);
-		props.updateScroll();
-		setShow(false);
+	const sendQuestion = () => {
+		modal.open({
+			id: 'question',
+			title: 'Question',
+			children: (
+				<>
+					<Text
+						fz="xs"
+						sx={(theme) => ({
+							marginBottom: theme.spacing.xs,
+							padding: `${theme.spacing.xs} 0`,
+							color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.light[6],
+						})}
+					>
+						{i18n.float_question.subject} : {selectionContent.current}
+					</Text>
+
+					<Flex
+						justify="flex-end"
+						align="center"
+						sx={(theme) => ({
+							width: '100%',
+							['.chat-textarea-input']: {
+								border: theme.other.border01,
+							},
+						})}
+					>
+						<ChatTextareaInput
+							placeholder={i18n.float_question.placeholder}
+							onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+								if (e.key === 'Enter') {
+									userQuestion(selectionContent.current, e.currentTarget.value, messageId.current);
+									modals.close('question');
+								}
+							}}
+						/>
+
+						{/* <ActionIcon
+							onClick={sendUserQuestion}
+							variant="transparent"
+							color="gray"
+							radius="sm"
+							size="sm"
+						>
+							<IconSend />
+						</ActionIcon> */}
+					</Flex>
+				</>
+			),
+		});
 	};
 
 	return (
@@ -148,90 +194,23 @@ export const ChatQuestionFloat = forwardRef((props: { updateScroll: () => void }
 			className={classes.container}
 		>
 			<Group>
-				<Question selectionContent={selectionContent.current} sendQuestion={sendQuestion} />
+				{/* <Question selectionContent={selectionContent.current} sendQuestion={sendQuestion} /> */}
+				<ActionIcon
+					onClick={() => {
+						sendQuestion();
+					}}
+					variant="transparent"
+					color="gray"
+					radius="sm"
+					size="sm"
+				>
+					<IconQuestionMark />
+				</ActionIcon>
 				<Translation translations={translations} />
 			</Group>
 		</Box>
 	);
 });
-
-function Question({
-	selectionContent,
-	sendQuestion,
-}: {
-	selectionContent: string;
-	sendQuestion: (text: string) => void;
-}) {
-	const [textValue, setTextValue] = useState<string>('');
-	const [opened, { open, close }] = useDisclosure(false);
-
-	const sendUserQuestion = () => {
-		if (!textValue.trim()) {
-			return;
-		}
-
-		sendQuestion(textValue);
-		setTextValue('');
-		close();
-	};
-	return (
-		<>
-			<ActionIcon onClick={open} variant="transparent" color="gray" radius="sm" size="sm">
-				<IconQuestionMark />
-			</ActionIcon>
-			<UIModal
-				onClose={close}
-				opened={opened}
-				container={
-					<Text
-						fz="xs"
-						sx={(theme) => ({
-							marginBottom: theme.spacing.xs,
-							padding: `${theme.spacing.xs} 0`,
-							color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.light[6],
-						})}
-					>
-						{i18n.float_question.subject} : {selectionContent}
-					</Text>
-				}
-			>
-				<Flex
-					justify="flex-end"
-					align="center"
-					sx={(theme) => ({
-						width: '100%',
-						['.chat-textarea-input']: {
-							padding: `${theme.spacing.xl} 0`,
-						},
-					})}
-				>
-					<ChatTextareaInput
-						message={textValue}
-						placeholder={i18n.float_question.placeholder}
-						onKeyDown={(e) => {
-							if (e.key === 'Enter') {
-								sendUserQuestion();
-							}
-						}}
-						update={(value) => {
-							setTextValue(value);
-						}}
-					/>
-
-					<ActionIcon
-						onClick={sendUserQuestion}
-						variant="transparent"
-						color="gray"
-						radius="sm"
-						size="sm"
-					>
-						<IconSend />
-					</ActionIcon>
-				</Flex>
-			</UIModal>
-		</>
-	);
-}
 
 function Translation({ translations }: { translations: (languages: Language) => void }) {
 	return (

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-05-09 14:06:23
+ * @LastEditTime: 2023-05-10 23:10:42
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/index.tsx
  */
@@ -17,6 +17,7 @@ import IconLogo from '@/images/svg/logo';
 import i18n from '@/i18n';
 import { NavContainer } from '@/components/Nav/NavContainer';
 import { useRouter } from 'next/router';
+import { UserManage } from './UserManage';
 
 const useStyles = createStyles((theme) => ({
 	chatItem: {
@@ -171,6 +172,15 @@ export function Nav() {
 							{chatsList}
 						</Flex>
 					</Flex>
+
+					<Divider my="sm" />
+					<Box
+						sx={{
+							padding: '1rem',
+						}}
+					>
+						<UserManage />
+					</Box>
 				</Flex>
 			</Navbar>
 

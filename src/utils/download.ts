@@ -2,16 +2,16 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-07 10:55:26
- * @LastEditTime: 2023-05-08 16:19:09
+ * @LastEditTime: 2023-05-11 00:21:03
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/utils/download.ts
  */
 import type { Message } from '@/stores/ChatStore';
 import html2canvas from 'html2canvas';
 
-export function downloadAsMarkdown(message: Message[], filename: string) {
-	console.log('text', message);
+import { notifications } from '@mantine/notifications';
 
+export function downloadAsMarkdown(message: Message[], filename: string) {
 	const text = message2Markdown(message);
 
 	const element = document.createElement('a');
@@ -38,8 +38,16 @@ export async function downloadAsCapture(
 	filename: string,
 	{ title, time }: { title: string; time: string },
 ) {
-	const element = document.querySelector('#message-container')! as HTMLElement;
+	notifications.show({
+		id: 'downloading',
+		title: '图片生成中',
+		message: '请稍等....',
+		radius: 'lg',
+		color: 'rgb(190, 75, 219)',
+		loading: true,
+	});
 
+	const element = document.querySelector('#message-container')! as HTMLElement;
 	const innerContent = element.innerHTML;
 	const tempElement = document.createElement('div');
 	tempElement.innerHTML = `<style>${borderStyle()}</style> 
@@ -65,7 +73,7 @@ export async function downloadAsCapture(
 		link.href = canvas.toDataURL();
 		link.target = '_blank';
 		link.click();
-
+		notifications.hide('downloading');
 		// 删除生成的图像 URL
 		window.URL.revokeObjectURL(link.href);
 

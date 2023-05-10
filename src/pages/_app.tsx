@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-05-09 12:19:28
+ * @LastEditTime: 2023-05-10 16:10:16
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/_app.tsx
  */
@@ -14,6 +14,8 @@ import { createStyles, MantineProvider, Loader, rem } from '@mantine/core';
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 import { useSettingStore } from '@/stores/SettingStore';
+import { ModalsProvider } from '@mantine/modals';
+import { Notifications } from '@mantine/notifications';
 
 const useStyles = createStyles((theme) => ({
 	appShell: {
@@ -79,7 +81,10 @@ export default function App({ Component, pageProps }: AppProps) {
 				},
 			}}
 		>
-			<Component {...pageProps} />
+			<Notifications />
+			<ModalsProvider>
+				<Component {...pageProps} />
+			</ModalsProvider>
 		</MantineProvider>
 	);
 }

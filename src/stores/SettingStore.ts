@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 22:06:37
- * @LastEditTime: 2023-05-05 19:37:23
+ * @LastEditTime: 2023-05-09 16:53:59
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SettingStore.ts
  */
@@ -78,8 +78,8 @@ export interface SettingState {
 
 const initialSettingState: SettingState = {
 	supabase: {
-		url: '',
-		token: '',
+		url: process.env.NEXT_PUBLIC_SUPBASE_URL || '',
+		token: process.env.NEXT_PUBLIC_SUPBASE_TOKEN || '',
 	},
 	isSetting: false,
 	isMobile: isMobile(),
