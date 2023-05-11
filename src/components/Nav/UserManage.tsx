@@ -5,7 +5,8 @@ import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { useState, useEffect } from 'react';
 import { Box, Divider, createStyles, rem } from '@mantine/core';
-import { addPermissions } from '@/stores/UserAction';
+import { addPermissions, removePermissions } from '@/stores/UserAction';
+import i18n from '@/i18n';
 
 const supabase = createClient(
 	process.env.NEXT_PUBLIC_SUPBASE_URL!,
@@ -54,7 +55,7 @@ export const UserManage = () => {
 
 	const openLoginModal = () => {
 		modal.open({
-			title: '登录',
+			title: i18n.login,
 			centered: true,
 			children: (
 				<Box className={classes.loginContainer}>
@@ -79,7 +80,7 @@ export const UserManage = () => {
 	const openLoginOutModal = () => {
 		modal.open({
 			modalId: 'loginOut',
-			title: '退出登录?',
+			title: i18n.logout,
 			centered: true,
 			children: (
 				<Box w="100%">
@@ -92,10 +93,11 @@ export const UserManage = () => {
 						sx={{ width: '100%' }}
 						onClick={async () => {
 							const { error } = await supabase.auth.signOut();
+							removePermissions('logged');
 							modal.closeAll();
 						}}
 					>
-						确定
+						{i18n.confirm}
 					</UIButton>
 				</Box>
 			),

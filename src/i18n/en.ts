@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-03 10:37:53
- * @LastEditTime: 2023-05-03 16:39:02
+ * @LastEditTime: 2023-05-11 19:14:22
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/i18n/en.ts
  */
@@ -104,5 +104,22 @@ export const en = {
 		overuse:
 			'Overuse detected, access frequency limit exceeded for more than three minutes. Please try again later',
 		timedOut: 'Request timeout, please try again later',
+	},
+
+	role: {
+		not_found: `No role found`,
+		search: `Search for roles`,
+		play: `Role play`,
+	},
+	login: `Sign In`,
+	logout: `Sign Out?`,
+
+	share: {
+		not_found: `Content not found`,
+	},
+
+	notifications: {
+		image_generating: `Generating images`,
+		wait: `Please wait`,
 	},
 };

@@ -14,6 +14,7 @@ import { supabase } from '@/lib/supabaseClient';
 import { Message, Chat } from '@/stores/ChatStore';
 import { ChatTitlesContainer } from '@/components/ChatContent/ChatTitle';
 import { createStyles } from '@mantine/core';
+import i18n from '@/i18n';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -51,7 +52,7 @@ const ShareChat = (props: { message: Message[]; chat: Chat[] }) => {
 					</div>
 				</>
 			) : (
-				<div>内容不存在</div>
+				<div> {i18n.share.not_found}</div>
 			)}
 		</div>
 	);

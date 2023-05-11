@@ -29,8 +29,6 @@ export default function Login() {
 	const { classes, theme } = useStyles();
 
 	return (
-		// 帮我写一个UI ，使用auth-ui-react登录，但是我需要取消email登录。  你帮我处理下
-
 		<Flex align="center" justify="center" className={classes.authContainer}>
 			<Auth
 				supabaseClient={supabase}

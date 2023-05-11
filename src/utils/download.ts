@@ -11,6 +11,7 @@ import html2canvas from 'html2canvas';
 import { notifications } from '@mantine/notifications';
 import { ThemeColor } from '@/models/ThemeColor';
 import { useSettingStore } from '@/stores/SettingStore';
+import i18n from '@/i18n';
 
 export function downloadAsMarkdown(message: Message[], filename: string) {
 	const text = message2Markdown(message);
@@ -41,8 +42,8 @@ export async function downloadAsCapture(
 ) {
 	notifications.show({
 		id: 'downloading',
-		title: '图片生成中',
-		message: '请稍等....',
+		title: i18n.notifications.image_generating,
+		message: i18n.notifications.wait,
 		radius: 'lg',
 		color: 'rgb(190, 75, 219)',
 		loading: true,

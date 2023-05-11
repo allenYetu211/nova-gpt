@@ -96,4 +96,21 @@ export const zh_cn = {
 		overuse: '检测到过度使用，访问频率超过了三分钟的限制。请稍后再试',
 		timedOut: '请求超时，请稍后再试',
 	},
+
+	role: {
+		not_found: `未搜索到角色`,
+		search: `角色搜索`,
+		play: `角色扮演`,
+	},
+	login: `登录`,
+	logout: `退出登录?`,
+
+	share: {
+		not_found: `内容不存在`,
+	},
+
+	notifications: {
+		image_generating: `图片生成中`,
+		wait: `请稍后`,
+	},
 };

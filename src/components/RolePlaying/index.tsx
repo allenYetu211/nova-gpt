@@ -15,6 +15,7 @@
  * @FilePath: /nova-gpt/src/components/RolePlaying/index.tsx
  */
 import { EmojiIcon } from '@/components/Common/Emoji';
+import i18n from '@/i18n';
 import { ROLE_LIST, RolePlayType } from '@/role';
 import { newChat } from '@/stores/ChatAction';
 import { Avatar, Box, Flex, Text, createStyles, Input, Divider } from '@mantine/core';
@@ -65,7 +66,7 @@ export const RolePlaying = (props: { value?: string; clickCallback: () => void }
 		<Box className={classes.container}>
 			<Input
 				ref={inputRef}
-				placeholder="搜索角色"
+				placeholder={i18n.role.search}
 				onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 					setValue(e.target.value);
 				}}
@@ -99,7 +100,13 @@ export const RolePlaying = (props: { value?: string; clickCallback: () => void }
 					</Flex>
 				))
 			) : (
-				<Text>未搜索到角色</Text>
+				<Text
+					sx={(theme) => ({
+						padding: `${theme.spacing.xs} `,
+					})}
+				>
+					{i18n.role.not_found}
+				</Text>
 			)}
 		</Box>
 	);

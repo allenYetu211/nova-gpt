@@ -55,7 +55,7 @@ export const NavContainer = (props: NavContainerProps) => {
 	const openRolePlaying = () => {
 		modal.open({
 			id: 'rolePlaying',
-			title: '角色扮演',
+			title: i18n.role.play,
 			children: (
 				<>
 					<RolePlaying
@@ -90,7 +90,7 @@ export const NavContainer = (props: NavContainerProps) => {
 						<IconSettings {...IconStyle} />
 					</UIActionButton>
 
-					<UIActionButton {...ActionIconStyle} label={'角色扮演'} onClick={openRolePlaying}>
+					<UIActionButton {...ActionIconStyle} label={i18n.role.play} onClick={openRolePlaying}>
 						<IconJewishStar {...IconStyle} />
 					</UIActionButton>
 

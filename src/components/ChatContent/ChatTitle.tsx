@@ -13,8 +13,8 @@ import { notifications } from '@mantine/notifications';
 
 const useStyles = createStyles((theme) => ({
 	titleContainer: {
-		// border: theme.other.border01,
-		// borderWidth: `0 0 0.1rem 0`,
+		border: theme.other.border01,
+		borderWidth: `0 0 0.1rem 0`,
 		right: theme.spacing.md,
 		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.dark[9],
 		padding: `5px ${theme.spacing.md}`,
