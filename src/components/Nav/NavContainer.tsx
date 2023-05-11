@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-06 15:39:53
- * @LastEditTime: 2023-05-09 14:30:44
+ * @LastEditTime: 2023-05-11 11:20:14
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/NavContainer.tsx
  */
@@ -11,7 +11,7 @@ import { IconPlus, IconSettings, IconArrowBarToLeft, IconJewishStar } from '@tab
 import i18n from '@/i18n';
 import { Flex, Group, Box, useMantineTheme, rem } from '@mantine/core';
 import { newChat } from '@/stores/ChatAction';
-import { UIActionButton, UIModal, UIInput } from '@/components/Common';
+import { UIActionButton, UIModal, UIInput, modal } from '@/components/Common';
 import { useDisclosure } from '@mantine/hooks';
 import { RolePlaying } from '@/components/RolePlaying';
 import { useState } from 'react';
@@ -28,7 +28,7 @@ interface NavContainerProps {
 export const NavContainer = (props: NavContainerProps) => {
 	const theme = useMantineTheme();
 	const colorScheme = useSettingStore((state) => state.colorScheme);
-	const [opened, { open, close }] = useDisclosure(false);
+	const [value, setValue] = useState<string>('');
 
 	const ActionIconStyle = {
 		radius: 'sm',
@@ -37,9 +37,7 @@ export const NavContainer = (props: NavContainerProps) => {
 		sx: () => ({
 			color: theme.colorScheme === 'dark' ? '#313653' : '#1F2747',
 			background:
-				theme.colorScheme === 'dark'
-					? '#rgba(49, 54, 83, 0.497333)'
-					: 'rgba(255, 255, 255, 0.2864)',
+				theme.colorScheme === 'dark' ? 'rgba(49, 54, 83, 0.497333)' : 'rgba(255, 255, 255, 0.2864)',
 			border:
 				theme.colorScheme === 'dark'
 					? theme.other.border01
@@ -53,6 +51,27 @@ export const NavContainer = (props: NavContainerProps) => {
 	};
 
 	const router = useRouter();
+
+	const openRolePlaying = () => {
+		modal.open({
+			id: 'rolePlaying',
+			title: '角色扮演',
+			children: (
+				<>
+					<RolePlaying
+						clickCallback={() => {
+							// modal.close('rolePlaying');
+							modal.closeAll();
+							// console.log('前端点击角色扮演');
+
+							// setValue('');
+						}}
+						// value={value}
+					/>
+				</>
+			),
+		});
+	};
 
 	return (
 		<>
@@ -71,11 +90,11 @@ export const NavContainer = (props: NavContainerProps) => {
 						<IconSettings {...IconStyle} />
 					</UIActionButton>
 
-					<UIActionButton {...ActionIconStyle} label={'角色扮演'} onClick={open}>
+					<UIActionButton {...ActionIconStyle} label={'角色扮演'} onClick={openRolePlaying}>
 						<IconJewishStar {...IconStyle} />
 					</UIActionButton>
 
-					<RolePlayingModel opened={opened} close={close} />
+					{/* <RolePlayingModel opened={opened} close={close} /> */}
 
 					<SegmentedControl
 						size="md"
@@ -128,46 +147,6 @@ export const NavContainer = (props: NavContainerProps) => {
 					<IconArrowBarToLeft {...IconStyle} />
 				</UIActionButton>
 			</Flex>
-		</>
-	);
-};
-
-const RolePlayingModel = ({ opened, close }: { opened: boolean; close: () => void }) => {
-	const theme = useMantineTheme();
-	const [value, setValue] = useState<string>('');
-
-	return (
-		<>
-			<UIModal
-				opened={opened}
-				onClose={close}
-				cardBoxStyles={{
-					maxHeight: '80vh',
-					minHeight: '200px',
-					padding: `${theme.spacing.md}`,
-				}}
-				size="xl"
-				container={
-					<Box sx={{ padding: `${theme.spacing.xl} 0`, width: '100%' }}>
-						<UIInput
-							placeholder="搜索角色"
-							withAsterisk
-							onChange={(e) => {
-								setValue(e.target.value);
-							}}
-						/>
-					</Box>
-				}
-			>
-				<Box
-					sx={{
-						padding: `${theme.spacing.xl} 0 `,
-						width: '100%',
-					}}
-				>
-					<RolePlaying clickCallback={close} value={value} />
-				</Box>
-			</UIModal>
 		</>
 	);
 };

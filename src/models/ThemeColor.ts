@@ -13,6 +13,16 @@ export type DeepPartial<T> = {
 
 // #2d3160
 // #262d43
+// dark_background: ['#101323', 'linear-gradient(135.31deg, #232A4F 0.54%, #121A26 100%)'],
+// light_background: ['linear-gradient(315deg, #BCBAFF 0%, #E6E5FF 100%)', '#F6F7FF'],
+
+// input_dark_background: ['#121926'],
+// input_light_background: ['#FDFEFF'],
+
+// card_utils_dark_background: ['#202B3D'],
+// card_utils_light_background: ['#D3DAFF'],
+
+// warn: ['#ffabab'],
 
 export const ThemeColor: DeepPartial<
 	Record<

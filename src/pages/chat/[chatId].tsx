@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-07 14:59:47
- * @LastEditTime: 2023-05-09 13:43:31
+ * @LastEditTime: 2023-05-11 11:49:03
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/pages/chat/[chatid].tsx
+ * @FilePath: /nova-gpt/src/pages/chat/[chatId].tsx
  */
 
 import { Main } from '@/components/Main';

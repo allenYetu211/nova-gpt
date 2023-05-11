@@ -2,14 +2,15 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-07 10:55:26
- * @LastEditTime: 2023-05-11 00:21:03
+ * @LastEditTime: 2023-05-11 14:39:55
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/utils/download.ts
  */
 import type { Message } from '@/stores/ChatStore';
 import html2canvas from 'html2canvas';
-
 import { notifications } from '@mantine/notifications';
+import { ThemeColor } from '@/models/ThemeColor';
+import { useSettingStore } from '@/stores/SettingStore';
 
 export function downloadAsMarkdown(message: Message[], filename: string) {
 	const text = message2Markdown(message);
@@ -51,15 +52,17 @@ export async function downloadAsCapture(
 	const innerContent = element.innerHTML;
 	const tempElement = document.createElement('div');
 	tempElement.innerHTML = `<style>${borderStyle()}</style> 
-  <div id="share-content-border">
-  <div id="dot-1"></div> 
-  <div id="dot-2"></div> 
-  <div id="dot-3"></div> 
-  <div id="title">
-    <div>${title}</div>
-    <div>${time}</div>
-  </div>
-  ${innerContent}
+  <div id="share-container">
+    <div id="share-content-border">
+    <div id="dot-1"></div> 
+    <div id="dot-2"></div> 
+    <div id="dot-3"></div> 
+    <div id="title">
+      <div>${title}</div>
+      <div>${time}</div>
+    </div>
+    ${innerContent}
+    </div>
   </div>
   `;
 
@@ -77,19 +80,32 @@ export async function downloadAsCapture(
 		// 删除生成的图像 URL
 		window.URL.revokeObjectURL(link.href);
 
-		// 删除临时元素
+		// // 删除临时元素
 		document.body.removeChild(tempElement);
 	});
 }
 
 const borderStyle = () => {
-	return `#share-content-border  {
+	const colorScheme = useSettingStore.getState().colorScheme;
+	// ThemeColor
+
+	return `
+  
+  #share-container {
+    width: 80%;
+    margin: 0 auto;
+    box-shadow: 1px 10px 25px rgba(0,0,0,.2);
+  }
+
+  #share-content-border  {
     border: 10px solid #232323;
     border-radius: 10px;
     border-top-width: 50px;
-    background: linear-gradient(to bottom left, #202539 30%, #332538 100%);
+    background: ${
+			colorScheme === 'dark' ? ThemeColor.dark_background![1] : ThemeColor.light_background![0]
+		};
     position: relative;
-    color: #fff;
+    color: ${colorScheme === 'dark' ? ThemeColor.dark![0] : ThemeColor.light![6]};
   }
 
   #title {
@@ -104,6 +120,7 @@ const borderStyle = () => {
     left: 50%;
     transform: translate(-50%, 0);
     font-size: 0.7rem;
+    color: #fff;
   }
 
   #title > first-child {

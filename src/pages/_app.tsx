@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-05-10 16:10:16
+ * @LastEditTime: 2023-05-11 11:08:01
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/_app.tsx
  */
@@ -16,6 +16,8 @@ import { useEffect, useState } from 'react';
 import { useSettingStore } from '@/stores/SettingStore';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
+
+// import setupLocatorUI from '@locator/runtime';
 
 const useStyles = createStyles((theme) => ({
 	appShell: {
@@ -31,6 +33,10 @@ export default function App({ Component, pageProps }: AppProps) {
 	//Wait till NextJS rehydration completes
 	useEffect(() => {
 		setIsHydrated(true);
+
+		// if (process.env.NODE_ENV === 'development') {
+		// setupLocatorUI();
+		// }
 	}, []);
 
 	if (!isHydrated) {
@@ -69,15 +75,11 @@ export default function App({ Component, pageProps }: AppProps) {
 				other: {
 					border01: colorScheme === 'dark' ? `${rem(1)} solid #5C6077` : `${rem(1)} solid #C6C2E1`,
 					br24: rem(24),
-					text: {
-						dark: '',
-						light: '',
-					},
 				},
 				focusRingStyles: {
 					resetStyles: () => ({ outline: 'none' }),
-					styles: (theme) => ({ outline: `${rem(1)} solid ${theme.colors.dark[1]}` }),
-					inputStyles: (theme) => ({ outline: `${rem(1)} solid ${theme.colors.dark[1]}` }),
+					styles: (theme) => ({ outline: 'none' }),
+					inputStyles: (theme) => ({ outline: 'none' }),
 				},
 			}}
 		>

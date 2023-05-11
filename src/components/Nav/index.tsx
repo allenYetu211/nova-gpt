@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-05-10 23:10:42
+ * @LastEditTime: 2023-05-11 11:34:16
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/index.tsx
  */
@@ -48,7 +48,8 @@ const useStyles = createStyles((theme) => ({
 	chatContainer: {
 		flex: 1,
 		width: '100%',
-		overflow: 'auto',
+		overflowY: 'auto',
+		overflowX: 'hidden',
 	},
 	icon: {
 		width: 40,

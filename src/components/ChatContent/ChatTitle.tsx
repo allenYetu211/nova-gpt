@@ -84,7 +84,8 @@ export function ChatTitlesContainer(props: ChatTitlesContainerUIProps) {
 							changeActionChat(chat.id, {
 								title: inputValue.current,
 							});
-							modal.close('changeEdit');
+							modal.closeAll();
+							// modal.close('changeEdit');
 						}}
 					>
 						{i18n.confirm}

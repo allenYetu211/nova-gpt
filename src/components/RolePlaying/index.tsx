@@ -2,16 +2,17 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-05 09:49:24
- * @LastEditTime: 2023-05-06 11:24:14
+ * @LastEditTime: 2023-05-11 15:49:38
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/RolePlaying/index.tsx
  */
 import { EmojiIcon } from '@/components/Common/Emoji';
 import { ROLE_LIST, RolePlayType } from '@/role';
 import { newChat } from '@/stores/ChatAction';
-import { Avatar, Box, Flex, Text, createStyles } from '@mantine/core';
+import { Avatar, Box, Flex, Text, createStyles, Input, Divider } from '@mantine/core';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useState, useRef } from 'react';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -22,7 +23,7 @@ const useStyles = createStyles((theme) => ({
 		padding: `${theme.spacing.xs} `,
 		borderRadius: theme.radius.md,
 		[`&:hover`]: {
-			background: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.light[2],
+			background: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.light[0],
 		},
 	},
 	itemText: {
@@ -31,10 +32,12 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-export const RolePlaying = (props: { value: string; clickCallback: () => void }) => {
+export const RolePlaying = (props: { value?: string; clickCallback: () => void }) => {
 	const router = useRouter();
 	const { classes } = useStyles();
-	const { value } = props;
+	// const { value } = props;
+	const [value, setValue] = useState('');
+	const inputRef = useRef<HTMLInputElement>(null);
 	const renderDate = useMemo(() => {
 		return ROLE_LIST.filter((item: RolePlayType) => {
 			return (
@@ -44,14 +47,31 @@ export const RolePlaying = (props: { value: string; clickCallback: () => void })
 		});
 	}, [value]);
 
+	useEffect(() => {
+		setInterval(() => {
+			inputRef.current?.focus();
+		}, 0);
+	}, []);
+
 	return (
 		<Box className={classes.container}>
+			<Input
+				ref={inputRef}
+				placeholder="搜索角色"
+				onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+					setValue(e.target.value);
+				}}
+			/>
+
+			<Divider sx={{ margin: `0 -1.5rem` }} my="sm" />
+
 			{renderDate.length ? (
 				renderDate.map((item, key) => (
 					<Flex
 						onClick={() => {
 							newChat(router, item);
 							props.clickCallback();
+							setValue('');
 						}}
 						gap={5}
 						key={key}
