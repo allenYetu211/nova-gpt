@@ -47,7 +47,7 @@ export const NavContainer = (props: NavContainerProps) => {
 
 	const IconStyle = {
 		color: theme.colorScheme === 'dark' ? '#A8A8A8' : '#1F2747',
-		size: rem(20),
+		size: rem(15),
 	};
 
 	const router = useRouter();

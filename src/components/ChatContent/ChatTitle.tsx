@@ -43,6 +43,11 @@ export function ChatTitlesContainer(props: ChatTitlesContainerUIProps) {
 
 	const download = (type: 'png' | 'md') => {
 		if (!message.length) {
+			notifications.show({
+				title: 'No message',
+				message: 'There is no message to download',
+				autoClose: 5000,
+			});
 			return;
 		}
 
@@ -54,7 +59,6 @@ export function ChatTitlesContainer(props: ChatTitlesContainerUIProps) {
 				time,
 			});
 		} else {
-			console.log('downloadAsMarkdown');
 			downloadAsMarkdown(message, `${chat.title}-${time}.md`);
 		}
 	};

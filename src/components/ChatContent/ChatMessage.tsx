@@ -133,6 +133,7 @@ export const ChatMessage: FC<ChatMessageProps> = ({
 							<Text color="#838e99" fz="xs">
 								{dayjs(created_at).format('YYYY/MM/DD HH:mm:ss')}
 							</Text>
+							{/* TODO 待优化 */}
 							{!share && loading && (
 								<Badge
 									className="badge-utils"
