@@ -2,19 +2,10 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-05 09:49:24
- * @LastEditTime: 2023-05-11 18:04:25
+ * @LastEditTime: 2023-05-12 01:01:18
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/RolePlaying/index.tsx
  */
-/*
- * @Author: Allen OYang
- * @Email:  allenwill211@gmail.com
- * @Date: 2023-05-05 09:49:24
- * @LastEditTime: 2023-05-11 15:49:38
- * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/components/RolePlaying/index.tsx
- */
-import { EmojiIcon } from '@/components/Common/Emoji';
 import i18n from '@/i18n';
 import { ROLE_LIST, RolePlayType } from '@/role';
 import { newChat } from '@/stores/ChatAction';
@@ -88,9 +79,7 @@ export const RolePlaying = (props: { value?: string; clickCallback: () => void }
 						align="center"
 						className={classes.item}
 					>
-						<Avatar color="cyan">
-							<EmojiIcon unified={item.avatar} />
-						</Avatar>
+						<Avatar color="cyan">{item.avatar}</Avatar>
 						<Box className={classes.itemText}>
 							<Text>{item.title}</Text>
 							<Text truncate size="sm" weight={400}>

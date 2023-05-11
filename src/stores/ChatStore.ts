@@ -32,6 +32,8 @@ export interface Chat {
 	// 标签图标
 	// 机器人头像
 	avatar?: RolePlayType['avatar'];
+	userAvatar?: RolePlayType['userAvatar'];
+	systemAvatar?: RolePlayType['systemAvatar'];
 	openAiConfig?: RolePlayType['openAiConfig'];
 }
 

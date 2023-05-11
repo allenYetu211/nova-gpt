@@ -46,7 +46,14 @@ const ShareChat = (props: { message: Message[]; chat: Chat[] }) => {
 									return null;
 								}
 								return (
-									<ChatMessage avatar={chat[0].avatar} key={item.id} message={item} share={true} />
+									<ChatMessage
+										systemAvatar={chat[0].systemAvatar}
+										userAvatar={chat[0].userAvatar}
+										avatar={chat[0].avatar}
+										key={item.id}
+										message={item}
+										share={true}
+									/>
 								);
 							})}
 					</div>

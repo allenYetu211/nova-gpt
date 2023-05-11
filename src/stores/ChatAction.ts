@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 12:36:37
- * @LastEditTime: 2023-05-07 23:04:31
+ * @LastEditTime: 2023-05-12 00:48:13
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/ChatAction.ts
  */
@@ -31,8 +31,11 @@ export const newChat = (router: NextRouter, role?: RolePlayType) => {
 				exception: false,
 			}),
 		],
+		avatar: '🤖',
+		userAvatar: '😁',
+		systemAvatar: '👩🏻‍🏫',
 		created_at: new Date(),
-		title: 'Undefined',
+		title: 'New Session',
 	};
 
 	if (role) {
@@ -48,7 +51,9 @@ export const newChat = (router: NextRouter, role?: RolePlayType) => {
 			id,
 			created_at: defaultInitChat.created_at,
 			title: defaultInitChat.title,
-			avatar: defaultInitChat.avatar || '1f977',
+			avatar: defaultInitChat.avatar || '🤖',
+			// userAvatar: defaultInitChat.userAvatar ||  '',
+			// systemAvatar: defaultInitChat.systemAvatar ||  '👩🏻‍🏫',
 		},
 	]);
 

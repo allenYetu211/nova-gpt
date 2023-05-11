@@ -2,15 +2,11 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-05-08 15:56:40
+ * @LastEditTime: 2023-05-12 00:59:00
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/ChatMessage.tsx
  */
 import { Markdown } from '@/components/ChatContent/Markdown';
-import { EmojiIcon } from '@/components/Common/Emoji';
-import IconBot from '@/images/svg/bot';
-import IconLogo from '@/images/svg/logo';
-import IconUser from '@/images/svg/user';
 import { Chat, Message } from '@/stores/ChatStore';
 import { ControllerAbort } from '@/stores/SubmitAction';
 import {
@@ -32,6 +28,8 @@ interface ChatMessageProps {
 	message: Message;
 	onMouseUp?: (event: React.MouseEvent<HTMLElement, MouseEvent>, id: Message['id']) => void;
 	avatar?: Chat['avatar'];
+	systemAvatar?: Chat['systemAvatar'];
+	userAvatar?: Chat['systemAvatar'];
 	share?: boolean;
 }
 
@@ -90,6 +88,8 @@ export const ChatMessage: FC<ChatMessageProps> = ({
 	onMouseUp,
 	avatar,
 	share = false,
+	userAvatar,
+	systemAvatar,
 }) => {
 	const { content, role, exception, created_at, id, loading, question } = message;
 	const { classes, cx, theme } = useStyles();
@@ -113,7 +113,14 @@ export const ChatMessage: FC<ChatMessageProps> = ({
 				<Group>
 					{role === 'system' && (
 						<Flex align="center">
-							<IconBot className={classes.icon} />
+							<Avatar
+								sx={(theme) => ({ marginRight: theme.spacing.xs })}
+								size="sm"
+								color="grape"
+								radius="xl"
+							>
+								{systemAvatar}
+							</Avatar>
 							<Text color="#838e99" fz="xs">
 								{dayjs(created_at).format('YYYY/MM/DD HH:mm:ss')}
 							</Text>
@@ -122,13 +129,14 @@ export const ChatMessage: FC<ChatMessageProps> = ({
 
 					{role === 'assistant' && (
 						<Flex align="center" gap={10}>
-							{avatar ? (
-								<Avatar size="sm" color="grape" radius="xl">
-									<EmojiIcon unified={avatar} />
-								</Avatar>
-							) : (
-								<IconLogo className={classes.icon} />
-							)}
+							<Avatar
+								sx={(theme) => ({ marginRight: theme.spacing.xs })}
+								size="sm"
+								color="grape"
+								radius="xl"
+							>
+								{avatar}
+							</Avatar>
 
 							<Text color="#838e99" fz="xs">
 								{dayjs(created_at).format('YYYY/MM/DD HH:mm:ss')}
@@ -157,7 +165,15 @@ export const ChatMessage: FC<ChatMessageProps> = ({
 							<Text color="#838e99" fz="xs">
 								{dayjs(created_at).format('YYYY/MM/DD HH:mm:ss')}
 							</Text>
-							<IconUser className={classes.icon} />
+							{/* <IconUser className={classes.icon} /> */}
+							<Avatar
+								sx={(theme) => ({ marginLeft: theme.spacing.xs })}
+								size="sm"
+								color="grape"
+								radius="xl"
+							>
+								{userAvatar}
+							</Avatar>
 						</Flex>
 					)}
 				</Group>

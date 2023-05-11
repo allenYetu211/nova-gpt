@@ -84,6 +84,8 @@ export const ChatContent = memo(() => {
 						}
 						return (
 							<ChatMessage
+								systemAvatar={activeChat.systemAvatar}
+								userAvatar={activeChat.userAvatar}
 								avatar={activeChat.avatar}
 								onMouseUp={onMouseUp}
 								key={item.id}

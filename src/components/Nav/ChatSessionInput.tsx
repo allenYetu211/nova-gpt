@@ -55,7 +55,6 @@ export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
 		>
 			<Flex direction="column" w="100%">
 				<Flex align="center" justify="center">
-					{/* <EmojiIcon unified={props.titleIcon!} /> */}
 					<Text sx={(theme) => ({ flex: 1, lineHeight: '2.1431' })} truncate size="sm">
 						{props.title || ''}
 					</Text>
