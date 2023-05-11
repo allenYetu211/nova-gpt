@@ -2,18 +2,23 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-07 14:59:47
- * @LastEditTime: 2023-05-11 11:49:03
+ * @LastEditTime: 2023-05-11 18:06:17
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/chat/[chatId].tsx
  */
 
 import { Main } from '@/components/Main';
 
+import { addPermissions } from '@/stores/UserAction';
 import { Nav } from '@/components/Nav';
 import { AppShell, Box } from '@mantine/core';
 import Head from 'next/head';
+import { useEffect } from 'react';
 
 export default function Chats() {
+	useEffect(() => {
+		addPermissions('chat');
+	}, []);
 	return (
 		<>
 			<Head>

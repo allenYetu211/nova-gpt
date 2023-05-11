@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-01 08:58:14
- * @LastEditTime: 2023-05-10 23:29:37
+ * @LastEditTime: 2023-05-11 18:15:04
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/ChatQuestionFloat.tsx
  */
@@ -163,7 +163,7 @@ export const ChatQuestionFloat = forwardRef((props: { updateScroll: () => void }
 							onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
 								if (e.key === 'Enter') {
 									userQuestion(selectionContent.current, e.currentTarget.value, messageId.current);
-									modals.close('question');
+									modals.closeAll();
 								}
 							}}
 						/>

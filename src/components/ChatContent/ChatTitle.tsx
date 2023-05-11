@@ -5,7 +5,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconEdit, IconShare, IconMarkdown, IconPng } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import { useRef } from 'react';
-import { UIModal, UIButton, UIActionButton, modal } from '@/components/Common';
+import { UIModal, UIButton, UIActionButton, modal, AutoComponents } from '@/components/Common';
 import i18n from '@/i18n';
 import { downloadAsCapture, downloadAsMarkdown } from '@/utils/download';
 import { copyToClipboard } from '@/utils';
@@ -105,11 +105,12 @@ export function ChatTitlesContainer(props: ChatTitlesContainerUIProps) {
 
 				<Group sx={{ position: 'relative' }}>
 					<ShareChatHistory download={download} share={share} />
-					{!share && (
+
+					<AutoComponents allowedPermission={['chat']}>
 						<UIActionButton onClick={onOpenEditModal}>
 							<IconEdit />
 						</UIActionButton>
-					)}
+					</AutoComponents>
 				</Group>
 			</Group>
 		</>
@@ -151,28 +152,30 @@ function ShareChatHistory({
 					Picture
 				</Menu.Item>
 
-				{!share && (
-					<>
-						<Menu.Label>Share</Menu.Label>
-						<Menu.Item
-							onClick={() => {
-								const regex = /\/chat\//;
-								const replacedStr = window.location.href.replace(regex, '/share/');
-								copyToClipboard(replacedStr);
+				{/* {!share && ( */}
 
-								notifications.show({
-									title: `Share Link Copied`,
-									message: replacedStr,
-									color: 'rgb(190, 75, 219)',
-									autoClose: 5000,
-								});
-							}}
-							icon={<IconShare size={14} />}
-						>
-							Share Link
-						</Menu.Item>
-					</>
-				)}
+				<AutoComponents allowedPermission={['logged']}>
+					<Menu.Label>Share</Menu.Label>
+					<Menu.Item
+						onClick={() => {
+							const regex = /\/chat\//;
+							const replacedStr = window.location.href.replace(regex, '/share/');
+							copyToClipboard(replacedStr);
+
+							notifications.show({
+								title: `Share Link Copied`,
+								message: replacedStr,
+								color: 'rgb(190, 75, 219)',
+								autoClose: 5000,
+							});
+						}}
+						icon={<IconShare size={14} />}
+					>
+						Share Link
+					</Menu.Item>
+				</AutoComponents>
+
+				{/* )} */}
 			</Menu.Dropdown>
 		</Menu>
 	);

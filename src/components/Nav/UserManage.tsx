@@ -5,6 +5,7 @@ import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { useState, useEffect } from 'react';
 import { Box, Divider, createStyles, rem } from '@mantine/core';
+import { addPermissions } from '@/stores/UserAction';
 
 const supabase = createClient(
 	process.env.NEXT_PUBLIC_SUPBASE_URL!,
@@ -38,12 +39,14 @@ export const UserManage = () => {
 	useEffect(() => {
 		supabase.auth.getSession().then(({ data: { session } }) => {
 			setSession(session);
+			session && addPermissions('logged');
 		});
 
 		const {
 			data: { subscription },
 		} = supabase.auth.onAuthStateChange((_event, session) => {
 			setSession(session);
+			session && addPermissions('logged');
 		});
 
 		return () => subscription.unsubscribe();

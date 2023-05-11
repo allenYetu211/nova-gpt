@@ -2,6 +2,14 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-05 09:49:24
+ * @LastEditTime: 2023-05-11 18:04:25
+ * @LastEditors: Allen OYang allenwill211@gmail.com
+ * @FilePath: /nova-gpt/src/components/RolePlaying/index.tsx
+ */
+/*
+ * @Author: Allen OYang
+ * @Email:  allenwill211@gmail.com
+ * @Date: 2023-05-05 09:49:24
  * @LastEditTime: 2023-05-11 15:49:38
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/RolePlaying/index.tsx
