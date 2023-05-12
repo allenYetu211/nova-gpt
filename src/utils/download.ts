@@ -2,13 +2,13 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-07 10:55:26
- * @LastEditTime: 2023-05-11 14:39:55
+ * @LastEditTime: 2023-05-12 18:51:28
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/utils/download.ts
  */
 import type { Message } from '@/stores/ChatStore';
 import html2canvas from 'html2canvas';
-import { notifications } from '@mantine/notifications';
+import { notifications } from '@/components/Common';
 import { ThemeColor } from '@/models/ThemeColor';
 import { useSettingStore } from '@/stores/SettingStore';
 import i18n from '@/i18n';
@@ -44,8 +44,6 @@ export async function downloadAsCapture(
 		id: 'downloading',
 		title: i18n.notifications.image_generating,
 		message: i18n.notifications.wait,
-		radius: 'lg',
-		color: 'rgb(190, 75, 219)',
 		loading: true,
 	});
 

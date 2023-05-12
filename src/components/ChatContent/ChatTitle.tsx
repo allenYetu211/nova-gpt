@@ -9,7 +9,7 @@ import { UIModal, UIButton, UIActionButton, modal, AutoComponents } from '@/comp
 import i18n from '@/i18n';
 import { downloadAsCapture, downloadAsMarkdown } from '@/utils/download';
 import { copyToClipboard } from '@/utils';
-import { notifications } from '@mantine/notifications';
+import { notifications } from '@/components/Common';
 
 const useStyles = createStyles((theme) => ({
 	titleContainer: {
@@ -169,7 +169,6 @@ function ShareChatHistory({
 							notifications.show({
 								title: `Share Link Copied`,
 								message: replacedStr,
-								color: 'rgb(190, 75, 219)',
 								autoClose: 5000,
 							});
 						}}

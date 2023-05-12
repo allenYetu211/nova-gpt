@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-25 14:06:24
- * @LastEditTime: 2023-05-09 09:28:09
+ * @LastEditTime: 2023-05-12 14:34:09
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Empty.tsx
  */
@@ -27,7 +27,6 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const EmptyChats = () => {
-	const router = useRouter();
 	const notKey = useSettingStore((state) => !state.openAI.key);
 	const notAccessToken = useSettingStore((state) => !state.accessToken);
 	const { classes, theme } = useStyles();
@@ -71,7 +70,7 @@ export const EmptyChats = () => {
 						background: theme.colors.gradient[4],
 					}}
 					onClick={() => {
-						newChat(router);
+						newChat();
 					}}
 				>
 					{i18n.empty.createFirstChat}

@@ -9,13 +9,11 @@
 import { switchIsSetting } from '@/stores/SettingAction';
 import { IconPlus, IconSettings, IconArrowBarToLeft, IconJewishStar } from '@tabler/icons-react';
 import i18n from '@/i18n';
-import { Flex, Group, Box, useMantineTheme, rem } from '@mantine/core';
+import { Flex, Group, useMantineTheme, rem } from '@mantine/core';
 import { newChat } from '@/stores/ChatAction';
-import { UIActionButton, UIModal, UIInput, modal } from '@/components/Common';
-import { useDisclosure } from '@mantine/hooks';
+import { UIActionButton, modal } from '@/components/Common';
 import { RolePlaying } from '@/components/RolePlaying';
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 import { SegmentedControl } from '@mantine/core';
 
 import { useSettingStore } from '@/stores/SettingStore';
@@ -50,8 +48,6 @@ export const NavContainer = (props: NavContainerProps) => {
 		size: rem(15),
 	};
 
-	const router = useRouter();
-
 	const openRolePlaying = () => {
 		modal.open({
 			id: 'rolePlaying',
@@ -60,13 +56,8 @@ export const NavContainer = (props: NavContainerProps) => {
 				<>
 					<RolePlaying
 						clickCallback={() => {
-							// modal.close('rolePlaying');
 							modal.closeAll();
-							// console.log('前端点击角色扮演');
-
-							// setValue('');
 						}}
-						// value={value}
 					/>
 				</>
 			),
@@ -81,7 +72,7 @@ export const NavContainer = (props: NavContainerProps) => {
 						{...ActionIconStyle}
 						label={i18n.Nav.new}
 						onClick={() => {
-							newChat(router);
+							newChat();
 						}}
 					>
 						<IconPlus {...IconStyle} />

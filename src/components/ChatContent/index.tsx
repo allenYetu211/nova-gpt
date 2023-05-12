@@ -2,18 +2,20 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-05-12 11:45:52
+ * @LastEditTime: 2023-05-12 18:38:50
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/index.tsx
  */
 
 import { useChatStore } from '@/stores/ChatStore';
-import { createStyles } from '@mantine/core';
 import { Ref, memo, useEffect, useRef } from 'react';
 import { ChatMessage } from '@/components/ChatContent/ChatMessage';
+import { update, changeMessageState } from '@/stores/ChatAction';
 import { ChatQuestionFloat, RefCallbackFunc } from '@/components/ChatContent/ChatQuestionFloat';
-// import { useRouter } from 'next/router';
-// import { setActiveChatId } from '@/stores/ChatAction';
+import { Group, Text, createStyles } from '@mantine/core';
+import { UIBadge } from '../Common';
+import { copyToClipboard } from '@/utils';
+import { notifications } from '@/components/Common';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -77,13 +79,50 @@ export const ChatContent = memo(() => {
 						}
 						return (
 							<ChatMessage
-								systemAvatar={activeChat.systemAvatar}
-								userAvatar={activeChat.userAvatar}
+								system_avatar={activeChat.system_avatar}
+								user_avatar={activeChat.user_avatar}
 								avatar={activeChat.avatar}
 								onMouseUp={onMouseUp}
 								key={item.id}
 								message={item}
-							/>
+							>
+								<Group
+									spacing="lg"
+									sx={(theme) => ({
+										marginBottom: theme.spacing.xs,
+									})}
+									position={item.role === 'user' ? 'right' : 'left'}
+								>
+									<UIBadge
+										onClick={() => {
+											changeMessageState(activeChatId, item.id, {
+												preamble: !item.preamble || false,
+											});
+										}}
+									>
+										<Text fz="xs">{item.preamble ? '🌟 前置消息' : '➕ 添加前置消息'}</Text>
+									</UIBadge>
+
+									<UIBadge
+										onClick={() => {
+											update({ textareaMessage: item.content });
+										}}
+									>
+										<Text fz="xs">🔁 重发</Text>
+									</UIBadge>
+
+									<UIBadge
+										onClick={() => {
+											copyToClipboard(item.content);
+											notifications.show({
+												message: '复制成功',
+											});
+										}}
+									>
+										<Text fz="xs">🏃🏼‍♀️ 复制</Text>
+									</UIBadge>
+								</Group>
+							</ChatMessage>
 						);
 					})}
 			</div>

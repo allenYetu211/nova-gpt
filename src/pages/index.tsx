@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 11:27:09
- * @LastEditTime: 2023-05-12 12:03:56
+ * @LastEditTime: 2023-05-12 14:15:46
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/index.tsx
  */
@@ -23,10 +23,10 @@ export default function Home() {
 	}, [chats, activeChatId]);
 
 	useEffect(() => {
+		addPermissions('chat');
 		if (!activeChat && chats.length > 0) {
 			setActiveChatId(chats[chats.length - 1].id);
 		}
-		addPermissions('chat');
 	}, []);
 
 	return (

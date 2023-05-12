@@ -4,8 +4,8 @@ import { SettingsForm } from '@/stores/SettingStore';
 export interface RolePlayType {
 	title: string;
 	avatar: string;
-	userAvatar?: string;
-	systemAvatar?: string;
+	user_avatar: string;
+	system_avatar: string;
 	message: Partial<Message>;
 	openAiConfig?: Partial<SettingsForm>;
 }

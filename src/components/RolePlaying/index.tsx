@@ -69,7 +69,7 @@ export const RolePlaying = (props: { value?: string; clickCallback: () => void }
 				renderDate.map((item, key) => (
 					<Flex
 						onClick={() => {
-							newChat(router, item);
+							newChat(item);
 							props.clickCallback();
 							setValue('');
 						}}

@@ -11,7 +11,9 @@ import { Chat, Message } from '@/stores/ChatStore';
 import { useSettingStore } from '@/stores/SettingStore';
 
 interface DBBase {
-	chat: Partial<Pick<Chat, 'id' | 'created_at' | 'avatar' | 'title'>>;
+	chat: Partial<
+		Pick<Chat, 'id' | 'created_at' | 'avatar' | 'user_avatar' | 'system_avatar' | 'title'>
+	>;
 	message: Partial<Message & { chat_id: string }>;
 }
 interface handledDBType {

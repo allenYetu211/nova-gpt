@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-05-12 00:59:00
+ * @LastEditTime: 2023-05-12 18:54:39
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/ChatMessage.tsx
  */
@@ -22,15 +22,17 @@ import {
 	keyframes,
 } from '@mantine/core';
 import dayjs from 'dayjs';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
 interface ChatMessageProps {
 	message: Message;
 	onMouseUp?: (event: React.MouseEvent<HTMLElement, MouseEvent>, id: Message['id']) => void;
 	avatar?: Chat['avatar'];
-	systemAvatar?: Chat['systemAvatar'];
-	userAvatar?: Chat['systemAvatar'];
+	system_avatar?: Chat['system_avatar'];
+	user_avatar?: Chat['user_avatar'];
 	share?: boolean;
+	onClickPreamble?: () => void;
+	onClickRepeat?: () => void;
 }
 
 const rotate = keyframes`
@@ -83,15 +85,16 @@ const useStyles = createStyles((theme) => {
 	};
 });
 
-export const ChatMessage: FC<ChatMessageProps> = ({
+export const ChatMessage: FC<PropsWithChildren<ChatMessageProps>> = ({
 	message,
 	onMouseUp,
 	avatar,
 	share = false,
-	userAvatar,
-	systemAvatar,
+	user_avatar,
+	system_avatar,
+	children,
 }) => {
-	const { content, role, exception, created_at, id, loading, question } = message;
+	const { content, role, exception, created_at, id, loading, question, preamble = false } = message;
 	const { classes, cx, theme } = useStyles();
 
 	return (
@@ -119,7 +122,7 @@ export const ChatMessage: FC<ChatMessageProps> = ({
 								color="grape"
 								radius="xl"
 							>
-								{systemAvatar}
+								{system_avatar}
 							</Avatar>
 							<Text color="#838e99" fz="xs">
 								{dayjs(created_at).format('YYYY/MM/DD HH:mm:ss')}
@@ -172,7 +175,7 @@ export const ChatMessage: FC<ChatMessageProps> = ({
 								color="grape"
 								radius="xl"
 							>
-								{userAvatar}
+								{user_avatar}
 							</Avatar>
 						</Flex>
 					)}
@@ -190,6 +193,8 @@ export const ChatMessage: FC<ChatMessageProps> = ({
 						(role === 'assistant' || role === 'system') && onMouseUp && onMouseUp(event, id);
 					}}
 				>
+					{children}
+
 					{!content.length && role === 'assistant' && (
 						<Loader color="dark" size="sm" variant="dots" />
 					)}
@@ -202,6 +207,7 @@ export const ChatMessage: FC<ChatMessageProps> = ({
 							<Divider sx={{ marginBottom: theme.spacing.xs }} />
 						</>
 					)}
+
 					<Markdown content={content} />
 				</Box>
 			</Flex>

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 11:28:09
- * @LastEditTime: 2023-05-07 22:40:32
+ * @LastEditTime: 2023-05-12 14:35:50
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/ChatStore.ts
  */
@@ -21,19 +21,28 @@ export interface Message {
 	hide?: boolean;
 	exception?: boolean;
 	loading?: boolean;
+	preamble?: boolean;
 }
 
 export interface Chat {
 	id: string;
 	message: Message[];
 	created_at: Date;
+
+	/**
+	 * 存储前置消息用于展示修改，生成新的 session
+	 */
+	preamble_message?: {
+		[key in string]: Message;
+	};
+
 	// 机器人名称
 	title: RolePlayType['title'];
 	// 标签图标
 	// 机器人头像
 	avatar?: RolePlayType['avatar'];
-	userAvatar?: RolePlayType['userAvatar'];
-	systemAvatar?: RolePlayType['systemAvatar'];
+	user_avatar?: RolePlayType['user_avatar'];
+	system_avatar?: RolePlayType['system_avatar'];
 	openAiConfig?: RolePlayType['openAiConfig'];
 }
 

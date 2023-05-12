@@ -66,6 +66,8 @@ export const createMessage = (container: {
 	question?: string;
 	exception?: boolean;
 	loading?: boolean;
+	// 🌟
+	preamble?: boolean;
 }): Message => {
 	const {
 		message,
@@ -74,9 +76,11 @@ export const createMessage = (container: {
 		hide = false,
 		exception = false,
 		loading = true,
+		preamble = false,
 	} = container;
 
 	return {
+		preamble,
 		content: message,
 		role,
 		question,

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-05-11 11:34:16
+ * @LastEditTime: 2023-05-12 14:25:46
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/index.tsx
  */
@@ -16,7 +16,6 @@ import { IconArrowBarToRight } from '@tabler/icons-react';
 import IconLogo from '@/images/svg/logo';
 import i18n from '@/i18n';
 import { NavContainer } from '@/components/Nav/NavContainer';
-import { useRouter } from 'next/router';
 import { UserManage } from './UserManage';
 import { setActiveChatId } from '@/stores/ChatAction';
 
@@ -68,7 +67,6 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function Nav() {
-	const router = useRouter();
 	const { classes, theme, cx } = useStyles();
 	const chats = useChatStore((state) => state.chats);
 	const activeChatId = useChatStore((state) => state.activeChatId);
