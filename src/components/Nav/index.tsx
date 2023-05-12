@@ -18,6 +18,7 @@ import i18n from '@/i18n';
 import { NavContainer } from '@/components/Nav/NavContainer';
 import { useRouter } from 'next/router';
 import { UserManage } from './UserManage';
+import { setActiveChatId } from '@/stores/ChatAction';
 
 const useStyles = createStyles((theme) => ({
 	chatItem: {
@@ -83,7 +84,7 @@ export function Nav() {
 							[classes.chatItemActive]: activeChatId === chat.id,
 						})}
 						onClick={() => {
-							router.push(`/chat/${chat.id}`);
+							setActiveChatId(chat.id);
 						}}
 					>
 						<ChatSessionInput

@@ -89,7 +89,7 @@ export const zh_cn = {
 			`支持麦克风输入——使用腾讯云语音识别`,
 			`API密钥和数据存储在本地存储器中，保障您的数据隐私和安全性`,
 		],
-		createFirstChat: '创建第一个聊天',
+		createFirstChat: '创建聊天',
 		adding: '添加OpenAI密钥或访问令牌',
 	},
 	request: {

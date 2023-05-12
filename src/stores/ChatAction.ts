@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 12:36:37
- * @LastEditTime: 2023-05-12 00:48:13
+ * @LastEditTime: 2023-05-12 11:51:55
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/ChatAction.ts
  */
@@ -46,6 +46,13 @@ export const newChat = (router: NextRouter, role?: RolePlayType) => {
 		});
 	}
 
+	setChat((state) => ({
+		activeChatId: id,
+		chats: state.chats.concat(defaultInitChat),
+	}));
+
+	// router.push(`/chat/${id}`);
+
 	supabase.insert('chat', [
 		{
 			id,
@@ -56,13 +63,6 @@ export const newChat = (router: NextRouter, role?: RolePlayType) => {
 			// systemAvatar: defaultInitChat.systemAvatar ||  '👩🏻‍🏫',
 		},
 	]);
-
-	setChat((state) => ({
-		activeChatId: id,
-		chats: state.chats.concat(defaultInitChat),
-	}));
-
-	router.push(`/chat/${id}`);
 };
 
 export const setActiveChatId = (id: string | undefined) => {

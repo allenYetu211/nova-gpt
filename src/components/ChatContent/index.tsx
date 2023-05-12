@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-05-09 15:01:17
+ * @LastEditTime: 2023-05-12 11:45:52
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/index.tsx
  */
@@ -12,8 +12,8 @@ import { createStyles } from '@mantine/core';
 import { Ref, memo, useEffect, useRef } from 'react';
 import { ChatMessage } from '@/components/ChatContent/ChatMessage';
 import { ChatQuestionFloat, RefCallbackFunc } from '@/components/ChatContent/ChatQuestionFloat';
-import { useRouter } from 'next/router';
-import { setActiveChatId } from '@/stores/ChatAction';
+// import { useRouter } from 'next/router';
+// import { setActiveChatId } from '@/stores/ChatAction';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -25,15 +25,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const ChatContent = memo(() => {
-	const router = useRouter();
-	const activeChatId = router.query.chatId as string | undefined;
-
-	useEffect(() => {
-		setActiveChatId(activeChatId as string | undefined);
-	}, [activeChatId]);
-
 	const { classes, cx } = useStyles();
-	// const activeChatId = useChatStore((state) => state.activeChatId);
+	const activeChatId = useChatStore((state) => state.activeChatId);
 	const chats = useChatStore((state) => state.chats);
 	const activeChat = chats.find((item) => item.id === activeChatId);
 	const contentRef = useRef<HTMLDivElement>(null);

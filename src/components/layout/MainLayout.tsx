@@ -7,28 +7,18 @@
  * @FilePath: /nova-gpt/src/pages/chat/[chatId].tsx
  */
 
-import { Main } from '@/components/Main';
-
 import { addPermissions } from '@/stores/UserAction';
 import { Nav } from '@/components/Nav';
 import { AppShell, Box } from '@mantine/core';
-import Head from 'next/head';
-import { useEffect } from 'react';
 
-export default function Chats() {
+import { useEffect, PropsWithChildren } from 'react';
+
+export default function MainLayout({ children }: PropsWithChildren) {
 	useEffect(() => {
 		addPermissions('chat');
 	}, []);
 	return (
 		<>
-			<Head>
-				<title>Nova GPT</title>
-				<meta name="description" content="Extension Chat GPT WEB" />
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				{/* <link rel="icon" href="/favicon.ico" /> */}
-				<link rel="icon" type="image/svg+xml" href="/logo.svg" />
-			</Head>
-
 			<AppShell
 				padding="md"
 				layout="alt"
@@ -63,7 +53,7 @@ export default function Chats() {
 								: theme.colors.light_background[1],
 					})}
 				>
-					<Main />
+					{children}
 				</Box>
 			</AppShell>
 		</>

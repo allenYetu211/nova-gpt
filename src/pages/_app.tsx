@@ -16,8 +16,7 @@ import { useEffect, useState } from 'react';
 import { useSettingStore } from '@/stores/SettingStore';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
-
-// import setupLocatorUI from '@locator/runtime';
+import Head from 'next/head';
 
 const useStyles = createStyles((theme) => ({
 	appShell: {
@@ -30,13 +29,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
 	const colorScheme = useSettingStore((state) => state.colorScheme);
 	const { theme } = useStyles();
-	//Wait till NextJS rehydration completes
 	useEffect(() => {
 		setIsHydrated(true);
-
-		// if (process.env.NODE_ENV === 'development') {
-		// setupLocatorUI();
-		// }
 	}, []);
 
 	if (!isHydrated) {
@@ -63,30 +57,40 @@ export default function App({ Component, pageProps }: AppProps) {
 	}
 
 	return (
-		<MantineProvider
-			withGlobalStyles
-			withNormalizeCSS
-			theme={{
-				fontFamily: 'Verdana, sans-serif',
-				fontFamilyMonospace: 'Monaco, Courier, monospace',
-				// headings: { fontFamily: 'Greycliff CF, sans-serif' },
-				colorScheme: colorScheme,
-				colors: ThemeColor,
-				other: {
-					border01: colorScheme === 'dark' ? `${rem(1)} solid #5C6077` : `${rem(1)} solid #C6C2E1`,
-					br24: rem(24),
-				},
-				focusRingStyles: {
-					resetStyles: () => ({ outline: 'none' }),
-					styles: (theme) => ({ outline: 'none' }),
-					inputStyles: (theme) => ({ outline: 'none' }),
-				},
-			}}
-		>
-			<Notifications />
-			<ModalsProvider>
-				<Component {...pageProps} />
-			</ModalsProvider>
-		</MantineProvider>
+		<>
+			<Head>
+				<title>Nova GPT</title>
+				<meta name="description" content="Extension Chat GPT WEB" />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				{/* <link rel="icon" href="/favicon.ico" /> */}
+				<link rel="icon" type="image/svg+xml" href="/logo.svg" />
+			</Head>
+
+			<MantineProvider
+				withGlobalStyles
+				withNormalizeCSS
+				theme={{
+					fontFamily: 'Verdana, sans-serif',
+					fontFamilyMonospace: 'Monaco, Courier, monospace',
+					colorScheme: colorScheme,
+					colors: ThemeColor,
+					other: {
+						border01:
+							colorScheme === 'dark' ? `${rem(1)} solid #5C6077` : `${rem(1)} solid #C6C2E1`,
+						br24: rem(24),
+					},
+					focusRingStyles: {
+						resetStyles: () => ({ outline: 'none' }),
+						styles: (theme) => ({ outline: 'none' }),
+						inputStyles: (theme) => ({ outline: 'none' }),
+					},
+				}}
+			>
+				<Notifications />
+				<ModalsProvider>
+					<Component {...pageProps} />
+				</ModalsProvider>
+			</MantineProvider>
+		</>
 	);
 }

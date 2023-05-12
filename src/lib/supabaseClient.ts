@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-07 14:36:18
- * @LastEditTime: 2023-05-09 16:58:35
+ * @LastEditTime: 2023-05-12 11:33:43
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/lib/supabaseClient.ts
  */
@@ -42,6 +42,10 @@ const handledDB: handledDBType = {
 export const supabase = new Proxy(handledDB, {
 	get: function (target, key: keyof handledDBType) {
 		const origMethod = target[key];
+		/**
+		 * 1. 没有输入 supabase key
+		 * 2. 没有登录，则不发送
+		 */
 		if (!target['supabase']) {
 			const { url, token } = useSettingStore.getState().supabase;
 			if (url !== '' || token !== '') {

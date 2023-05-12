@@ -97,7 +97,7 @@ export const en = {
 			`Support microphone input - using Tencent Cloud Speech Recognition`,
 			`API key and data stored in local storage - ensuring your data privacy and security`,
 		],
-		createFirstChat: 'Create First Chat',
+		createFirstChat: 'New Session',
 		adding: 'Adding an OpenAI key or access token',
 	},
 	request: {
