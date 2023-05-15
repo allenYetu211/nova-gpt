@@ -30,7 +30,7 @@ interface ChatSessionInputProps extends Pick<Chat, 'created_at' | 'title' | 'id'
 	amount: number;
 }
 
-export const ChatSessionInput = memo((props: ChatSessionInputProps) => {
+export const ChatSession = memo((props: ChatSessionInputProps) => {
 	const [open, setOpen] = useState<boolean>(false);
 	const { classes } = useStyles();
 

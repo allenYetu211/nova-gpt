@@ -1,15 +1,15 @@
 import { changeActionChat } from '@/stores/ChatAction';
-import { Chat, Message, useChatStore } from '@/stores/ChatStore';
+import { Chat, Message } from '@/stores/ChatStore';
 import { Menu, Box, Flex, Group, Input, Text, Title, createStyles } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { IconEdit, IconShare, IconMarkdown, IconPng } from '@tabler/icons-react';
+import { IconEdit, IconShare, IconMarkdown, IconPng, IconArrowBackUp } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import { useRef } from 'react';
-import { UIModal, UIButton, UIActionButton, modal, AutoComponents } from '@/components/Common';
+import { UIButton, UIActionButton, modal, AutoComponents } from '@/components/Common';
 import i18n from '@/i18n';
 import { downloadAsCapture, downloadAsMarkdown } from '@/utils/download';
 import { copyToClipboard } from '@/utils';
 import { notifications } from '@/components/Common';
+import { updateSetting } from '@/stores/SettingAction';
 
 const useStyles = createStyles((theme) => ({
 	titleContainer: {
@@ -22,11 +22,6 @@ const useStyles = createStyles((theme) => ({
 
 	changeTitleInput: {
 		width: '100%',
-		// [`& .mantine-Input-input`]: {
-		// 	flex: 1,
-		// 	border: `none`,
-		// 	backgroundColor: 'transparent',
-		// },
 	},
 }));
 
@@ -108,6 +103,19 @@ export function ChatTitlesContainer(props: ChatTitlesContainerUIProps) {
 				</Box>
 
 				<Group sx={{ position: 'relative' }}>
+					<UIActionButton
+						sx={(theme) => ({
+							[`@media (min-width: ${theme.breakpoints.sm})`]: {
+								display: 'none',
+							},
+						})}
+						onClick={() => {
+							updateSetting({ openNav: true });
+						}}
+					>
+						<IconArrowBackUp />
+					</UIActionButton>
+
 					<ShareChatHistory download={download} share={share} />
 
 					<AutoComponents allowedPermission={['chat']}>

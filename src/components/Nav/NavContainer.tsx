@@ -15,7 +15,7 @@ import { UIActionButton, modal } from '@/components/Common';
 import { RolePlaying } from '@/components/RolePlaying';
 import { useState } from 'react';
 import { SegmentedControl } from '@mantine/core';
-import { openSettingModal } from '@/components/Setting';
+import { openSettingModal } from '@/components/Common/Setting';
 import { useSettingStore } from '@/stores/SettingStore';
 import { switchColorScheme } from '@/stores/SettingAction';
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
@@ -125,18 +125,6 @@ export const NavContainer = (props: NavContainerProps) => {
 						]}
 					/>
 				</Group>
-
-				{/* 添加navbar 开关  */}
-				<UIActionButton
-					sx={(theme) => ({
-						[`@media (min-width: ${theme.breakpoints.sm})`]: {
-							display: 'none',
-						},
-					})}
-					onClick={props.toggle}
-				>
-					<IconArrowBarToLeft {...IconStyle} />
-				</UIActionButton>
 			</Flex>
 		</>
 	);

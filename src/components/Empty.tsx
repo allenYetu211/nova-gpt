@@ -13,7 +13,7 @@ import { useSettingStore } from '@/stores/SettingStore';
 import { Box, Button, List, Text, ThemeIcon, Title, createStyles, Group } from '@mantine/core';
 import { IconCheck } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
-import { openSettingModal } from '@/components/Setting';
+import { openSettingModal } from '@/components/Common/Setting';
 
 const useStyles = createStyles((theme) => ({
 	container: {

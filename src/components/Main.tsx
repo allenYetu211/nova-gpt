@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 12:08:23
- * @LastEditTime: 2023-05-15 11:18:29
+ * @LastEditTime: 2023-05-15 12:07:20
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Main.tsx
  */
@@ -41,9 +41,12 @@ export function Main() {
 					{activeChat && <ChatTitlesContainer message={activeChat?.message} chat={activeChat} />}
 					<ChatContent />
 					<Box
-						sx={{
+						sx={(theme) => ({
 							padding: `0 calc(var(--mantine-footer-height, 0px) + 2rem) calc(var(--mantine-footer-height, 0px) + 3rem)`,
-						}}
+							[`@media (max-width: ${theme.breakpoints.sm})`]: {
+								padding: `0  1rem 1rem`,
+							},
+						})}
 					>
 						<ChatTextarea />
 					</Box>

@@ -59,6 +59,7 @@ export interface SettingState {
 	};
 	// isSetting: boolean;
 	isMobile: boolean;
+	openNav: boolean;
 	accessToken: string;
 	openAI: {
 		/**
@@ -82,6 +83,7 @@ const initialSettingState: SettingState = {
 		token: process.env.NEXT_PUBLIC_SUPBASE_TOKEN || '',
 	},
 	isMobile: isMobile(),
+	openNav: false,
 	accessToken: '',
 	openAI: {
 		key: '',

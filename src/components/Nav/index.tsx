@@ -2,22 +2,20 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 15:01:08
- * @LastEditTime: 2023-05-12 14:25:46
+ * @LastEditTime: 2023-05-15 11:52:04
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/index.tsx
  */
-import { ActionIcon, Box, Text, Divider, Flex, Navbar, createStyles, Group } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { ChatSessionInput } from '@/components/Nav/ChatSessionInput';
+import { ChatSession } from '@/components/Nav/ChatSession';
 import { useChatStore } from '@/stores/ChatStore';
-
-import { useSettingStore } from '@/stores/SettingStore';
-import { IconArrowBarToRight } from '@tabler/icons-react';
-import IconLogo from '@/images/svg/logo';
-import i18n from '@/i18n';
+import { Box, Divider, Flex, Navbar, Text, createStyles } from '@mantine/core';
 import { NavContainer } from '@/components/Nav/NavContainer';
-import { UserManage } from './UserManage';
+import i18n from '@/i18n';
+import IconLogo from '@/images/svg/logo';
 import { setActiveChatId } from '@/stores/ChatAction';
+import { useSettingStore } from '@/stores/SettingStore';
+import { UserManage } from './UserManage';
+import { updateSetting } from '@/stores/SettingAction';
 
 const useStyles = createStyles((theme) => ({
 	chatItem: {
@@ -56,22 +54,13 @@ const useStyles = createStyles((theme) => ({
 		height: 40,
 		padding: theme.spacing.xs,
 	},
-	// nav: {
-	//   [`@media (min-width: ${theme.breakpoints.sm})`]: {
-	//     width: 100,
-	//   },
-	//   [`@media (min-width: ${theme.breakpoints.md})`]: {
-	//     width: 50,
-	//   },
-	// },
 }));
 
 export function Nav() {
 	const { classes, theme, cx } = useStyles();
 	const chats = useChatStore((state) => state.chats);
 	const activeChatId = useChatStore((state) => state.activeChatId);
-	const isMobile = useSettingStore((state) => state.isMobile);
-	const [opened, { toggle }] = useDisclosure(!isMobile);
+	const openNav = useSettingStore((state) => state.openNav);
 
 	const chatsList = chats
 		? chats.map((chat) => {
@@ -83,9 +72,10 @@ export function Nav() {
 						})}
 						onClick={() => {
 							setActiveChatId(chat.id);
+							updateSetting({ openNav: false });
 						}}
 					>
-						<ChatSessionInput
+						<ChatSession
 							title={chat.title}
 							id={chat.id}
 							created_at={chat.created_at}
@@ -114,8 +104,11 @@ export function Nav() {
 					border: 'none',
 					[`@media (max-width: ${theme.breakpoints.sm})`]: {
 						width: '100%',
-						background: theme.colors.dark[7],
-						display: opened ? 'flex' : 'none',
+						background:
+							theme.colorScheme === 'dark'
+								? theme.colors.dark_background[1]
+								: theme.colors.light_background[0],
+						display: openNav ? 'flex' : 'none',
 					},
 				})}
 				p="xs"
@@ -126,9 +119,6 @@ export function Nav() {
 					direction="column"
 					sx={(theme) => ({
 						height: '100%',
-						// background:
-						// 	theme.colorScheme === 'dark' ? theme.colors.gradient[2] : theme.colors.dark[0],
-						// borderRadius: theme.radius.xl,
 						padding: theme.spacing.xl,
 						boxShadow: theme.shadows.xl,
 					})}
@@ -148,7 +138,11 @@ export function Nav() {
 						<IconLogo height="40px" width="40px" />
 					</Flex>
 
-					<NavContainer toggle={toggle} />
+					<NavContainer
+						toggle={() => {
+							updateSetting({ openNav: false });
+						}}
+					/>
 
 					<Divider sx={{ margin: `0 -1.5rem` }} my="sm" />
 
@@ -183,23 +177,6 @@ export function Nav() {
 					</Box>
 				</Flex>
 			</Navbar>
-
-			<Group
-				sx={(theme) => ({
-					display: !opened ? 'block' : 'none',
-					[`@media (min-width: ${theme.breakpoints.sm})`]: {
-						display: 'none',
-					},
-					position: 'absolute',
-					left: 5,
-					top: 10,
-				})}
-			>
-				{/* 添加navbar 开关  */}
-				<ActionIcon variant="default" size="xs" onClick={toggle}>
-					<IconArrowBarToRight />
-				</ActionIcon>
-			</Group>
 		</Box>
 	);
 }

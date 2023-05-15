@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 22:05:39
- * @LastEditTime: 2023-05-15 11:13:53
+ * @LastEditTime: 2023-05-15 11:25:43
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/components/Setting.tsx
+ * @FilePath: /nova-gpt/src/components/Common/Setting.tsx
  */
 import {
 	// switchIsSetting,
@@ -39,7 +39,10 @@ import { UISelect } from '@/components/Common/UISelect';
 
 export const useStyles = createStyles((theme) => ({
 	settingItem: {
-		background: theme.colorScheme === 'dark' ? '#2c3453' : '#fff',
+		background:
+			theme.colorScheme === 'dark'
+				? theme.colors.dark_background[0]
+				: theme.colors.light_background[1],
 		padding: theme.spacing.md,
 		borderRadius: theme.radius.md,
 		boxShadow: theme.shadows.md,
@@ -67,7 +70,7 @@ export const openSettingModal = () => {
 };
 
 const Setting = () => {
-	const { classes, cx } = useStyles();
+	const { classes } = useStyles();
 	const max_tokens = useSettingStore((state) => state.openAI.config.max_tokens);
 	const key = useSettingStore((state) => state.openAI.key);
 	const models = useSettingStore((state) => state.openAI.models);

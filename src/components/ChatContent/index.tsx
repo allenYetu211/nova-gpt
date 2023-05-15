@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-05-12 18:38:50
+ * @LastEditTime: 2023-05-15 12:06:56
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/index.tsx
  */
@@ -20,6 +20,9 @@ import { notifications } from '@/components/Common';
 const useStyles = createStyles((theme) => ({
 	container: {
 		padding: `0 calc(var(--mantine-footer-height, 0px) + 2rem) calc(var(--mantine-footer-height, 0px) + 3rem)`,
+		[`@media (max-width: ${theme.breakpoints.sm})`]: {
+			padding: `0  1rem`,
+		},
 		flex: 1,
 		overflow: 'auto',
 		position: 'relative',
