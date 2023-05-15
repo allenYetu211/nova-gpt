@@ -68,11 +68,11 @@ export const updateOpenAIHistory = (newState: SettingState['openAI']['history'])
 	}));
 };
 
-export const switchIsSetting = () => {
-	setSetting((state) => ({
-		isSetting: !state.isSetting,
-	}));
-};
+// export const switchIsSetting = () => {
+// 	setSetting((state) => ({
+// 		isSetting: !state.isSetting,
+// 	}));
+// };
 
 export const toggleTranslations = (newState: string) => {
 	const translations = getSetting().translations;

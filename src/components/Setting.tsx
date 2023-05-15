@@ -2,12 +2,12 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 22:05:39
- * @LastEditTime: 2023-05-09 15:24:48
+ * @LastEditTime: 2023-05-15 11:13:53
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Setting.tsx
  */
 import {
-	switchIsSetting,
+	// switchIsSetting,
 	updateAccessToken,
 	updateOpenAIConfig,
 	updateOpenAIHistory,
@@ -15,6 +15,9 @@ import {
 	updateLanguage,
 	updateSupabase,
 } from '@/stores/SettingAction';
+
+import { modal } from '@/components/Common';
+
 import { useSettingStore, Language } from '@/stores/SettingStore';
 import { keepDecimal } from '@/utils';
 import {
@@ -53,61 +56,17 @@ export const useStyles = createStyles((theme) => ({
 			borderColor: theme.colors.light[3],
 		},
 	},
-
-	container: {
-		position: 'absolute',
-		left: 0,
-		top: 0,
-		right: 0,
-		bottom: 0,
-		zIndex: 1000,
-		padding: theme.spacing.md,
-		background: theme.colorScheme === 'dark' ? theme.colors.gradient[0] : theme.colors.light[0],
-		transition: 'all 0.3s ease',
-	},
 }));
 
-export const Setting = () => {
-	const isSetting = useSettingStore((state) => state.isSetting);
-	const { classes, cx } = useStyles();
-	return (
-		<Box
-			sx={{
-				opacity: isSetting ? 1 : 0,
-				pointerEvents: isSetting ? 'all' : 'none',
-			}}
-			className={classes.container}
-		>
-			<Flex
-				justify="space-between"
-				align="center"
-				sx={(theme) => ({ margin: `${theme.spacing.xl} 0` })}
-			>
-				<Text ta="left" fz="xl" fw={700}>
-					{/* Setting */}
-				</Text>
-
-				<ActionIcon onClick={switchIsSetting}>
-					<IconX />
-				</ActionIcon>
-			</Flex>
-
-			<Box
-				sx={(theme) => ({
-					margin: '0 auto',
-					width: '40%',
-					[`@media (max-width: ${theme.breakpoints.sm})`]: {
-						width: '100%',
-					},
-				})}
-			>
-				<Config />
-			</Box>
-		</Box>
-	);
+export const openSettingModal = () => {
+	modal.open({
+		title: 'Setting',
+		children: <Setting />,
+		size: 'xl',
+	});
 };
 
-const Config = () => {
+const Setting = () => {
 	const { classes, cx } = useStyles();
 	const max_tokens = useSettingStore((state) => state.openAI.config.max_tokens);
 	const key = useSettingStore((state) => state.openAI.key);

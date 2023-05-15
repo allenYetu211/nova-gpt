@@ -8,11 +8,12 @@
  */
 import i18n from '@/i18n';
 import { newChat } from '@/stores/ChatAction';
-import { switchIsSetting } from '@/stores/SettingAction';
+// import { switchIsSetting } from '@/stores/SettingAction';
 import { useSettingStore } from '@/stores/SettingStore';
 import { Box, Button, List, Text, ThemeIcon, Title, createStyles, Group } from '@mantine/core';
 import { IconCheck } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
+import { openSettingModal } from '@/components/Setting';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -76,17 +77,10 @@ export const EmptyChats = () => {
 					{i18n.empty.createFirstChat}
 				</Button>
 			) : (
-				<Button radius="xl" onClick={switchIsSetting}>
+				<Button radius="xl" onClick={openSettingModal}>
 					{i18n.empty.adding}
 				</Button>
 			)}
 		</Box>
 	);
 };
-
-// interface BaseButtonProps {
-
-// }
-// const BaseButton: FC<PropsWithChildren<Button>>  = ({children}) => {
-//   <Button onClick={switchIsSetting}>children</Button>
-// }

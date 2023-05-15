@@ -57,7 +57,7 @@ export interface SettingState {
 		url: string;
 		token: string;
 	};
-	isSetting: boolean;
+	// isSetting: boolean;
 	isMobile: boolean;
 	accessToken: string;
 	openAI: {
@@ -81,7 +81,6 @@ const initialSettingState: SettingState = {
 		url: process.env.NEXT_PUBLIC_SUPBASE_URL || '',
 		token: process.env.NEXT_PUBLIC_SUPBASE_TOKEN || '',
 	},
-	isSetting: false,
 	isMobile: isMobile(),
 	accessToken: '',
 	openAI: {

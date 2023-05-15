@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-07 16:45:14
- * @LastEditTime: 2023-05-09 14:53:51
+ * @LastEditTime: 2023-05-15 11:22:33
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/share/[chatId].tsx
  */
@@ -47,8 +47,8 @@ const ShareChat = (props: { message: Message[]; chat: Chat[] }) => {
 								}
 								return (
 									<ChatMessage
-										systemAvatar={chat[0].systemAvatar}
-										userAvatar={chat[0].userAvatar}
+										system_avatar={chat[0].system_avatar}
+										user_avatar={chat[0].user_avatar}
 										avatar={chat[0].avatar}
 										key={item.id}
 										message={item}

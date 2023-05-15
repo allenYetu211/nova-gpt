@@ -2,11 +2,11 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-06 15:39:53
- * @LastEditTime: 2023-05-11 11:20:14
+ * @LastEditTime: 2023-05-15 11:10:08
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/NavContainer.tsx
  */
-import { switchIsSetting } from '@/stores/SettingAction';
+// import { switchIsSetting } from '@/stores/SettingAction';
 import { IconPlus, IconSettings, IconArrowBarToLeft, IconJewishStar } from '@tabler/icons-react';
 import i18n from '@/i18n';
 import { Flex, Group, useMantineTheme, rem } from '@mantine/core';
@@ -15,7 +15,7 @@ import { UIActionButton, modal } from '@/components/Common';
 import { RolePlaying } from '@/components/RolePlaying';
 import { useState } from 'react';
 import { SegmentedControl } from '@mantine/core';
-
+import { openSettingModal } from '@/components/Setting';
 import { useSettingStore } from '@/stores/SettingStore';
 import { switchColorScheme } from '@/stores/SettingAction';
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
@@ -77,7 +77,7 @@ export const NavContainer = (props: NavContainerProps) => {
 					>
 						<IconPlus {...IconStyle} />
 					</UIActionButton>
-					<UIActionButton {...ActionIconStyle} label={i18n.Nav.setting} onClick={switchIsSetting}>
+					<UIActionButton {...ActionIconStyle} label={i18n.Nav.setting} onClick={openSettingModal}>
 						<IconSettings {...IconStyle} />
 					</UIActionButton>
 
