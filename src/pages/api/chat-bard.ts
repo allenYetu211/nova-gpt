@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-15 16:15:05
- * @LastEditTime: 2023-05-16 00:20:09
+ * @LastEditTime: 2023-05-16 01:28:27
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/api/chat-bard.ts
  */
@@ -15,6 +15,9 @@ export const config = {
 
 export default async function POST(req: Request) {
 	const bardCookie = req.headers.get('bard-cookie');
+	const contextIds = req.headers.get('context-ids')
+		? JSON.parse(req.headers.get('context-ids')!)
+		: ['', '', ''];
 	if (!bardCookie) {
 		return handledError({
 			content: JSON.stringify({
@@ -25,13 +28,20 @@ export default async function POST(req: Request) {
 	}
 
 	try {
-		const result = await requestGoogleBard(bardCookie, req);
-		return new Response(JSON.stringify(result), {
-			status: 200,
-			headers: {
-				'Content-Type': 'application/json',
+		const result = await requestGoogleBard(bardCookie, req, contextIds);
+		const { r, c, rc, responses } = result;
+		return new Response(
+			JSON.stringify({
+				contextIds: [r, c, rc],
+				responses: responses[0],
+			}),
+			{
+				status: 200,
+				headers: {
+					'Content-Type': 'application/json',
+				},
 			},
-		});
+		);
 	} catch (error) {
 		return handledError(error);
 	}
@@ -43,28 +53,53 @@ async function requestGoogleBard(
 	contextIds: string[] = ['', '', ''],
 ) {
 	const { content } = await req.json();
+	//  TODO : 初次请求后，客户端携带发送，节省每次请求时间
 	const { atValue, blValue } = await requestParams(bardCookie);
 
-	const freq = JSON.stringify([
-		null,
-		`[[${JSON.stringify(content)}],null,${JSON.stringify(contextIds)}]`,
-	]);
-
-	const form = new URLSearchParams([
-		['at', atValue],
-		['f.req', freq],
-	]);
-
-	const url = `https://bard.google.com/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate?bl=${blValue}&_reqid=0&rt=c`;
-	const result = await fetch(url, {
-		method: 'POST',
-		headers: {
-			Cookie: bardCookie,
+	const result = await fetch(
+		`https://bard.google.com/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate?bl=${blValue}&_reqid=${
+			Math.floor(Math.random() * 900000) + 100000
+		}&rt=c`,
+		{
+			method: 'POST',
+			headers: {
+				Cookie: bardCookie,
+			},
+			body: new URLSearchParams([
+				['at', atValue],
+				[
+					'f.req',
+					JSON.stringify([
+						null,
+						`[[${JSON.stringify(content)}],null,${JSON.stringify(contextIds)}]`,
+					]),
+				],
+			]),
 		},
-		body: form,
-	});
+	);
 	const html = await result.text();
 	return parseResponse(html);
+
+	//  返回的数据结构到底是什么意思？ 。。。。, 根据bard 页面，先选第一个作为回答。。。
+	// [
+	//   [ 'Hello there! How can I help you today?' ],
+	//   [ 'c_ae95e552fa90bcc', 'r_ae95e552fa90d46' ],
+	//   [ [ 'Hello', 1 ] ],
+	//   [],
+	//   [
+	//     [
+	//     'rc_ae95e552fa90c89',
+	//     [ 'Hello there! How can I help you today?' ],
+	//     []
+	//   ],
+	//     [
+	//     'rc_ae95e552fa90cc8',
+	//     [ 'Hello there! How may I help you today?' ],
+	//     []
+	//   ],
+	//     [ 'rc_ae95e552fa90d07', [ 'Hello! How can I help you today?' ], [] ]
+	//   ]
+	// ]
 }
 
 async function requestParams(bardCookie: string) {
@@ -128,7 +163,6 @@ function parseResponse(text: string) {
 			const lines = text.split('\n');
 			for (let i in lines) {
 				const line = lines[i];
-				console.log('line', line);
 				if (line.includes('wrb.fr')) {
 					let data = JSON.parse(line);
 					let responsesData = JSON.parse(data[0][2]);

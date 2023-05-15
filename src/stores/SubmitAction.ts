@@ -2,13 +2,14 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-05-08 10:30:06
+ * @LastEditTime: 2023-05-16 01:27:31
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
 import { useChatStore, Message, Chat } from './ChatStore';
 import { useSettingStore, SettingsForm, Language } from './SettingStore';
 import { requestOpenAI } from '@/fetch/OpenAI';
+import { requestBardAI } from '@/fetch/Brad';
 import { updateActionsChatMessage, getActiveChat } from '@/utils';
 import { createMessage } from '@/utils';
 import { supabase } from '@/lib/supabaseClient';
@@ -114,12 +115,17 @@ const getSystemMake = (target: keyof (typeof prompt)['zh_cn']) => {
  * 发送消息对话
  */
 const submitMessage = (message: Message[]) => {
+	// TODO: 根据当前是 Chat GPT，还是 Bard 选择不同的入参。
+	// if (true) {
+	// 	submitMessageBard(message[message.length - 1].content);
+	// } else {
 	const { activeChatId } = getChat();
 	const { openAI } = getSetting();
 	const GPTConfig = openAI.config;
 	const gtpMessage = gptMessage();
 	const gptResponseMessageId = gtpMessage.id;
 	streamOpenAI(message, GPTConfig, activeChatId, gptResponseMessageId);
+	// }
 };
 
 /**
@@ -325,4 +331,38 @@ const insetSubmitMessage = (message: Message[]) => {
 const updateAssistantMessage = async (content: string, message_id: string) => {
 	// await supabase.from('message').upsert({ id: message_id, content: content });
 	supabase.upsert('message', { id: message_id, content: content });
+};
+
+/**
+ * 推送消息至bard
+ */
+
+const submitMessageBard = async (message: string) => {
+	const { activeChatId, chats } = getChat();
+	const chat = getActiveChat(chats, activeChatId);
+	const abortController = new AbortController();
+	const gtpMessage = gptMessage();
+	const responseMessageId = gtpMessage.id;
+	ControllerAbort.addController(responseMessageId, abortController);
+
+	const { bardCookie = '' } = getSetting();
+
+	const data = await requestBardAI(
+		message,
+		chat?.contextIds ?? ['', '', ''],
+		bardCookie,
+		abortController,
+	);
+
+	if (!data) return;
+	setChat((state) => ({
+		chats: updateActionsChatMessage(state.chats, activeChatId, (chat: Chat) => {
+			const assistantMessage = chat.message.find((m) => m.id === responseMessageId);
+			if (assistantMessage) {
+				assistantMessage.content = data.responses;
+			}
+			chat.contextIds = data.contextIds;
+			return chat;
+		}),
+	}));
 };

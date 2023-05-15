@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 22:05:39
- * @LastEditTime: 2023-05-15 11:25:43
+ * @LastEditTime: 2023-05-16 01:16:14
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Common/Setting.tsx
  */
@@ -14,6 +14,7 @@ import {
 	updateOpenAIKey,
 	updateLanguage,
 	updateSupabase,
+  updateSetting
 } from '@/stores/SettingAction';
 
 import { modal } from '@/components/Common';
@@ -79,6 +80,7 @@ const Setting = () => {
 	const presence_penalty = useSettingStore((state) => state.openAI.config.presence_penalty);
 	const temperature = useSettingStore((state) => state.openAI.config.temperature);
 	const accessToken = useSettingStore((state) => state.accessToken);
+	const bardCookie = useSettingStore((state) => state.bardCookie);
 
 	const supabase = useSettingStore((state) => state.supabase);
 
@@ -304,6 +306,26 @@ const Setting = () => {
 				),
 			},
 		],
+
+    'Bard Ai': [
+      // bardCookie
+      {
+				name: 'Bard Ai',
+				introduction: 'Copy Bard API Cookie',
+				template: (
+					<Input
+						value={bardCookie}
+						size="xs"
+						sx={{ width: '100%' }}
+						onChange={(e) => {
+							updateSetting({bardCookie  : e.target.value});
+
+						}}
+						placeholder=""
+					/>
+				),
+			},
+    ]
 	};
 	return (
 		<>
