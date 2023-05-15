@@ -8,7 +8,7 @@
  */
 import { useChatStore, Message, Chat } from './ChatStore';
 import { useSettingStore, SettingsForm, Language } from './SettingStore';
-import { requestOpenAI } from '@/fetch/Request';
+import { requestOpenAI } from '@/fetch/OpenAI';
 import { updateActionsChatMessage, getActiveChat } from '@/utils';
 import { createMessage } from '@/utils';
 import { supabase } from '@/lib/supabaseClient';

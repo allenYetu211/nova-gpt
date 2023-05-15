@@ -2,17 +2,15 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-25 14:06:24
- * @LastEditTime: 2023-05-12 14:34:09
+ * @LastEditTime: 2023-05-15 14:31:32
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Empty.tsx
  */
 import i18n from '@/i18n';
 import { newChat } from '@/stores/ChatAction';
-// import { switchIsSetting } from '@/stores/SettingAction';
 import { useSettingStore } from '@/stores/SettingStore';
 import { Box, Button, List, Text, ThemeIcon, Title, createStyles, Group } from '@mantine/core';
 import { IconCheck } from '@tabler/icons-react';
-import { useRouter } from 'next/router';
 import { openSettingModal } from '@/components/Common/Setting';
 
 const useStyles = createStyles((theme) => ({

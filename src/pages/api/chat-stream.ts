@@ -6,6 +6,9 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/api/chat-stream.ts
  */
+
+import { handledError } from './common';
+
 const HOST = 'api.openai.com';
 const OPEN_AI_KEY = process.env.OPEN_AI_KEY ?? '';
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN ?? '';
@@ -70,15 +73,6 @@ export default async function POST(req: Request): Promise<Response> {
 	} catch (error: any) {
 		return handledError(error);
 	}
-}
-
-function handledError(error: any) {
-	return new Response(error.content ?? error, {
-		status: error.status ?? 403,
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	});
 }
 
 async function loadStream(req: Request, apiKey: string, path: string) {
