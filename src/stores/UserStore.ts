@@ -8,7 +8,7 @@
  */
 import { create } from 'zustand';
 
-export type PermissionsType = 'logged' | 'chat';
+export type PermissionsType = 'logged' | 'chat' | 'brad ai';
 
 export interface UserState {
 	logged: boolean;

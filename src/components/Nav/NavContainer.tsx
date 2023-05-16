@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-06 15:39:53
- * @LastEditTime: 2023-05-16 17:31:36
+ * @LastEditTime: 2023-05-16 18:06:35
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/NavContainer.tsx
  */
@@ -11,7 +11,7 @@ import { IconPlus, IconSettings, IconArrowBarToLeft, IconJewishStar } from '@tab
 import i18n from '@/i18n';
 import { Flex, Group, useMantineTheme, rem, Menu } from '@mantine/core';
 import { newChat } from '@/stores/ChatAction';
-import { UIActionButton, modal } from '@/components/Common';
+import { AutoComponents, UIActionButton, modal } from '@/components/Common';
 import { RolePlaying } from '@/components/RolePlaying';
 import { useState } from 'react';
 import { SegmentedControl } from '@mantine/core';
@@ -29,6 +29,7 @@ export const NavContainer = (props: NavContainerProps) => {
 	const theme = useMantineTheme();
 	const colorScheme = useSettingStore((state) => state.colorScheme);
 	const [value, setValue] = useState<string>('');
+	const cookie = useSettingStore((state) => state.bard.cookie);
 
 	const ActionIconStyle = {
 		radius: 'sm',
@@ -87,12 +88,14 @@ export const NavContainer = (props: NavContainerProps) => {
 							>
 								{ROLE_TYPE['OPEN AI']} OPEN AI
 							</Menu.Item>
+
 							<Menu.Item
+								disabled={cookie.length >= 100}
 								onClick={() => {
 									newChat('BARD AI');
 								}}
 							>
-								{ROLE_TYPE['BARD AI']} BARD AI
+								{cookie.length >= 100 ? `${ROLE_TYPE['BARD AI']} BARD AI` : `Setting Bard cookie`}
 							</Menu.Item>
 						</Menu.Dropdown>
 					</Menu>

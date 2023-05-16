@@ -58,6 +58,17 @@ export function ChatTitlesContainer(props: ChatTitlesContainerUIProps) {
 		}
 	};
 
+	const shareLink = () => {
+		const replacedStr = `${window.location.href}/share/${chat.id}`;
+		copyToClipboard(replacedStr);
+
+		notifications.show({
+			title: `Share Link Copied`,
+			message: replacedStr,
+			autoClose: 5000,
+		});
+	};
+
 	const onOpenEditModal = () => {
 		modal.open({
 			id: 'changeEdit',
@@ -116,7 +127,7 @@ export function ChatTitlesContainer(props: ChatTitlesContainerUIProps) {
 						<IconArrowBackUp />
 					</UIActionButton>
 
-					<ShareChatHistory download={download} share={share} />
+					<ShareChatHistory download={download} shareLink={shareLink} />
 
 					<AutoComponents allowedPermission={['chat']}>
 						<UIActionButton onClick={onOpenEditModal}>
@@ -131,10 +142,10 @@ export function ChatTitlesContainer(props: ChatTitlesContainerUIProps) {
 
 function ShareChatHistory({
 	download,
-	share,
+	shareLink,
 }: {
 	download: (type: 'png' | 'md') => void;
-	share: boolean;
+	shareLink: () => void;
 }) {
 	return (
 		<Menu trigger="hover" shadow="md" width={200}>
@@ -170,21 +181,7 @@ function ShareChatHistory({
 					{(state) => (
 						<>
 							<Menu.Label>Share</Menu.Label>
-							<Menu.Item
-								disabled={!state}
-								onClick={() => {
-									const regex = /\/chat\//;
-									const replacedStr = window.location.href.replace(regex, '/share/');
-									copyToClipboard(replacedStr);
-
-									notifications.show({
-										title: `Share Link Copied`,
-										message: replacedStr,
-										autoClose: 5000,
-									});
-								}}
-								icon={<IconShare size={14} />}
-							>
+							<Menu.Item disabled={!state} onClick={shareLink} icon={<IconShare size={14} />}>
 								{state ? 'Share Link' : 'Login to Share'}
 							</Menu.Item>
 						</>
