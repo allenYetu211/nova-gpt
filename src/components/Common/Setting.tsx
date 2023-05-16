@@ -14,7 +14,7 @@ import {
 	updateOpenAIKey,
 	updateLanguage,
 	updateSupabase,
-  updateSetting
+	updateBardConfig,
 } from '@/stores/SettingAction';
 
 import { modal } from '@/components/Common';
@@ -80,7 +80,7 @@ const Setting = () => {
 	const presence_penalty = useSettingStore((state) => state.openAI.config.presence_penalty);
 	const temperature = useSettingStore((state) => state.openAI.config.temperature);
 	const accessToken = useSettingStore((state) => state.accessToken);
-	const bardCookie = useSettingStore((state) => state.bardCookie);
+	const cookie = useSettingStore((state) => state.bard.cookie);
 
 	const supabase = useSettingStore((state) => state.supabase);
 
@@ -307,25 +307,26 @@ const Setting = () => {
 			},
 		],
 
-    'Bard Ai': [
-      // bardCookie
-      {
+		'Bard Ai': [
+			// bardCookie
+			{
 				name: 'Bard Ai',
 				introduction: 'Copy Bard API Cookie',
 				template: (
 					<Input
-						value={bardCookie}
+						value={cookie}
 						size="xs"
 						sx={{ width: '100%' }}
 						onChange={(e) => {
-							updateSetting({bardCookie  : e.target.value});
-
+							updateBardConfig({
+								cookie: e.target.value,
+							});
 						}}
 						placeholder=""
 					/>
 				),
 			},
-    ]
+		],
 	};
 	return (
 		<>

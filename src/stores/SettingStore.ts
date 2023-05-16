@@ -76,7 +76,12 @@ export interface SettingState {
 
 	colorScheme: 'light' | 'dark';
 
-	bardCookie?: string;
+	bard: {
+		cookie: string;
+		contextIds: string[];
+		at: string;
+		bl: string;
+	};
 }
 
 const initialSettingState: SettingState = {
@@ -107,7 +112,12 @@ const initialSettingState: SettingState = {
 
 	colorScheme: 'dark',
 
-	bardCookie: '',
+	bard: {
+		cookie: '',
+		contextIds: ['', '', ''],
+		at: '',
+		bl: '',
+	},
 };
 
 const store = () => ({ ...initialSettingState } as SettingState);

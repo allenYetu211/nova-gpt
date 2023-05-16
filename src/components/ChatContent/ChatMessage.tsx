@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 13:35:02
- * @LastEditTime: 2023-05-12 18:54:39
+ * @LastEditTime: 2023-05-16 11:24:54
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/ChatMessage.tsx
  */
@@ -195,9 +195,9 @@ export const ChatMessage: FC<PropsWithChildren<ChatMessageProps>> = ({
 				>
 					{children}
 
-					{!content.length && role === 'assistant' && (
+					{/* {!content.length && role === 'assistant' && (
 						<Loader color="dark" size="sm" variant="dots" />
-					)}
+					)} */}
 
 					{question && (
 						<>

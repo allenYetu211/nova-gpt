@@ -2,20 +2,21 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-05-16 01:27:31
+ * @LastEditTime: 2023-05-16 14:02:29
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
 import { useChatStore, Message, Chat } from './ChatStore';
 import { useSettingStore, SettingsForm, Language } from './SettingStore';
 import { requestOpenAI } from '@/fetch/OpenAI';
-import { requestBardAI } from '@/fetch/Brad';
+import { requestBardAI, requestBardAIPreParams } from '@/fetch/Brad';
 import { updateActionsChatMessage, getActiveChat } from '@/utils';
 import { createMessage } from '@/utils';
 import { supabase } from '@/lib/supabaseClient';
 
 import * as prompt from '@/prompt';
 import i18n from '@/i18n';
+import { updateBardConfig } from './SettingAction';
 
 const getChat = useChatStore.getState;
 const setChat = useChatStore.setState;
@@ -82,11 +83,6 @@ const gptMessage = () => {
  */
 export const systemMessage = (content: string) => {
 	const systemMessage = createMessage({ message: content, role: 'system', hide: true });
-	// const message = submitMessageHistory();
-	// if (!message) {
-	// 	return;
-	// }
-	// message.push(systemMessage);
 	submitMessage([systemMessage]);
 };
 
@@ -116,16 +112,16 @@ const getSystemMake = (target: keyof (typeof prompt)['zh_cn']) => {
  */
 const submitMessage = (message: Message[]) => {
 	// TODO: 根据当前是 Chat GPT，还是 Bard 选择不同的入参。
-	// if (true) {
-	// 	submitMessageBard(message[message.length - 1].content);
-	// } else {
-	const { activeChatId } = getChat();
-	const { openAI } = getSetting();
-	const GPTConfig = openAI.config;
-	const gtpMessage = gptMessage();
-	const gptResponseMessageId = gtpMessage.id;
-	streamOpenAI(message, GPTConfig, activeChatId, gptResponseMessageId);
-	// }
+	if (true) {
+		submitMessageBard(message[message.length - 1].content);
+	} else {
+		const { activeChatId } = getChat();
+		const { openAI } = getSetting();
+		const GPTConfig = openAI.config;
+		const gtpMessage = gptMessage();
+		const gptResponseMessageId = gtpMessage.id;
+		streamOpenAI(message, GPTConfig, activeChatId, gptResponseMessageId);
+	}
 };
 
 /**
@@ -345,13 +341,26 @@ const submitMessageBard = async (message: string) => {
 	const responseMessageId = gtpMessage.id;
 	ControllerAbort.addController(responseMessageId, abortController);
 
-	const { bardCookie = '' } = getSetting();
-
+	const { bard } = getSetting();
 	const data = await requestBardAI(
 		message,
-		chat?.contextIds ?? ['', '', ''],
-		bardCookie,
+		{
+			'bard-cookie': bard.cookie ?? '',
+		},
 		abortController,
+		(error) => {
+			setChat((state) => ({
+				chats: updateActionsChatMessage(state.chats, activeChatId, (chat: Chat) => {
+					const assistantMessage = chat.message.find((m) => m.id === responseMessageId);
+					if (assistantMessage) {
+						assistantMessage.content = `${error.message}`;
+						assistantMessage.exception = true;
+						assistantMessage.loading = false;
+					}
+					return chat;
+				}),
+			}));
+		},
 	);
 
 	if (!data) return;
@@ -359,9 +368,9 @@ const submitMessageBard = async (message: string) => {
 		chats: updateActionsChatMessage(state.chats, activeChatId, (chat: Chat) => {
 			const assistantMessage = chat.message.find((m) => m.id === responseMessageId);
 			if (assistantMessage) {
-				assistantMessage.content = data.responses;
+				assistantMessage.content = data.content;
+				assistantMessage.loading = false;
 			}
-			chat.contextIds = data.contextIds;
 			return chat;
 		}),
 	}));

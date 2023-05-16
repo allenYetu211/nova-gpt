@@ -70,6 +70,9 @@ dependencies:
   eventsource-parser:
     specifier: ^1.0.0
     version: 1.0.0
+  googlebard:
+    specifier: ^1.0.5
+    version: 1.0.5
   html2canvas:
     specifier: ^1.4.1
     version: 1.4.1
@@ -1402,6 +1405,16 @@ packages:
     engines: {node: '>= 4.0.0'}
     dev: true
 
+  /axios@1.3.2:
+    resolution: {integrity: sha512-1M3O703bYqYuPhbHeya5bnhpYVsDDRyQSabNja04mZtboLNSuZ4YrltestrLXfHgmzua4TpUqRiVKbiQuo2epw==}
+    dependencies:
+      follow-redirects: 1.15.2
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /axios@1.3.5:
     resolution: {integrity: sha512-glL/PvG/E+xCWwV8S6nCHcrfg1exGx7vxyUIivIA1iL7BIh6bePylCfVHwp6k13ao7SATxB6imau2kqY+I67kw==}
     dependencies:
@@ -1907,6 +1920,12 @@ packages:
     resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
     dev: false
 
+  /dbcontext@1.0.3:
+    resolution: {integrity: sha512-w4e56q5fmOQQbqAN+hVzRJRRddk1mBl7BBzRk+plAg/zyhd+gNIIqpFTrhIT9BMdZVwBtvGSZx6GvNiFD5+wKA==}
+    dependencies:
+      linq-utils: 1.0.1
+    dev: false
+
   /debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
     peerDependencies:
@@ -2058,6 +2077,11 @@ packages:
     dependencies:
       is-obj: 2.0.0
     dev: true
+
+  /dotenv@16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
+    dev: false
 
   /editor@1.0.0:
     resolution: {integrity: sha512-SoRmbGStwNYHgKfjOrX2L0mUvp9bUVv0uPppZSOMAntEbcFtoC3MKF5b3T6HQPXKIV+QGY3xPO3JK5it5lVkuw==}
@@ -2552,6 +2576,17 @@ packages:
       slash: 3.0.0
     dev: true
 
+  /googlebard@1.0.5:
+    resolution: {integrity: sha512-hULMcRxuoJ60GLfW3Fns+qZnPmrUB8jg5kjJ9IqTjuyV+agJDK15hVT3hDv2isUXwyQqyX/KWx2yXOlCZLlMSA==}
+    dependencies:
+      axios: 1.3.2
+      cheerio: 1.0.0-rc.12
+      dbcontext: 1.0.3
+      dotenv: 16.0.3
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
     dev: true
@@ -3012,6 +3047,10 @@ packages:
 
   /lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
+
+  /linq-utils@1.0.1:
+    resolution: {integrity: sha512-StrPoZEmJDTxFgaUP72ei3aWzjN/QsKlHZoMUGJ9khzeG8zhGjvjos3BtzpFvvAfm6TvrORLEa5WQLcZGFm9Ow==}
+    dev: false
 
   /locate-path@5.0.0:
     resolution: {integrity: sha512-t7hw9pI+WvuwNJXwk5zVHpyhIqzg2qTlklJOf0mVxGSbe3Fp2VieZcduNYjaLDoy6p9uGpQEGWG87WpMKlNq8g==}

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-15 16:15:05
- * @LastEditTime: 2023-05-16 01:28:27
+ * @LastEditTime: 2023-05-16 13:30:21
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/pages/api/chat-bard.ts
  */
@@ -15,33 +15,41 @@ export const config = {
 
 export default async function POST(req: Request) {
 	const bardCookie = req.headers.get('bard-cookie');
+	const at = req.headers.get('at');
+	const bl = req.headers.get('bl');
 	const contextIds = req.headers.get('context-ids')
 		? JSON.parse(req.headers.get('context-ids')!)
 		: ['', '', ''];
+
 	if (!bardCookie) {
 		return handledError({
 			content: JSON.stringify({
-				error_message: 'You need to fill in your bardCookie.',
+				error_message: 'You need to fill in your bard cookie.',
 			}),
 			status: 403,
 		});
 	}
 
 	try {
-		const result = await requestGoogleBard(bardCookie, req, contextIds);
-		const { r, c, rc, responses } = result;
-		return new Response(
-			JSON.stringify({
-				contextIds: [r, c, rc],
-				responses: responses[0],
-			}),
-			{
-				status: 200,
-				headers: {
-					'Content-Type': 'application/json',
+		if (req.method == 'GET') {
+			const result = await requestParams(bardCookie);
+			return new Response(JSON.stringify(result), { status: 200 });
+		} else {
+			const result = await requestGoogleBard(bardCookie, req, contextIds);
+			const { r, c, rc, responses } = result;
+			return new Response(
+				JSON.stringify({
+					contextIds: [r, c, rc],
+					responses: responses[0],
+				}),
+				{
+					status: 200,
+					headers: {
+						'Content-Type': 'application/json',
+					},
 				},
-			},
-		);
+			);
+		}
 	} catch (error) {
 		return handledError(error);
 	}
@@ -51,13 +59,15 @@ async function requestGoogleBard(
 	bardCookie: string,
 	req: Request,
 	contextIds: string[] = ['', '', ''],
+	// at: string,
+	// bl: string,
 ) {
 	const { content } = await req.json();
 	//  TODO : 初次请求后，客户端携带发送，节省每次请求时间
-	const { atValue, blValue } = await requestParams(bardCookie);
+	const { at, bl } = await requestParams(bardCookie);
 
 	const result = await fetch(
-		`https://bard.google.com/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate?bl=${blValue}&_reqid=${
+		`https://bard.google.com/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate?bl=${bl}&_reqid=${
 			Math.floor(Math.random() * 900000) + 100000
 		}&rt=c`,
 		{
@@ -66,7 +76,7 @@ async function requestGoogleBard(
 				Cookie: bardCookie,
 			},
 			body: new URLSearchParams([
-				['at', atValue],
+				['at', at],
 				[
 					'f.req',
 					JSON.stringify([
@@ -112,9 +122,9 @@ async function requestParams(bardCookie: string) {
 
 	let $ = load(html);
 	let script = $('script[data-id=_gd]').html();
-	const atValue = extractFromHTML('SNlM0e', script!)!;
-	const blValue = extractFromHTML('cfb2h', script!)!;
-	return { atValue, blValue };
+	const at = extractFromHTML('SNlM0e', script!)!;
+	const bl = extractFromHTML('cfb2h', script!)!;
+	return { at, bl };
 }
 
 function extractFromHTML(variableName: string, html: string) {

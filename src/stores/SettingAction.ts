@@ -11,8 +11,11 @@ import { useSettingStore, SettingState } from './SettingStore';
 const getSetting = useSettingStore.getState;
 const setSetting = useSettingStore.setState;
 
-export const updateSetting = (newState: Partial<Pick<SettingState, 'openNav' | 'bardCookie'>>) =>
+export const updateSetting = (newState: Partial<Pick<SettingState, 'openNav' | 'bard'>>) =>
 	setSetting(() => ({ ...newState }));
+
+export const updateBardConfig = (newState: Partial<SettingState['bard']>) =>
+	setSetting((state) => ({ bard: { ...state.bard, ...newState } }));
 
 export const switchColorScheme = (newState: SettingState['colorScheme']) => {
 	setSetting(() => ({
