@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-03 09:53:00
- * @LastEditTime: 2023-05-09 10:01:57
+ * @LastEditTime: 2023-05-16 17:48:47
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Common/UIButton.tsx
  */
@@ -63,6 +63,8 @@ export const UIButton: FC<UIButtonProps & React.RefAttributes<HTMLButtonElement>
 
 interface UIActionButtonProps extends ActionIconProps, DOMAttributes<HTMLButtonElement> {
 	label?: string;
+	component?: any;
+	href?: string;
 }
 
 export const UIActionButton: FC<PropsWithChildren<UIActionButtonProps>> = forwardRef<

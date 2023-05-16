@@ -2,12 +2,12 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-14 16:09:48
- * @LastEditTime: 2023-05-09 14:33:21
+ * @LastEditTime: 2023-05-16 17:52:16
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/ChatTextareaContainer.tsx
  */
 
-import { ActionIcon, Box, Flex, Group, Menu, Switch, createStyles, rem } from '@mantine/core';
+import { ActionIcon, Box, Flex, Group, Menu, createStyles, rem } from '@mantine/core';
 
 import { ChatTextareaInput } from '@/components/ChatContent/ChatTextareaInput';
 import { UICard } from '@/components/Common/UICard';
@@ -15,21 +15,13 @@ import i18n from '@/i18n';
 import { InstallExtension } from '@/models/InstallExtension';
 import { update } from '@/stores/ChatAction';
 import { useChatStore } from '@/stores/ChatStore';
-import { switchColorScheme, updateOpenAIConfig } from '@/stores/SettingAction';
+import { updateOpenAIConfig } from '@/stores/SettingAction';
 import { useSettingStore } from '@/stores/SettingStore';
 import { userMessage } from '@/stores/SubmitAction';
 
-import {
-	IconCheck,
-	IconDotsVertical,
-	IconMicrophone,
-	IconMicrophoneOff,
-	IconMoonStars,
-	IconSend,
-	IconSun,
-} from '@tabler/icons-react';
+import { IconBrandGithub, IconCheck, IconDotsVertical, IconSend } from '@tabler/icons-react';
 import { Fragment, useEffect, useRef } from 'react';
-import { UIButton } from '@/components/Common';
+import { UIButton, UIActionButton } from '@/components/Common';
 
 const useStyles = createStyles((theme) => ({
 	container: {
@@ -111,7 +103,12 @@ export function ChatTextarea() {
 									<IconMicrophoneOff size="1.25rem" />
 								)}
 							</ActionIcon> */}
+
 							<SettingMenu />
+
+							<ActionIcon component="a" href="https://github.com/allenYetu211/nova-gpt/tree/main">
+								<IconBrandGithub />
+							</ActionIcon>
 						</Group>
 
 						{/* <Group position="center">
