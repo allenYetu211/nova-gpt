@@ -167,26 +167,29 @@ function ShareChatHistory({
 				{/* {!share && ( */}
 
 				<AutoComponents allowedPermission={['logged']}>
-					<Menu.Label>Share</Menu.Label>
-					<Menu.Item
-						onClick={() => {
-							const regex = /\/chat\//;
-							const replacedStr = window.location.href.replace(regex, '/share/');
-							copyToClipboard(replacedStr);
+					{(state) => (
+						<>
+							<Menu.Label>Share</Menu.Label>
+							<Menu.Item
+								disabled={!state}
+								onClick={() => {
+									const regex = /\/chat\//;
+									const replacedStr = window.location.href.replace(regex, '/share/');
+									copyToClipboard(replacedStr);
 
-							notifications.show({
-								title: `Share Link Copied`,
-								message: replacedStr,
-								autoClose: 5000,
-							});
-						}}
-						icon={<IconShare size={14} />}
-					>
-						Share Link
-					</Menu.Item>
+									notifications.show({
+										title: `Share Link Copied`,
+										message: replacedStr,
+										autoClose: 5000,
+									});
+								}}
+								icon={<IconShare size={14} />}
+							>
+								{state ? 'Share Link' : 'Login to Share'}
+							</Menu.Item>
+						</>
+					)}
 				</AutoComponents>
-
-				{/* )} */}
 			</Menu.Dropdown>
 		</Menu>
 	);

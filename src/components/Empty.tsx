@@ -12,7 +12,7 @@ import { useSettingStore } from '@/stores/SettingStore';
 import { Box, Button, List, Text, ThemeIcon, Title, createStyles, Group } from '@mantine/core';
 import { IconCheck } from '@tabler/icons-react';
 import { openSettingModal } from '@/components/Common/Setting';
-
+import { UIButton } from '@/components/Common';
 const useStyles = createStyles((theme) => ({
 	container: {
 		padding: `${theme.spacing.xl} ${theme.spacing.xl}`,
@@ -75,7 +75,13 @@ export const EmptyChats = () => {
 					{i18n.empty.createFirstChat}
 				</Button>
 			) : (
-				<Button radius="xl" onClick={openSettingModal}>
+				<Button
+					style={{
+						background: theme.colors.gradient[4],
+					}}
+					radius="xl"
+					onClick={openSettingModal}
+				>
 					{i18n.empty.adding}
 				</Button>
 			)}

@@ -12,6 +12,11 @@ import { RolePlayType } from '@/role';
 
 export const excludeKeys = ['textareaMessage', 'isRecording', 'loadingChats'];
 
+export enum ROLE_TYPE {
+	'OPEN AI' = '🤖',
+	'BARD AI' = '🦄 ',
+}
+
 export interface Message {
 	content: string;
 	id: string;

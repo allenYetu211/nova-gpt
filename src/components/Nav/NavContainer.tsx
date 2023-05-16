@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-06 15:39:53
- * @LastEditTime: 2023-05-15 11:10:08
+ * @LastEditTime: 2023-05-16 17:31:36
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/NavContainer.tsx
  */
@@ -19,6 +19,8 @@ import { openSettingModal } from '@/components/Common/Setting';
 import { useSettingStore } from '@/stores/SettingStore';
 import { switchColorScheme } from '@/stores/SettingAction';
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
+import { Chat, ROLE_TYPE } from '@/stores/ChatStore';
+
 interface NavContainerProps {
 	toggle: () => void;
 }
@@ -83,14 +85,14 @@ export const NavContainer = (props: NavContainerProps) => {
 									newChat('OPEN AI');
 								}}
 							>
-								OPEN AI
+								{ROLE_TYPE['OPEN AI']} OPEN AI
 							</Menu.Item>
 							<Menu.Item
 								onClick={() => {
 									newChat('BARD AI');
 								}}
 							>
-								Bard AI
+								{ROLE_TYPE['BARD AI']} BARD AI
 							</Menu.Item>
 						</Menu.Dropdown>
 					</Menu>

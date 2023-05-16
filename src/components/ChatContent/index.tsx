@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-20 00:19:37
- * @LastEditTime: 2023-05-15 12:06:56
+ * @LastEditTime: 2023-05-16 15:28:13
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/ChatContent/index.tsx
  */
@@ -10,7 +10,7 @@
 import { useChatStore } from '@/stores/ChatStore';
 import { Ref, memo, useEffect, useRef } from 'react';
 import { ChatMessage } from '@/components/ChatContent/ChatMessage';
-import { update, changeMessageState } from '@/stores/ChatAction';
+import { update, changeMessageState, deleteMessage } from '@/stores/ChatAction';
 import { ChatQuestionFloat, RefCallbackFunc } from '@/components/ChatContent/ChatQuestionFloat';
 import { Group, Text, createStyles } from '@mantine/core';
 import { UIBadge } from '../Common';
@@ -113,6 +113,15 @@ export const ChatContent = memo(() => {
 									>
 										<Text fz="xs">🔁 重发</Text>
 									</UIBadge>
+
+                  <UIBadge
+										onClick={() => {
+											deleteMessage(item.id)
+										}}
+									>
+										<Text fz="xs">🚮 删除</Text>
+									</UIBadge>
+
 
 									<UIBadge
 										onClick={() => {

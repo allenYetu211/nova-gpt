@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-05-16 14:23:19
+ * @LastEditTime: 2023-05-16 16:16:14
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
@@ -39,7 +39,7 @@ export const userMessage = () => {
 	if (!message) {
 		return;
 	}
-	message.push(userMessage);
+	// message.push(userMessage);
 	submitMessage(message);
 };
 
@@ -48,7 +48,7 @@ export const userMessage = () => {
  */
 export const userQuestion = (question: string, message: string, messageId: Message['id']) => {
 	const { activeChatId, chats } = getChat();
-	const chat = chats.find((chat) => chat.id === activeChatId);
+	const chat = getActiveChat(chats, activeChatId);
 	const context = chat?.message.find((message) => message.id === messageId);
 	const make = getSystemMake('questions');
 	const contextUserMessage = createMessage({ message, question, role: 'user' });
@@ -110,9 +110,8 @@ const getSystemMake = (target: keyof (typeof prompt)['zh_cn']) => {
  * 发送消息对话
  */
 const submitMessage = (message: Message[]) => {
-	// TODO: 根据当前是 Chat GPT，还是 Bard 选择不同的入参。
 	const { activeChatId, chats } = getChat();
-	const chat = chats.find((chat) => chat.id === activeChatId);
+	const chat = getActiveChat(chats, activeChatId);
 
 	if (chat?.ai_type === 'BARD AI') {
 		submitMessageBard(message[message.length - 1].content);
@@ -246,18 +245,33 @@ const submitMessageHistory = () => {
 		return;
 	}
 
+	//  前置消息
+	let preamble = chat.preamble_message ? Object.keys(chat.preamble_message) : [];
 	let submitMessage = [];
 	let historyIndex = chat.message.length - 1;
 
-	while (historyIndex >= 0 && submitMessage.length <= openAI.history - 1) {
+	//  第一条进行过滤
+	while (historyIndex >= 1 && submitMessage.length <= openAI.history - 1) {
 		const message = chat.message[historyIndex];
-		if (!message.exception) {
-			submitMessage.unshift(chat.message[historyIndex]);
+		if (!message.exception || message.preamble) {
+			submitMessage.unshift(message);
+			//  如果当前已经插入了前置消息， 则清理preamble中的数据
+			if (preamble.includes(message.id)) {
+				preamble = preamble.filter((item) => item !== message.id);
+			}
 		}
 		historyIndex--;
 	}
 
-	return submitMessage;
+	console.log(
+		'preamble',
+		preamble,
+		chat.preamble_message,
+		preamble.map((key) => chat.preamble_message![key]),
+	);
+	const result = [...preamble.map((key) => chat.preamble_message![key]), ...submitMessage];
+	console.log('result', result);
+	return result;
 };
 
 /**
@@ -315,6 +329,9 @@ const updateChatContentMessage = (message: Message[]) => {
 
 const insetSubmitMessage = (message: Message[]) => {
 	if (Array.isArray(message) && message.length === 0) return;
+	if (!getSetting().userState) {
+		return;
+	}
 	const { activeChatId } = getChat();
 	const updateMessage = message.map((item) => {
 		return {
@@ -323,11 +340,17 @@ const insetSubmitMessage = (message: Message[]) => {
 		};
 	});
 	supabase.insert('message', updateMessage);
-	// supabase.from('message').insert(updateMessage);
 };
 
+/**
+ *
+ * @param content 发送消息至存储。
+ * @param message_id
+ */
 const updateAssistantMessage = async (content: string, message_id: string) => {
-	// await supabase.from('message').upsert({ id: message_id, content: content });
+	if (!getSetting().userState) {
+		return;
+	}
 	supabase.upsert('message', { id: message_id, content: content });
 };
 

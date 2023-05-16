@@ -2,15 +2,14 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-23 22:06:37
- * @LastEditTime: 2023-05-09 16:53:59
+ * @LastEditTime: 2023-05-16 15:44:05
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SettingStore.ts
  */
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import isMobile from 'is-mobile';
 
-const excludeKeys = ['isSetting', 'isMobile'];
+const excludeKeys = ['userState'];
 
 export const paramKeys = [
 	'model',
@@ -57,8 +56,6 @@ export interface SettingState {
 		url: string;
 		token: string;
 	};
-	// isSetting: boolean;
-	isMobile: boolean;
 	openNav: boolean;
 	accessToken: string;
 	openAI: {
@@ -78,10 +75,9 @@ export interface SettingState {
 
 	bard: {
 		cookie: string;
-		contextIds: string[];
-		at: string;
-		bl: string;
 	};
+
+	userState: any;
 }
 
 const initialSettingState: SettingState = {
@@ -89,7 +85,6 @@ const initialSettingState: SettingState = {
 		url: process.env.NEXT_PUBLIC_SUPBASE_URL || '',
 		token: process.env.NEXT_PUBLIC_SUPBASE_TOKEN || '',
 	},
-	isMobile: isMobile(),
 	openNav: false,
 	accessToken: '',
 	openAI: {
@@ -114,10 +109,9 @@ const initialSettingState: SettingState = {
 
 	bard: {
 		cookie: '',
-		contextIds: ['', '', ''],
-		at: '',
-		bl: '',
 	},
+
+	userState: null,
 };
 
 const store = () => ({ ...initialSettingState } as SettingState);

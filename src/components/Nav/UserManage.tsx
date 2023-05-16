@@ -3,9 +3,11 @@ import { IconUser, IconBrandGoogle, IconBrandGithub } from '@tabler/icons-react'
 import { createClient } from '@supabase/supabase-js';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Box, Divider, createStyles, rem } from '@mantine/core';
 import { addPermissions, removePermissions } from '@/stores/UserAction';
+import { useSettingStore } from '@/stores/SettingStore';
+import { updateSetting } from '@/stores/SettingAction';
 import i18n from '@/i18n';
 
 const supabase = createClient(
@@ -34,19 +36,19 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const UserManage = () => {
-	const [session, setSession] = useState<any>(null);
+	const user = useSettingStore((state) => state.userState);
 	const { classes, theme } = useStyles();
 
 	useEffect(() => {
 		supabase.auth.getSession().then(({ data: { session } }) => {
-			setSession(session);
+			updateSetting({ userState: session });
 			session && addPermissions('logged');
 		});
 
 		const {
 			data: { subscription },
 		} = supabase.auth.onAuthStateChange((_event, session) => {
-			setSession(session);
+			updateSetting({ userState: session });
 			session && addPermissions('logged');
 		});
 
@@ -104,7 +106,7 @@ export const UserManage = () => {
 		});
 	};
 
-	if (!session) {
+	if (!user) {
 		return (
 			<UIButton sx={{ width: '100%' }} onClick={openLoginModal} leftIcon={<IconUser />}>
 				User Login
@@ -113,7 +115,7 @@ export const UserManage = () => {
 	} else {
 		return (
 			<UIButton sx={{ width: '100%' }} onClick={openLoginOutModal}>
-				{session.user.user_metadata.full_name}
+				{user.user.user_metadata.full_name}
 			</UIButton>
 		);
 	}
