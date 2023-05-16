@@ -2,21 +2,20 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-19 10:23:55
- * @LastEditTime: 2023-05-16 14:02:29
+ * @LastEditTime: 2023-05-16 14:23:19
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/SubmitAction.ts
  */
 import { useChatStore, Message, Chat } from './ChatStore';
 import { useSettingStore, SettingsForm, Language } from './SettingStore';
 import { requestOpenAI } from '@/fetch/OpenAI';
-import { requestBardAI, requestBardAIPreParams } from '@/fetch/Brad';
+import { requestBardAI } from '@/fetch/Brad';
 import { updateActionsChatMessage, getActiveChat } from '@/utils';
 import { createMessage } from '@/utils';
 import { supabase } from '@/lib/supabaseClient';
 
 import * as prompt from '@/prompt';
 import i18n from '@/i18n';
-import { updateBardConfig } from './SettingAction';
 
 const getChat = useChatStore.getState;
 const setChat = useChatStore.setState;
@@ -112,7 +111,10 @@ const getSystemMake = (target: keyof (typeof prompt)['zh_cn']) => {
  */
 const submitMessage = (message: Message[]) => {
 	// TODO: 根据当前是 Chat GPT，还是 Bard 选择不同的入参。
-	if (true) {
+	const { activeChatId, chats } = getChat();
+	const chat = chats.find((chat) => chat.id === activeChatId);
+
+	if (chat?.ai_type === 'BARD AI') {
 		submitMessageBard(message[message.length - 1].content);
 	} else {
 		const { activeChatId } = getChat();

@@ -45,8 +45,7 @@ export interface Chat {
 	system_avatar?: RolePlayType['system_avatar'];
 	openAiConfig?: RolePlayType['openAiConfig'];
 
-	// bard 类型参数
-	contextIds?: string[] | undefined;
+	ai_type: 'OPEN AI' | 'BARD AI';
 }
 
 export interface ChatState {

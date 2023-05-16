@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 12:36:37
- * @LastEditTime: 2023-05-12 16:39:59
+ * @LastEditTime: 2023-05-16 14:34:35
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/stores/ChatAction.ts
  */
@@ -20,7 +20,7 @@ const setChat = useChatStore.setState;
 
 export const update = (newState: Partial<ChatState>) => setChat(() => newState);
 
-export const newChat = (role?: RolePlayType) => {
+export const newChat = (role?: RolePlayType | 'OPEN AI' | 'BARD AI') => {
 	const id = uuidv4();
 
 	let defaultInitChat: Chat = {
@@ -38,9 +38,10 @@ export const newChat = (role?: RolePlayType) => {
 		system_avatar: '👩🏻‍🏫',
 		created_at: new Date(),
 		title: 'New Session',
+		ai_type: 'OPEN AI',
 	};
 
-	if (role) {
+	if (role && typeof role !== 'string') {
 		const { message, ...other } = role;
 		defaultInitChat = Object.assign(defaultInitChat, {
 			message: [
@@ -49,6 +50,11 @@ export const newChat = (role?: RolePlayType) => {
 				}),
 			],
 			...other,
+		});
+	} else if (role && typeof role === 'string' && role !== 'OPEN AI') {
+		defaultInitChat = Object.assign(defaultInitChat, {
+			avatar: '🦄',
+			ai_type: role,
 		});
 	}
 

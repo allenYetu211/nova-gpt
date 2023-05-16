@@ -9,7 +9,7 @@
 // import { switchIsSetting } from '@/stores/SettingAction';
 import { IconPlus, IconSettings, IconArrowBarToLeft, IconJewishStar } from '@tabler/icons-react';
 import i18n from '@/i18n';
-import { Flex, Group, useMantineTheme, rem } from '@mantine/core';
+import { Flex, Group, useMantineTheme, rem, Menu } from '@mantine/core';
 import { newChat } from '@/stores/ChatAction';
 import { UIActionButton, modal } from '@/components/Common';
 import { RolePlaying } from '@/components/RolePlaying';
@@ -68,15 +68,33 @@ export const NavContainer = (props: NavContainerProps) => {
 		<>
 			<Flex gap="md" justify="space-between" align="center">
 				<Group>
-					<UIActionButton
-						{...ActionIconStyle}
-						label={i18n.Nav.new}
-						onClick={() => {
-							newChat();
-						}}
-					>
-						<IconPlus {...IconStyle} />
-					</UIActionButton>
+					<Menu shadow="md" width={200}>
+						<Menu.Target>
+							<UIActionButton {...ActionIconStyle} label={i18n.Nav.new}>
+								<IconPlus {...IconStyle} />
+							</UIActionButton>
+						</Menu.Target>
+
+						<Menu.Dropdown>
+							<Menu.Label>Select AI</Menu.Label>
+
+							<Menu.Item
+								onClick={() => {
+									newChat('OPEN AI');
+								}}
+							>
+								OPEN AI
+							</Menu.Item>
+							<Menu.Item
+								onClick={() => {
+									newChat('BARD AI');
+								}}
+							>
+								Bard AI
+							</Menu.Item>
+						</Menu.Dropdown>
+					</Menu>
+
 					<UIActionButton {...ActionIconStyle} label={i18n.Nav.setting} onClick={openSettingModal}>
 						<IconSettings {...IconStyle} />
 					</UIActionButton>

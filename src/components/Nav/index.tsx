@@ -81,6 +81,7 @@ export function Nav() {
 							created_at={chat.created_at}
 							avatar={chat.avatar}
 							amount={chat.message.length}
+							ai_type={chat.ai_type}
 						/>
 					</Box>
 				);

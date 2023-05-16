@@ -2,9 +2,9 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-04-18 17:34:12
- * @LastEditTime: 2023-05-12 15:04:28
+ * @LastEditTime: 2023-05-16 14:29:01
  * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /nova-gpt/src/components/Nav/ChatSessionInput.tsx
+ * @FilePath: /nova-gpt/src/components/Nav/ChatSession.tsx
  */
 
 import { Text, Flex, ActionIcon, createStyles, Group, Transition } from '@mantine/core';
@@ -14,6 +14,7 @@ import { deleteChat } from '@/stores/ChatAction';
 import dayjs from 'dayjs';
 import i18n from '@/i18n';
 import { Chat } from '@/stores/ChatStore';
+import { UIBadge } from '@/components/Common';
 
 const useStyles = createStyles((theme) => ({
 	utilsContainer: {
@@ -26,7 +27,8 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-interface ChatSessionInputProps extends Pick<Chat, 'created_at' | 'title' | 'id' | 'avatar'> {
+interface ChatSessionInputProps
+	extends Pick<Chat, 'created_at' | 'title' | 'id' | 'avatar' | 'ai_type'> {
 	amount: number;
 }
 
@@ -63,6 +65,10 @@ export const ChatSession = memo((props: ChatSessionInputProps) => {
 				<Flex justify="space-between">
 					<Text size="xs">{i18n.record(props.amount)}</Text>
 					<Text size="xs">{dayjs(props.created_at).format('YYYY/MM/DD HH:mm:ss')}</Text>
+				</Flex>
+
+				<Flex>
+					<UIBadge>{props.ai_type ? `🦄 ${props.ai_type}` : '🤖 OPEN AI'}</UIBadge>
 				</Flex>
 			</Flex>
 
