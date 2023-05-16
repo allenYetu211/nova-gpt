@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-05-06 15:39:53
- * @LastEditTime: 2023-05-16 18:06:35
+ * @LastEditTime: 2023-05-16 18:16:01
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /nova-gpt/src/components/Nav/NavContainer.tsx
  */
@@ -90,12 +90,14 @@ export const NavContainer = (props: NavContainerProps) => {
 							</Menu.Item>
 
 							<Menu.Item
-								disabled={cookie.length >= 100}
+								disabled={!(cookie.length >= 100)}
 								onClick={() => {
 									newChat('BARD AI');
 								}}
 							>
-								{cookie.length >= 100 ? `${ROLE_TYPE['BARD AI']} BARD AI` : `Setting Bard cookie`}
+								{cookie.length >= 100
+									? `${ROLE_TYPE['BARD AI']} BARD AI`
+									: `🈲 Setting Bard cookie`}
 							</Menu.Item>
 						</Menu.Dropdown>
 					</Menu>
