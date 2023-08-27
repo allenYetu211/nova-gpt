@@ -1,4 +1,6 @@
 :root {
+	--em-rgb-background: transparent;
+
 	--bg-color: #443838;
 	--text-color: #222;
 	--max-width: 1100px;
